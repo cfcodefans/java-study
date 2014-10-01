@@ -165,4 +165,10 @@ public class StreamTest {
 		System.out.println("odd numbers: " + intStream.noneMatch(i -> (i % 2 == 0)));
 		
 	}
+	
+	@Test
+	public void testCeilAndFloor() {
+		System.out.println(Math.ceil(0.05));
+		System.out.println(Math.floor(0.05));
+	}
 }
