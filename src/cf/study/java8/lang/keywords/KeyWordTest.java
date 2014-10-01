@@ -1,4 +1,4 @@
-package cf.study.java8.lang;
+package cf.study.java8.lang.keywords;
 
 import org.junit.Test;
 
