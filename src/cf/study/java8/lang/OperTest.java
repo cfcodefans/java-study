@@ -40,12 +40,4 @@ public class OperTest {
 		System.out.println(++a);
 		System.out.println(+ ++a);
 	}
-
-	private static String toBinStr(byte _b) {
-		final StringBuilder sb = new StringBuilder();
-		for (byte i = 7; i >= 0; i--) {
-			sb.append((_b & (1 << i)) != 0 ? 1 : 0);
-		}
-		return sb.toString();
-	}
 }
