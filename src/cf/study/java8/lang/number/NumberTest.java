@@ -14,6 +14,20 @@ public class NumberTest {
 	}
 	
 	@Test
+	public void testNaN() {
+		System.out.println(Float.NaN);
+		System.out.println(0.0f / 0.0f);
+		Float v = 0.0f / 0.0f;
+		System.out.println(v == Float.NaN);
+		System.out.println(Float.isNaN(v));
+	}
+	
+	@Test
+	public void testInfinitive() {
+		System.out.println(Float.POSITIVE_INFINITY);
+	}
+	
+	@Test
 	public void testMax() {
 		System.out.println(Integer.MAX_VALUE);
 		System.out.println(-Integer.MAX_VALUE);
