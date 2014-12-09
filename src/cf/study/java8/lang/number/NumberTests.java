@@ -5,7 +5,7 @@ import static misc.MiscUtils.toBinStr;
 
 import org.junit.Test;
 
-public class NumberTest {
+public class NumberTests {
 
 	@Test
 	public void testMod() {

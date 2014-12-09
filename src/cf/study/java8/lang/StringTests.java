@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 
 import org.junit.Test;
 
-public class StringTest {
+public class StringTests {
 
 	@Test
 	public void getAllCharsets() {

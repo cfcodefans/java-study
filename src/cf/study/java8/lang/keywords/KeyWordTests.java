@@ -2,7 +2,7 @@ package cf.study.java8.lang.keywords;
 
 import org.junit.Test;
 
-public class KeyWordTest {
+public class KeyWordTests {
 	public static final String[] KEY_WORDS = {
 		"abstract",		//checked
 		"assert", 		//checked

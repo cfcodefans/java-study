@@ -2,7 +2,7 @@ package cf.study.java8.lang._enum;
 
 import org.junit.Test;
 
-public class EnumTest {
+public class EnumTests {
 	enum Direction {
 		south, north, east, west;
 	}

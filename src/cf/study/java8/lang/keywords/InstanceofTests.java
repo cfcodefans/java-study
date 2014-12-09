@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class InstanceofTest {
+public class InstanceofTests {
 	@Test
 	public void testInstanceof_1() {
 		final Integer _int = Integer.valueOf(1);

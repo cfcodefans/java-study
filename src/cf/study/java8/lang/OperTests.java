@@ -3,7 +3,7 @@ package cf.study.java8.lang;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class OperTest {
+public class OperTests {
 	@Test
 	public void unary() {
 		int i = 5;

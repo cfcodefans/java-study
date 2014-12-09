@@ -1,18 +1,22 @@
 package cf.study.java8.utils.stream;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import misc.MiscUtils;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-public class StreamTest {
+public class StreamTests {
 	@Test
 	public void example() {
 		
@@ -138,9 +142,36 @@ public class StreamTest {
 	
 	@Test
 	public void reduce() {
-		Stream<Integer> intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
-		Optional<Integer> sum = intStream.reduce((_sum, i) -> (_sum += i));
-		System.out.println(sum.get());
+		{
+			final IntBinaryOperator op = (_sum, i) -> (_sum += i);
+			System.out.println(IntStream.range(1, 10).reduce(op).getAsInt());
+		}
+		
+		{
+			Stream<Integer> intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
+			Optional<Integer> sum = intStream.reduce((_sum, i) -> (_sum += i));
+			System.out.println(sum.get());
+		}
+		
+		{
+			final List<BigDecimal> prices = Arrays.asList(
+					new BigDecimal("10"), new BigDecimal("30"), new BigDecimal("17"),
+					new BigDecimal("20"), new BigDecimal("15"), new BigDecimal("18"),
+					new BigDecimal("45"), new BigDecimal("12"));
+			
+			BigDecimal totalOfDiscountedPrices = prices.stream()
+					.filter(price -> price.compareTo(BigDecimal.valueOf(20)) > 0)
+					.map(price -> price.multiply(BigDecimal.valueOf(0.9)))
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+			System.out.println("Total of discounted prices: " + totalOfDiscountedPrices);
+
+			totalOfDiscountedPrices = BigDecimal.ZERO;
+			for (BigDecimal price : prices) {
+				if (price.compareTo(BigDecimal.valueOf(20)) > 0)
+					totalOfDiscountedPrices = totalOfDiscountedPrices.add(price.multiply(BigDecimal.valueOf(0.9)));
+			}
+			System.out.println("Total of discounted prices: " + totalOfDiscountedPrices);
+		}
 	}
 	
 	@Test
@@ -163,12 +194,61 @@ public class StreamTest {
 		
 		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
 		System.out.println("odd numbers: " + intStream.noneMatch(i -> (i % 2 == 0)));
-		
+	}
+	
+	
+	static class Record {
+		static int seq = 0;
+		Record(int _value) {value = _value;seq++;}
+		Record() {
+			seq++;
+			System.out.println(MiscUtils.stackInfo() + "\n");
+		}
+		public int value;
+		@Override
+		public String toString() {
+			return super.toString() + "= {value: " + value + "}";
+		}
 	}
 	
 	@Test
-	public void testCeilAndFloor() {
-		System.out.println(Math.ceil(0.05));
-		System.out.println(Math.floor(0.05));
+	public void testInnerMechanism() {
+		{
+			final Record record1 = new Record(1);
+			final Record record2 = new Record(2);
+			final Record record3 = new Record(3);
+
+			Stream<Record> records = Stream.of(record1, record2, record3);
+			final Optional<Record> reduced = records.reduce((_record, i) -> {
+				_record.value += i.value;
+				return _record;
+			});
+			System.out.println(reduced.get().value);
+			System.out.println(Record.seq);
+
+			System.out.println(record1);
+			System.out.println(record2);
+			System.out.println(record3);
+		}
+		
+		{
+			final Record record1 = new Record(1);
+			final Record record2 = new Record(2);
+			final Record record3 = new Record(3);
+			final Record recordSum = new Record();
+
+			Stream<Record> records = Stream.of(record1, record2, record3);
+			final Record reduced = records.reduce(recordSum, (_record, i) -> {
+				_record.value += i.value;
+				return _record;
+			});
+			System.out.println(reduced.value);
+			System.out.println(Record.seq);
+
+			System.out.println(record1);
+			System.out.println(record2);
+			System.out.println(record3);
+			System.out.println(recordSum);
+		}
 	}
 }

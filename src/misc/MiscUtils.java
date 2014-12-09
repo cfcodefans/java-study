@@ -19,6 +19,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.collections4.iterators.ObjectArrayIterator;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -102,6 +103,16 @@ public class MiscUtils {
 	public static String invocationInfo(final int i) {
 		StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		return String.format("%s\t%s.%s", ste[i].getFileName(), ste[i].getClassName(), ste[i].getMethodName());
+	}
+	
+	public static String stackInfo() {
+		final StringBuilder sb = new StringBuilder();
+		final StackTraceElement[] stes = Thread.currentThread().getStackTrace();
+		ArrayUtils.reverse(stes);
+		for (StackTraceElement ste : stes) {
+			sb.append(String.format("%s\t%s.%s\n", ste.getFileName(), ste.getClassName(), ste.getMethodName()));
+		}
+		return sb.toString();
 	}
 
 	public static String byteCountToDisplaySize(long size) {
