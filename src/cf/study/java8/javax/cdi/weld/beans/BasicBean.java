@@ -1,4 +1,4 @@
-package cf.study.java8.cdi.weld.beans;
+package cf.study.java8.javax.cdi.weld.beans;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

@@ -5,7 +5,6 @@ import java.util.Hashtable;
 import javax.naming.Binding;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 
 import org.junit.Test;

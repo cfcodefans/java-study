@@ -1,4 +1,4 @@
-package cf.study.java8.cdi.weld;
+package cf.study.java8.javax.cdi.weld;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;

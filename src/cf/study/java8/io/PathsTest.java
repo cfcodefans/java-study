@@ -12,19 +12,17 @@ public class PathsTest {
 	public void testPaths() {
 		Path p = Paths.get("folder1", "folder2");
 		System.out.println(p);
-		
+
 		p = Paths.get("folder1/", "folder2");
 		System.out.println(p);
-		
+
 		p = Paths.get("folder1", "/folder2");
 		System.out.println(p);
-		
+
 		p = Paths.get("folder1/", "/folder2");
 		System.out.println(p);
-		
+
 		URI uri = URI.create("folder1");
 		System.out.println(uri);
-		
-		
 	}
 }
