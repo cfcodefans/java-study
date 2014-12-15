@@ -14,7 +14,7 @@ public class OperTests {
 		Assert.assertEquals(i, 5);
 		
 		i = -i;
-		Assert.assertNotEquals(i, 5);
+		Assert.assertNotSame(i, 5);
 	}
 	
 	@Test
