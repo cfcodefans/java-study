@@ -6,6 +6,11 @@ public class EnumTests {
 	enum Direction {
 		south, north, east, west;
 	}
+	
+	@Test
+	public void testNotExistentEnum() {
+		System.out.println(Direction.valueOf("what"));
+	}
 
 	@Test
 	public void testSwitchWithEnum() {
