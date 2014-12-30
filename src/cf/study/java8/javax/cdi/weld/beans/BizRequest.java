@@ -1,15 +1,13 @@
 package cf.study.java8.javax.cdi.weld.beans;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 @RequestScoped
 public class BizRequest extends BasicBean {
 
-	@Inject
-	private static Logger log;
+	private static Logger log = Logger.getLogger(BizRequest.class);
 	
 	private Object param;
 

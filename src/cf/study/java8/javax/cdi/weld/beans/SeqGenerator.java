@@ -4,20 +4,22 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import misc.MiscUtils;
 
 import org.apache.log4j.Logger;
 
-@Singleton
+//@Singleton
+@ApplicationScoped
 public class SeqGenerator {
-	@Inject
-	private static Logger log;
+	private static Logger log = Logger.getLogger(SeqGenerator.class);
 	
 	private AtomicLong seq;
+	
+	public SeqGenerator() {}
 	
 	@Produces
 	public Long getSeq() {

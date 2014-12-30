@@ -2,6 +2,7 @@ package cf.study.java8.javax.cdi.weld.beans;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import misc.MiscUtils;
@@ -10,10 +11,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.log4j.Logger;
 
+@Dependent
 public class BasicBean {
 
-	@Inject
-	private static Logger log;
+	private static Logger log = Logger.getLogger(BasicBean.class);
 	
 	public String getName() {
 		return name;
@@ -62,7 +63,7 @@ public class BasicBean {
 	}
 
 	public BasicBean() {
-		log.info(MiscUtils.invocationInfo() + "\n\t" + this);
+		//log.info(MiscUtils.invocationInfo() + "\n\t" + this);
 	}
 	
 	public String toString() {

@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 @SuppressWarnings("rawtypes")
+@ApplicationScoped
+@Named("typeProc")
 public class TypeProcessor implements IBizProcessor<Object, List<Class>> {
 
 	@Override

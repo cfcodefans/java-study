@@ -3,7 +3,6 @@ package cf.study.java8.javax.cdi.weld.beans;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import misc.MiscUtils;
 
@@ -12,8 +11,7 @@ import org.apache.log4j.Logger;
 @ApplicationScoped
 public class AppBean extends BasicBean {
 
-	@Inject
-	private static Logger log;
+	private static Logger log = Logger.getLogger(AppBean.class);
 	
 	@PostConstruct
 	public void postConstruct() {

@@ -1,15 +1,17 @@
 package cf.study.java8.javax.cdi.weld.beans;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 @SessionScoped
-public class StatefulBizBean extends BasicBean {
+public class StatefulBizBean extends BasicBean implements Serializable {
 
-	@Inject
-	private static Logger log;
+	private static final long serialVersionUID = 1L;
+
+	private static Logger log = Logger.getLogger(StatefulBizBean.class);
 	
 	private Object state;
 

@@ -5,7 +5,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 @SuppressWarnings("rawtypes")
+@ApplicationScoped
+@Named("mdProc")
 public class MethodProcessor implements IBizProcessor<Object, List<Method>> {
 
 	@Override
