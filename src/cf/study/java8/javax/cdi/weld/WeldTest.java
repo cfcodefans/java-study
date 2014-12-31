@@ -80,7 +80,7 @@ public class WeldTest {
 	public void testSelectClzzByScope() {
 		Consumer printer = (i) -> {
 			try {
-				System.out.println(i);
+				System.out.println(ToStringBuilder.reflectionToString(i, ToStringStyle.MULTI_LINE_STYLE));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
