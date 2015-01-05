@@ -85,6 +85,13 @@
 			<version>4.3.7.Final</version>
 		</dependency>
 
+
+<dependency>
+    <groupId>org.glassfish.hk2</groupId>
+    <artifactId>class-model</artifactId>
+    <version>2.4.0-b07</version>
+</dependency>
+
 	</dependencies>
 
 	<build>
