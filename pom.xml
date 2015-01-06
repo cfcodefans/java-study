@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>study_java_8</groupId>
 	<artifactId>study_java_8</artifactId>
@@ -30,23 +31,23 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>jandex</artifactId>
 			<version>1.2.0.Final</version>
 		</dependency>
-		
-		
-		
+
+
+
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se</artifactId>
 			<version>2.2.6.Final</version>
 		</dependency>
-		
-		
-		
+
+
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -86,11 +87,18 @@
 		</dependency>
 
 
-<dependency>
-    <groupId>org.glassfish.hk2</groupId>
-    <artifactId>class-model</artifactId>
-    <version>2.4.0-b07</version>
-</dependency>
+		<dependency>
+			<groupId>org.glassfish.hk2</groupId>
+			<artifactId>class-model</artifactId>
+			<version>2.4.0-b07</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython</artifactId>
+			<version>2.7-b3</version>
+		</dependency>
 
 	</dependencies>
 
