@@ -4,9 +4,8 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-
 
 public class QueueTest {
 	public void testConcurrentLinkedQueue() {
@@ -15,56 +14,65 @@ public class QueueTest {
 
 		final AtomicLong sum = new AtomicLong(0);
 		int supplierNum = 1;
-		int consumerNum = 2;
-		final int elementNum = 1 << 20;
+		int consumerNum = 32;
+		final int elementNum = 1 << 21;
 
 		for (; supplierNum <= 32; supplierNum = supplierNum << 1) {
-			System.out.printf("%d \t", supplierNum);
+			System.out.printf("producer: %d \t", supplierNum);
 			for (int i = 0; i < 4; i++) {
-				System.out.printf("%d \t", doQueueTest(q, sum, supplierNum, consumerNum, elementNum));
-				System.out.printf(" %d \t\t", sum.get());
+				System.out.printf("%d ms \t", doQueueTest(q, sum, supplierNum, consumerNum, elementNum));
+				System.out.printf("result %d \t\t", sum.get());
 			}
 			System.out.println();
 		}
 	}
 
-	private long doQueueTest(final Queue<Integer> q, final AtomicLong sum, int supplierNum, int consumerNum, final int elementNum) {
+	private long doQueueTest(final Queue<Integer> q, final AtomicLong sum, final int supplierNum, int consumerNum, final int elementNum) {
 		sum.set(0);
-		ExecutorService supplyExecutors = Executors.newFixedThreadPool(supplierNum);
-		ExecutorService consumerExecutors = Executors.newFixedThreadPool(supplierNum);
+		ExecutorService executors = Executors.newFixedThreadPool(supplierNum + consumerNum);
+//		ExecutorService consumerExecutors = Executors.newFixedThreadPool(supplierNum);
 
 		long start = System.currentTimeMillis();
 
-		Runnable supplier = () -> {
-			for (int i = 0, j = elementNum / supplierNum; i < j; i++) {
-				q.offer(1);
+		Runnable supplier = new Runnable() {
+			public void run() {
+				for (int i = 0, j = elementNum / supplierNum; i < j; i++) {
+					q.offer(1);
+				}
 			}
 		};
+		
 		for (int i = 0; i < supplierNum; i++) {
-			supplyExecutors.submit(supplier);
+			executors.submit(supplier);
 		}
 
-		Runnable consumer = () -> {
-			while (sum.addAndGet(q.poll()) < elementNum);
+		Runnable consumer = new Runnable() {
+			public void run() {
+				for (Integer i = null; sum.get() < elementNum; i = q.poll()) {
+					if (i == null) continue;
+					sum.addAndGet(i);
+				}
+			}
 		};
 		for (int i = 0; i < consumerNum; i++) {
-			consumerExecutors.submit(consumer);
+			executors.submit(consumer);
 		}
 
-		supplyExecutors.shutdown();
-		consumerExecutors.shutdown();
+		executors.shutdown();
+//		consumerExecutors.shutdown();
 
 		try {
-			while (!(supplyExecutors.isTerminated() && consumerExecutors.isTerminated())) {
-				Thread.sleep(1);
-			}
+//			while (!(supplyExecutors.isTerminated() && consumerExecutors.isTerminated())) {
+//				Thread.sleep(1);
+//			}
+			executors.awaitTermination(5, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		return System.currentTimeMillis() - start;
 	}
-	
+
 	public static void main(String[] args) {
 		QueueTest qt = new QueueTest();
 		qt.testConcurrentLinkedQueue();
