@@ -1,4 +1,4 @@
-package cf.study.java8.io;
+package cf.study.java8.nio;
 
 import java.net.URI;
 import java.nio.file.Path;
