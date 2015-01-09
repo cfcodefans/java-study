@@ -31,6 +31,23 @@ public class ScriptTest {
 
 		System.out.println(runnable);
 	}
+	
+	@Test
+	public void testRunnable() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+
+		ScriptEngine se = sem.getEngineByExtension("js");
+
+		Object evaluated = se.eval(MiscUtils.loadResAsString(ScriptTest.class, "runnable.js"));
+
+		System.out.println(ToStringBuilder.reflectionToString(evaluated, ToStringStyle.MULTI_LINE_STYLE));
+
+		Invocable inv = (Invocable) se;
+
+		Runnable runnable = inv.getInterface(Runnable.class);
+
+		System.out.println(runnable);
+	}
 
 	@Test
 	public void testCompilable() throws Exception {
@@ -42,12 +59,14 @@ public class ScriptTest {
 
 		Compilable cpl = (Compilable) se;
 
-		String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "invocable.js");
+		String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "pref.js");
 		CompiledScript compiled = cpl.compile(loadResAsString);
 
 		StopWatch sw = new StopWatch();
 
 		for (int t = 0; t < 5; t++) {
+			System.out.println();
+			
 			sw.reset();
 			sw.start();
 			for (int i = 0; i < 1000; i++) {
@@ -73,8 +92,41 @@ public class ScriptTest {
 			}
 			sw.stop();
 			System.out.println("native: " + sw.getTime());
-
 		}
 	}
 
+	@Test
+	public void testCompiledInDifferentScriptEngine() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+
+		CompiledScript compiled = null;
+		{
+			ScriptEngine se = sem.getEngineByExtension("js");
+			Compilable cpl = (Compilable) se;
+			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "compiled.js");
+			compiled = cpl.compile(loadResAsString);
+		}
+		
+		Assert.assertNotNull(compiled);
+		
+		{
+			ScriptEngine se = sem.getEngineByExtension("js");
+			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "context.js");
+			se.eval(loadResAsString);
+			compiled.eval(se.getContext());
+		}
+		
+		{
+			ScriptEngine se = sem.getEngineByExtension("js");
+			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "context_another.js");
+			se.eval(loadResAsString);
+			compiled.eval(se.getContext());
+		}
+		
+//		ScriptEngine se1 = sem.getEngineByExtension("js");
+//		String loadResAsString1 = MiscUtils.loadResAsString(ScriptTest.class, "compiled.js");
+//		CompiledScript compiled1 = cpl.compile(loadResAsString1);
+//		
+//		compiled1.eval(se.getContext());
+	}
 }

@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -29,7 +30,7 @@ public class WatchTest {
 	
 	static WatchService ws = null;
 	static Map<WatchKey, Path> keys;
-	static final Path start = Paths.get(".");
+	static final Path start = Paths.get("./test");
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
@@ -44,7 +45,6 @@ public class WatchTest {
 		Files.walkFileTree(_start, new SimpleFileVisitor<Path>() {
 			public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
 				regForWatch(dir);
-				
 				return FileVisitResult.CONTINUE;
 			}
 		});
@@ -75,7 +75,7 @@ public class WatchTest {
 			
 			Path dir = keys.get(wk);
 			if (dir == null) {
-				System.err.println("WatchKey not recognized! ");
+				System.err.println("WatchKey not recognized! " + wk.watchable());
 				continue;
 			}
 			
@@ -98,6 +98,8 @@ public class WatchTest {
 					try {
 						if (Files.isDirectory(child, NOFOLLOW_LINKS)) {
 							regAllForWatch(child);
+						} else {
+							regForWatch(child);
 						}
 					} catch (IOException x) {
 						// ignore to keep sample readbale
@@ -127,6 +129,20 @@ public class WatchTest {
 	public void testWatchDir() throws Exception {
 		ExecutorService thread = Executors.newSingleThreadExecutor();
 		thread.submit(WatchTest::processEvent);
+		
+		ScheduledExecutorService scheduledThread = Executors.newScheduledThreadPool(1);
+		scheduledThread.schedule(() -> {
+			try {
+				Path p = Paths.get("./test/test_file");
+				p = Files.createFile(p);
+				Path _p = Paths.get("./test/test_file_renamed");
+				Files.move(p, _p);
+				Files.delete(_p);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}, 5, TimeUnit.SECONDS);
+		
 		thread.shutdown();
 		thread.awaitTermination(30, TimeUnit.SECONDS);
 	}
