@@ -92,13 +92,23 @@
 			<artifactId>class-model</artifactId>
 			<version>2.4.0-b07</version>
 		</dependency>
-
+<dependency>
+    <groupId>org.apache.xbean</groupId>
+    <artifactId>xbean-classloader</artifactId>
+    <version>4.1</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.python</groupId>
 			<artifactId>jython</artifactId>
 			<version>2.7-b3</version>
 		</dependency>
+
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queries</artifactId>
+		<version>4.10.3</version>
+	</dependency>
 
 	</dependencies>
 
