@@ -63,5 +63,6 @@ public class Reflects {
 	   
 	   List<Class<?>> re = loadClzzFromJar(new File(opt.get()), ClassLoader.getSystemClassLoader());
 	   System.out.println(StringUtils.join(re, '\n'));
+	   System.out.println(re.size());
 	}
 }

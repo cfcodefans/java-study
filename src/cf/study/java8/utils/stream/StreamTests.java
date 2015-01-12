@@ -113,6 +113,9 @@ public class StreamTests {
 			if (i % 2 == 0) sum += i;
 		}
 		System.out.println(sum);
+		
+		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
+		intStream.filter((i)->{System.out.println(i); return i == 1;}).findFirst();
 	}
 	
 	@Test
