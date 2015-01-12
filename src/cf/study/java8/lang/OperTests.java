@@ -40,4 +40,16 @@ public class OperTests {
 		System.out.println(++a);
 		System.out.println(+ ++a);
 	}
+	
+	@Test
+	public void mod() {
+		System.out.println(6 % 4);//2
+		System.out.println(-6 % 4);//-2
+		System.out.println(6 % -4);//2
+		System.out.println(-6 % -4);//-2
+		System.out.println(0.6 % 0.4);//0.19999999999999996
+		System.out.println(6 % 0.4);//0.3999999999999997
+		System.out.println(0.4 % 0.6);//0.4
+	}
+	
 }
