@@ -1,10 +1,13 @@
 package cf.study.java8.javax.script;
 
+import javax.script.Bindings;
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.Invocable;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.SimpleScriptContext;
 
 import junit.framework.Assert;
 import misc.MiscUtils;
@@ -31,7 +34,7 @@ public class ScriptTest {
 
 		System.out.println(runnable);
 	}
-	
+
 	@Test
 	public void testRunnable() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();
@@ -47,6 +50,15 @@ public class ScriptTest {
 		Runnable runnable = inv.getInterface(Runnable.class);
 
 		System.out.println(runnable);
+	}
+
+	@Test
+	public void testPreformance() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+		ScriptEngine se = sem.getEngineByExtension("js");
+		String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "pref_sqrt.js");
+
+		System.out.println(se.eval(loadResAsString));
 	}
 
 	@Test
@@ -66,7 +78,7 @@ public class ScriptTest {
 
 		for (int t = 0; t < 5; t++) {
 			System.out.println();
-			
+
 			sw.reset();
 			sw.start();
 			for (int i = 0; i < 1000; i++) {
@@ -82,7 +94,7 @@ public class ScriptTest {
 			}
 			sw.stop();
 			System.out.println("eval: " + sw.getTime());
-			
+
 			sw.reset();
 			sw.start();
 			for (int i = 0; i < 1000; i++) {
@@ -106,27 +118,97 @@ public class ScriptTest {
 			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "compiled.js");
 			compiled = cpl.compile(loadResAsString);
 		}
-		
+
 		Assert.assertNotNull(compiled);
-		
+
 		{
 			ScriptEngine se = sem.getEngineByExtension("js");
 			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "context.js");
 			se.eval(loadResAsString);
 			compiled.eval(se.getContext());
 		}
-		
+
 		{
 			ScriptEngine se = sem.getEngineByExtension("js");
 			String loadResAsString = MiscUtils.loadResAsString(ScriptTest.class, "context_another.js");
 			se.eval(loadResAsString);
 			compiled.eval(se.getContext());
 		}
-		
-//		ScriptEngine se1 = sem.getEngineByExtension("js");
-//		String loadResAsString1 = MiscUtils.loadResAsString(ScriptTest.class, "compiled.js");
-//		CompiledScript compiled1 = cpl.compile(loadResAsString1);
+
+		// ScriptEngine se1 = sem.getEngineByExtension("js");
+		// String loadResAsString1 = MiscUtils.loadResAsString(ScriptTest.class,
+		// "compiled.js");
+		// CompiledScript compiled1 = cpl.compile(loadResAsString1);
+		//
+		// compiled1.eval(se.getContext());
+	}
+
+	@Test
+	public void testContextBetweenEngines() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+
+//		{
+//			ScriptContext sc = new SimpleScriptContext();
+//
+//			sc.getBindings(ScriptContext.GLOBAL_SCOPE);
+//			ScriptEngine jse = sem.getEngineByExtension("js");
+//			jse.eval("this.shared = 'abc'", sc);
+//
+//			ScriptEngine jse1 = sem.getEngineByExtension("js");
+//			jse1.eval("print(this.shared)", jse.getContext());
+//		}
+//
+//		{
+//			ScriptEngine jse = sem.getEngineByExtension("js");
+//			jse.eval("this.shared = 'abc'", sem.getBindings());
+//
+//			ScriptEngine jse1 = sem.getEngineByExtension("js");
+//			jse1.eval("print(this.shared)", sem.getBindings());
+//		}
 //		
-//		compiled1.eval(se.getContext());
+//		{
+//			ScriptEngine jse = sem.getEngineByExtension("js");
+//			jse.eval("var shared = 'abc'");
+//
+//			ScriptEngine jse1 = sem.getEngineByExtension("js");
+//			jse1.eval("print(this.shared)", jse.getContext());
+//			
+//			 ScriptEngine pse = sem.getEngineByExtension("py");
+//			 pse.eval("print(shared)", jse.getContext());
+//		}
+		
+//		{
+//			ScriptContext sc = new SimpleScriptContext();
+//			ScriptEngine jse = sem.getEngineByExtension("js");
+//			jse.eval("this.shared = 'abc'", sc);
+//			
+//			sc.getBindings(ScriptContext.ENGINE_SCOPE).putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
+//			
+//			ScriptEngine jse1 = sem.getEngineByExtension("js");
+//			jse1.eval("print(this.shared)", sc.getBindings(ScriptContext.ENGINE_SCOPE));
+//			jse1.eval("print(this.shared)", jse.getBindings(ScriptContext.ENGINE_SCOPE));
+//			jse1.eval("print(this.shared)", sc);
+//			
+//			
+////			 ScriptEngine pse = sem.getEngineByExtension("py");
+////			 pse.eval("print(shared)", sc);
+//		}
+		
+		{
+			ScriptContext sc = new SimpleScriptContext();
+			Bindings bd = sc.getBindings(ScriptContext.ENGINE_SCOPE);
+			
+			ScriptEngine jse = sem.getEngineByExtension("js");
+			jse.eval("this.shared = 'abc'");
+			
+//			bd.putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
+			
+			ScriptEngine jse1 = sem.getEngineByExtension("js");
+			jse1.eval("print(this.shared)", jse.getBindings(ScriptContext.ENGINE_SCOPE));
+			
+			
+//			 ScriptEngine pse = sem.getEngineByExtension("py");
+//			 pse.eval("print(shared)", sc);
+		}
 	}
 }
