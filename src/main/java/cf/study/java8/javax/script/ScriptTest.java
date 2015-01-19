@@ -5,8 +5,10 @@ import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.Invocable;
 import javax.script.ScriptContext;
+import static javax.script.ScriptContext.*;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
 
 import junit.framework.Assert;
@@ -194,21 +196,103 @@ public class ScriptTest {
 ////			 pse.eval("print(shared)", sc);
 //		}
 		
-		{
-			ScriptContext sc = new SimpleScriptContext();
-			Bindings bd = sc.getBindings(ScriptContext.ENGINE_SCOPE);
-			
-			ScriptEngine jse = sem.getEngineByExtension("js");
-			jse.eval("this.shared = 'abc'");
-			
-//			bd.putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
-			
-			ScriptEngine jse1 = sem.getEngineByExtension("js");
-			jse1.eval("print(this.shared)", jse.getBindings(ScriptContext.ENGINE_SCOPE));
-			
-			
-//			 ScriptEngine pse = sem.getEngineByExtension("py");
-//			 pse.eval("print(shared)", sc);
+//		{
+//			ScriptContext sc = new SimpleScriptContext();
+//			sc.setBindings(new SimpleBindings(), ScriptContext.GLOBAL_SCOPE);
+//			
+//			Bindings gb = sc.getBindings(ScriptContext.GLOBAL_SCOPE);
+//			gb.put("bound", 123);
+//			
+//			ScriptEngine jse = sem.getEngineByExtension("js");
+//			jse.eval("shared = 'abc'", sc);
+//			
+////			bd.putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
+//			Bindings jseEngineBindings = jse.getBindings(ScriptContext.ENGINE_SCOPE);
+//			System.out.println(ToStringBuilder.reflectionToString(jseEngineBindings));
+//			System.out.println(jseEngineBindings.keySet());
+//			System.out.println(jseEngineBindings.values());
+//			gb.putAll(jseEngineBindings);
+//			
+//			ScriptEngine jse1 = sem.getEngineByExtension("js");
+//			jse1.eval("print(this.shared); print(bound);", sc);
+//			
+//			
+////			 ScriptEngine pse = sem.getEngineByExtension("py");
+////			 pse.eval("print(shared)", sc);
+//		}
+		
+
+	}
+	
+	@Test
+	public void testSharedBindingsBetweenEngines() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+		
+		if (false) {
+			ScriptEngine jse = sem.getEngineByExtension("js"), jse1 = sem.getEngineByExtension("js");
+
+			Bindings bindings = new SimpleBindings();
+
+			bindings.put("bound", 123);
+
+			jse.eval("shared = 'abc';", bindings);
+
+			bindings.putAll(jse.getBindings(ENGINE_SCOPE));
+
+			jse1.eval("print(shared); print(bound);", bindings);
 		}
+		
+		{
+			ScriptEngine jse = sem.getEngineByExtension("js"), jse1 = sem.getEngineByExtension("js");
+
+			Bindings bindings = new SimpleBindings();
+
+			bindings.put("bound", 123);
+
+			jse.eval("shared = 'abc';", bindings);
+
+//			bindings.putAll(jse.getBindings(ENGINE_SCOPE));
+			
+//			jse1.setBindings(jse.getBindings(ENGINE_SCOPE), ENGINE_SCOPE);
+
+			jse1.eval("print(shared); print(bound);", jse.getContext());
+		}
+	}
+	
+	@Test
+	public void example() throws Exception {
+		// Create a ScriptEngineManager that discovers all script engine
+		// factories (and their associated script engines) that are visible to
+		// the current thread's classloader.
+
+		ScriptEngineManager manager = new ScriptEngineManager();
+
+		// Obtain a ScriptEngine that supports the JavaScript short name.
+		ScriptEngine engine = manager.getEngineByName("javascript");
+
+		// Initialize the color and shape script variables.
+		engine.put("color", "red");
+		engine.put("shape", "rectangle");
+
+		// Evaluate a script that outputs the values of these variables.
+		engine.eval("print(color); print(shape);");
+
+		// Save the current bindings object.
+		Bindings oldBindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+
+		// Replace the bindings with a new bindings that overrides color and shape.
+		Bindings newBindings = engine.createBindings();
+		newBindings.put("color", "blue");
+		engine.setBindings(newBindings, ScriptContext.ENGINE_SCOPE);
+		engine.put("shape", "triangle");
+
+		// Evaluate the script.
+		engine.eval("print(color); print(shape);");
+
+		// Restore the original bindings.
+		engine.setBindings(oldBindings, ScriptContext.ENGINE_SCOPE);
+
+		// Evaluate the script.
+		engine.eval("print(color); print(shape);");
 	}
 }
