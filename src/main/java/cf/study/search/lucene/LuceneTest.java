@@ -1,4 +1,4 @@
-package cf.study.java8.search.lucene;
+package cf.study.search.lucene;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

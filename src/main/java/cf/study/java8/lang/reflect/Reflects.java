@@ -31,7 +31,9 @@ public class Reflects {
 				System.out.println(String.format("entries: %d", jf.size()));
 
 				try (Stream<JarEntry> entryStream = jf.stream()) {
-					entryStream.filter((je)->{return !je.isDirectory();}).map((je) -> {
+					entryStream.filter((je) -> {
+						return !je.isDirectory();
+					}).map((je) -> {
 						String clsName = StringUtils.removeEnd(je.getName().replace('/', '.'), ".class");
 						try {
 							return cl.loadClass(clsName);
@@ -53,16 +55,18 @@ public class Reflects {
 
 		return clsList;
 	}
-	
+
 	@Test
 	public void test() throws Exception {
-	   String[] classPaths = StringUtils.split(SystemUtils.JAVA_CLASS_PATH, ';');
-	   
-	   Optional<String> opt = Stream.of(classPaths).filter((String str)->{return str.contains("junit");}).findFirst();
-	   Assert.assertTrue(opt.isPresent());
-	   
-	   List<Class<?>> re = loadClzzFromJar(new File(opt.get()), ClassLoader.getSystemClassLoader());
-	   System.out.println(StringUtils.join(re, '\n'));
-	   System.out.println(re.size());
+		String[] classPaths = StringUtils.split(SystemUtils.JAVA_CLASS_PATH, ';');
+
+		Optional<String> opt = Stream.of(classPaths).filter((String str) -> {
+			return str.contains("junit");
+		}).findFirst();
+		Assert.assertTrue(opt.isPresent());
+
+		List<Class<?>> re = loadClzzFromJar(new File(opt.get()), ClassLoader.getSystemClassLoader());
+		System.out.println(StringUtils.join(re, '\n'));
+		System.out.println(re.size());
 	}
 }
