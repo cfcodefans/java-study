@@ -1,0 +1,90 @@
+package cf.study.java8.javax.persistence.ex.reflects;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import cf.study.java8.javax.persistence.dao.BaseDao;
+import cf.study.java8.javax.persistence.dao.JpaModule;
+import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
+import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
+import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
+import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
+import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
+
+public class ReflectDao extends BaseDao<Object> {
+
+	public ReflectDao() {
+		super(JpaModule.getEntityManager());
+	}
+	
+	public ClassEn getEnByClass(Class<?> cls) {
+		return (ClassEn)super.findOneEntity("select ce from ClassEn ce where ce.name=?1", cls.getName());
+	}
+	
+	public ClassEn create(Class<?> cls) {
+		if (cls == null) return null;
+		
+		ClassEn ce = getEnByClass(cls);
+		if (ce != null) return ce;
+		
+		BaseEn enclosing = null;
+		Class<?> enclosingClass = cls.getEnclosingClass();
+		if (enclosingClass != null) {
+			enclosing = create(enclosingClass);
+		} else {
+			enclosing = create(cls.getPackage());
+		}
+		ce = new ClassEn(cls, enclosing);
+		
+		
+		
+		ce = (ClassEn)super.create(ce);
+		em.flush();
+		return ce;
+	}
+	
+	public PackageEn create(Package pkg) {
+		if (pkg == null) return null;
+		
+		PackageEn _pkg = getEnByPackage(pkg);
+		if (_pkg == null) {
+			PackageEn created = (PackageEn)super.create(new PackageEn(pkg));
+			em.flush();
+			return created;
+		}
+		
+		return _pkg;
+	}
+
+	public PackageEn getEnByPackage(Package pkg) {
+		PackageEn _pkg = (PackageEn)super.findOneEntity("select pe from PackageEn pe where pe.name=?1", pkg.getName());
+		return _pkg;
+	}
+	
+	public FieldEn getEnByField(Field field) {
+		FieldEn fe = (FieldEn)super.findOneEntity("select fe from FieldEn fe where fe.name=?1", field.getName());
+		return fe;
+	}
+	
+	public MethodEn getEnByMethod(Method method) {
+		MethodEn me = (MethodEn)super.findOneEntity("select me from MethodEn me where me.name=?1", method.getName());
+		return me;
+	}
+	
+	public FieldEn create(Field field) {
+		if (field == null) return null;
+		
+		FieldEn fe = getEnByField(field);
+		if (fe != null) return fe;
+	
+		fe = new FieldEn(field);
+		fe.enclosd = getEnByClass(field.getDeclaringClass());
+		fe = (FieldEn) super.create(fe);
+		em.flush();
+		return fe;
+	}
+	
+	public MethodEn create(Method method) {
+		if (method == null) return null;
+	}
+}

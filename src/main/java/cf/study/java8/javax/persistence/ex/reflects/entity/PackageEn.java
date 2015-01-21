@@ -1,25 +1,42 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
-import javax.lang.model.element.Name;
-import javax.lang.model.element.PackageElement;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
-public class PackageEn extends ElementEn implements PackageElement {
+public class PackageEn extends BaseEn {
 
-	@Basic
-	public String qualifiedName;
-	
-	@Basic
-	public boolean unnamed = false;
-
-	public Name getQualifiedName() {
-		return new NameImpl(qualifiedName);
+	public PackageEn() {
 	}
 
-	public boolean isUnnamed() {
-		return unnamed;
+	public PackageEn(Package pkg) {
+		specTitle = pkg.getSpecificationTitle();
+		specVendor = pkg.getSpecificationVendor();
+		specVersion = pkg.getSpecificationVersion();
+
+		implTitle = pkg.getImplementationTitle();
+		implVersion = pkg.getImplementationVersion();
+		implVendor = pkg.getImplementationVendor();
+	}
+
+	@Basic
+	public String specTitle;
+	@Basic
+	public String specVersion;
+	@Basic
+	public String specVendor;
+	@Basic
+	public String implTitle;
+	@Basic
+	public String implVersion;
+	@Basic
+	public String implVendor;
+
+	public static class Factory {
+		public static PackageEn by(Package pkg) {
+			if (pkg == null)
+				return null;
+			return new PackageEn(pkg);
+		}
 	}
 }
