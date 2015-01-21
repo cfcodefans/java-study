@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -21,29 +22,31 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class ClazzEn implements DeclaredType {
-	
+
 	public ClazzEn() {
 	}
-	
-	public ClazzEn(Class<?> cls) {
+
+	public ClazzEn(Class<?> clz) {
+		typeEn = new TypeElementEn(clz);
 		
+//		if (clz.)
 	}
 
 	@Id
 	public long id;
-	
+
 	@OneToOne(cascade = { CascadeType.REFRESH })
-	public TypeElementEn element;
+	public TypeElementEn typeEn;
 
 	@Enumerated(EnumType.STRING)
 	public TypeKind kind;
-	
+
 	@OneToOne
 	public ClazzEn enclosingType;
-	
+
 	@OneToMany
 	public List<ClazzEn> typeArguments = new LinkedList<ClazzEn>();
-	
+
 	public TypeKind getKind() {
 		return kind;
 	}
@@ -65,7 +68,7 @@ public class ClazzEn implements DeclaredType {
 	}
 
 	public Element asElement() {
-		return element;
+		return typeEn;
 	}
 
 	public TypeMirror getEnclosingType() {
@@ -75,21 +78,27 @@ public class ClazzEn implements DeclaredType {
 	public List<? extends TypeMirror> getTypeArguments() {
 		return typeArguments;
 	}
-	
+
 	public Class<?> getClazz() {
 		try {
-			return Class.forName(element.getQualifiedName().toString());
+			return Class.forName(typeEn.getQualifiedName().toString());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public static Class<?>[] toArray(Collection<ClazzEn> col) {
-		return col.stream().map((clazzEn)->clazzEn.getClazz()).toArray(Class<?>[]::new);
+	public static class Factory {
+		public static Class<?>[] toArray(Collection<ClazzEn> col) {
+			return col.stream().map((clazzEn) -> clazzEn.getClazz()).toArray(Class<?>[]::new);
+		}
+
+		public static ClazzEn[] toList(Class<?>... clss) {
+			if (clss == null)
+				return new ClazzEn[0];
+			return Stream.of(clss).map((cls) -> {
+				return new ClazzEn(cls);
+			}).toArray(ClazzEn[]::new);
+		}
 	}
-	
-//	public static List<ClazzEn> toList(Class<?>...clss) {
-//		
-//	}
 }

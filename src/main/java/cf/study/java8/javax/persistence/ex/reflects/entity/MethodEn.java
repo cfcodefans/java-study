@@ -25,12 +25,12 @@ public class MethodEn extends MemberEn {
 
 	
 	public Class<?>[] getParameterTypes() {
-		return ClazzEn.toArray(parameterTypes); 
+		return ClazzEn.Factory.toArray(parameterTypes); 
 	}
 
 	
 	public Class<?>[] getExceptionTypes() {
-		return ClazzEn.toArray(exceptionTypes); 
+		return ClazzEn.Factory.toArray(exceptionTypes); 
 	}
 
 	
