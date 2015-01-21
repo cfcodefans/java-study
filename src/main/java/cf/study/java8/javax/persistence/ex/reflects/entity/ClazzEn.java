@@ -1,6 +1,8 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -13,16 +15,34 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class ClazzEn implements DeclaredType {
+	
+	public ClazzEn() {
+	}
+	
+	public ClazzEn(Class<?> cls) {
+		
+	}
 
+	@Id
+	public long id;
+	
 	@OneToOne(cascade = { CascadeType.REFRESH })
-	public ElementEn element;
+	public TypeElementEn element;
 
 	@Enumerated(EnumType.STRING)
 	public TypeKind kind;
+	
+	@OneToOne
+	public ClazzEn enclosingType;
+	
+	@OneToMany
+	public List<ClazzEn> typeArguments = new LinkedList<ClazzEn>();
 	
 	public TypeKind getKind() {
 		return kind;
@@ -45,15 +65,31 @@ public class ClazzEn implements DeclaredType {
 	}
 
 	public Element asElement() {
-		return null;
+		return element;
 	}
 
 	public TypeMirror getEnclosingType() {
-		return null;
+		return enclosingType;
 	}
 
 	public List<? extends TypeMirror> getTypeArguments() {
+		return typeArguments;
+	}
+	
+	public Class<?> getClazz() {
+		try {
+			return Class.forName(element.getQualifiedName().toString());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
+	public static Class<?>[] toArray(Collection<ClazzEn> col) {
+		return col.stream().map((clazzEn)->clazzEn.getClazz()).toArray(Class<?>[]::new);
+	}
+	
+//	public static List<ClazzEn> toList(Class<?>...clss) {
+//		
+//	}
 }

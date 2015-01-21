@@ -25,4 +25,8 @@ public class NameImpl implements Name {
 	public boolean contentEquals(CharSequence cs) {
 		return content.equals(cs);
 	}
+	
+	public String toString() {
+		return String.valueOf(content);
+	}
 }

@@ -91,7 +91,7 @@
 			<artifactId>class-model</artifactId>
 			<version>2.4.0-b07</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.xbean</groupId>
 			<artifactId>xbean-classloader</artifactId>
@@ -118,7 +118,8 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/main/java</testSourceDirectory>
 
 		<plugins>
 			<plugin>
@@ -128,6 +129,21 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</argLine>
+					<excludes>
+<!-- 						<exclude>**/TestConstants.java</exclude> -->
+					</excludes>
+					<forkMode>always</forkMode>
+				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>
