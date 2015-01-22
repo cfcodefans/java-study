@@ -1,6 +1,7 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.lang.reflect.Member;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -24,7 +25,7 @@ public class MemberEn extends BaseEn {
 
 	@ElementCollection(targetClass = Modifier.class)
 	@Enumerated(EnumType.STRING)
-	public Set<Modifier> modifiers;
+	public Set<Modifier> modifiers = new LinkedHashSet<Modifier>();
 	
 	@Basic
 	public boolean synthetic;

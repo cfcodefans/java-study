@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -18,6 +20,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import cf.study.java8.javax.persistence.cdi.Transactional;
+
 
 /**
  * abstraction for most of JPA operations
@@ -26,10 +30,11 @@ import org.apache.log4j.Logger;
  */
 
 @SuppressWarnings("unchecked")
+@Default
 public class BaseDao<T> {
 	private static final Logger log = Logger.getLogger(BaseDao.class);
 	
-	@PersistenceContext(unitName="PaymentSystemUnit")
+	@Inject
 	protected EntityManager em;
 	
 	public BaseDao() {
@@ -53,11 +58,13 @@ public class BaseDao<T> {
 		return (Class<T>)tv.getBounds()[0];
 	}
 
+	@Transactional
 	public T create(final T entity) {
 		em.persist(entity);
 		return entity;
 	}
 
+	@Transactional
 	public T edit(final T entity) {
 		T n = em.merge(entity);
 		em.flush();
@@ -69,6 +76,7 @@ public class BaseDao<T> {
 		return entity;
 	}
 
+	@Transactional
 	public T destroy(final T entity) {
 		em.remove(em.merge(entity));
 		return entity;
@@ -116,6 +124,15 @@ public class BaseDao<T> {
 		}
 		
 		transaction.begin();
+	}
+	
+	public void setRollback() {
+		final EntityTransaction transaction = em.getTransaction();
+		if (!transaction.isActive()) {
+			log.error("transaction isn't active, not roll back");
+			return;
+		}
+		transaction.setRollbackOnly();
 	}
 	
 	public void endTransaction() {

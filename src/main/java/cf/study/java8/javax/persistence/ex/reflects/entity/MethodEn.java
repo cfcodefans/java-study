@@ -1,5 +1,6 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,4 +23,11 @@ public class MethodEn extends MemberEn {
 	@ManyToMany(cascade= {CascadeType.REFRESH})
 	@JoinTable(name="params")
 	public List<ClassEn> exceptionClzz = new LinkedList<ClassEn>();
+	
+	public MethodEn() {
+	}
+	
+	public MethodEn(Method m, BaseEn enclosed) {
+		super(m, enclosed);
+	}
 }

@@ -25,6 +25,10 @@ public class ClassEn extends BaseEn {
 		modifiers.addAll(getModifiers(clz.getModifiers()));
 	}
 	
+	public ClassEn(Class<?> clz) {
+		this(clz, null);
+	}
+	
 	@ElementCollection(targetClass = TypeEn.class)
 //	@CollectionTable(name = "days", joinColumns = @JoinColumn(name = "rule_id"))
 //	@Column(name = "daysOfWeek", nullable = false)

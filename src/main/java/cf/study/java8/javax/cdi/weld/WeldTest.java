@@ -3,7 +3,6 @@ package cf.study.java8.javax.cdi.weld;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
@@ -15,8 +14,6 @@ import org.jboss.weld.context.unbound.UnboundLiteral;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.literal.AnyLiteral;
-import org.jboss.weld.literal.NamedLiteral;
-import org.jboss.weld.literal.NormalScopeLiteral;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,10 +23,10 @@ import cf.study.java8.javax.cdi.weld.beans.BizRequest;
 
 public class WeldTest {
 
-	static Weld weld;
-	static WeldContainer container;
-	static BeanManager bm;
-	static CDI cdi;
+	public static Weld weld;
+	public static WeldContainer container;
+	public static BeanManager bm;
+	public static CDI cdi;
 
 	// @Inject
 
@@ -96,5 +93,9 @@ public class WeldTest {
 
 		if (weld != null)
 			weld.shutdown();
+	}
+	
+	public static <T> T getBean(Class<T> cls) {
+		return CDI.current().select(cls).get();
 	}
 }
