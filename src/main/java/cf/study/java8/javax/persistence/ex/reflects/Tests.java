@@ -3,10 +3,14 @@ package cf.study.java8.javax.persistence.ex.reflects;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
+
+import javax.enterprise.inject.spi.Bean;
 
 import junit.framework.Assert;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.After;
@@ -30,10 +34,10 @@ public class Tests {
 	
 	@Before
 	public void before() {
-		if (dao == null) {
-			dao = new ReflectDao();
-		}
-		
+//		if (dao == null) {
+//			dao = new ReflectDao();
+//		}
+//		
 		dao.beginTransaction();
 	}
 	
@@ -42,19 +46,36 @@ public class Tests {
 		dao.endTransaction();
 	}
 	
-	
+	@Test
+	public void testCDI() {
+//		ReflectDao rd = (ReflectDao) WeldTest.cdi.select(ReflectDao.class, UnboundLiteral.INSTANCE).get();
+		Set<Bean<?>> beans = WeldTest.bm.getBeans(ReflectDao.class);
+		Assert.assertTrue(CollectionUtils.isNotEmpty(beans));
+		Assert.assertNotNull(WeldTest.getBean(ReflectDao.class));
+//		
+//		Bean<?> bean = beans.iterator().next();
+//		Object ref = WeldTest.bm.getReference(bean, ReflectDao.class, WeldTest.bm.createCreationalContext(bean));
+//		System.out.println(ref);
+	}
 	
 	@Test
 	public void testWithObject() {
 		try {
-			Class<Object> clz = Object.class;
-			dao.create(clz);
-			Stream.of(clz.getFields()).forEach((field)->{dao.create(field);});
-			Stream.of(clz.getMethods()).forEach((method)->{dao.create(method);});
+			Class<?> clz = Object.class;
+			createClazz(clz);
+			
+			System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
+			System.out.println(StringUtils.join(dao.queryEntity("select be from BaseEn be"), '\n'));
 		} catch (Exception e) {
 			e.printStackTrace();
 			dao.setRollback();
 		}
+	}
+
+	private void createClazz(Class<?> clz) {
+		dao.create(clz);
+		Stream.of(clz.getFields()).forEach((field)->{dao.create(field);});
+		Stream.of(clz.getMethods()).forEach((method)->{dao.create(method);});
 	}
 	
 	public void test() throws Exception {

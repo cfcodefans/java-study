@@ -4,9 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.stream.Stream;
 
-import javax.enterprise.inject.Default;
+import javax.enterprise.context.ApplicationScoped;
 
-import cf.study.java8.javax.persistence.cdi.Transactional;
 import cf.study.java8.javax.persistence.dao.BaseDao;
 import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
@@ -14,14 +13,14 @@ import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
 
-@Default
+@ApplicationScoped
 public class ReflectDao extends BaseDao<Object> {
 
 	public ReflectDao() {
 //		super(JpaModule.getEntityManager());
 	}
 	
-	@Transactional
+	
 	public ClassEn create(Class<?> cls) {
 		if (cls == null) return null;
 		
@@ -35,15 +34,14 @@ public class ReflectDao extends BaseDao<Object> {
 		}
 		
 		ClassEn _ce = new ClassEn(cls, enclosing);
-		
 		_ce.pkg = create(cls.getPackage());
 		
 		ce = (ClassEn)super.create(_ce);
-		em.flush();
+		//em.flush();
 		return ce;
 	}
 	
-	@Transactional
+	
 	public FieldEn create(Field field) {
 		if (field == null) return null;
 		
@@ -53,11 +51,11 @@ public class ReflectDao extends BaseDao<Object> {
 		fe = new FieldEn(field);
 		fe.enclosd = getEnByClass(field.getDeclaringClass());
 		fe = (FieldEn) super.create(fe);
-		em.flush();
+		//em.flush();
 		return fe;
 	}
 	
-	@Transactional
+	
 	public MethodEn create(Method method) {
 		if (method == null) return null;
 		
@@ -71,19 +69,19 @@ public class ReflectDao extends BaseDao<Object> {
 		Stream.of(method.getParameterTypes()).forEach((clz)->{_me.paramsClzz.add(create(clz));});
 		Stream.of(method.getExceptionTypes()).forEach((clz)->{_me.exceptionClzz.add(create(clz));});
 		me = (MethodEn) super.create(_me);
-		em.flush();
+		//em.flush();
 		
 		return me;
 	}
 
-	@Transactional
+	
 	public PackageEn create(Package pkg) {
 		if (pkg == null) return null;
 		
 		PackageEn _pkg = getEnByPackage(pkg);
 		if (_pkg == null) {
 			PackageEn created = (PackageEn)super.create(new PackageEn(pkg));
-			em.flush();
+			//em.flush();
 			return created;
 		}
 		

@@ -43,6 +43,7 @@ public class TransactionalInterceptor {
 		}
 		Object returnValue = null;
 		try {
+			log.info("transaction start");
 			returnValue = ctx.proceed();
 //			em.flush();
 			transaction.commit();

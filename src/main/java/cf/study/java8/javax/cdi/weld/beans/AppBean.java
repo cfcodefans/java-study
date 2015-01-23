@@ -22,6 +22,4 @@ public class AppBean extends BasicBean {
 	public void preDestroy() {
 		log.info(MiscUtils.invocationInfo() + "\n\t" + this);
 	}
-	
-	
 }

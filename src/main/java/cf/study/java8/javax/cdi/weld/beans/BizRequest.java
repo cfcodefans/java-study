@@ -4,6 +4,8 @@ import javax.enterprise.context.RequestScoped;
 
 import org.apache.log4j.Logger;
 
+import cf.study.java8.javax.cdi.weld.interceptor.Logged;
+
 @RequestScoped
 public class BizRequest extends BasicBean {
 
@@ -11,10 +13,12 @@ public class BizRequest extends BasicBean {
 	
 	private Object param;
 
+	@Logged
 	public Object getParam() {
 		return param;
 	}
 
+	@Logged
 	public void setParam(Object param) {
 		this.param = param;
 	}

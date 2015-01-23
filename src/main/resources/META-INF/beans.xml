@@ -10,4 +10,9 @@
 		<exclude name="javax.**">
 		</exclude>
 	</scan>
+	
+	<interceptors>
+		<class>cf.study.java8.javax.cdi.weld.interceptor.LogInterceptor</class>
+		<class>cf.study.java8.javax.persistence.cdi.TransactionalInterceptor</class>
+	</interceptors>
 </beans> 

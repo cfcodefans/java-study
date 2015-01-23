@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -58,13 +57,13 @@ public class BaseDao<T> {
 		return (Class<T>)tv.getBounds()[0];
 	}
 
-	@Transactional
+//	@Transactional
 	public T create(final T entity) {
 		em.persist(entity);
 		return entity;
 	}
 
-	@Transactional
+//	@Transactional
 	public T edit(final T entity) {
 		T n = em.merge(entity);
 		em.flush();
@@ -76,7 +75,7 @@ public class BaseDao<T> {
 		return entity;
 	}
 
-	@Transactional
+//	@Transactional
 	public T destroy(final T entity) {
 		em.remove(em.merge(entity));
 		return entity;

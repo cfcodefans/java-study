@@ -20,7 +20,7 @@
 			<!-- <property name="javax.persistence.jdbc.password" value="" /> -->
 			<!-- hibernate connection properties -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.max_fetch_depth" value="4" />
 			<property name="hibernate.jdbc.batch_size" value="50" />
 			<!-- hibernate debug properties -->

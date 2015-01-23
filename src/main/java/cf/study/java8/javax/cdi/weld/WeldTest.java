@@ -14,12 +14,20 @@ import org.jboss.weld.context.unbound.UnboundLiteral;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.literal.AnyLiteral;
+import org.jboss.weld.literal.DefaultLiteral;
+import org.jboss.weld.literal.NamedLiteral;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cf.study.java8.javax.cdi.weld.beans.AppBean;
 import cf.study.java8.javax.cdi.weld.beans.BizRequest;
+import cf.study.java8.javax.cdi.weld.beans.annotated.AnyBean;
+import cf.study.java8.javax.cdi.weld.beans.annotated.AppScopedBean;
+import cf.study.java8.javax.cdi.weld.beans.annotated.BlankBean;
+import cf.study.java8.javax.cdi.weld.beans.annotated.DefaultBean;
+import cf.study.java8.javax.cdi.weld.beans.annotated.NamedBean;
+import cf.study.java8.javax.cdi.weld.beans.annotated.ReqScopedBean;
 
 public class WeldTest {
 
@@ -55,6 +63,22 @@ public class WeldTest {
 	}
 	
 	@Test
+	public void testDefaultBean() throws Exception {
+		System.out.println(bm.getBeans(DefaultBean.class));
+		System.out.println(bm.getBeans(DefaultBean.class, DefaultLiteral.INSTANCE));
+		System.out.println(bm.getBeans(AnyBean.class));
+		System.out.println(bm.getBeans(AnyBean.class, AnyLiteral.INSTANCE));
+		System.out.println(bm.getBeans(NamedBean.class));
+		System.out.println(bm.getBeans(NamedBean.class, NamedLiteral.DEFAULT));
+		
+		System.out.println(bm.getBeans(AppScopedBean.class));
+		System.out.println(bm.getBeans(AppScopedBean.class, UnboundLiteral.INSTANCE));
+		
+		System.out.println(bm.getBeans(ReqScopedBean.class));
+		System.out.println(bm.getBeans(ReqScopedBean.class, UnboundLiteral.INSTANCE));
+	}
+	
+	@Test
 	public void testBizReq() throws Exception {
 		/**
 		 * In this case Weld is using unbound RequestContext that is associated with a thread (RequestContext). 
@@ -85,12 +109,20 @@ public class WeldTest {
 		
 //		cdi.forEach(printer);
 		
-		bm.getBeans(Object.class, AnyLiteral.INSTANCE).forEach(printer);
+		bm.getBeans(BlankBean.class, AnyLiteral.INSTANCE).forEach(printer);
 	}
 
+	
+	@Test
+	public void testInterceptor() {
+		RequestContext reqCtx = (RequestContext) cdi.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		reqCtx.activate();
+		BizRequest req = getBean(BizRequest.class);
+		req.setParam("param 1");
+	}
+	
 	@AfterClass
 	public static void tearDown() {
-
 		if (weld != null)
 			weld.shutdown();
 	}
