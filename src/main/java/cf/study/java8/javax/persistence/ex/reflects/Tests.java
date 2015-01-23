@@ -62,7 +62,7 @@ public class Tests {
 	public void testWithObject() {
 		try {
 			Class<?> clz = Object.class;
-			createClazz(clz);
+			dao.createClazz(clz);
 			
 			System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
 			System.out.println(StringUtils.join(dao.queryEntity("select be from BaseEn be"), '\n'));
@@ -72,13 +72,8 @@ public class Tests {
 		}
 	}
 
-	private void createClazz(Class<?> clz) {
-		dao.create(clz);
-		Stream.of(clz.getFields()).forEach((field)->{dao.create(field);});
-		Stream.of(clz.getMethods()).forEach((method)->{dao.create(method);});
-	}
-	
-	public void test() throws Exception {
+	@Test
+	public void testWithJUnit() throws Exception {
 		String[] classPaths = StringUtils.split(SystemUtils.JAVA_CLASS_PATH, ';');
 
 		Optional<String> opt = Stream.of(classPaths).filter((String str) -> {
@@ -89,6 +84,9 @@ public class Tests {
 		List<Class<?>> re = Reflects.loadClzzFromJar(new File(opt.get()), ClassLoader.getSystemClassLoader());
 		System.out.println(StringUtils.join(re, '\n'));
 		System.out.println(re.size());
+		
+		re.stream().forEach((cls) -> {dao.createClazz(cls);});
+		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
 	}
 	
 	@AfterClass

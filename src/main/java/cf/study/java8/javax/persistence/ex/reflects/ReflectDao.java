@@ -36,6 +36,7 @@ public class ReflectDao extends BaseDao<Object> {
 		ClassEn _ce = new ClassEn(cls, enclosing);
 		_ce.pkg = create(cls.getPackage());
 		
+		System.out.println("creating " + cls.getSimpleName());
 		ce = (ClassEn)super.create(_ce);
 		//em.flush();
 		return ce;
@@ -105,5 +106,15 @@ public class ReflectDao extends BaseDao<Object> {
 	public PackageEn getEnByPackage(Package pkg) {
 		PackageEn _pkg = (PackageEn)super.findOneEntity("select pe from PackageEn pe where pe.name=?1", pkg.getName());
 		return _pkg;
+	}
+
+
+	public void createClazz(Class<?> clz) {
+		beginTransaction();
+		create(clz);
+		Stream.of(clz.getFields()).forEach((field)->{create(field);});
+		Stream.of(clz.getMethods()).forEach((method)->{create(method);});
+		em.flush();
+		endTransaction();
 	}
 }
