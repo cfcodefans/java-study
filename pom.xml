@@ -99,11 +99,11 @@
 			<version>4.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.python</groupId>
-			<artifactId>jython</artifactId>
-			<version>2.7-b1</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.python</groupId> -->
+<!-- 			<artifactId>jython</artifactId> -->
+<!-- 			<version>2.7-b1</version> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
