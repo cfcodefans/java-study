@@ -14,12 +14,14 @@ public class Main {
 	static long counter = 0;
 	
 	public static void main(String[] args) {
+		
 		try {
+			WeldTest.setUp();
 			ReflectDao dao = WeldTest.getBeanInReqScope(ReflectDao.class);
 
 			File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 			List<Class<?>> re = Reflects.loadClzzFromJar(_f, ClassLoader.getSystemClassLoader());
-			System.out.println(StringUtils.join(re, '\n'));
+//			System.out.println(StringUtils.join(re, '\n'));
 			long size = re.size();
 			System.out.println(size);
 
