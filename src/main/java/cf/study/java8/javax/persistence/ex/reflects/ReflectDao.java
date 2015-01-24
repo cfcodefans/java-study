@@ -61,7 +61,6 @@ public class ReflectDao extends BaseDao<Object> {
 			_ce.infs.add(create(inf));
 		});
 
-		System.out.println("creating " + cls.getSimpleName());
 		ce = (ClassEn) super.create(_ce);
 		// em.lock(_ce, LockModeType.PESSIMISTIC_READ);
 		em.flush();
