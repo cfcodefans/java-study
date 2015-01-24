@@ -40,18 +40,18 @@ public class StreamTests {
 	public void createStream() {
 		{
 			Stream<Integer> intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
-			intStream.forEach(i -> (System.out.print(i + ", ")));
+			intStream.forEach(i -> {System.out.print(i + ", ");});
 			System.out.println();
 		}
 		
 		{
 			Stream<Integer> intStream = Stream.of(new Integer[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 });
-			intStream.forEach(i -> (System.out.print(i + ", ")));
+			intStream.forEach(i -> {System.out.print(i + ", ");});
 			System.out.println();
 			
 			{
 				Stream<Integer> parallelIntStream = Arrays.asList(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5).parallelStream();
-				parallelIntStream.forEach(i -> (System.out.print(i + ", ")));
+				parallelIntStream.forEach(i -> {System.out.print(i + ", ");});
 				System.out.println();
 			}
 		}
@@ -66,7 +66,7 @@ public class StreamTests {
 				}
 			});
 			
-			strStream1.forEach(i -> (System.out.println(i)));
+			strStream1.forEach(i -> {System.out.println(i);});
 		}
 		
 		{
