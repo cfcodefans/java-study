@@ -15,12 +15,17 @@ import javax.persistence.Enumerated;
 public class MemberEn extends BaseEn {
 	
 	public MemberEn() {
+		category = CategoryEn.MEMBER;
+	}
+	
+	public MemberEn(Member m, BaseEn enclosed, CategoryEn cat) {
+		super(m.getName(), enclosed, cat);
+		modifiers.addAll(getModifiers(m.getModifiers()));
+		synthetic = m.isSynthetic();
 	}
 	
 	public MemberEn(Member m, BaseEn enclosed) {
-		super(m.getName(), enclosed);
-		modifiers.addAll(getModifiers(m.getModifiers()));
-		synthetic = m.isSynthetic();
+		this(m, enclosed, CategoryEn.MEMBER);
 	}
 
 	@ElementCollection(targetClass = Modifier.class)

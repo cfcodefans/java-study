@@ -28,9 +28,10 @@ public class MethodEn extends MemberEn {
 	public List<ClassEn> exceptionClzz = new LinkedList<ClassEn>();
 
 	public MethodEn() {
+		category = CategoryEn.METHOD;
 	}
 
 	public MethodEn(Method m, BaseEn enclosed) {
-		super(m, enclosed);
+		super(m, enclosed, CategoryEn.METHOD);
 	}
 }

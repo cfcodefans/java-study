@@ -6,6 +6,9 @@ import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
 import cf.study.java8.javax.persistence.dao.BaseDao;
 import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
@@ -15,6 +18,9 @@ import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
 
 @ApplicationScoped
 public class ReflectDao extends BaseDao<Object> {
+
+	private static final Logger log = Logger.getLogger(ReflectDao.class);
+
 
 	public ReflectDao() {
 //		super(JpaModule.getEntityManager());
@@ -35,6 +41,9 @@ public class ReflectDao extends BaseDao<Object> {
 		
 		ClassEn _ce = new ClassEn(cls, enclosing);
 		_ce.pkg = create(cls.getPackage());
+		
+		_ce.superClz = create(cls.getSuperclass());
+		Stream.of(cls.getInterfaces()).forEach((inf)->{_ce.infs.add(create(inf));});
 		
 		System.out.println("creating " + cls.getSimpleName());
 		ce = (ClassEn)super.create(_ce);
@@ -81,7 +90,14 @@ public class ReflectDao extends BaseDao<Object> {
 		
 		PackageEn _pkg = getEnByPackage(pkg);
 		if (_pkg == null) {
-			PackageEn created = (PackageEn)super.create(new PackageEn(pkg));
+			PackageEn enclosing = null;
+			String parentPkgName = StringUtils.substringBeforeLast(pkg.getName(), ".");
+			if (StringUtils.isNotBlank(parentPkgName)) {
+				enclosing = create(Package.getPackage(parentPkgName));
+			}
+			
+			log.info(String.format("Package: %s", pkg.getName()));
+			PackageEn created = (PackageEn)super.create(new PackageEn(pkg, enclosing));
 			//em.flush();
 			return created;
 		}

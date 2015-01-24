@@ -89,6 +89,17 @@ public class Tests {
 		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
 	}
 	
+	@Test
+	public void testWithRuntime() throws Exception {
+		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		List<Class<?>> re = Reflects.loadClzzFromJar(_f, ClassLoader.getSystemClassLoader());
+		System.out.println(StringUtils.join(re, '\n'));
+		System.out.println(re.size());
+		
+		re.stream().forEach((cls) -> {dao.createClazz(cls);});
+		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
+	}
+	
 	@AfterClass
 	public static void tearDown() {
 		

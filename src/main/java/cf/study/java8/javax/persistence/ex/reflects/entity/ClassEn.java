@@ -17,10 +17,11 @@ import javax.persistence.ManyToOne;
 public class ClassEn extends BaseEn {
 
 	public ClassEn() {
+		category = CategoryEn.CLASS;
 	}
 	
 	public ClassEn(Class<?> clz, BaseEn enclosing) {
-		super(clz.getName(), enclosing);
+		super(clz.getName(), enclosing, CategoryEn.CLASS);
 		types.addAll(TypeEn.by(clz));
 		modifiers.addAll(getModifiers(clz.getModifiers()));
 	}

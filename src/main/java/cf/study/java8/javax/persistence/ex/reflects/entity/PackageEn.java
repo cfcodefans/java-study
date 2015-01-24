@@ -7,9 +7,14 @@ import javax.persistence.Entity;
 public class PackageEn extends BaseEn {
 
 	public PackageEn() {
+		category = CategoryEn.PACKAGE;
 	}
 
-	public PackageEn(Package pkg) {
+	public PackageEn(Package pkg, PackageEn enclosing) {
+		super(pkg.getName(), enclosing, CategoryEn.PACKAGE);
+		
+		this.enclosd = enclosing;
+		
 		specTitle = pkg.getSpecificationTitle();
 		specVendor = pkg.getSpecificationVendor();
 		specVersion = pkg.getSpecificationVersion();
@@ -32,11 +37,4 @@ public class PackageEn extends BaseEn {
 	@Basic
 	public String implVendor;
 
-	public static class Factory {
-		public static PackageEn by(Package pkg) {
-			if (pkg == null)
-				return null;
-			return new PackageEn(pkg);
-		}
-	}
 }
