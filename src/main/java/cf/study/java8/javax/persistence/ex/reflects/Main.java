@@ -15,7 +15,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		try {
-			ReflectDao dao = WeldTest.getBean(ReflectDao.class);
+			ReflectDao dao = WeldTest.getBeanInReqScope(ReflectDao.class);
 
 			File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 			List<Class<?>> re = Reflects.loadClzzFromJar(_f, ClassLoader.getSystemClassLoader());
