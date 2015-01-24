@@ -10,6 +10,7 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -339,6 +340,11 @@ public class BaseDao<T> {
 			return q;
 		}
 		
+		public SimpleQueryBuilder setLockType(LockModeType lockMode) {
+			q.setLockMode(lockMode);
+			return this;
+		}
+		
 		public SimpleQueryBuilder withNamedParams(Map<String, Object> namedParams) {
 			if (MapUtils.isEmpty(namedParams)) return this;
 			for (Map.Entry<String, Object> namedParam : namedParams.entrySet()) {
@@ -372,9 +378,18 @@ public class BaseDao<T> {
 			return this;
 		}
 		
+		public SimpleQueryBuilder reqOne() {
+			return page(0, 1);
+		}
+		
 		public List doQuery() {
 			if (q == null) return Collections.EMPTY_LIST;
 			return ObjectUtils.defaultIfNull(q.getResultList(), Collections.EMPTY_LIST);
+		}
+		
+		public Object getOne() {
+			List result = doQuery();
+			return CollectionUtils.isEmpty(result) ? null : result.get(0);
 		}
 	}
 }

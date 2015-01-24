@@ -10,8 +10,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "member_en")
 public class MemberEn extends BaseEn {
 	
 	public MemberEn() {

@@ -90,6 +90,23 @@ public class Tests {
 	}
 	
 	@Test
+	public void testWithJUnitParallel() throws Exception {
+		String[] classPaths = StringUtils.split(SystemUtils.JAVA_CLASS_PATH, ';');
+
+		Optional<String> opt = Stream.of(classPaths).filter((String str) -> {
+			return str.contains("junit");
+		}).findFirst();
+		Assert.assertTrue(opt.isPresent());
+
+		List<Class<?>> re = Reflects.loadClzzFromJar(new File(opt.get()), ClassLoader.getSystemClassLoader());
+		System.out.println(StringUtils.join(re, '\n'));
+		System.out.println(re.size());
+		
+		re.stream().parallel().forEach((cls) -> {new Worker(cls).run();});
+		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
+	}
+	
+	@Test
 	public void testWithRuntime() throws Exception {
 		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 		List<Class<?>> re = Reflects.loadClzzFromJar(_f, ClassLoader.getSystemClassLoader());
@@ -100,8 +117,35 @@ public class Tests {
 		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
 	}
 	
+	@Test
+	public void testWithRuntimeParallel() throws Exception {
+		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		List<Class<?>> re = Reflects.loadClzzFromJar(_f, ClassLoader.getSystemClassLoader());
+		System.out.println(StringUtils.join(re, '\n'));
+		System.out.println(re.size());
+		
+		re.stream().parallel().forEach((cls) -> {dao.createClazz(cls);});
+		System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
+	}
+	
 	@AfterClass
 	public static void tearDown() {
 		
+	}
+	
+	static class Worker implements Runnable {
+		
+		ReflectDao dao = WeldTest.getBean(ReflectDao.class);
+		
+		final Class<?> clz;
+		
+		public Worker(Class<?> _clz) {
+			this.clz = _clz;
+		}
+		
+		@Override
+		public void run() {
+			dao.createClazz(clz);
+		}
 	}
 }

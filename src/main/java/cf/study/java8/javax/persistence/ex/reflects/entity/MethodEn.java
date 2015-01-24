@@ -4,14 +4,17 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "method_en")
 public class MethodEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
@@ -34,4 +37,7 @@ public class MethodEn extends MemberEn {
 	public MethodEn(Method m, BaseEn enclosed) {
 		super(m, enclosed, CategoryEn.METHOD);
 	}
+	
+	@Basic
+	public int paramsHash;
 }

@@ -128,6 +128,12 @@ public class WeldTest {
 	}
 	
 	public static <T> T getBean(Class<T> cls) {
+		RequestContext reqCtx = (RequestContext) cdi.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		reqCtx.activate();
+		return CDI.current().select(cls).get();
+	}
+	
+	public static <T> T getBeanInReqScope(Class<T> cls) {
 		return CDI.current().select(cls).get();
 	}
 }

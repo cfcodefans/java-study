@@ -12,8 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "class_en")
 public class ClassEn extends BaseEn {
 
 	public ClassEn() {

@@ -28,7 +28,7 @@ public class JpaModule {
 	private static final String EXTERNAL_JPA_PROPERTIES = "external_jpa_properties";
 	
 	static EntityManagerFactory emf = null;
-	final static String UN = "hsqldb";
+	final static String UN = "reflects";
 	private static JpaModule instance; 
 	
 	private static ThreadLocal<EntityManager> ems = new ThreadLocal<EntityManager>();
