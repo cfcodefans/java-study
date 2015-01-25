@@ -30,7 +30,7 @@ public class Main {
 				dao.createClazz(cls);
 			});
 			System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
