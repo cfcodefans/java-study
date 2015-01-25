@@ -1,6 +1,7 @@
 package cf.study.java8.lang.reflect;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Reflects {
 						try {
 							return cl.loadClass(clsName);
 						} catch (Exception e) {
-							System.err.println(clsName + e.getMessage());
+							System.err.println(clsName + ": " + e.getMessage());
 						}
 						return null;
 					}).forEach((cls) -> {
@@ -54,6 +55,18 @@ public class Reflects {
 		}
 
 		return clsList;
+	}
+	
+	public static File getJarFileInClassPath(String libName) {
+		if (StringUtils.isBlank(libName)) return null;
+		
+		String[] classPaths = StringUtils.split(SystemUtils.JAVA_CLASS_PATH, ';');
+
+		Optional<String> opt = Stream.of(classPaths).filter((String str) -> {
+			return str.contains(libName);
+		}).findFirst();
+		
+		return opt.isPresent() ? new File(opt.get()) : null;
 	}
 
 	@Test

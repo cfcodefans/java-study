@@ -60,12 +60,14 @@ public class BaseDao<T> {
 
 //	@Transactional
 	public T create(final T entity) {
+		if (entity == null) return entity;
 		em.persist(entity);
 		return entity;
 	}
 
 //	@Transactional
 	public T edit(final T entity) {
+		if (entity == null) return entity;
 		T n = em.merge(entity);
 		em.flush();
 		return n;//em.merge(entity);

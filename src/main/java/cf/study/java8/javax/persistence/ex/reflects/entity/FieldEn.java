@@ -6,19 +6,25 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "field_en")
 public class FieldEn extends MemberEn {
+	
+	@Transient
+	transient public Field field;
+	
 	public FieldEn() {
 		category = CategoryEn.FIELD;
 	}
 	
-	public FieldEn(Field field) {
+	public FieldEn(Field _field) {
 		this();
-		name = field.getName();
-		modifiers = BaseEn.getModifiers(field.getModifiers());
-		synthetic = field.isSynthetic();
+		this.field = _field;
+		name = _field.getName();
+		modifiers = BaseEn.getModifiers(_field.getModifiers());
+		synthetic = _field.isSynthetic();
 	}
 
 	public FieldEn(Field field, ClassEn _enclosing) {

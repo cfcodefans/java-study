@@ -12,6 +12,7 @@ import static java.lang.reflect.Modifier.isSynchronized;
 import static java.lang.reflect.Modifier.isTransient;
 import static java.lang.reflect.Modifier.isVolatile;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -31,9 +32,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import misc.Jsons;
+
+import org.apache.commons.collections4.CollectionUtils;
 
 @Entity
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
@@ -51,6 +55,9 @@ public class BaseEn {
 	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name="enclosing", nullable=true)
 	public BaseEn enclosing;
+	
+	@Transient
+	public transient Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="category")
@@ -59,11 +66,14 @@ public class BaseEn {
 	@Version
 	public long version;
 	
-	public BaseEn(String qualifiedName, BaseEn enclosd, CategoryEn cat) {
+	public BaseEn(String qualifiedName, BaseEn enclosing, CategoryEn cat) {
 		super();
 		this.name = qualifiedName;
-		this.enclosing = enclosd;
+		this.enclosing = enclosing;
 		this.category = cat;
+		
+		if (enclosing != null)
+			enclosing.children.add(this);
 	}
 
 	public BaseEn() {

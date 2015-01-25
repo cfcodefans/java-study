@@ -20,12 +20,14 @@ import misc.MiscUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.BaseDao;
 import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
+import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
 
 @RequestScoped
 public class ReflectDao extends BaseDao<Object> {
@@ -34,6 +36,12 @@ public class ReflectDao extends BaseDao<Object> {
 
 	public static final Map<Object, BaseEn> lockSet = new ConcurrentHashMap<Object, BaseEn>();
 
+	public static final ThreadLocal<ReflectDao> threadLocal = new ThreadLocal<ReflectDao>() {
+		protected ReflectDao initialValue() {
+			return WeldTest.getBeanInReqScope(ReflectDao.class);
+		};
+	};
+	
 	public ReflectDao() {
 		// super(JpaModule.getEntityManager());
 		log.info(MiscUtils.invocationInfo());
@@ -101,9 +109,9 @@ public class ReflectDao extends BaseDao<Object> {
 		_me.paramsHash = Objects.hash(method.getParameters());
 
 		_me.returnClass = create(method.getReturnType());
-		Stream.of(method.getParameterTypes()).forEach((clz) -> {
-			_me.paramsClzz.add(create(clz));
-		});
+//		Stream.of(method.getParameterTypes()).forEach((clz) -> {
+//			_me.paramsClzz.add(create(clz));
+//		});
 		Stream.of(method.getExceptionTypes()).forEach((clz) -> {
 			_me.exceptionClzz.add(create(clz));
 		});
@@ -189,5 +197,44 @@ public class ReflectDao extends BaseDao<Object> {
 		});
 		em.flush();
 		endTransaction();
+	}
+	
+	public void persist(BaseEn be) {
+		if (be == null) return;
+		
+		create(be.enclosing);
+//		em.flush();
+		
+		if (be instanceof PackageEn) {
+			PackageEn pkgEn = (PackageEn) be;
+			create(pkgEn);
+		}
+		
+		if (be instanceof ClassEn) {
+			ClassEn ce = (ClassEn) be;
+			create(ce.pkg);
+			create(ce.superClz);
+			ce.infs.forEach((_be)->{persist(_be);});
+		}
+		
+		if (be instanceof FieldEn) {
+			FieldEn fe = (FieldEn) be;
+			create(fe.fieldType);
+		}
+		
+		if (be instanceof MethodEn) {
+			MethodEn me = (MethodEn) be;
+			create(me.returnClass);
+			me.exceptionClzz.forEach((_be)->{persist(_be);});
+		}
+		
+		if (be instanceof ParameterEn) {
+			ParameterEn pe = (ParameterEn) be;
+			create(pe.paramType);
+		}
+		
+		create(be);
+//		em.flush();
+		be.children.forEach((_be)->{persist(_be);});
 	}
 }

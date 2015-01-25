@@ -5,6 +5,8 @@ public enum CategoryEn {
 	CLASS,
 	FIELD,
 	METHOD,
+	CONSTRUCTOR,
 	DEFAULT,
-	MEMBER
+	MEMBER,
+	PARAMETER
 }

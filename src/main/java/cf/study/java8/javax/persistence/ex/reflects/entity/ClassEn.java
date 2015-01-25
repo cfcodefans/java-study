@@ -13,17 +13,31 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table(name = "class_en")
 public class ClassEn extends BaseEn {
 
+	@Transient
+	public transient Class<?> clazz;
+	
 	public ClassEn() {
 		category = CategoryEn.CLASS;
+		if (StringUtils.isNotBlank(name)) {
+			try {
+				clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public ClassEn(Class<?> clz, BaseEn enclosing) {
 		super(clz.getName(), enclosing, CategoryEn.CLASS);
+		clazz = clz;
 		types.addAll(TypeEn.by(clz));
 		modifiers.addAll(getModifiers(clz.getModifiers()));
 	}

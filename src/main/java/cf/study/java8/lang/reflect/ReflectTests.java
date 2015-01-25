@@ -1,5 +1,6 @@
 package cf.study.java8.lang.reflect;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.junit.Test;
@@ -24,5 +25,15 @@ public class ReflectTests {
 			System.out.println(md.getDeclaringClass());
 			System.out.println(md.getName());
 		});
+	}
+	
+	@Test
+	public void testClzMeta() {
+		Class<Sample[]> arrayClz = Sample[].class;
+		System.out.println(arrayClz.getDeclaringClass());
+		System.out.println(Sample.class.getDeclaringClass());
+		System.out.println(Arrays.toString(Sample.class.getDeclaredClasses()));
+		System.out.println(Arrays.toString(arrayClz.getDeclaredClasses()));
+		System.out.println(arrayClz.getComponentType());
 	}
 }
