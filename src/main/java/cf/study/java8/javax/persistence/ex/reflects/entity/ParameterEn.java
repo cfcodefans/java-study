@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -14,6 +15,7 @@ import javax.persistence.Transient;
 public class ParameterEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name="param_clz_id", nullable=true)
 	public ClassEn paramType;
 	
 	@Basic

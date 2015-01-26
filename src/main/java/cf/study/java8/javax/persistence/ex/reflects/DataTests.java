@@ -147,6 +147,12 @@ public class DataTests {
 		EntryLoader el = new EntryLoader();
 		el.preloadClassEnByClz(Object.class);
 		
+		el.roots.parallelStream().forEach((be)->{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+			EntryLoader.traverse(be, (_be)->{dao.create(_be);}, ()->{dao.getEm().flush();});
+			dao.endTransaction();
+		});
 		System.out.println("Preload class: " + el.classEnPool.size());
 		
 		el.classEnPool.values().parallelStream().forEach((ce) -> {

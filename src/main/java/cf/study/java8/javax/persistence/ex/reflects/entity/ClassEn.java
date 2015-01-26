@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -51,9 +52,11 @@ public class ClassEn extends BaseEn {
 	public Set<Modifier> modifiers = new HashSet<Modifier>();
 	
 	@ManyToOne(cascade= {CascadeType.REFRESH})
+	@JoinColumn(name="package", nullable=true)
 	public PackageEn pkg;
 	
 	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
+	@JoinColumn(name="super", nullable=true)
 	public ClassEn superClz;
 	
 	@ManyToMany(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})

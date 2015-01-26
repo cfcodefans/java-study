@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 public class MethodEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name="return_clz_id", nullable=true)
 	public ClassEn returnClass;
 
 	@ManyToMany(cascade = { CascadeType.REFRESH })

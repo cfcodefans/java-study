@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -25,5 +26,6 @@ public class FieldEn extends MemberEn {
 	}
 	
 	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name="field_clz_id", nullable=true)
 	public ClassEn fieldType;
 }
