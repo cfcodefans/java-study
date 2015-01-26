@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
@@ -43,6 +45,7 @@ public class DataTests {
 	@BeforeClass
 	public static void setUp() {
 		WeldTest.setUp();
+		ReflectDao dao = ReflectDao.threadLocal.get();
 	}
 	
 	@Test
@@ -129,8 +132,6 @@ public class DataTests {
 		
 		public static void persist(Collection<BaseEn> beCol) {
 			if (CollectionUtils.isEmpty(beCol)) return;
-			
-			
 		}
 		
 		public PersistActor(List<BaseEn> stuff) {
@@ -255,11 +256,12 @@ public class DataTests {
 				if (ce != null)
 					return ce;
 	
-//				BaseEn enclosing = null;
-//				Class<?> enclosingClass = cls.getEnclosingClass();
-//				if (enclosingClass != null) {
-//					enclosing = getClassEnByClz(enclosingClass);
-//				}
+				BaseEn enclosing = null;
+				Class<?> enclosingClass = cls.getEnclosingClass();
+				if (enclosingClass != null) {
+//					enclosing = 
+							getClassEnByClz(enclosingClass);
+				}
 				
 				ce = new ClassEn(cls);
 				classEnPool.put(cls.getName(), ce);
@@ -322,14 +324,15 @@ public class DataTests {
 			// if (fe != null) return fe;
 
 			fe = new FieldEn(field, enclosing);
-//			Type genericType = field.getGenericType();
+			Type genericType = field.getGenericType();
 //
-//			Class genericClass = Object.class;
-//			if (genericType instanceof Class) {
-//				genericClass = (Class) genericType;
-//			}
+			Class genericClass = Object.class;
+			if (genericType instanceof Class) {
+				genericClass = (Class) genericType;
+			}
 //
-//			fe.fieldType = getClassEnByClz(genericClass);
+//			fe.fieldType = 
+					getClassEnByClz(genericClass);
 			return fe;
 		}
 		
@@ -344,13 +347,16 @@ public class DataTests {
 			// ClassEn ce = create(method.getDeclaringClass());
 			MethodEn _me = new MethodEn(method, _enclosing);
 
-//			_me.returnClass = getClassEnByClz(method.getReturnType());
-//			Stream.of(method.getParameters()).forEach((param) -> {
-//				getParamEnByParam(param, _me);
-//			});
-//			Stream.of(method.getExceptionTypes()).forEach((clz) -> {
+//			_me.returnClass =
+			if (method instanceof Method) 
+					getClassEnByClz(((Method)method).getReturnType());
+			Stream.of(method.getParameters()).forEach((param) -> {
+				getParamEnByParam(param, _me);
+			});
+			Stream.of(method.getExceptionTypes()).forEach((clz) -> {
 //				_me.exceptionClzz.add(getClassEnByClz(clz));
-//			});
+				getClassEnByClz(clz);
+			});
 
 			return me;
 		}
@@ -361,7 +367,8 @@ public class DataTests {
 			}
 			
 			ParameterEn pe = new ParameterEn(param, me);
-			pe.paramType = getClassEnByClz(param.getType());
+			//pe.paramType = 
+			getClassEnByClz(param.getType());
 			return pe;
 		}
 	}

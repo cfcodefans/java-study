@@ -30,6 +30,9 @@ public class FieldEn extends MemberEn {
 	public FieldEn(Field field, ClassEn _enclosing) {
 		this(field);
 		super.enclosing = _enclosing;
+		if (enclosing != null) {
+			enclosing.children.add(this);
+		}
 	}
 	
 	@ManyToOne(cascade = { CascadeType.REFRESH })
