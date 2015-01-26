@@ -1,6 +1,5 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,11 +21,6 @@ public class MethodEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
 	public ClassEn returnClass;
-
-//	@ManyToMany(cascade = { CascadeType.REFRESH })
-//	@JoinTable(name = "params")
-//	@JoinColumn(nullable = true)
-//	public List<ClassEn> paramsClzz = new LinkedList<ClassEn>();
 
 	@ManyToMany(cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "exceptions")

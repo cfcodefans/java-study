@@ -36,19 +36,13 @@ public class ClassEn extends BaseEn {
 	}
 	
 	public ClassEn(Class<?> clz, BaseEn enclosing) {
-		super(clz.getName(), enclosing, CategoryEn.CLASS);
+		super(clz.isArray() ? clz.getComponentType().getName() : clz.getName(), enclosing, CategoryEn.CLASS);
 		clazz = clz;
 		types.addAll(TypeEn.by(clz));
 		modifiers.addAll(getModifiers(clz.getModifiers()));
 	}
 	
-	public ClassEn(Class<?> clz) {
-		this(clz, null);
-	}
-	
 	@ElementCollection(targetClass = TypeEn.class)
-//	@CollectionTable(name = "days", joinColumns = @JoinColumn(name = "rule_id"))
-//	@Column(name = "daysOfWeek", nullable = false)
 	@Enumerated(EnumType.STRING)
 	public Set<TypeEn> types = new HashSet<TypeEn>();
 	
@@ -59,10 +53,10 @@ public class ClassEn extends BaseEn {
 	@ManyToOne(cascade= {CascadeType.REFRESH})
 	public PackageEn pkg;
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH})
+	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
 	public ClassEn superClz;
 	
-	@ManyToMany(cascade= {CascadeType.REFRESH})
+	@ManyToMany(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
 	@JoinTable(name="infs")
 	public Set<ClassEn> infs = new HashSet<ClassEn>();
 	

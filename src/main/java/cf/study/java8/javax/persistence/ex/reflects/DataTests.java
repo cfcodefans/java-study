@@ -20,6 +20,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +32,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
+import cf.study.java8.javax.persistence.dao.JpaModule;
 import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
@@ -64,7 +67,7 @@ public class DataTests {
 	@Test
 	public void testWithObject() {
 		EntryLoader el = new EntryLoader();
-		ClassEn ce = el.getClassEnByClz(Object.class);
+		ClassEn ce = el.preloadClassEnByClz(Object.class);
 		
 //		el.roots.forEach((en) -> {
 //			EntryLoader.traverse(en, act);
@@ -107,6 +110,52 @@ public class DataTests {
 	}
 	
 	@Test
+	public void testTraverseWithObject() {
+		EntryLoader el = new EntryLoader();
+		el.preloadClassEnByClz(Object.class);
+		
+		el.roots.parallelStream().forEach((be)->{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+			EntryLoader.traverse(be, (_be)->{dao.create(_be);}, ()->{dao.getEm().flush();});
+			dao.endTransaction();
+		});
+
+		System.out.println("preload is done");
+//		
+		el.classEnPool.values().parallelStream().forEach((ce) -> {
+			el.inflateClassEnByClz(ce);
+		});
+//		
+		System.out.println("inflation is done");
+//		
+		ReflectDao dao = ReflectDao.threadLocal.get();//new ReflectDao(JpaModule.getEntityManager());
+		dao.beginTransaction();
+		el.classEnPool.values().forEach((ce)->{
+			dao.refresh(ce);
+		});
+		el.classEnPool.values().forEach((be)->{
+			EntryLoader.traverse(be, (_be)->{dao.edit(_be);}, ()->{});
+		});
+		dao.getEm().flush();
+		dao.endTransaction();
+		System.out.println("merge is done");
+	}
+	
+	@Test
+	public void testTraverseWithObject1() {
+		EntryLoader el = new EntryLoader();
+		el.preloadClassEnByClz(Object.class);
+		
+		System.out.println("Preload class: " + el.classEnPool.size());
+		
+		el.classEnPool.values().parallelStream().forEach((ce) -> {
+			el.inflateClassEnByClz(ce);
+		});
+		System.out.println("Inflate class: " + el.classEnPool.size());
+	}
+	
+	@Test
 	public void testTraverse() {
 		EntryLoader el = new EntryLoader();
 		try {
@@ -122,9 +171,22 @@ public class DataTests {
 			dao.endTransaction();
 		});
 
-		el.classEnPool.values().forEach((ce) -> {
-			System.out.println(String.format("%s\t%s", ce.id, ce.name));
+		System.out.println("preload is done");
+		
+		el.classEnPool.values().parallelStream().forEach((ce) -> {
+			el.inflateClassEnByClz(ce);
 		});
+		
+		System.out.println("inflation is done");
+		
+		ReflectDao dao = ReflectDao.threadLocal.get();
+		dao.beginTransaction();
+		el.roots.parallelStream().forEach((be)->{
+			EntryLoader.traverse(be, (_be)->{dao.edit(_be);}, ()->{});
+		});
+		System.out.println("merge is done");
+		dao.getEm().flush();
+		dao.endTransaction();
 	}
 	
 	static class PersistActor implements Runnable {
@@ -156,7 +218,6 @@ public class DataTests {
 		
 		public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
 			act.accept(be);
-//			be.children.forEach(act);
 			be.children.forEach((en)->{traverse(en, act, interAct);});
 			interAct.run();
 		}
@@ -164,6 +225,7 @@ public class DataTests {
 		Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>());
 		Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
 		Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+		Collection<String> inflatedClassSet = CollectionUtils.synchronizedCollection(new LinkedHashSet<String>());
 
 		private final ReentrantLock lock = new ReentrantLock();
 		
@@ -194,12 +256,12 @@ public class DataTests {
 //							System.out.println(enName);
 							if (StringUtils.endsWith(enName, "/")) {
 								enName = StringUtils.removeEnd(enName, "/").replace('/', '.');
-								PackageEn pe = getPackageEnByName(enName);
+								PackageEn pe = preloadPackageEnByName(enName);
 								return;
 							}
 							if (StringUtils.endsWith(enName, ".class")) {
 								enName = enName.replace('/', '.');
-								getClassEnByName(StringUtils.substringBeforeLast(enName, ".class"));
+								preloadClassEnByName(StringUtils.substringBeforeLast(enName, ".class"));
 							}
 						});
 					}
@@ -213,7 +275,7 @@ public class DataTests {
 //			if (pkg == null) return null;
 //		}
 		
-		public PackageEn getPackageEnByName(String name) {
+		public PackageEn preloadPackageEnByName(String name) {
 			if (StringUtils.isBlank(name))
 				return null;
 
@@ -228,7 +290,7 @@ public class DataTests {
 				Package pkg = Package.getPackage(name);
 				if (pkg == null) return null;
 				
-				PackageEn enclosing = StringUtils.contains(name, '.') ? getPackageEnByName(StringUtils.substringBeforeLast(name, ".")) : null;
+				PackageEn enclosing = StringUtils.contains(name, '.') ? preloadPackageEnByName(StringUtils.substringBeforeLast(name, ".")) : null;
 				pe = new PackageEn(pkg, enclosing);
 				packageEnPool.put(name, pe);
 				
@@ -241,7 +303,7 @@ public class DataTests {
 			return pe;
 		}
 		
-		public ClassEn getClassEnByClz(Class<?> cls) {
+		public ClassEn preloadClassEnByClz(Class<?> cls) {
 			if (cls == null)
 				return null;
 			
@@ -260,37 +322,41 @@ public class DataTests {
 				Class<?> enclosingClass = cls.getEnclosingClass();
 				if (enclosingClass != null) {
 //					enclosing = 
-							getClassEnByClz(enclosingClass);
+							preloadClassEnByClz(enclosingClass);
 				}
 				
-				ce = new ClassEn(cls);
+				ce = new ClassEn(cls, enclosing);
 				classEnPool.put(cls.getName(), ce);
 				final ClassEn _ce = ce;
 				
 				Package pkg = cls.getPackage();
-				_ce.pkg = (pkg == null) ? null : getPackageEnByName(pkg.getName());
+				_ce.pkg = (pkg == null) ? null : preloadPackageEnByName(pkg.getName());
 				if (_ce.pkg != null) {
 					_ce.pkg.children.add(_ce);
 				}
 				
 //				_ce.superClz = 
-						getClassEnByClz(cls.getSuperclass());
+						preloadClassEnByClz(cls.getSuperclass());
 				
+				Stream.of(cls.getAnnotations()).forEach((an)-> {
+					preloadClassEnByClz(an.annotationType());
+				});		
+						
 				Stream.of(cls.getInterfaces()).forEach((inf) -> {
 //					_ce.infs.add(getClassEnByClz(inf));
-					getClassEnByClz(inf);
+					preloadClassEnByClz(inf);
 				});
 				
 				Stream.of(cls.getDeclaredFields()).forEach((field) -> {
-					getFieldEnByFiled(field, _ce);
+					preloadFieldEnByFiled(field, _ce);
 				});
 				
 				Stream.of(cls.getDeclaredMethods()).forEach((method) -> {
-					getMethodEnByMethod(method, _ce);
+					preloadMethodEnByMethod(method, _ce);
 				});
 				
 				Stream.of(cls.getConstructors()).forEach((method) -> {
-					getMethodEnByMethod(method, _ce);
+					preloadMethodEnByMethod(method, _ce);
 				});
 				
 				if (ce.enclosing == null && ce.pkg == null) {
@@ -305,18 +371,18 @@ public class DataTests {
 			return ce;
 		}
 		
-		public ClassEn getClassEnByName(String name) {
+		public ClassEn preloadClassEnByName(String name) {
 			Class<?> cls = null;
 			try {
 				cls = Class.forName(name, false, ClassLoader.getSystemClassLoader());
-				return getClassEnByClz(cls);
+				return preloadClassEnByClz(cls);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			return null;
 		}
 		
-		public FieldEn getFieldEnByFiled(Field field, ClassEn enclosing) {
+		public FieldEn preloadFieldEnByFiled(Field field, ClassEn enclosing) {
 			if (field == null)
 				return null;
 
@@ -332,11 +398,11 @@ public class DataTests {
 			}
 //
 //			fe.fieldType = 
-					getClassEnByClz(genericClass);
+					preloadClassEnByClz(genericClass);
 			return fe;
 		}
 		
-		public MethodEn getMethodEnByMethod(Executable method, ClassEn _enclosing) {
+		public MethodEn preloadMethodEnByMethod(Executable method, ClassEn _enclosing) {
 			if (method == null || _enclosing == null)
 				return null;
 
@@ -349,26 +415,127 @@ public class DataTests {
 
 //			_me.returnClass =
 			if (method instanceof Method) 
-					getClassEnByClz(((Method)method).getReturnType());
+					preloadClassEnByClz(((Method)method).getReturnType());
 			Stream.of(method.getParameters()).forEach((param) -> {
-				getParamEnByParam(param, _me);
+				preloadParamEnByParam(param, _me);
 			});
 			Stream.of(method.getExceptionTypes()).forEach((clz) -> {
 //				_me.exceptionClzz.add(getClassEnByClz(clz));
-				getClassEnByClz(clz);
+				preloadClassEnByClz(clz);
 			});
 
 			return me;
 		}
 		
-		public ParameterEn getParamEnByParam(Parameter param, MethodEn me) {
+		public ParameterEn preloadParamEnByParam(Parameter param, MethodEn me) {
 			if (param == null || me == null) {
 				return null;
 			}
 			
 			ParameterEn pe = new ParameterEn(param, me);
 			//pe.paramType = 
-			getClassEnByClz(param.getType());
+			preloadClassEnByClz(param.getType());
+			return pe;
+		}
+
+		public ClassEn inflateClassEnByClz(ClassEn ce) {
+			if (ce == null)
+				return null;
+			
+			lock.lock();
+			try {
+				if (inflatedClassSet.contains(ce.name)) {
+					return ce;
+				}
+				
+				inflatedClassSet.add(ce.name);
+	
+				Class<?> cls = ce.clazz;
+				Class<?> enclosingClass = cls.getEnclosingClass();
+				if (enclosingClass != null) {
+					ce.enclosing = inflateClassEnByClz(enclosingClass);
+				}
+				
+				ce.superClz = inflateClassEnByClz(cls.getSuperclass());
+				
+				Stream.of(cls.getAnnotations()).forEach((an)-> {
+					ce.annotations.add(inflateClassEnByClz(an.annotationType()));
+				});		
+						
+				Stream.of(cls.getInterfaces()).forEach((inf) -> {
+					ce.infs.add(inflateClassEnByClz(inf));
+				});
+				
+				ce.children.stream().forEach((be)->{
+					if (be instanceof FieldEn) {
+						FieldEn fe = (FieldEn) be;
+						inflateFieldEnByFiled(fe, ce);
+					} else if (be instanceof MethodEn) {
+						inflateMethodEnByMethod((MethodEn)be, ce);
+					}
+				});
+				
+				if (ce.enclosing == null && ce.pkg == null) {
+					roots.add(ce);
+				}
+
+				
+				return ce;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				lock.unlock();
+			}
+			return null;
+		}
+		
+		public ClassEn inflateClassEnByClz(Class<?> cls) {
+			if (cls == null)
+				return null;
+			
+			if (cls.isArray()) {
+				cls = cls.getComponentType();
+			}
+			return inflateClassEnByClz(classEnPool.get(cls.getName()));
+		}
+
+		public FieldEn inflateFieldEnByFiled(FieldEn fe, ClassEn enclosing) {
+			if (fe == null || fe.field == null)
+				return null;
+
+			Type genericType = fe.field.getGenericType();
+			Class genericClass = Object.class;
+			if (genericType instanceof Class) {
+				genericClass = (Class) genericType;
+			}
+			fe.fieldType = inflateClassEnByClz(genericClass);
+			return fe;
+		}
+		
+		
+		public MethodEn inflateMethodEnByMethod(MethodEn me, ClassEn _enclosing) {
+			if (me == null || _enclosing == null)
+				return null;
+			
+			if (me.method instanceof Method) 
+					inflateClassEnByClz(((Method)me.method).getReturnType());
+
+			me.children.forEach((pe) -> {
+				inflateParamEnByParam((ParameterEn)pe, me);
+			});
+			Stream.of(me.method.getExceptionTypes()).forEach((clz) -> {
+				me.exceptionClzz.add(inflateClassEnByClz(clz));
+			});
+
+			return me;
+		}
+		
+		public ParameterEn inflateParamEnByParam(ParameterEn pe, MethodEn me) {
+			if (pe == null || me == null) {
+				return null;
+			}
+			
+			pe.paramType = inflateClassEnByClz(pe.parameter.getType());
 			return pe;
 		}
 	}

@@ -69,7 +69,7 @@ public class BaseDao<T> {
 	public T edit(final T entity) {
 		if (entity == null) return entity;
 		T n = em.merge(entity);
-		em.flush();
+//		em.flush();
 		return n;//em.merge(entity);
 	}
 	

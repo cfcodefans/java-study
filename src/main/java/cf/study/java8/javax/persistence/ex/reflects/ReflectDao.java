@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
 
 import misc.MiscUtils;
 
@@ -45,6 +46,10 @@ public class ReflectDao extends BaseDao<Object> {
 	public ReflectDao() {
 		// super(JpaModule.getEntityManager());
 		log.info(MiscUtils.invocationInfo());
+	}
+	
+	public ReflectDao(EntityManager _em) {
+		super(_em);
 	}
 
 	public ClassEn create(Class<?> cls) {

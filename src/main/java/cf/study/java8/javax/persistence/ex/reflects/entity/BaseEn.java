@@ -14,6 +14,8 @@ import static java.lang.reflect.Modifier.isVolatile;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -30,6 +32,8 @@ import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -62,6 +66,10 @@ public class BaseEn {
 	@Enumerated(EnumType.STRING)
 	@Column(name="category")
 	public CategoryEn category = CategoryEn.DEFAULT;
+	
+	@ManyToMany(cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "annotations")
+	public List<ClassEn> annotations = new LinkedList<ClassEn>();
 	
 	@Version
 	public long version;

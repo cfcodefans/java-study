@@ -19,20 +19,9 @@ public class FieldEn extends MemberEn {
 		category = CategoryEn.FIELD;
 	}
 	
-	public FieldEn(Field _field) {
-		this();
+	public FieldEn(Field _field, ClassEn _enclosing) {
+		super(_field, _enclosing, CategoryEn.FIELD);
 		this.field = _field;
-		name = _field.getName();
-		modifiers = BaseEn.getModifiers(_field.getModifiers());
-		synthetic = _field.isSynthetic();
-	}
-
-	public FieldEn(Field field, ClassEn _enclosing) {
-		this(field);
-		super.enclosing = _enclosing;
-		if (enclosing != null) {
-			enclosing.children.add(this);
-		}
 	}
 	
 	@ManyToOne(cascade = { CascadeType.REFRESH })
