@@ -22,6 +22,15 @@ import org.apache.commons.lang3.StringUtils;
 @Table(name = "class_en")
 public class ClassEn extends BaseEn {
 
+	public static Class<?> getEnclossingClz(Class<?> clz) {
+		if (clz == null) return null;
+		if (clz.getEnclosingClass() != null) return clz.getEnclosingClass();
+		if (clz.getEnclosingMethod() != null) return clz.getEnclosingMethod().getDeclaringClass();
+		if (clz.getEnclosingConstructor() != null) return clz.getEnclosingConstructor().getDeclaringClass();
+		
+		return null;
+	}
+	
 	@Transient
 	public transient Class<?> clazz;
 	

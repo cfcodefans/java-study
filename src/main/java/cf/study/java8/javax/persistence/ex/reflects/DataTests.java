@@ -373,14 +373,14 @@ public class DataTests {
 				if (ce != null)
 					return ce;
 	
-				BaseEn enclosing = null;
-				Class<?> enclosingClass = cls.getEnclosingClass();
-				if (enclosingClass != null) {
-//					enclosing = 
-							preloadClassEnByClz(enclosingClass);
-				}
+//				BaseEn enclosing = null;
+//				Class<?> enclosingClass = cls.getEnclosingClass();
+//				if (enclosingClass != null) {
+////					enclosing = 
+//				}
+				preloadClassEnByClz(ClassEn.getEnclossingClz(cls));
 				
-				ce = new ClassEn(cls, enclosing);
+				ce = new ClassEn(cls, null);
 				classEnPool.put(cls.getName(), ce);
 				final ClassEn _ce = ce;
 				
@@ -523,10 +523,11 @@ public class DataTests {
 				if (cls.getPackage() != null)
 				ce.pkg = packageEnPool.get(cls.getPackage().getName());
 						
-				Class<?> enclosingClass = cls.getEnclosingClass();
-				if (enclosingClass != null) {
-					ce.enclosing = inflateClassEnByClz(enclosingClass);
-				}
+//				Class<?> enclosingClass = cls.getEnclosingClass();
+//				if (enclosingClass != null) {
+//					ce.enclosing = inflateClassEnByClz(enclosingClass);
+//				}
+				ce.enclosing = preloadClassEnByClz(ClassEn.getEnclossingClz(cls));
 				
 				ce.superClz = inflateClassEnByClz(cls.getSuperclass());
 				
@@ -620,8 +621,11 @@ public class DataTests {
 		try {
 			el.extractJarStructure(_f);
 //			el.extractJarStructure("junit");
+//			el.preloadClassEnByClz(Object.class);
 
 			long size = el.classEnPool.size();
+			
+			log.info("have found classes: " + size);
 			
 			{
 				AtomicLong counter = new AtomicLong(0);
@@ -634,6 +638,8 @@ public class DataTests {
 						if (_be instanceof ClassEn){
 							long _c = counter.incrementAndGet();
 							log.info(String.format("%d/%d %f%% %s", _c, size, _c/(double)size * 100, _be.name));
+						} else {
+							log.info(String.format("%s \t%s.%s", _be.category, (_be.enclosing == null ? "_" : _be.enclosing.name), _be.name));
 						}
 					}, () -> {
 						dao.getEm().flush();
