@@ -24,6 +24,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.log4j.Logger;
 import org.apache.xbean.classloader.JarFileClassLoader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -49,6 +50,8 @@ public class DataTests {
 //		ReflectDao dao = ReflectDao.threadLocal.get();
 		JpaModule.instance();
 	}
+
+	private static final Logger log = Logger.getLogger(DataTests.class);
 	
 	@Test
 	public void test() {
@@ -305,7 +308,7 @@ public class DataTests {
 					try (Stream<JarEntry> entryStream = jf.stream()) {
 		
 						entryStream.filter((je) -> {
-							return !je.isDirectory() || "META-INF".equals(je.getName()) || je.getName().endsWith("package-info");
+							return !(je.isDirectory() || "META-INF".equals(je.getName()) || je.getName().endsWith("package-info"));
 						}).forEach((je) -> {
 							String enName = je.getName();
 //							System.out.println(enName);
@@ -610,4 +613,65 @@ public class DataTests {
 			return pe;
 		}
 	}
+	
+	public static void main(String[] args) {
+		WeldTest.setUp();
+		JpaModule.instance();
+		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		
+		EntryLoader el = new EntryLoader();
+		try {
+//			el.extractJarStructure(_f);
+			el.extractJarStructure("junit");
+
+			el.roots.parallelStream().forEach((be) -> {
+				ReflectDao dao = ReflectDao.threadLocal.get();
+				dao.beginTransaction();
+				EntryLoader.traverse(be, (_be) -> {
+					dao.create(_be);
+				}, () -> {
+					dao.getEm().flush();
+				});
+				dao.endTransaction();
+			});
+			System.out.println("Preload class: " + el.classEnPool.size());
+
+			{
+				ReflectDao dao = ReflectDao.threadLocal.get();
+				List<Object[]> idAndNames = dao.queryEntity("select id, name from ClassEn ce");
+				idAndNames.parallelStream().forEach((idAndName) -> {
+					Long id = (Long) idAndName[0];
+					String name = (String) idAndName[1];
+
+					ClassEn ce = el.classEnPool.get(name);
+					if (ce != null)
+						ce.id = id;
+				});
+			}
+
+			el.classEnPool.keySet().parallelStream().forEach((key) -> {
+				ClassEn ce = el.classEnPool.get(key);
+				el.inflateClassEnByClz(ce);
+				System.out.println(key + ": \t" + ce.id + ": \t" + ce.name);
+			});
+			System.out.println("Inflate class: " + el.classEnPool.size());
+
+			long size = el.classEnPool.size();
+			
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			el.classEnPool.keySet().forEach((key) -> {
+				dao.beginTransaction();
+				
+				ClassEn ce = el.classEnPool.get(key);
+				log.info(String.format("%d/%d %f%% %s", ++counter, size, counter/(double)size * 100, ce.name));
+				dao.inflateClassEnByNativeSql(ce);
+				dao.endTransaction();
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JpaModule.instance().destory();
+		}
+	}
+	static long counter = 0;
 }
