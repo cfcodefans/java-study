@@ -10,8 +10,24 @@
 			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{2} %x%t - %m%n"></param>
 		</layout>
 	</appender>
+	
+	<appender name="test" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="info"></param>
+		<param name="ImmediateFlush" value="true"></param>
+		<param name="Encoding" value="GBK"></param>
+		<param name="File" value="./test.log"></param>
+		<param name="Append" value="true"></param>
+		<param name="BufferedIO" value="false"></param>
+		<param name="MaxFileSize" value="10000KB"></param>
+		<param name="maxBackupIndex" value="50"></param>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{2} %x%t - %m%n"></param>
+		</layout>
+	</appender>
+	
 	<root>
 		<level value="INFO"></level>
 		<appender-ref ref="Console"></appender-ref>
+		<appender-ref ref="test"></appender-ref>
 	</root>
 </log4j:configuration>

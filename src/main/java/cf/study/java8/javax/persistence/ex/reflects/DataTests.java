@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
@@ -153,7 +154,7 @@ public class DataTests {
 	@Test
 	public void prepareData() {
 		EntryLoader el = new EntryLoader();
-		el.preloadClassEnByClz(Object.class);
+		el.preloadClassEnByClz(com.sun.awt.AWTUtilities.class);
 		
 		el.classEnPool.keySet().parallelStream().forEach((key) -> {
 			ClassEn ce = el.classEnPool.get(key);
@@ -329,10 +330,6 @@ public class DataTests {
 			}
 		}
 
-//		public PackageEn getPackageEnByPackage(Package pkg) {
-//			if (pkg == null) return null;
-//		}
-		
 		public PackageEn preloadPackageEnByName(String name) {
 			if (StringUtils.isBlank(name))
 				return null;
@@ -621,20 +618,30 @@ public class DataTests {
 		
 		EntryLoader el = new EntryLoader();
 		try {
-//			el.extractJarStructure(_f);
-			el.extractJarStructure("junit");
+			el.extractJarStructure(_f);
+//			el.extractJarStructure("junit");
 
-			el.roots.parallelStream().forEach((be) -> {
-				ReflectDao dao = ReflectDao.threadLocal.get();
-				dao.beginTransaction();
-				EntryLoader.traverse(be, (_be) -> {
-					dao.create(_be);
-				}, () -> {
-					dao.getEm().flush();
+			long size = el.classEnPool.size();
+			
+			{
+				AtomicLong counter = new AtomicLong(0);
+				el.roots.parallelStream().forEach((be) -> {
+					ReflectDao dao = ReflectDao.threadLocal.get();
+					dao.beginTransaction();
+					EntryLoader.traverse(be, (_be) -> {
+						dao.create(_be); 
+						
+						if (_be instanceof ClassEn){
+							long _c = counter.incrementAndGet();
+							log.info(String.format("%d/%d %f%% %s", _c, size, _c/(double)size * 100, _be.name));
+						}
+					}, () -> {
+						dao.getEm().flush();
+					});
+					dao.endTransaction();
 				});
-				dao.endTransaction();
-			});
-			System.out.println("Preload class: " + el.classEnPool.size());
+				System.out.println("Preload class: " + el.classEnPool.size());
+			}
 
 			{
 				ReflectDao dao = ReflectDao.threadLocal.get();
@@ -656,7 +663,7 @@ public class DataTests {
 			});
 			System.out.println("Inflate class: " + el.classEnPool.size());
 
-			long size = el.classEnPool.size();
+			
 			
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			el.classEnPool.keySet().forEach((key) -> {
