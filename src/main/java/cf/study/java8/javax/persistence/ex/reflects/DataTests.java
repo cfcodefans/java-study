@@ -20,8 +20,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +46,8 @@ public class DataTests {
 	@BeforeClass
 	public static void setUp() {
 		WeldTest.setUp();
-		ReflectDao dao = ReflectDao.threadLocal.get();
+//		ReflectDao dao = ReflectDao.threadLocal.get();
+		JpaModule.instance();
 	}
 	
 	@Test
@@ -143,6 +142,31 @@ public class DataTests {
 	}
 	
 	@Test
+	public void verifyDatabase() {
+		ReflectDao dao = ReflectDao.threadLocal.get();
+		System.out.println(dao.queryCount("select count(1) from BaseEn be"));
+	}
+	
+	@Test
+	public void prepareData() {
+		EntryLoader el = new EntryLoader();
+		el.preloadClassEnByClz(Object.class);
+		
+		el.classEnPool.keySet().parallelStream().forEach((key) -> {
+			ClassEn ce = el.classEnPool.get(key);
+			el.inflateClassEnByClz(ce);
+			System.out.println(key + ": \t" + ce.id + ": \t" + ce.name);
+		});
+		
+		el.classEnPool.values().parallelStream().filter((ce)->(ce.infs.size() > 1)).forEach((ce)->{
+			StringBuilder sb = new StringBuilder();
+			sb.append(ce.name).append(".infs: \n");
+			ce.infs.forEach((ie)->{sb.append("\t").append(ie.name).append("\n");});
+			System.out.println(sb);
+		});
+	}
+	
+	@Test
 	public void testTraverseWithObject1() {
 		EntryLoader el = new EntryLoader();
 		el.preloadClassEnByClz(Object.class);
@@ -155,10 +179,35 @@ public class DataTests {
 		});
 		System.out.println("Preload class: " + el.classEnPool.size());
 		
-		el.classEnPool.values().parallelStream().forEach((ce) -> {
+//		el.classEnPool.clear();
+		
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			List<Object[]> idAndNames = dao.queryEntity("select id, name from ClassEn ce");
+			idAndNames.parallelStream().forEach((idAndName) -> {
+				Long id = (Long) idAndName[0];
+				String name = (String) idAndName[1];
+				
+				ClassEn ce = el.classEnPool.get(name);
+				if (ce != null)
+					ce.id = id;
+			});
+		}
+		
+		el.classEnPool.keySet().parallelStream().forEach((key) -> {
+			ClassEn ce = el.classEnPool.get(key);
 			el.inflateClassEnByClz(ce);
+			System.out.println(key + ": \t" + ce.id + ": \t" + ce.name);
 		});
 		System.out.println("Inflate class: " + el.classEnPool.size());
+		
+		ReflectDao dao = ReflectDao.threadLocal.get();
+		el.classEnPool.keySet().forEach((key) -> {
+			dao.beginTransaction();
+			ClassEn ce = el.classEnPool.get(key);
+			dao.inflateClassEnByNativeSql(ce);
+			dao.endTransaction();
+		});
 	}
 	
 	@Test
@@ -313,7 +362,7 @@ public class DataTests {
 			if (cls == null)
 				return null;
 			
-			if (cls.isArray()) {
+			while (cls.isArray()) {
 				cls = cls.getComponentType();
 			}
 			
@@ -402,6 +451,10 @@ public class DataTests {
 			if (genericType instanceof Class) {
 				genericClass = (Class) genericType;
 			}
+			
+			Stream.of(field.getAnnotations()).forEach((an)-> {
+				preloadClassEnByClz(an.annotationType());
+			});	
 //
 //			fe.fieldType = 
 					preloadClassEnByClz(genericClass);
@@ -422,6 +475,11 @@ public class DataTests {
 //			_me.returnClass =
 			if (method instanceof Method) 
 					preloadClassEnByClz(((Method)method).getReturnType());
+			
+			Stream.of(method.getAnnotations()).forEach((an)-> {
+				preloadClassEnByClz(an.annotationType());
+			});	
+			
 			Stream.of(method.getParameters()).forEach((param) -> {
 				preloadParamEnByParam(param, _me);
 			});
@@ -439,6 +497,11 @@ public class DataTests {
 			}
 			
 			ParameterEn pe = new ParameterEn(param, me);
+			
+			Stream.of(param.getAnnotations()).forEach((an)-> {
+				preloadClassEnByClz(an.annotationType());
+			});	
+			
 			//pe.paramType = 
 			preloadClassEnByClz(param.getType());
 			return pe;
@@ -457,6 +520,9 @@ public class DataTests {
 				inflatedClassSet.add(ce.name);
 	
 				Class<?> cls = ce.clazz;
+				if (cls.getPackage() != null)
+				ce.pkg = packageEnPool.get(cls.getPackage().getName());
+						
 				Class<?> enclosingClass = cls.getEnclosingClass();
 				if (enclosingClass != null) {
 					ce.enclosing = inflateClassEnByClz(enclosingClass);
@@ -484,7 +550,6 @@ public class DataTests {
 				if (ce.enclosing == null && ce.pkg == null) {
 					roots.add(ce);
 				}
-
 				
 				return ce;
 			} catch (Exception e) {
@@ -499,7 +564,7 @@ public class DataTests {
 			if (cls == null)
 				return null;
 			
-			if (cls.isArray()) {
+			while (cls.isArray()) {
 				cls = cls.getComponentType();
 			}
 			return inflateClassEnByClz(classEnPool.get(cls.getName()));

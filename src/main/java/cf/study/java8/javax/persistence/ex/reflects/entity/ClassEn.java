@@ -55,12 +55,12 @@ public class ClassEn extends BaseEn {
 	@JoinColumn(name="package", nullable=true)
 	public PackageEn pkg;
 	
-	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
+	@ManyToOne(cascade= {CascadeType.REFRESH})
 	@JoinColumn(name="super", nullable=true)
 	public ClassEn superClz;
 	
-	@ManyToMany(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
-	@JoinTable(name="infs")
+	@ManyToMany(cascade= {CascadeType.REFRESH})
+	@JoinTable(name="interfaces", joinColumns = {@JoinColumn(name="implement_en_id", referencedColumnName="id")},
+	                              inverseJoinColumns = {@JoinColumn(name="interface_en_id", referencedColumnName="id")})
 	public Set<ClassEn> infs = new HashSet<ClassEn>();
-	
 }

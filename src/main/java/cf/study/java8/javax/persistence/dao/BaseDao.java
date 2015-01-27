@@ -20,8 +20,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import cf.study.java8.javax.persistence.cdi.Transactional;
-
 
 /**
  * abstraction for most of JPA operations
@@ -153,7 +151,11 @@ public class BaseDao<T> {
 	}
 
 	public int executeUpdateQuery(String hql, Object...params) {
-		return SimpleQueryBuilder.byHQL(hql, em).build().executeUpdate();
+		return SimpleQueryBuilder.byHQL(hql, em).withPositionedParams(params).build().executeUpdate();
+	}
+	
+	public int executeNativeSqlUpdate(String hql, Object...params) {
+		return SimpleQueryBuilder.byNativeSQL(hql, em).withPositionedParams(params).build().executeUpdate();
 	}
 
 	/*

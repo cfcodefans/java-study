@@ -36,4 +36,12 @@ public class ReflectTests {
 		System.out.println(Arrays.toString(arrayClz.getDeclaredClasses()));
 		System.out.println(arrayClz.getComponentType());
 	}
+	
+	@Test
+	public void testGeneric() {
+		Sample<String> ss = new Sample<String>();
+		System.out.println(ss.getClass().getName());
+		
+		System.out.println(Sample.class);
+	}
 }

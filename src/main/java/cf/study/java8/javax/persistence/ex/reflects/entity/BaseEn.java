@@ -68,7 +68,9 @@ public class BaseEn {
 	public CategoryEn category = CategoryEn.DEFAULT;
 	
 	@ManyToMany(cascade = { CascadeType.REFRESH })
-	@JoinTable(name = "annotations")
+	@JoinTable(name = "annotations", 
+				joinColumns = {@JoinColumn(name="base_en_id", referencedColumnName="id")},
+				inverseJoinColumns = {@JoinColumn(name="annotation_en_id", referencedColumnName="id")})
 	public List<ClassEn> annotations = new LinkedList<ClassEn>();
 	
 	@Version

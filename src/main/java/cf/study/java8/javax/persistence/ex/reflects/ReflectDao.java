@@ -242,4 +242,72 @@ public class ReflectDao extends BaseDao<Object> {
 //		em.flush();
 		be.children.forEach((_be)->{persist(_be);});
 	}
+	
+	public ClassEn inflateClassEnByNativeSql(ClassEn ce) {
+		if (ce == null) return ce;
+		
+		if (ce.pkg != null) {
+			super.executeNativeSqlUpdate("update class_en set package=? where id=?", ce.pkg.id, ce.id);
+		}
+		
+		if (ce.superClz != null) {
+			super.executeNativeSqlUpdate("update class_en set super=? where id=?", ce.superClz.id, ce.id);
+		}
+		
+		associateAnnotationsByNativeSql(ce);
+		
+		{
+			final ClassEn _ce = ce;
+			_ce.infs.forEach((inf) -> {
+				super.executeNativeSqlUpdate(
+						"insert into interfaces (implement_en_id, interface_en_id) values (?,?) on duplicate key update interface_en_id=?; ",
+						_ce.id, inf.id, inf.id);
+			});
+		}
+
+		ce.children.forEach((be)-> {
+			if (be instanceof FieldEn) {
+				FieldEn fe = (FieldEn) be;
+				inflateFieldByNativeSql(fe);
+			}
+		});
+		
+		return ce;
+	}
+
+	private void associateAnnotationsByNativeSql(BaseEn be) {
+		be.annotations.forEach((an)->{
+			super.executeNativeSqlUpdate("insert into annotations (base_en_id, annotation_en_id) values (?,?);", be.id, an.id);
+		});
+	}
+	
+	private void inflateFieldByNativeSql(FieldEn fe) {
+		if (fe == null) return;
+		super.executeNativeSqlUpdate("update field_en set field_clz_id=? where id=?", fe.fieldType.id, fe.id);
+		
+		associateAnnotationsByNativeSql(fe);
+	}
+	
+	private void inflateMethodByNativeSql(MethodEn me) {
+		if (me == null) return;
+		super.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", me.returnClass.id, me.id);
+		
+		associateAnnotationsByNativeSql(me);
+		
+		me.exceptionClzz.forEach((ce)->{
+			super.executeNativeSqlUpdate("insert into exceptions (method_en_id, exception_en_id) values (?,?);", me.id, ce.id);
+		});
+		
+		me.children.forEach((pe)->{
+			inflateParameterByNativeSql((ParameterEn) pe);
+		});
+	}
+
+	private void inflateParameterByNativeSql(ParameterEn pe) {
+		if (pe == null) return;
+		associateAnnotationsByNativeSql(pe);
+		super.executeNativeSqlUpdate("update param_en set param_clz_id=? where id=?", pe.paramType.id, pe.id);
+	}
+	
+	
 }

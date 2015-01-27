@@ -24,8 +24,9 @@ public class MethodEn extends MemberEn {
 	public ClassEn returnClass;
 
 	@ManyToMany(cascade = { CascadeType.REFRESH })
-	@JoinTable(name = "exceptions")
-	@JoinColumn(nullable = true)
+	@JoinTable(name = "exceptions", 
+						joinColumns= {@JoinColumn(name="method_en_id", referencedColumnName="id")},
+	                    inverseJoinColumns = {@JoinColumn(name="exception_en_id", referencedColumnName="id")})
 	public List<ClassEn> exceptionClzz = new LinkedList<ClassEn>();
 
 	public MethodEn() {
@@ -42,4 +43,26 @@ public class MethodEn extends MemberEn {
 	
 	@Basic
 	public int paramsHash;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + paramsHash;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof MethodEn))
+			return false;
+		MethodEn other = (MethodEn) obj;
+		if (paramsHash != other.paramsHash)
+			return false;
+		return true;
+	}
 }
