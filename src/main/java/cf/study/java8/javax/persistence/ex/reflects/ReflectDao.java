@@ -270,7 +270,19 @@ public class ReflectDao extends BaseDao<Object> {
 				FieldEn fe = (FieldEn) be;
 				inflateFieldByNativeSql(fe);
 			}
+			
+			if (be instanceof MethodEn) {
+				MethodEn me = (MethodEn) be;
+				inflateMethodByNativeSql(me);
+			}
+			
+			if (be instanceof ClassEn) {	
+				ClassEn _ce = (ClassEn) be;
+				inflateClassEnByNativeSql(_ce);
+			}
 		});
+		
+	
 		
 		return ce;
 	}
