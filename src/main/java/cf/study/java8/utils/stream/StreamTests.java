@@ -122,6 +122,10 @@ public class StreamTests {
 	public void map() {
 		Stream<Integer> intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
 		intStream.map(i -> {return Math.abs(10 - i);}).forEach(i -> {System.out.print(i + ", ");});
+		
+		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
+		Object[] array = intStream.map(i -> {return String.valueOf(i);}).toArray();
+		Stream.of(array).forEach(obj->{System.out.println(obj.getClass());});
 	}
 	
 	@Test

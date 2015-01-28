@@ -36,7 +36,11 @@ public class MethodEn extends MemberEn {
 	public MethodEn(Executable m, BaseEn enclosed) {
 		super(m, enclosed, CategoryEn.METHOD);
 		this.method = m;
-		paramsHash = Objects.hash((Object[])m.getParameters());
+		paramsHash = Objects.hashCode((Object[])m.getParameters());
+	}
+	
+	public boolean isMatch(Executable method) {
+		return (method != null) && (name.equals(method.getName()) && paramsHash == Objects.hashCode((Object[])method.getParameters()));
 	}
 	
 	@Transient transient public Executable method;
