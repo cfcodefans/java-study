@@ -10,6 +10,13 @@ public class ReflectTests {
 	public static class Sample<T> {
 		public T genericField;
 		public String stringField;
+		
+		class InstanceClz {}
+		static class StaticClz{}
+		
+		public void method() {
+			class MethodClz {};
+		}
 	}
 
 	@Test

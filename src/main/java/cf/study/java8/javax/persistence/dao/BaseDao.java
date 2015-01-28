@@ -2,6 +2,7 @@ package cf.study.java8.javax.persistence.dao;
 
 
 import java.lang.reflect.TypeVariable;
+import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -395,5 +396,9 @@ public class BaseDao<T> {
 			List result = doQuery();
 			return CollectionUtils.isEmpty(result) ? null : result.get(0);
 		}
+	}
+	
+	public Connection getJdbcConn() {
+		return em.unwrap(Connection.class);
 	}
 }

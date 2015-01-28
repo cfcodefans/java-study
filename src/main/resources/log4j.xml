@@ -7,7 +7,7 @@
 		<param name="Encoding" value="GBK"></param>
 		<param name="Target" value="System.out"></param>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{2} %x%t - %m%n"></param>
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{1} %x%t - %m%n"></param>
 		</layout>
 	</appender>
 	
@@ -21,7 +21,7 @@
 		<param name="MaxFileSize" value="10000KB"></param>
 		<param name="maxBackupIndex" value="50"></param>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{2} %x%t - %m%n"></param>
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} %-5p %c{1} %x%t - %m%n"></param>
 		</layout>
 	</appender>
 	
