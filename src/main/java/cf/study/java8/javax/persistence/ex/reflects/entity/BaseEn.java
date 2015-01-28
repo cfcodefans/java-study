@@ -35,6 +35,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -60,7 +61,8 @@ public class BaseEn {
 	@JoinColumn(name="enclosing", nullable=true)
 	public BaseEn enclosing;
 	
-	@Transient
+//	@Transient
+	@OneToMany(cascade= {CascadeType.REFRESH}, mappedBy="enclosing")
 	public transient Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	@Enumerated(EnumType.STRING)

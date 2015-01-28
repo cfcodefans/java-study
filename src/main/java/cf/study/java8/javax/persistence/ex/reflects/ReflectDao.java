@@ -246,6 +246,11 @@ public class ReflectDao extends BaseDao<Object> {
 	public ClassEn inflateClassEnByNativeSql(ClassEn ce) {
 		if (ce == null) return ce;
 		
+		if (ce.id == null) {
+			log.error(ce.name + " has null id!!");
+			return ce;
+		}
+		
 		if (ce.pkg != null) {
 			super.executeNativeSqlUpdate("update class_en set package=? where id=?", ce.pkg.id, ce.id);
 		}
@@ -288,6 +293,11 @@ public class ReflectDao extends BaseDao<Object> {
 	}
 
 	private void associateAnnotationsByNativeSql(BaseEn be) {
+		if (be.id == null) {
+			log.error(be.name + " has null id!!");
+			return;
+		}
+		
 		be.annotations.forEach((an)->{
 			super.executeNativeSqlUpdate("insert into annotations (base_en_id, annotation_en_id) values (?,?);", be.id, an.id);
 		});
@@ -295,6 +305,12 @@ public class ReflectDao extends BaseDao<Object> {
 	
 	private void inflateFieldByNativeSql(FieldEn fe) {
 		if (fe == null) return;
+		
+		if (fe.id == null) {
+			log.error(fe.name + " has null id!!");
+			return;
+		}
+		
 		super.executeNativeSqlUpdate("update field_en set field_clz_id=? where id=?", fe.fieldType.id, fe.id);
 		
 		associateAnnotationsByNativeSql(fe);
@@ -302,7 +318,14 @@ public class ReflectDao extends BaseDao<Object> {
 	
 	private void inflateMethodByNativeSql(MethodEn me) {
 		if (me == null) return;
-		super.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", me.returnClass.id, me.id);
+		
+		if (me.id == null) {
+			log.error(me.name + " has null id!!");
+			return;
+		}
+		
+		if (me.returnClass != null)
+			super.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", me.returnClass.id, me.id);
 		
 		associateAnnotationsByNativeSql(me);
 		
@@ -317,9 +340,13 @@ public class ReflectDao extends BaseDao<Object> {
 
 	private void inflateParameterByNativeSql(ParameterEn pe) {
 		if (pe == null) return;
+		
+		if (pe.id == null) {
+			log.error(pe.name + " has null id!!");
+			return;
+		}
+		
 		associateAnnotationsByNativeSql(pe);
 		super.executeNativeSqlUpdate("update param_en set param_clz_id=? where id=?", pe.paramType.id, pe.id);
 	}
-	
-	
 }
