@@ -37,10 +37,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-
-import misc.Jsons;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -63,7 +60,7 @@ public class BaseEn {
 	
 //	@Transient
 	@OneToMany(cascade= {CascadeType.REFRESH}, mappedBy="enclosing")
-	public transient Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+	public Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="category")
@@ -122,7 +119,8 @@ public class BaseEn {
 	
 	@Override
 	public String toString() {
-		return Jsons.toString(this);
+//		return Jsons.toString(this);
+		return category + ": " + name;
 	}
 
 	@Override
