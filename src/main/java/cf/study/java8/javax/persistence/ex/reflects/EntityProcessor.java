@@ -1,5 +1,6 @@
 package cf.study.java8.javax.persistence.ex.reflects;
 
+import java.io.File;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
@@ -20,13 +21,12 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import junit.framework.Assert;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.hibernate.internal.SessionImpl;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,23 +49,7 @@ public class EntityProcessor {
 		JpaModule.instance();
 	}
 	
-	@Test
-	public void test1() {
-		EntityProcessor ep = assembler();
-		ep.processClassEn(Object.class);
-		
-		ep.roots.parallelStream().forEach((be)->{
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			dao.beginTransaction();
-			traverse(be, (_be)->{
-				if (_be instanceof ClassEn) {
-					dao.getEm().flush();
-				}
-				dao.create(_be);
-			}, ()->{});
-			dao.endTransaction();
-		});
-	}
+	public Long cursor = 0l;
 	
 	public EntityProcessor preload(EntityProcessor base, Class<?>...clzz) {
 		if (ArrayUtils.isEmpty(clzz)) return null;
@@ -74,6 +58,12 @@ public class EntityProcessor {
 		Stream.of(clzz).forEach(clz->{
 			processClassEn(clz);
 		});
+		
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			cursor = (Long)dao.findOneEntity("select be.id from BaseEn be order by be.id desc");
+			cursor = ObjectUtils.defaultIfNull(cursor, 0l);
+		}
 		
 		roots.parallelStream().forEach((be)->{
 			ReflectDao dao = ReflectDao.threadLocal.get();
@@ -87,17 +77,24 @@ public class EntityProcessor {
 			dao.endTransaction();
 		});
 		
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			classEnPool.values().stream().filter(ce->(ce.id == null)).forEach(ce->{
+				ce.id = (Long)dao.findOneEntity("select ce.id from ClassEn ce where ce.name=?1 and ce.category=?2", ce.name, ce.category);
+			});
+		}
+		
 		return this;
 	}
 	
 	public EntityProcessor process() {
 		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
-
+		
 		classEnPool.values().stream().forEach(ce -> {
 			traverse(ce, (_be) -> {
 				List<String> sqlList = associateByNativeSql(_be);
 				if (CollectionUtils.isEmpty(sqlList)) {
-					return;
+					return; 
 				}
 				sqlQueue.addAll(sqlList);
 			}, () -> {
@@ -121,257 +118,57 @@ public class EntityProcessor {
 
 		return this;
 	}
-	
-	
-	
-	@Test
-	public void test1_1() {
-		EntityProcessor ep = assembler();
-		ep.clazzProc = (clz) -> {return ep.processClassEn(clz);};
-		ep.preload(null, Object.class).process();
-		
-//		EntityProcessor ep = assembler();
-//		ep.processClassEn(Object.class);
-//		
-//		ep.roots.parallelStream().forEach((be)->{
-//			ReflectDao dao = ReflectDao.threadLocal.get();
-//			dao.beginTransaction();
-//			traverse(be, (_be)->{
-//				if (_be instanceof ClassEn) {
-//					dao.getEm().flush();
-//				}
-//				dao.create(_be);
-//			}, ()->{});
-//			dao.endTransaction();
-//		});
-//		
-////		EntityProcessor ep1 = associator();
-////		ep1.base = ep.base;
-////		ep.classEnPool.keySet().stream().parallel().forEach(key->{
-////			ep1.classEnPool.put(key, ep.getClassEnFromCache(key));
-////		});
-////		
-////		
-////		ep1.classEnPool.values().stream().parallel().forEach((ce)->{
-////			System.out.println(ce);
-////			ep1.reprocessClassEn(ce.clazz);
-////		});
-////		
-////		Assert.assertFalse(ep1.inflatedClassEnPool.isEmpty());
-////		System.out.println("start....");
-//		
-//		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
-//		
-//		ep.classEnPool.values().stream().forEach(ce->{
-//			traverse(ce, (_be)->{
-//				List<String> sqlList = ep.associateByNativeSql(_be);
-//				if (CollectionUtils.isEmpty(sqlList)) {
-//					return;
-//				}
-//				sqlQueue.addAll(sqlList);
-//			}, ()->{});
-//		});
-//		
-//		System.out.println(String.format("size of sql: %d", sqlQueue.size()));
-//		ReflectDao dao = ReflectDao.threadLocal.get();
-//		dao.beginTransaction();
-//		Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
-//		sqlQueue.stream().parallel().forEach(sql->{
-//			System.out.println(sql);
-//			try {
-//				conn.createStatement().execute(sql);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		});
-//		
-//		dao.endTransaction();
-	}
-	
-	@Test
-	public void test2() {
-		EntityProcessor ep = associator();
-		
+
+	@SuppressWarnings("unchecked")
+	public EntityProcessor reorganize() {
 		ReflectDao dao = ReflectDao.threadLocal.get();
-		dao.beginTransaction();
-		
-		List<BaseEn> beList = dao.queryEntity("select distinct be from BaseEn be left join fetch be.children kids");
-		
+		List<BaseEn> beList = dao.queryEntity(
+				"select distinct be from BaseEn be left join fetch be.children kids where be.id > ?1", cursor);
 		System.out.println("loaded BaseEn: " + beList.size());
+
+		packageEnPool.clear();
+		classEnPool.clear();
 		
 		beList.forEach(be -> {
 			if (be instanceof PackageEn) {
 				PackageEn pe = (PackageEn) be;
-				ep.packageEnPool.put(pe.name, pe);
+				packageEnPool.put(pe.name, pe);
 			} else if (be instanceof ClassEn) {
 				ClassEn ce = (ClassEn) be;
-				ep.classEnPool.put(ce.name, ce);
+				classEnPool.put(ce.name, ce);
 			}
 		});
-		
-		ep.classEnPool.values().stream().parallel().forEach((ce) -> {
+
+		classEnPool.values().forEach(ce->{
 			ce.loadClass();
-			System.out.println(ce);
-			ep.reprocessClassEn(ce.clazz);
+			reprocessClassEn(ce.clazz);
 		});
 		
-		Assert.assertFalse(ep.inflatedClassEnPool.isEmpty());
-		System.out.println("start....");
-		
-		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
-		
-		ep.classEnPool.values().stream().forEach(ce -> {
-			traverse(ce, (_be) -> {
-				List<String> sqlList = ep.associateByNativeSql(_be);
-				if (CollectionUtils.isEmpty(sqlList)) {
-					return;
-				}
-				sqlQueue.addAll(sqlList);
-			}, () -> {
-			});
-		});
-		
-		System.out.println(String.format("size of sql: %d", sqlQueue.size()));
-		
-		Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
-		sqlQueue.stream().parallel().forEach(sql -> {
-			System.out.println(sql);
-			try {
-				conn.createStatement().execute(sql);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		
-		dao.endTransaction();
+		return this;
+	}
+	
+	@Test
+	public void test1() {
+		EntityProcessor ep = assembler();
+		ep.clazzProc = (clz) -> {
+			System.out.println(clz);
+			ep.processClassEn(clz); 
+			return null;
+		};
+		ep.processClassEn(Object.class);
+		System.out.println("process class: " + ep.classEnPool.size());
+	}
+
+	@Test
+	public void test2() {
+		EntityProcessor ep = assembler();
+		ep.preload(null, Object.class);
 	}
 	
 	@Test
 	public void test3() {
-		test1();
-		test2();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void test4() {
 		EntityProcessor ep = assembler();
-		{
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			dao.beginTransaction();
-
-			List<BaseEn> beList = dao.queryEntity("select distinct be from BaseEn be left join fetch be.children kids");
-
-			System.out.println("loaded BaseEn: " + beList.size());
-
-			beList.forEach(be -> {
-				if (be instanceof PackageEn) {
-					PackageEn pe = (PackageEn) be;
-					ep.packageEnPool.put(pe.name, pe);
-				} else if (be instanceof ClassEn) {
-					ClassEn ce = (ClassEn) be;
-					ep.classEnPool.put(ce.name, ce);
-				}
-
-				if (be.enclosing == null) {
-					ep.roots.add(be);
-				}
-			});
-
-			dao.endTransaction();
-			
-			System.out.println("preload classes: " + ep.classEnPool.size());
-		}
-		
-		Long cursor = 0l;
-		{
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			cursor = (Long) dao.findOneEntity("select be.id from BaseEn be order by be.id desc");
-			if (cursor == null) {
-				cursor = 0l;
-			}
-			System.out.println("current id cursor: " + cursor);
-		}
-		
-		List<Class<?>> junitClzList = Reflects.extractClazz(Reflects.getJarFileInClassPath("junit"));
-		
-		{
-			EntityProcessor _ep = assembler();
-			_ep.base = ep;
-
-			junitClzList.forEach((clz) -> {
-				_ep.processClassEn(clz);
-			});
-
-			System.out.println("has processed: " + _ep.classEnPool.size());
-			System.out.println(_ep.roots.size());
-
-			_ep.roots.parallelStream().forEach((be) -> {
-				ReflectDao dao = ReflectDao.threadLocal.get();
-				dao.beginTransaction();
-				traverse(be, (_be) -> {
-					if (_be instanceof ClassEn) {
-						dao.getEm().flush();
-					}
-					dao.create(_be);
-				}, () -> {});
-				dao.endTransaction();
-			});
-			
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			dao.beginTransaction();
-			List<BaseEn> beList = dao.queryEntity("select distinct be from BaseEn be left join fetch be.children kids where be.id > ?1", cursor);
-			
-			System.out.println("loaded BaseEn: " + beList.size());
-			
-			EntityProcessor ep1 = associator();
-			ep1.base = ep;
-			beList.forEach(be->{
-				if (be instanceof PackageEn) {
-					PackageEn pe = (PackageEn) be;
-					ep1.packageEnPool.put(pe.name, pe);
-				} else if (be instanceof ClassEn) {
-					ClassEn ce = (ClassEn) be;
-					ep1.classEnPool.put(ce.name, ce);
-				}
-			});
-			
-			ep1.classEnPool.values().stream().parallel().forEach((ce)->{
-				ce.loadClass();
-				System.out.println(ce);
-				ep1.reprocessClassEn(ce.clazz);
-			});
-			
-			Assert.assertFalse(ep1.inflatedClassEnPool.isEmpty());
-			System.out.println("start....");
-			
-			ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
-			
-			ep.classEnPool.values().stream().forEach(ce->{
-				traverse(ce, (_be)->{
-					List<String> sqlList = ep1.associateByNativeSql(_be);
-					if (CollectionUtils.isEmpty(sqlList)) {
-						return;
-					}
-					sqlQueue.addAll(sqlList);
-				}, ()->{});
-			});
-			
-			System.out.println(String.format("size of sql: %d", sqlQueue.size()));
-			
-			Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
-			sqlQueue.stream().parallel().forEach(sql->{
-				System.out.println(sql);
-				try {
-					conn.createStatement().execute(sql);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
-			
-			dao.endTransaction();
-		}
-		
+		ep.preload(null, Object.class).process();
 	}
 	
 	public List<String> associateByNativeSql(BaseEn be) {
@@ -388,7 +185,7 @@ public class EntityProcessor {
 			Class<?> superClz = ce.clazz.getSuperclass();
 			if (superClz != null) {
 //				dao.executeNativeSqlUpdate("update class_en set super=? where id=?", loadClassEn(superClz).id, ce.id);
-				sb.add(String.format("update class_en set super=%d where id=%d;\n", loadClassEn(superClz).id, ce.id));
+				sb.add(String.format("update class_en set super=%d where id=%d;", loadClassEn(superClz).id, ce.id));
 			}
 			
 			Stream.of(ce.clazz.getAnnotations()).forEach(anClz->{
@@ -404,7 +201,7 @@ public class EntityProcessor {
 //							"insert into interfaces (implement_en_id, interface_en_id) values (?,?) on duplicate key update interface_en_id=?; ",
 //							_ce.id, inf.id, inf.id);
 					sb.add(String.format(
-							"insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);\n",
+							"insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);",
 							_ce.id, inf.id));
 				});
 			}
@@ -418,7 +215,7 @@ public class EntityProcessor {
 //					dao.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", 
 //						loadClassEn(md.getReturnType()).id, 
 //						me.id);
-					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;\n",
+					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;",
 							loadClassEn(md.getReturnType()).id, 
 							me.id));
 				}
@@ -435,7 +232,7 @@ public class EntityProcessor {
 //				dao.executeNativeSqlUpdate("insert into exceptions (method_en_id, exception_en_id) values (?,?);", 
 //						me.id, 
 //						loadClassEn(exClz).id);
-				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);\n", 
+				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);", 
 						me.id, 
 						loadClassEn(exClz).id));
 			});
@@ -446,7 +243,7 @@ public class EntityProcessor {
 //			dao.executeNativeSqlUpdate("update field_en set field_clz_id=? where id=?", 
 //					loadClassEn(fe.field.getType()).id, 
 //					fe.id);
-			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;\n", 
+			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;", 
 					loadClassEn(fe.field.getType()).id, 
 					fe.id));
 			
@@ -461,7 +258,7 @@ public class EntityProcessor {
 //			dao.executeNativeSqlUpdate("update param_en set param_clz_id=? where id=?", 
 //					loadClassEn(pe.parameter.getType()).id, 
 //					pe.id);
-			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;\n", 
+			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;", 
 					loadClassEn(pe.parameter.getType()).id, 
 					pe.id));
 			
@@ -554,7 +351,7 @@ public class EntityProcessor {
 
 			Class<?> enclosingClz = ClassEn.getEnclossingClz(clz);
 
-			ClassEn enclosingClassEn = clazzProc.apply(enclosingClz);
+			ClassEn enclosingClassEn = processClassEn(enclosingClz);
 			_ce = new ClassEn(clz, ObjectUtils.defaultIfNull(enclosingClassEn, pe));
 			_ce.pkg = pe;
 
@@ -757,5 +554,15 @@ public class EntityProcessor {
 //		lock.unlock();
 	
 		return processClassEn(_ce);
+	}
+	
+	public static void main(String[] args) {
+		setUp();
+		
+		EntityProcessor ep = assembler();
+		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		Class<?>[] clzz = Reflects.extractClazz(_f).toArray(new Class<?>[0]);
+		
+		ep.preload(null, clzz).process();
 	}
 }
