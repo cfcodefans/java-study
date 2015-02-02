@@ -1,7 +1,9 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.lang.reflect.Field;
+import java.util.Optional;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,6 +13,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "field_en")
+@Cacheable
 public class FieldEn extends MemberEn {
 	
 	@Transient
@@ -28,4 +31,13 @@ public class FieldEn extends MemberEn {
 	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name="field_clz_id", nullable=true)
 	public ClassEn fieldType;
+	
+	public static FieldEn instance(ClassEn ce, Field field) {
+		if (ce == null || field == null) return null;
+		
+		Optional<BaseEn> fieldEnOpt = ce.children.stream().filter(be->(be instanceof FieldEn && field.getName().equals(be.name))).findFirst();
+		FieldEn fe = fieldEnOpt.isPresent() ? (FieldEn)fieldEnOpt.get() : new FieldEn(field, ce);
+		fe.field = field;
+		return fe;
+	}
 }

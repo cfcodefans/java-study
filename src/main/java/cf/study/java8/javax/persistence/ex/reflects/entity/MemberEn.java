@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "member_en")
+@Cacheable
 public class MemberEn extends BaseEn {
 	
 	public MemberEn() {

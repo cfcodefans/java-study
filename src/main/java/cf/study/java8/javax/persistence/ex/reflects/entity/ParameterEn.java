@@ -1,8 +1,10 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.lang.reflect.Parameter;
+import java.util.Optional;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,6 +14,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "param_en")
+@Cacheable
 public class ParameterEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
@@ -47,5 +50,14 @@ public class ParameterEn extends MemberEn {
 		this.enclosing = _enclosing;
 		if (_enclosing != null)
 			_enclosing.children.add(this);	
+	}
+	
+	public static ParameterEn instance(MethodEn me, Parameter param) {
+		if (me == null || param == null) return null;
+		
+		Optional<BaseEn> peOpt = me.children.stream().filter((pe)->(param.getName().equals(pe.name))).findFirst();
+		ParameterEn pe = peOpt.isPresent() ? (ParameterEn) peOpt.get() : new ParameterEn(param, me);
+		pe.parameter = param;
+		return pe; 
 	}
 }

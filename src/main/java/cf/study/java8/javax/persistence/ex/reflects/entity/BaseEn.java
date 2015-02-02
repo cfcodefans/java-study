@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +45,7 @@ import org.apache.commons.collections4.CollectionUtils;
 @Entity
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
 @Inheritance(strategy = InheritanceType.JOINED)
+@Cacheable
 //@DiscriminatorColumn(name="category", discriminatorType = DiscriminatorType.STRING)
 public class BaseEn {
 	@Id

@@ -1,12 +1,16 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
+
 @Entity
 @Table(name = "package_en")
+@Cacheable
 public class PackageEn extends BaseEn {
 
 	@Transient transient public Package _package;
@@ -43,5 +47,12 @@ public class PackageEn extends BaseEn {
 	public String implVersion;
 	@Basic
 	public String implVendor;
+
+	public static Package getParentPkg(Package _package) {
+		if (_package == null)
+			return null;
+	
+		return Package.getPackage(StringUtils.substringBeforeLast(_package.getName(), "."));
+	}
 
 }

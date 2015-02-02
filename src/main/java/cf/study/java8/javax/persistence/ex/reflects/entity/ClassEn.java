@@ -1,9 +1,11 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,10 +18,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import misc.MiscUtils;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 @Entity
 @Table(name = "class_en")
+@Cacheable
 public class ClassEn extends BaseEn {
 
 	public static Class<?> getEnclossingClz(Class<?> clz) {
@@ -30,6 +36,7 @@ public class ClassEn extends BaseEn {
 		
 		return null;
 	}
+	
 	
 	@Transient
 	public transient Class<?> clazz;
@@ -72,4 +79,33 @@ public class ClassEn extends BaseEn {
 	@JoinTable(name="interfaces", joinColumns = {@JoinColumn(name="implement_en_id", referencedColumnName="id")},
 	                              inverseJoinColumns = {@JoinColumn(name="interface_en_id", referencedColumnName="id")})
 	public Set<ClassEn> infs = new HashSet<ClassEn>();
+
+	private static final Logger log = Logger.getLogger(ClassEn.class);
+
+	@SuppressWarnings("unchecked")
+	public static final Map<String, Class<?>> primitives = MiscUtils.map(
+				"void", Void.class,
+				"long", long.class,
+				"int", int.class,
+				"char", char.class,
+				"boolean", boolean.class,
+				"byte", byte.class,
+				"double", double.class,
+				"short", short.class,
+				"float", float.class
+			);
+
+	public void loadClass() {
+		if (primitives.containsKey(name)) {
+			clazz = primitives.get(name);
+		} else {
+			try {
+				clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
+			} catch (ClassNotFoundException e) {
+				log.error("class not found: " + name);
+			}
+		}
+	}
+	
+	
 }
