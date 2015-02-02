@@ -501,6 +501,7 @@ public class EntityProcessor {
 			return null;
 
 		String pkgName = _package.getName();
+		System.out.println(pkgName);
 		PackageEn _pe = packageEnPool.get(pkgName);
 		if (_pe != null)
 			return _pe;
@@ -560,9 +561,15 @@ public class EntityProcessor {
 		setUp();
 		
 		EntityProcessor ep = assembler();
+		ep.clazzProc = (clz) -> {
+//			System.out.println(clz);
+			ep.processClassEn(clz);
+			return null;
+		};
 		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 		Class<?>[] clzz = Reflects.extractClazz(_f).toArray(new Class<?>[0]);
 		
 		ep.preload(null, clzz).process();
+//		ep.preload(null, clzz);
 	}
 }

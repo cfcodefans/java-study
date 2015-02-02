@@ -51,10 +51,13 @@ public class PackageEn extends BaseEn {
 	public String implVendor;
 
 	public static Package getParentPkg(Package _package) {
-		if (_package == null)
+		if (_package == null || !_package.getName().contains("."))
 			return null;
-	
-		return Package.getPackage(StringUtils.substringBeforeLast(_package.getName(), "."));
+
+		String pkgStr = StringUtils.substringBeforeLast(_package.getName(), ".");
+		if (StringUtils.isBlank(pkgStr))
+			return null;
+		return Package.getPackage(pkgStr);
 	}
 	
 	public PackageEn clone() {
