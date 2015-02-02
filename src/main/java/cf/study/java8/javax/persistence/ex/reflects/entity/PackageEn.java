@@ -1,5 +1,7 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -53,6 +55,29 @@ public class PackageEn extends BaseEn {
 			return null;
 	
 		return Package.getPackage(StringUtils.substringBeforeLast(_package.getName(), "."));
+	}
+	
+	public PackageEn clone() {
+		return clone(null);
+	}
+	
+	public PackageEn clone(PackageEn _pe) {
+		if (_pe == null) {
+			_pe = new PackageEn();
+		}
+		
+		_pe = (PackageEn)super.clone(_pe);
+		
+		_pe._package = _package;
+		_pe.specTitle = specTitle;
+		_pe.specVendor = specVendor;
+		_pe.specVersion = specVersion;
+		
+		_pe.implTitle = implTitle;
+		_pe.implVendor = implVendor;
+		_pe.implVersion = implVersion;
+		
+		return _pe;
 	}
 
 }

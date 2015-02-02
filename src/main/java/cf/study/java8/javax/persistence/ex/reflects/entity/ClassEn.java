@@ -37,6 +37,17 @@ public class ClassEn extends BaseEn {
 		return null;
 	}
 	
+	public static String checkClzName(Class<?> clz) {
+		if (clz == null) return StringUtils.EMPTY;
+		String clzName = clz.getName();
+		
+		if (primitives.containsKey(clzName)) {
+			clz = primitives.get(clzName);
+			clzName = clz.getName();
+		}
+		return clzName;
+	}
+	
 	
 	@Transient
 	public transient Class<?> clazz;
@@ -107,5 +118,31 @@ public class ClassEn extends BaseEn {
 		}
 	}
 	
+	public ClassEn clone() {
+		return clone(null);
+	}
 	
+	public ClassEn clone(ClassEn _ce) {
+		if (_ce == null) {
+			_ce = new ClassEn();
+		}
+		
+		_ce = (ClassEn)super.clone(_ce);
+		
+		_ce.clazz = clazz;
+		_ce.types.addAll(types);
+		_ce.modifiers.addAll(modifiers);
+		
+//		if (pkg != null)
+//			_ce.pkg = pkg.clone();
+//		
+//		_ce.superClz = superClz.clone();
+//		
+//		Set<ClassEn> infs2 = _ce.infs;
+//		infs.stream().forEach(inf->{
+//			infs2.add(inf.clone());
+//		});
+		
+		return _ce;
+	}
 }

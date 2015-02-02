@@ -60,4 +60,23 @@ public class ParameterEn extends MemberEn {
 		pe.parameter = param;
 		return pe; 
 	}
+	
+	public ParameterEn clone() {
+		return clone(null);
+	}
+	
+	public ParameterEn clone(ParameterEn _pe) {
+		if (_pe == null) {
+			_pe = new ParameterEn();
+		}
+		
+		_pe = (ParameterEn)super.clone(_pe);
+		
+		_pe.parameter = parameter;
+		_pe.isArray = isArray;
+		_pe.isVarArgs = isVarArgs;
+		
+//		_pe.paramType = paramType.clone();
+		return _pe;
+	}
 }

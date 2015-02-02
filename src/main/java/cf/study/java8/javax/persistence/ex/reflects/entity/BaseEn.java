@@ -178,5 +178,33 @@ public class BaseEn {
 		return true;
 	}
 	
+	public BaseEn clone() {
+		return clone(null);
+	}
 	
+	public BaseEn clone(BaseEn _be) {
+		if (_be == null) {
+			_be = new BaseEn();
+		}
+		
+		_be.id = id;
+		_be.name = name;
+		_be.category = category;
+		_be.version = version;
+		
+//		List<ClassEn> ans = _be.annotations;
+//		annotations.forEach(an->{
+//			ans.add(an.clone());
+//		});
+//		
+		Collection<BaseEn> children2 = _be.children;
+		children.forEach(child->{
+			children2.add(child.clone());
+		});
+//		
+//		if (enclosing != null)
+//			_be.enclosing = enclosing.clone();
+		
+		return _be;
+	}
 }

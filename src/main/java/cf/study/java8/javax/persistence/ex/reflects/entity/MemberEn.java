@@ -38,4 +38,20 @@ public class MemberEn extends BaseEn {
 	
 	@Basic
 	public boolean synthetic;
+	
+	public MemberEn clone() {
+		return clone(null);
+	}
+	
+	public MemberEn clone(MemberEn _me) {
+		if (_me == null) {
+			_me = new FieldEn();
+		}
+		
+		_me = (MemberEn)super.clone(_me);
+		_me.modifiers.addAll(modifiers);
+		_me.synthetic = synthetic;
+		
+		return _me;
+	}
 }

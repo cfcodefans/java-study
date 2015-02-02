@@ -59,8 +59,7 @@ class EntryLoader {
 	}
 
 	void extractJarStructure(final File f) throws MalformedURLException, IOException {
-		JarFileClassLoader cl = new JarFileClassLoader("jfcl", new URL[] { f.toURI().toURL() },
-				ClassLoader.getSystemClassLoader());
+		JarFileClassLoader cl = new JarFileClassLoader("jfcl", new URL[] { f.toURI().toURL() }, ClassLoader.getSystemClassLoader());
 
 		try {
 			try (JarFile jf = new JarFile(f)) {
@@ -68,22 +67,20 @@ class EntryLoader {
 
 				try (Stream<JarEntry> entryStream = jf.stream()) {
 
-					entryStream.filter(
-							(je) -> {
-								return !(je.isDirectory() || "META-INF".equals(je.getName()) || je.getName().endsWith(
-										"package-info"));
-							}).forEach((je) -> {
-								String enName = je.getName();
-								if (StringUtils.endsWith(enName, "/")) {
-									enName = StringUtils.removeEnd(enName, "/").replace('/', '.');
-									PackageEn pe = preloadPackageEnByName(enName);
-									return;
-								}
-								if (StringUtils.endsWith(enName, ".class")) {
-									enName = enName.replace('/', '.');
-									preloadClassEnByName(StringUtils.substringBeforeLast(enName, ".class"));
-								}
-							});
+					entryStream.filter((je) -> {
+						return !(je.isDirectory() || "META-INF".equals(je.getName()) || je.getName().endsWith("package-info"));
+					}).forEach((je) -> {
+						String enName = je.getName();
+						if (StringUtils.endsWith(enName, "/")) {
+							enName = StringUtils.removeEnd(enName, "/").replace('/', '.');
+							PackageEn pe = preloadPackageEnByName(enName);
+							return;
+						}
+						if (StringUtils.endsWith(enName, ".class")) {
+							enName = enName.replace('/', '.');
+							preloadClassEnByName(StringUtils.substringBeforeLast(enName, ".class"));
+						}
+					});
 				}
 			}
 		} finally {

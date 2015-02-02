@@ -5,11 +5,15 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.sql.Connection;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -20,7 +24,10 @@ import junit.framework.Assert;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.internal.SessionImpl;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -32,6 +39,8 @@ import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
 import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
+import cf.study.java8.lang.reflect.Reflects;
+
 
 public class EntityProcessor {
 	@BeforeClass
@@ -58,6 +67,127 @@ public class EntityProcessor {
 		});
 	}
 	
+	public EntityProcessor preload(EntityProcessor base, Class<?>...clzz) {
+		if (ArrayUtils.isEmpty(clzz)) return null;
+		
+		this.base = base;
+		Stream.of(clzz).forEach(clz->{
+			processClassEn(clz);
+		});
+		
+		roots.parallelStream().forEach((be)->{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+			traverse(be, (_be)->{
+				if (_be instanceof ClassEn) {
+					dao.getEm().flush();
+				}
+				dao.create(_be);
+			}, ()->{});
+			dao.endTransaction();
+		});
+		
+		return this;
+	}
+	
+	public EntityProcessor process() {
+		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
+
+		classEnPool.values().stream().forEach(ce -> {
+			traverse(ce, (_be) -> {
+				List<String> sqlList = associateByNativeSql(_be);
+				if (CollectionUtils.isEmpty(sqlList)) {
+					return;
+				}
+				sqlQueue.addAll(sqlList);
+			}, () -> {
+			});
+		});
+
+		System.out.println(String.format("size of sql: %d", sqlQueue.size()));
+		ReflectDao dao = ReflectDao.threadLocal.get();
+		dao.beginTransaction();
+		Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
+		sqlQueue.stream().parallel().forEach(sql -> {
+			System.out.println(sql);
+			try {
+				conn.createStatement().execute(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
+		dao.endTransaction();
+
+		return this;
+	}
+	
+	
+	
+	@Test
+	public void test1_1() {
+		EntityProcessor ep = assembler();
+		ep.clazzProc = (clz) -> {return ep.processClassEn(clz);};
+		ep.preload(null, Object.class).process();
+		
+//		EntityProcessor ep = assembler();
+//		ep.processClassEn(Object.class);
+//		
+//		ep.roots.parallelStream().forEach((be)->{
+//			ReflectDao dao = ReflectDao.threadLocal.get();
+//			dao.beginTransaction();
+//			traverse(be, (_be)->{
+//				if (_be instanceof ClassEn) {
+//					dao.getEm().flush();
+//				}
+//				dao.create(_be);
+//			}, ()->{});
+//			dao.endTransaction();
+//		});
+//		
+////		EntityProcessor ep1 = associator();
+////		ep1.base = ep.base;
+////		ep.classEnPool.keySet().stream().parallel().forEach(key->{
+////			ep1.classEnPool.put(key, ep.getClassEnFromCache(key));
+////		});
+////		
+////		
+////		ep1.classEnPool.values().stream().parallel().forEach((ce)->{
+////			System.out.println(ce);
+////			ep1.reprocessClassEn(ce.clazz);
+////		});
+////		
+////		Assert.assertFalse(ep1.inflatedClassEnPool.isEmpty());
+////		System.out.println("start....");
+//		
+//		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
+//		
+//		ep.classEnPool.values().stream().forEach(ce->{
+//			traverse(ce, (_be)->{
+//				List<String> sqlList = ep.associateByNativeSql(_be);
+//				if (CollectionUtils.isEmpty(sqlList)) {
+//					return;
+//				}
+//				sqlQueue.addAll(sqlList);
+//			}, ()->{});
+//		});
+//		
+//		System.out.println(String.format("size of sql: %d", sqlQueue.size()));
+//		ReflectDao dao = ReflectDao.threadLocal.get();
+//		dao.beginTransaction();
+//		Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
+//		sqlQueue.stream().parallel().forEach(sql->{
+//			System.out.println(sql);
+//			try {
+//				conn.createStatement().execute(sql);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		});
+//		
+//		dao.endTransaction();
+	}
+	
 	@Test
 	public void test2() {
 		EntityProcessor ep = associator();
@@ -69,7 +199,7 @@ public class EntityProcessor {
 		
 		System.out.println("loaded BaseEn: " + beList.size());
 		
-		beList.forEach(be->{
+		beList.forEach(be -> {
 			if (be instanceof PackageEn) {
 				PackageEn pe = (PackageEn) be;
 				ep.packageEnPool.put(pe.name, pe);
@@ -79,7 +209,7 @@ public class EntityProcessor {
 			}
 		});
 		
-		ep.classEnPool.values().stream().parallel().forEach((ce)->{
+		ep.classEnPool.values().stream().parallel().forEach((ce) -> {
 			ce.loadClass();
 			System.out.println(ce);
 			ep.reprocessClassEn(ce.clazz);
@@ -88,32 +218,194 @@ public class EntityProcessor {
 		Assert.assertFalse(ep.inflatedClassEnPool.isEmpty());
 		System.out.println("start....");
 		
-		ep.classEnPool.values().stream().forEach(ce->{
-			traverse(ce, (_be)->{
-				ep.associateByNativeSql(dao, _be);
-			}, ()->{});
+		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
+		
+		ep.classEnPool.values().stream().forEach(ce -> {
+			traverse(ce, (_be) -> {
+				List<String> sqlList = ep.associateByNativeSql(_be);
+				if (CollectionUtils.isEmpty(sqlList)) {
+					return;
+				}
+				sqlQueue.addAll(sqlList);
+			}, () -> {
+			});
+		});
+		
+		System.out.println(String.format("size of sql: %d", sqlQueue.size()));
+		
+		Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
+		sqlQueue.stream().parallel().forEach(sql -> {
+			System.out.println(sql);
+			try {
+				conn.createStatement().execute(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		});
 		
 		dao.endTransaction();
 	}
 	
-	public void associateByNativeSql(ReflectDao dao, BaseEn be) {
-		if (dao == null || be == null) return;
+	@Test
+	public void test3() {
+		test1();
+		test2();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void test4() {
+		EntityProcessor ep = assembler();
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+
+			List<BaseEn> beList = dao.queryEntity("select distinct be from BaseEn be left join fetch be.children kids");
+
+			System.out.println("loaded BaseEn: " + beList.size());
+
+			beList.forEach(be -> {
+				if (be instanceof PackageEn) {
+					PackageEn pe = (PackageEn) be;
+					ep.packageEnPool.put(pe.name, pe);
+				} else if (be instanceof ClassEn) {
+					ClassEn ce = (ClassEn) be;
+					ep.classEnPool.put(ce.name, ce);
+				}
+
+				if (be.enclosing == null) {
+					ep.roots.add(be);
+				}
+			});
+
+			dao.endTransaction();
+			
+			System.out.println("preload classes: " + ep.classEnPool.size());
+		}
+		
+		Long cursor = 0l;
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			cursor = (Long) dao.findOneEntity("select be.id from BaseEn be order by be.id desc");
+			if (cursor == null) {
+				cursor = 0l;
+			}
+			System.out.println("current id cursor: " + cursor);
+		}
+		
+		List<Class<?>> junitClzList = Reflects.extractClazz(Reflects.getJarFileInClassPath("junit"));
+		
+		{
+			EntityProcessor _ep = assembler();
+			_ep.base = ep;
+
+			junitClzList.forEach((clz) -> {
+				_ep.processClassEn(clz);
+			});
+
+			System.out.println("has processed: " + _ep.classEnPool.size());
+			System.out.println(_ep.roots.size());
+
+			_ep.roots.parallelStream().forEach((be) -> {
+				ReflectDao dao = ReflectDao.threadLocal.get();
+				dao.beginTransaction();
+				traverse(be, (_be) -> {
+					if (_be instanceof ClassEn) {
+						dao.getEm().flush();
+					}
+					dao.create(_be);
+				}, () -> {});
+				dao.endTransaction();
+			});
+			
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+			List<BaseEn> beList = dao.queryEntity("select distinct be from BaseEn be left join fetch be.children kids where be.id > ?1", cursor);
+			
+			System.out.println("loaded BaseEn: " + beList.size());
+			
+			EntityProcessor ep1 = associator();
+			ep1.base = ep;
+			beList.forEach(be->{
+				if (be instanceof PackageEn) {
+					PackageEn pe = (PackageEn) be;
+					ep1.packageEnPool.put(pe.name, pe);
+				} else if (be instanceof ClassEn) {
+					ClassEn ce = (ClassEn) be;
+					ep1.classEnPool.put(ce.name, ce);
+				}
+			});
+			
+			ep1.classEnPool.values().stream().parallel().forEach((ce)->{
+				ce.loadClass();
+				System.out.println(ce);
+				ep1.reprocessClassEn(ce.clazz);
+			});
+			
+			Assert.assertFalse(ep1.inflatedClassEnPool.isEmpty());
+			System.out.println("start....");
+			
+			ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
+			
+			ep.classEnPool.values().stream().forEach(ce->{
+				traverse(ce, (_be)->{
+					List<String> sqlList = ep1.associateByNativeSql(_be);
+					if (CollectionUtils.isEmpty(sqlList)) {
+						return;
+					}
+					sqlQueue.addAll(sqlList);
+				}, ()->{});
+			});
+			
+			System.out.println(String.format("size of sql: %d", sqlQueue.size()));
+			
+			Connection conn = dao.getEm().unwrap(SessionImpl.class).connection();
+			sqlQueue.stream().parallel().forEach(sql->{
+				System.out.println(sql);
+				try {
+					conn.createStatement().execute(sql);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
+			
+			dao.endTransaction();
+		}
+		
+	}
+	
+	public List<String> associateByNativeSql(BaseEn be) {
+		if (be == null) return Collections.emptyList();
+		
+		List<String> sb = new LinkedList<String>();
+		
+//		be.annotations.forEach(anno->{
+//			sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, anno.id));
+//		});
 		
 		if (be instanceof ClassEn) {
 			ClassEn ce = (ClassEn) be;
 			Class<?> superClz = ce.clazz.getSuperclass();
 			if (superClz != null) {
-				dao.executeNativeSqlUpdate("update class_en set super=? where id=?", loadClassEn(superClz).id, ce.id);
+//				dao.executeNativeSqlUpdate("update class_en set super=? where id=?", loadClassEn(superClz).id, ce.id);
+				sb.add(String.format("update class_en set super=%d where id=%d;\n", loadClassEn(superClz).id, ce.id));
 			}
+			
+			Stream.of(ce.clazz.getAnnotations()).forEach(anClz->{
+				ClassEn an = loadClassEn(anClz.annotationType());
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, an.id));
+			});
 			
 			{
 				final ClassEn _ce = ce;
 				Stream.of(ce.clazz.getInterfaces()).forEach((_inf) -> {
 					ClassEn inf = loadClassEn(_inf);
-					dao.executeNativeSqlUpdate(
-							"insert into interfaces (implement_en_id, interface_en_id) values (?,?) on duplicate key update interface_en_id=?; ",
-							_ce.id, inf.id, inf.id);
+//					dao.executeNativeSqlUpdate(
+//							"insert into interfaces (implement_en_id, interface_en_id) values (?,?) on duplicate key update interface_en_id=?; ",
+//							_ce.id, inf.id, inf.id);
+					sb.add(String.format(
+							"insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);\n",
+							_ce.id, inf.id));
 				});
 			}
 		}
@@ -123,33 +415,63 @@ public class EntityProcessor {
 			if (me.method instanceof Method) {
 				Method md = (Method)me.method;
 				if (md.getReturnType() != null) {
-					dao.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", 
-						loadClassEn(md.getReturnType()).id, 
-						me.id);
+//					dao.executeNativeSqlUpdate("update method_en set return_clz_id=? where id=?", 
+//						loadClassEn(md.getReturnType()).id, 
+//						me.id);
+					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;\n",
+							loadClassEn(md.getReturnType()).id, 
+							me.id));
 				}
-			} 
+				
+			}
+			
+			Stream.of(me.method.getAnnotations()).forEach(anClz->{
+				ClassEn an = loadClassEn(anClz.annotationType());
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, an.id));
+			});
 			
 			Executable exe = me.method;
 			Stream.of(exe.getExceptionTypes()).forEach(exClz->{
-				dao.executeNativeSqlUpdate("insert into exceptions (method_en_id, exception_en_id) values (?,?);", 
+//				dao.executeNativeSqlUpdate("insert into exceptions (method_en_id, exception_en_id) values (?,?);", 
+//						me.id, 
+//						loadClassEn(exClz).id);
+				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);\n", 
 						me.id, 
-						loadClassEn(exClz).id);
+						loadClassEn(exClz).id));
 			});
 		}
 		
 		if (be instanceof FieldEn) {
 			FieldEn fe = (FieldEn) be;
-			dao.executeNativeSqlUpdate("update field_en set field_clz_id=? where id=?", 
+//			dao.executeNativeSqlUpdate("update field_en set field_clz_id=? where id=?", 
+//					loadClassEn(fe.field.getType()).id, 
+//					fe.id);
+			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;\n", 
 					loadClassEn(fe.field.getType()).id, 
-					fe.id);
+					fe.id));
+			
+			Stream.of(fe.field.getAnnotations()).forEach(anClz->{
+				ClassEn an = loadClassEn(anClz.annotationType());
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, an.id));
+			});
 		}
 		
 		if (be instanceof ParameterEn) {
 			ParameterEn pe = (ParameterEn) be;
-			dao.executeNativeSqlUpdate("update param_en set param_clz_id=? where id=?", 
+//			dao.executeNativeSqlUpdate("update param_en set param_clz_id=? where id=?", 
+//					loadClassEn(pe.parameter.getType()).id, 
+//					pe.id);
+			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;\n", 
 					loadClassEn(pe.parameter.getType()).id, 
-					pe.id);
+					pe.id));
+			
+			Stream.of(pe.parameter.getAnnotations()).forEach(anClz->{
+				ClassEn an = loadClassEn(anClz.annotationType());
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, an.id));
+			});
 		}
+		
+		return sb;
 	}
 	
 	public static EntityProcessor assembler() {
@@ -177,16 +499,29 @@ public class EntityProcessor {
 		interAct.run();
 	}
 
+	public EntityProcessor base;
+	
 	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
 	public Function<Class<?>, ClassEn> clazzProc = null;
 	public Function<Class<?>, ClassEn> clazzGetter = null;
 
 	public BiFunction<ClassEn, Field, FieldEn> fieldProc = null;
 	public final Map<String, ClassEn> inflatedClassEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
-	public ReentrantLock lock = new ReentrantLock();
+	public final ReentrantLock lock = new ReentrantLock();
 	public final Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>());
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
+	public ClassEn getClassEnFromCache(String clzName) {
+		if (StringUtils.isBlank(clzName)) return null;
+		
+		if (base != null) {
+			ClassEn ce = base.getClassEnFromCache(clzName);
+			if (ce != null) return ce;
+		}
+		
+		return classEnPool.get(clzName);
+	}
+	
 	public void processAnnotation(BaseEn be, AnnotatedElement ae) {
 		if (be == null || ae == null)
 			return;
@@ -209,15 +544,10 @@ public class EntityProcessor {
 		try {
 			PackageEn pe = null;
 			pe = processPackageEn(clz.getPackage());
-			String clzName = clz.getName();
-			
-			if (ClassEn.primitives.containsKey(clzName)) {
-				clz = ClassEn.primitives.get(clzName);
-				clzName = clz.getName();
-			}
+			String clzName = ClassEn.checkClzName(clz);
 			
 			lock.lockInterruptibly();
-			_ce = classEnPool.get(clzName);
+			_ce = getClassEnFromCache(clzName);
 			if (_ce != null) {
 				return _ce;
 			}
@@ -286,12 +616,7 @@ public class EntityProcessor {
 		
 		try {
 			lock.lockInterruptibly();
-			String clzName = clz.getName();
-			
-			if (ClassEn.primitives.containsKey(clzName)) {
-				clz = ClassEn.primitives.get(clzName);
-				clzName = clz.getName();
-			}
+			String clzName = ClassEn.checkClzName(clz);
 			
 			_ce = inflatedClassEnPool.get(clzName);
 			if (_ce != null) {
@@ -313,15 +638,10 @@ public class EntityProcessor {
 		try {
 			PackageEn pe = null;
 			pe = processPackageEn(clz.getPackage());
-			String clzName = clz.getName();
-			
-			if (ClassEn.primitives.containsKey(clzName)) {
-				clz = ClassEn.primitives.get(clzName);
-				clzName = clz.getName();
-			}
+			String clzName = ClassEn.checkClzName(clz);
 			
 			lock.lockInterruptibly();
-			_ce = classEnPool.get(clzName);
+			_ce = getClassEnFromCache(clzName);
 			if (_ce != null) {
 				return _ce;
 			}
@@ -421,13 +741,7 @@ public class EntityProcessor {
 		ClassEn _ce = null;
 		if (clz == null) return _ce;
 		try {
-//			lock.lockInterruptibly();
-			String clzName = clz.getName();
-			
-			if (ClassEn.primitives.containsKey(clzName)) {
-				clz = ClassEn.primitives.get(clzName);
-				clzName = clz.getName();
-			}
+			String clzName = ClassEn.checkClzName(clz);
 			
 			_ce = inflatedClassEnPool.get(clzName);
 			if (_ce != null) {

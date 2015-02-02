@@ -1,10 +1,8 @@
 package cf.study.java8.javax.persistence.ex.reflects.entity;
 
 import java.lang.reflect.Executable;
-import java.lang.reflect.Parameter;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.Basic;
@@ -45,11 +43,8 @@ public class MethodEn extends MemberEn {
 	
 	public static int hash(Executable method) {
 		int result = 1;
-		
 		if (method == null) return result;
-		
 		result = method.toGenericString().hashCode();
-		
 		return result;
 	}
 	
@@ -96,5 +91,29 @@ public class MethodEn extends MemberEn {
 		MethodEn me = meOpt.isPresent() ? (MethodEn) meOpt.get() : new MethodEn(exe, ce);
 		me.method = exe;
 		return me;
+	}
+	
+	public MethodEn clone() {
+		return clone(null);
+	}
+	
+	public MethodEn clone(MethodEn _me) {
+		if (_me == null) {
+			_me = new MethodEn();
+		}
+		
+		_me = (MethodEn)super.clone(_me);
+		
+		_me.method = method;
+		_me.paramsHash = paramsHash;
+		
+//		_me.returnClass = returnClass.clone();
+//		
+//		List<ClassEn> exceptionClzz2 = _me.exceptionClzz;
+//		exceptionClzz.forEach(ex->{
+//			exceptionClzz2.add(ex.clone());
+//		});
+		
+		return _me;
 	}
 }

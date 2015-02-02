@@ -40,4 +40,21 @@ public class FieldEn extends MemberEn {
 		fe.field = field;
 		return fe;
 	}
+	
+	public FieldEn clone() {
+		return clone(null);
+	}
+	
+	public FieldEn clone(FieldEn _fe) {
+		if (_fe == null) {
+			_fe = new FieldEn();
+		}
+		
+		_fe = (FieldEn)super.clone(_fe);
+		
+		_fe.field = field;
+//		_fe.fieldType = fieldType.clone();
+		
+		return _fe;
+	}
 }
