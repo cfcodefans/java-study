@@ -21,6 +21,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import javax.persistence.FlushModeType;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -69,12 +71,15 @@ public class EntityProcessor {
 		roots.parallelStream().forEach((be)->{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			dao.beginTransaction();
+			dao.getEm().setFlushMode(FlushModeType.COMMIT);
 			traverse(be, (_be)->{
 				if (_be instanceof ClassEn) {
+					System.out.println(_be);
 					dao.getEm().flush();
 				}
 				dao.create(_be);
 			}, ()->{});
+			
 			dao.endTransaction();
 		});
 		
