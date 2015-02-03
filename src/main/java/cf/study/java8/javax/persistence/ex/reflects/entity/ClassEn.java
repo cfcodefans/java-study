@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -72,10 +73,14 @@ public class ClassEn extends BaseEn {
 	
 	@ElementCollection(targetClass = TypeEn.class)
 	@Enumerated(EnumType.STRING)
+	@JoinTable(name="clz_types", joinColumns = {@JoinColumn(name="clz_en_id", referencedColumnName="id")})
+	@Column(name="type")
 	public Set<TypeEn> types = new HashSet<TypeEn>();
 	
 	@ElementCollection(targetClass = Modifier.class)
 	@Enumerated(EnumType.STRING)
+	@JoinTable(name="clz_modifiers", joinColumns = {@JoinColumn(name="clz_en_id", referencedColumnName="id")})
+	@Column(name="modifier")
 	public Set<Modifier> modifiers = new HashSet<Modifier>();
 	
 	@ManyToOne(cascade= {CascadeType.REFRESH})

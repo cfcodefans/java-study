@@ -27,6 +27,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.hibernate.internal.SessionImpl;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -286,8 +287,6 @@ public class EntityProcessor {
 	}
 
 	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
-		if (be instanceof ClassEn)
-			System.out.println(be);
 		// System.out.println("\t" + be.children);
 		act.accept(be);
 		be.children.forEach((en) -> {
@@ -298,14 +297,14 @@ public class EntityProcessor {
 
 	public EntityProcessor base;
 	
-	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
+	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
 	public Function<Class<?>, ClassEn> clazzProc = null;
 	public Function<Class<?>, ClassEn> clazzGetter = null;
 
 	public BiFunction<ClassEn, Field, FieldEn> fieldProc = null;
-	public final Map<String, ClassEn> inflatedClassEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
+	public final Map<String, ClassEn> inflatedClassEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
 	public final ReentrantLock lock = new ReentrantLock();
-	public final Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>());
+	public final Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>(1000));
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	public ClassEn getClassEnFromCache(String clzName) {
@@ -558,6 +557,8 @@ public class EntityProcessor {
 	}
 	
 	public static void main(String[] args) {
+		StopWatch sw = new StopWatch();
+		sw.start();
 		setUp();
 		
 		EntityProcessor ep = assembler();
@@ -570,6 +571,10 @@ public class EntityProcessor {
 		Class<?>[] clzz = Reflects.extractClazz(_f).toArray(new Class<?>[0]);
 		
 		ep.preload(null, clzz).process();
+		
+		sw.stop();
+		System.out.println("After " + sw.getTime());
+		
 //		ep.preload(null, clzz);
 	}
 }
