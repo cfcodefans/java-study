@@ -25,11 +25,11 @@ public class Main {
 			long size = re.size();
 			System.out.println(size);
 
-			re.stream().forEach((cls) -> {
-				System.out.println(String.format("%d/%d %f%% %s", ++counter, size, counter/(double)size * 100, cls.getSimpleName()));
-				dao.createClazz(cls);
-			});
-			System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
+//			re.stream().forEach((cls) -> {
+//				System.out.println(String.format("%d/%d %f%% %s", ++counter, size, counter/(double)size * 100, cls.getSimpleName()));
+//				dao.createClazz(cls);
+//			});
+//			System.out.println("result: " + dao.queryCount("select count(be.id) from BaseEn be"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -95,7 +95,7 @@ public class ClassEn extends BaseEn {
 
 	@SuppressWarnings("unchecked")
 	public static final Map<String, Class<?>> primitives = MiscUtils.map(
-				"void", Void.class,
+				"void", void.class,
 				"long", long.class,
 				"int", int.class,
 				"char", char.class,
@@ -109,12 +109,12 @@ public class ClassEn extends BaseEn {
 	public void loadClass() {
 		if (primitives.containsKey(name)) {
 			clazz = primitives.get(name);
-		} else {
-			try {
-				clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
-			} catch (ClassNotFoundException e) {
-				log.error("class not found: " + name);
-			}
+			return;
+		}
+		try {
+			clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
+		} catch (ClassNotFoundException e) {
+			log.error("class not found: " + name);
 		}
 	}
 	
