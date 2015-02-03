@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "method_en")
-@Cacheable
+@Cacheable(false)
 public class MethodEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })

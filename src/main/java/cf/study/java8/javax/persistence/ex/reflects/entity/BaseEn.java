@@ -45,7 +45,7 @@ import org.apache.commons.collections4.CollectionUtils;
 @Entity
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
 @Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
+@Cacheable(false)
 //@DiscriminatorColumn(name="category", discriminatorType = DiscriminatorType.STRING)
 public class BaseEn {
 	@Id

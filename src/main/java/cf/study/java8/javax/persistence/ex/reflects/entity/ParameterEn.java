@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "param_en")
-@Cacheable
+@Cacheable(false)
 public class ParameterEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })

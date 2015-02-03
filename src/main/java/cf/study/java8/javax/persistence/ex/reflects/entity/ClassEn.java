@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 
 @Entity
 @Table(name = "class_en")
-@Cacheable
+@Cacheable(false)
 public class ClassEn extends BaseEn {
 
 	public static Class<?> getEnclossingClz(Class<?> clz) {

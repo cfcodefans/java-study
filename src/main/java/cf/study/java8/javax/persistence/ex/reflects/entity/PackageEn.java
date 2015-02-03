@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table(name = "package_en")
-@Cacheable
+@Cacheable(false)
 public class PackageEn extends BaseEn {
 
 	@Transient transient public Package _package;
