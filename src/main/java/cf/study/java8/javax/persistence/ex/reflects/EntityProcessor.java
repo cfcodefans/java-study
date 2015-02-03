@@ -73,7 +73,6 @@ public class EntityProcessor {
 			dao.beginTransaction();
 			traverse(be, (_be)->{
 				if (_be instanceof ClassEn) {
-					System.out.println(_be);
 					dao.getEm().flush();
 				}
 				dao.create(_be);
@@ -292,6 +291,9 @@ public class EntityProcessor {
 
 	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
 		// System.out.println("\t" + be.children);
+		if (be instanceof ClassEn) {
+			System.out.println(be);
+		}
 		act.accept(be);
 		be.children.forEach((en) -> {
 			traverse(en, act, interAct);
