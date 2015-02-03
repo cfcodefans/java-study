@@ -71,7 +71,6 @@ public class EntityProcessor {
 		roots.parallelStream().forEach((be)->{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			dao.beginTransaction();
-			dao.getEm().setFlushMode(FlushModeType.COMMIT);
 			traverse(be, (_be)->{
 				if (_be instanceof ClassEn) {
 					System.out.println(_be);
