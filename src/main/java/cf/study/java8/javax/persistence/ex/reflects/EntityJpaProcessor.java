@@ -43,7 +43,7 @@ import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
 
 
-public class EntityProcessor {
+public class EntityJpaProcessor {
 	@BeforeClass
 	public static void setUp() {
 		WeldTest.setUp();
@@ -52,7 +52,7 @@ public class EntityProcessor {
 	
 	public Long cursor = 0l;
 	
-	public EntityProcessor preload(EntityProcessor base, Class<?>...clzz) {
+	public EntityJpaProcessor preload(EntityJpaProcessor base, Class<?>...clzz) {
 		if (ArrayUtils.isEmpty(clzz)) return null;
 		
 		this.base = base;
@@ -93,7 +93,7 @@ public class EntityProcessor {
 		return this;
 	}
 	
-	public EntityProcessor process() {
+	public EntityJpaProcessor process() {
 		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
 		
 		classEnPool.values().stream().forEach(ce -> {
@@ -122,7 +122,7 @@ public class EntityProcessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public EntityProcessor reorganize() {
+	public EntityJpaProcessor reorganize() {
 		ReflectDao dao = ReflectDao.threadLocal.get();
 		List<BaseEn> beList = dao.queryEntity(
 				"select distinct be from BaseEn be left join fetch be.children kids where be.id > ?1", cursor);
@@ -151,7 +151,7 @@ public class EntityProcessor {
 	
 	@Test
 	public void test1() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.clazzProc = (clz) -> {
 			System.out.println(clz);
 			ep.processClassEn(clz); 
@@ -163,13 +163,13 @@ public class EntityProcessor {
 
 	@Test
 	public void test2() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.preload(null, Object.class);
 	}
 	
 	@Test
 	public void test3() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.preload(null, Object.class).process();
 	}
 	
@@ -180,9 +180,9 @@ public class EntityProcessor {
 		
 		System.out.println(String.format("has loaded %d classes from %s", clazz.size(), libName));
 		
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		
-		EntityProcessor base = assembler();
+		EntityJpaProcessor base = assembler();
 		{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce");
@@ -298,15 +298,15 @@ public class EntityProcessor {
 		return sb;
 	}
 	
-	public static EntityProcessor assembler() {
-		EntityProcessor ep = new EntityProcessor();
+	public static EntityJpaProcessor assembler() {
+		EntityJpaProcessor ep = new EntityJpaProcessor();
 		ep.clazzProc = (clz) -> {ep.processClassEn(clz); return null;};
 		ep.clazzGetter = ep::getClassEn;
 		return ep;
 	}
 	
-	public static EntityProcessor associator() {
-		EntityProcessor ep = new EntityProcessor();
+	public static EntityJpaProcessor associator() {
+		EntityJpaProcessor ep = new EntityJpaProcessor();
 		ep.clazzProc = (clz) -> {ep.reprocessClassEn(clz); return null;};
 		ep.clazzGetter = ep::loadClassEn;
 		return ep;
@@ -321,7 +321,7 @@ public class EntityProcessor {
 		interAct.run();
 	}
 
-	public EntityProcessor base;
+	public EntityJpaProcessor base;
 	
 	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
 	public Function<Class<?>, ClassEn> clazzProc = null;
@@ -595,9 +595,9 @@ public class EntityProcessor {
 		});
 		Class<?>[] clzz = clzzList.toArray(new Class<?>[0]);
 		
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		
-		EntityProcessor base = assembler();
+		EntityJpaProcessor base = assembler();
 		{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce");
