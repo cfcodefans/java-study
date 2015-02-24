@@ -21,8 +21,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import javax.persistence.FlushModeType;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -45,7 +43,7 @@ import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
 
 
-public class EntityProcessor {
+public class EntityJpaProcessor {
 	@BeforeClass
 	public static void setUp() {
 		WeldTest.setUp();
@@ -54,13 +52,11 @@ public class EntityProcessor {
 	
 	public Long cursor = 0l;
 	
-	public EntityProcessor preload(EntityProcessor base, Class<?>...clzz) {
+	public EntityJpaProcessor preload(EntityJpaProcessor base, Class<?>...clzz) {
 		if (ArrayUtils.isEmpty(clzz)) return null;
 		
 		this.base = base;
-		Stream.of(clzz).forEach(clz->{
-			processClassEn(clz);
-		});
+		Stream.of(clzz).forEach(clz -> processClassEn(clz));
 		
 		{
 			ReflectDao dao = ReflectDao.threadLocal.get();
@@ -68,11 +64,15 @@ public class EntityProcessor {
 			cursor = ObjectUtils.defaultIfNull(cursor, 0l);
 		}
 		
+		Map<String, ClassEn> _classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
+		
 		roots.parallelStream().forEach((be)->{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			dao.beginTransaction();
 			traverse(be, (_be)->{
 				if (_be instanceof ClassEn) {
+					ClassEn ce = (ClassEn)_be;
+					_classEnPool.put(ce.name, ce);
 					dao.getEm().flush();
 				}
 				dao.create(_be);
@@ -82,25 +82,23 @@ public class EntityProcessor {
 		});
 		
 		{
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			classEnPool.values().stream().filter(ce->(ce.id == null)).forEach(ce->{
-				ce.id = (Long)dao.findOneEntity("select ce.id from ClassEn ce where ce.name=?1 and ce.category=?2", ce.name, ce.category);
-			});
+//			ReflectDao dao = ReflectDao.threadLocal.get();
+//			classEnPool.values().stream().filter(ce->(ce.id == null)).forEach(ce->{
+//				ce.id = (Long)dao.findOneEntity("select ce.id from ClassEn ce where ce.name=?1 and ce.category=?2", ce.name, ce.category);
+//			});
+			this.classEnPool.clear();
+			this.classEnPool.putAll(_classEnPool);
 		}
 		
 		return this;
 	}
 	
-	public EntityProcessor process() {
+	public EntityJpaProcessor process() {
 		ConcurrentLinkedQueue<String> sqlQueue = new ConcurrentLinkedQueue<String>();
 		
 		classEnPool.values().stream().forEach(ce -> {
 			traverse(ce, (_be) -> {
-				List<String> sqlList = associateByNativeSql(_be);
-				if (CollectionUtils.isEmpty(sqlList)) {
-					return; 
-				}
-				sqlQueue.addAll(sqlList);
+				sqlQueue.addAll(associateByNativeSql(_be));
 			}, () -> {
 			});
 		});
@@ -124,7 +122,7 @@ public class EntityProcessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	public EntityProcessor reorganize() {
+	public EntityJpaProcessor reorganize() {
 		ReflectDao dao = ReflectDao.threadLocal.get();
 		List<BaseEn> beList = dao.queryEntity(
 				"select distinct be from BaseEn be left join fetch be.children kids where be.id > ?1", cursor);
@@ -153,7 +151,7 @@ public class EntityProcessor {
 	
 	@Test
 	public void test1() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.clazzProc = (clz) -> {
 			System.out.println(clz);
 			ep.processClassEn(clz); 
@@ -165,14 +163,39 @@ public class EntityProcessor {
 
 	@Test
 	public void test2() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.preload(null, Object.class);
 	}
 	
 	@Test
 	public void test3() {
-		EntityProcessor ep = assembler();
+		EntityJpaProcessor ep = assembler();
 		ep.preload(null, Object.class).process();
+	}
+	
+	@Test
+	public void test4() {
+		String libName = "junit";
+		List<Class<?>> clazz = Reflects.extractClazz(Reflects.getJarFileInClassPath(libName));
+		
+		System.out.println(String.format("has loaded %d classes from %s", clazz.size(), libName));
+		
+		EntityJpaProcessor ep = assembler();
+		
+		EntityJpaProcessor base = assembler();
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce");
+			ceList.forEach(ce -> base.classEnPool.put(ce.name, ce));
+			
+			List<PackageEn> peList = (List<PackageEn>) dao.queryEntity("select pe from PackageEn pe");
+			peList.forEach(pe -> base.packageEnPool.put(pe.name, pe));
+		}
+
+		ep.preload(base, clazz.toArray(new Class<?>[0])).process();
+
+		ep.classEnPool.forEach((name, ce)->System.out.println(ce));
+		ep.packageEnPool.forEach((name, pe)->System.out.println(pe));
 	}
 	
 	public List<String> associateByNativeSql(BaseEn be) {
@@ -275,33 +298,30 @@ public class EntityProcessor {
 		return sb;
 	}
 	
-	public static EntityProcessor assembler() {
-		EntityProcessor ep = new EntityProcessor();
+	public static EntityJpaProcessor assembler() {
+		EntityJpaProcessor ep = new EntityJpaProcessor();
 		ep.clazzProc = (clz) -> {ep.processClassEn(clz); return null;};
 		ep.clazzGetter = ep::getClassEn;
 		return ep;
 	}
 	
-	public static EntityProcessor associator() {
-		EntityProcessor ep = new EntityProcessor();
+	public static EntityJpaProcessor associator() {
+		EntityJpaProcessor ep = new EntityJpaProcessor();
 		ep.clazzProc = (clz) -> {ep.reprocessClassEn(clz); return null;};
 		ep.clazzGetter = ep::loadClassEn;
 		return ep;
 	}
 
 	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
-		// System.out.println("\t" + be.children);
 		if (be instanceof ClassEn) {
 			System.out.println(be);
 		}
 		act.accept(be);
-		be.children.forEach((en) -> {
-			traverse(en, act, interAct);
-		});
+		be.children.forEach(en -> traverse(en, act, interAct));
 		interAct.run();
 	}
 
-	public EntityProcessor base;
+	public EntityJpaProcessor base;
 	
 	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
 	public Function<Class<?>, ClassEn> clazzProc = null;
@@ -322,6 +342,17 @@ public class EntityProcessor {
 		}
 		
 		return classEnPool.get(clzName);
+	}
+	
+	public PackageEn getPackageEnFromCache(String pkgName) {
+		if (StringUtils.isBlank(pkgName)) return null;
+		
+		if (base != null) {
+			PackageEn pe = base.getPackageEnFromCache(pkgName);
+			if (pe != null) return pe;
+		}
+		
+		return packageEnPool.get(pkgName);
 	}
 	
 	public void processAnnotation(BaseEn be, AnnotatedElement ae) {
@@ -393,17 +424,9 @@ public class EntityProcessor {
 				ce.infs.add(infCe);
 			});
 
-		Stream.of(clz.getDeclaredFields()).forEach((fd) -> {
-			processFieldEn(ce, fd);
-		});
-
-		Stream.of(clz.getDeclaredConstructors()).forEach((con) -> {
-			processMethodEn(ce, con);
-		});
-
-		Stream.of(clz.getDeclaredMethods()).forEach((method) -> {
-			processMethodEn(ce, method);
-		});
+		Stream.of(clz.getDeclaredFields()).forEach((fd) -> processFieldEn(ce, fd));
+		Stream.of(clz.getDeclaredConstructors()).forEach((con) -> processMethodEn(ce, con));
+		Stream.of(clz.getDeclaredMethods()).forEach(method -> processMethodEn(ce, method));
 
 		return ce;
 	}
@@ -425,7 +448,7 @@ public class EntityProcessor {
 				return _ce;
 			}
 			
-			_ce = classEnPool.get(clzName);
+			_ce = getClassEnFromCache(clzName);
 			_ce.clazz = clz;
 			inflatedClassEnPool.put(clzName, _ce);
 		} catch (InterruptedException e) {
@@ -491,12 +514,9 @@ public class EntityProcessor {
 			ClassEn exce = clazzProc.apply(exClz);
 			if (exce != null)
 				me.exceptionClzz.add(exce);
-			// methodExceptionTypesProc.apply(me, exClz);
 			});
 
-		Stream.of(exe.getParameters()).forEach((param) -> {
-			processParameterEn(me, param);
-		});
+		Stream.of(exe.getParameters()).forEach(param -> processParameterEn(me, param));
 
 		return me;
 	}
@@ -506,8 +526,9 @@ public class EntityProcessor {
 			return null;
 
 		String pkgName = _package.getName();
-		System.out.println(pkgName);
-		PackageEn _pe = packageEnPool.get(pkgName);
+		
+		PackageEn _pe = getPackageEnFromCache(pkgName);
+		
 		if (_pe != null)
 			return _pe;
 
@@ -557,30 +578,39 @@ public class EntityProcessor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		lock.unlock();
 	
 		return processClassEn(_ce);
 	}
 	
-	public static void main(String[] args) {
+	@SuppressWarnings("unchecked")
+	public static void main(String... args) {
 		StopWatch sw = new StopWatch();
 		sw.start();
 		setUp();
 		
-		EntityProcessor ep = assembler();
-		ep.clazzProc = (clz) -> {
-//			System.out.println(clz);
-			ep.processClassEn(clz);
-			return null;
-		};
-		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
-		Class<?>[] clzz = Reflects.extractClazz(_f).toArray(new Class<?>[0]);
+		List<Class<?>> clzzList = new LinkedList<>();
+		Stream.of(args).forEach(arg->{
+			File _f = Reflects.getJarFileInClassPath(arg);//new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+			clzzList.addAll(Reflects.extractClazz(_f));
+		});
+		Class<?>[] clzz = clzzList.toArray(new Class<?>[0]);
 		
-		ep.preload(null, clzz).process();
+		EntityJpaProcessor ep = assembler();
+		
+		EntityJpaProcessor base = assembler();
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce");
+			ceList.forEach(ce -> base.classEnPool.put(ce.name, ce));
+
+			List<PackageEn> peList = (List<PackageEn>) dao.queryEntity("select pe from PackageEn pe");
+			peList.forEach(pe -> base.packageEnPool.put(pe.name, pe));
+		}
+
+		ep.preload(base, clzz).process();
 		
 		sw.stop();
 		System.out.println("After " + sw.getTime());
 		
-//		ep.preload(null, clzz);
 	}
 }
