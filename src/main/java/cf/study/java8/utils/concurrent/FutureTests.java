@@ -13,7 +13,6 @@ public class FutureTests {
 			long t = System.currentTimeMillis();
 			for (; 1000 - (t % 1000) > 1; t = System.currentTimeMillis()) {
 				Thread.sleep(1);
-//				System.out.println(t);
 			}
 			return t;
 		});

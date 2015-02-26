@@ -2,6 +2,7 @@ package cf.study.java8.utils.stream;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import misc.MiscUtils;
@@ -257,5 +259,19 @@ public class StreamTests {
 			System.out.println(record3);
 			System.out.println(recordSum);
 		}
+	}
+	
+	@Test
+	public void testSupplier() {
+		LongStream ls = LongStream.generate(System::currentTimeMillis);
+		System.out.println(ls.findFirst().getAsLong());
+		
+		Stream<Calendar> cs = Stream.generate(Calendar::getInstance);
+		System.out.println(cs.findFirst().get());
+	}
+	
+	@Test
+	public void testRange() {
+		IntStream.range(0, 10).forEach((i)->{System.out.println(i);});
 	}
 }
