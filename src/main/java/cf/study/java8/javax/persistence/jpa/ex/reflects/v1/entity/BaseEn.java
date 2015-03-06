@@ -1,4 +1,4 @@
-package cf.study.java8.javax.persistence.ex.reflects.entity;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
 import static java.lang.reflect.Modifier.isAbstract;
 import static java.lang.reflect.Modifier.isFinal;

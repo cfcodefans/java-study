@@ -1,4 +1,4 @@
-package cf.study.java8.javax.persistence.ex.reflects;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
 import java.io.File;
 import java.util.Collection;
@@ -15,8 +15,8 @@ import org.junit.Test;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
-import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
 
 
 

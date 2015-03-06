@@ -1,4 +1,4 @@
-package cf.study.java8.javax.persistence.ex.reflects;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
 import java.io.File;
 import java.util.List;

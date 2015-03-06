@@ -1,9 +1,9 @@
-package cf.study.java8.javax.persistence.ex.reflects;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
-import static cf.study.java8.javax.persistence.ex.reflects.entity.CategoryEn.CLASS;
-import static cf.study.java8.javax.persistence.ex.reflects.entity.CategoryEn.FIELD;
-import static cf.study.java8.javax.persistence.ex.reflects.entity.CategoryEn.METHOD;
-import static cf.study.java8.javax.persistence.ex.reflects.entity.CategoryEn.PACKAGE;
+import static cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.CategoryEn.CLASS;
+import static cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.CategoryEn.FIELD;
+import static cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.CategoryEn.METHOD;
+import static cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.CategoryEn.PACKAGE;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -23,12 +23,12 @@ import org.apache.log4j.Logger;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.BaseDao;
-import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 
 @RequestScoped
 public class ReflectDao extends BaseDao<Object> {

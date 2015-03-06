@@ -1,4 +1,4 @@
-package cf.study.java8.javax.persistence.ex.reflects;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +24,12 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.xbean.classloader.JarFileClassLoader;
 
-import cf.study.java8.javax.persistence.ex.reflects.entity.BaseEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.ClassEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.FieldEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.MethodEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.PackageEn;
-import cf.study.java8.javax.persistence.ex.reflects.entity.ParameterEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
 
 class EntryLoader {
