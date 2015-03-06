@@ -20,6 +20,8 @@ public class NumberTests {
 		Float v = 0.0f / 0.0f;
 		System.out.println(v == Float.NaN);
 		System.out.println(Float.isNaN(v));
+		
+		System.out.println("NaN + 1 = " + (1f + Float.NaN));
 	}
 	
 	@Test

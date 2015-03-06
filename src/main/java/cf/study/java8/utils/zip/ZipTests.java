@@ -12,7 +12,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 
-public class ZipTest {
+public class ZipTests {
 
 	public Path getSrcZipPath() {
 		return Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip");
