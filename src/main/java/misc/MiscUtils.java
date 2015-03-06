@@ -77,7 +77,8 @@ public class MiscUtils {
 	
 	public static String toBinStr(final int _i) {
 		final StringBuilder sb = new StringBuilder();
-		for (byte i = 32; i >= 0; i--) {
+		sb.append(_i < 0 ? 1 : 0);
+		for (byte i = 31; i >= 0; i--) {
 			sb.append((_i & (1 << i)) != 0 ? 1 : 0);
 		}
 		return sb.toString();

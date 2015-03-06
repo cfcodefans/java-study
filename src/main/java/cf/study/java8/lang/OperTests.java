@@ -19,7 +19,7 @@ public class OperTests {
 	
 	@Test
 	public void arithmetic() {
-//		int i = 1;
+		int i = 1;
 //		System.out.println(i + i);
 //		System.out.println(i * i);
 //		System.out.println(i - i);
@@ -30,10 +30,10 @@ public class OperTests {
 //		System.out.println(i + (i + i));
 //		System.out.println(i - (i + i));
 //		
-//		System.out.println(i - +i);
-//		System.out.println(i + -i);
-//		System.out.println(i + ++ i);
-//		System.out.println(i + +(+ i));
+		System.out.println(i - +i);
+		System.out.println(i + -i);
+		System.out.println(i + ++ i);
+		System.out.println(i + +(+ i));
 		
 		int a = 0;
 		System.out.println(+a);
