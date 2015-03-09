@@ -1,6 +1,7 @@
 package cf.study.search.lucene;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -8,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.concurrent.atomic.AtomicLong;
 
 import misc.MiscUtils;
 import misc.ProcTrace;
@@ -18,7 +20,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.LongField;
-import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -26,7 +27,10 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.junit.AfterClass;
@@ -36,6 +40,7 @@ import org.junit.Test;
 
 public class LuceneTests {
 
+	private static final Path PATH = Paths.get("test/data/lucene/index/this");
 	static StandardAnalyzer analyzer;
 	static Directory dir;
 	static IndexWriterConfig iwc;
@@ -43,13 +48,14 @@ public class LuceneTests {
 	
 	static IndexReader reader;
 	static IndexSearcher searcher;
+	static AtomicLong SEQ;
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
 		ProcTrace.start(MiscUtils.invocationInfo());
 		
 		analyzer = new StandardAnalyzer();
-		dir = FSDirectory.open(Paths.get("test/data/lucene/index"));
+		dir = FSDirectory.open(PATH);
 		iwc = new IndexWriterConfig(analyzer);
 		
 		iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
@@ -57,6 +63,8 @@ public class LuceneTests {
 		
 		reader = DirectoryReader.open(dir);
 		searcher = new IndexSearcher(reader);
+		
+		SEQ = new AtomicLong(0);
 		
 		ProcTrace.ongoing("initialization finished");
 	}
@@ -68,12 +76,16 @@ public class LuceneTests {
 			//make a new, empty document
 			Document doc = new Document();
 			
-			Field pathFd = new StringField("path", file.toString(), Field.Store.YES);
-			doc.add(pathFd);
+			doc.add(new LongField("sn", SEQ.getAndIncrement(), Field.Store.YES));
+			
+			doc.add(new TextField("path", file.toString(), Field.Store.YES));
 			
 			doc.add(new LongField("modified", Files.getLastModifiedTime(file).toMillis(), Field.Store.YES));
 			
-			doc.add(new LongField("size", Files.size(file), Field.Store.YES));
+			LongField sizeFd = new LongField("size", Files.size(file), Field.Store.YES);
+//          this FieldType is already frozen and cannot be changed
+//			sizeFd.fieldType().setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
+			doc.add(sizeFd);
 			
 			doc.add(new TextField("content", IOUtils.toString(br), Field.Store.YES));
 			
@@ -107,8 +119,34 @@ public class LuceneTests {
 	}
 	
 	@Test
-	public void testQuery() throws Exception {
-		
+	public void testQueryParser_asterisk() throws Exception {
+		QueryParser queryParser = new QueryParser("path", analyzer);
+		String queryStr = "path:\"*Test*\"";
+		System.out.println("\n" + queryStr);
+		Query query = queryParser.parse(queryStr);
+		TopDocs results = searcher.search(query, Integer.MAX_VALUE);
+		LuceneHelper.print(searcher, results);
+	}
+	
+	@Test
+	public void testQueryParser_question_mark() throws Exception {
+		QueryParser queryParser = new QueryParser("path", analyzer);
+		String queryStr = "path:\"src\\main\\java\\cf\\study\\java8\\nio\\WatchTest.java\"";
+		System.out.println("\n" + queryStr);
+		Query query = queryParser.parse(queryStr);
+		TopDocs results = searcher.search(query, Integer.MAX_VALUE);
+		LuceneHelper.print(searcher, results);
+	}
+
+	@Test
+	public void cleanIndex() {
+		File file = PATH.toFile();
+		System.out.println(String.format("%s is deleteable: %B", PATH, file.canWrite()));
+	    try {
+			file.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@AfterClass
