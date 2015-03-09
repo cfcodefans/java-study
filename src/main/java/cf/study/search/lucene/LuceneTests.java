@@ -20,10 +20,13 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.junit.AfterClass;
@@ -31,13 +34,15 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class LuceneTest {
+public class LuceneTests {
 
 	static StandardAnalyzer analyzer;
 	static Directory dir;
 	static IndexWriterConfig iwc;
 	static IndexWriter writer;
 	
+	static IndexReader reader;
+	static IndexSearcher searcher;
 	
 	@BeforeClass
 	public static void setUp() throws Exception {
@@ -49,6 +54,9 @@ public class LuceneTest {
 		
 		iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
 		writer = new IndexWriter(dir, iwc);
+		
+		reader = DirectoryReader.open(dir);
+		searcher = new IndexSearcher(reader);
 		
 		ProcTrace.ongoing("initialization finished");
 	}
@@ -98,12 +106,21 @@ public class LuceneTest {
 		ProcTrace.end();
 	}
 	
+	@Test
+	public void testQuery() throws Exception {
+		
+	}
+	
 	@AfterClass
 	public static void tearDown() throws Exception {
 		ProcTrace.ongoing("start cleaning");
 		
 		if (writer != null) {
 			writer.close();
+		}
+
+		if (reader != null) {
+			reader.close();
 		}
 		
 		if (dir != null) {
@@ -118,5 +135,5 @@ public class LuceneTest {
 		log.info("\n" + ProcTrace.flush());
 	}
 
-	private static final Logger log = Logger.getLogger(LuceneTest.class);
+	private static final Logger log = Logger.getLogger(LuceneTests.class);
 }
