@@ -1,9 +1,5 @@
 package cf.study.java8.lang;
 
-import java.lang.reflect.Array;
-
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 public class ArrayTests {
@@ -17,5 +13,10 @@ public class ArrayTests {
 		System.out.println(intArray.getClass().isArray());
 //		Assert.assertTrue(Array.class.isInstance(intArray));
 		
+		System.out.println(intArray instanceof int[]);
+		
+		System.out.println(new String[0] instanceof Object[]);
+		
+		System.out.println(new Long[0] instanceof Number[]);
 	}
 }

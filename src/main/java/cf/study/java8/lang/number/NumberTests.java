@@ -52,6 +52,35 @@ public class NumberTests {
 		System.out.println(Long.MAX_VALUE + Long.MIN_VALUE);
 	}
 	
+	
+	@Test
+	public void testBinShiftToleft() {
+		int i = 1;
+		System.out.println(toBinStr(i));
+		System.out.println(1 << 0);
+		System.out.println(1 << 31);
+		System.out.println(toBinStr(1 << 31));
+		System.out.println(1 << 32);
+		System.out.println(toBinStr(1 << 32));
+		System.out.println(1 & (1 << 32));
+		System.out.println(toBinStr(-i));
+		System.out.println(toBinStr(i << 1)); 
+	}
+	
+	@Test
+	public void testBinShiftToRight() {
+		int i = 4;
+		
+		System.out.println(toBinStr(i));
+		System.out.println(i >> 1);
+		
+		System.out.println(toBinStr(-i));
+		System.out.println(-i >> 1);
+		System.out.println(toBinStr(-i >> 1));
+		System.out.println(-i >>> 1);
+		System.out.println(toBinStr(-i >>> 1));
+	}
+	
 	@Test
 	public void testBinary() {
 		byte _b = 1;
@@ -59,6 +88,9 @@ public class NumberTests {
 		int _i = 1;
 		long _l = 1;
 		System.out.println(toBinStr(_b));
+		System.out.println(toBinStr(-_b));
+		System.out.println(toBinStr((byte)-_b));
+		
 		System.out.println(toBinStr(_b >> 1));
 		System.out.println(toBinStr((byte)_b >> 1));
 		System.out.println(toBinStr((byte)(_b >> 1)));
@@ -90,7 +122,7 @@ public class NumberTests {
 		
 		System.out.println();
 		System.out.println("bit order in java is big endian");
-		System.out.println(toBinStr((byte)16));
+		System.out.println(toBinStr((byte)17));
 		
 		System.out.println();
 		System.out.println(Byte.MAX_VALUE + " = " + toBinStr(Byte.MAX_VALUE));
