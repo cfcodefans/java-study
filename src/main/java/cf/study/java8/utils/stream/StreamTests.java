@@ -18,6 +18,8 @@ import misc.MiscUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import cf.study.java8.lang.MathTests;
+
 public class StreamTests {
 	@Test
 	public void example() {
@@ -218,6 +220,13 @@ public class StreamTests {
 		public String toString() {
 			return super.toString() + "= {value: " + value + "}";
 		}
+	}
+	
+	@Test
+	public void testCollector() {
+		List<Long> longs = MathTests.pi2Longs(100);
+		List<Long> collected = longs.stream().filter(n -> n.intValue() % 2 == 0).collect(Collectors.toList());
+		System.out.println(collected);
 	}
 	
 	@Test

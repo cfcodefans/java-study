@@ -5,7 +5,9 @@ import static cf.study.search.lucene.LuceneHelper.makeDoc;
 import static cf.study.search.lucene.LuceneHelper.print;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import misc.MiscUtils;
 import misc.ProcTrace;
@@ -28,6 +30,8 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import cf.study.java8.lang.MathTests;
 
 public class QueryTests {
 	static StandardAnalyzer analyzer;
@@ -253,6 +257,13 @@ public class QueryTests {
 				print(searcher, searcher.search(parser.parse(queryStr), Integer.MAX_VALUE));
 			}
 			
+			{
+				String queryStr = "numbers:/.*/";
+				System.out.println();
+				System.out.println(queryStr);
+				print(searcher, searcher.search(parser.parse(queryStr), Integer.MAX_VALUE));
+			}
+			
 		}
 	}
 	
@@ -323,11 +334,22 @@ public class QueryTests {
 		indexDocs(writer, makeDoc("proximity", "one two ten"));
 		indexDocs(writer, makeDoc("proximity", "one ten"));
 		
+		List<Long> numbers = MathTests.pi2Longs(50);
 		
+		for (int i = 0, j = numbers.size(); i < j; i += 5) {
+			int beginIndex = i;
+			int toIndex = beginIndex + 5 > numbers.size() ? numbers.size() : beginIndex + 5;
+			List<String> subList = numbers.subList(beginIndex, toIndex).stream().map(l -> NUMBER_LITERALS[l.intValue()]).collect(Collectors.toList());
+			String joined = StringUtils.join(subList, ' ');
+			System.out.println(joined);
+			indexDocs(writer, makeDoc("numbers", joined));
+		}
 		
 		writer.commit();
 		writer.forceMerge(Integer.MAX_VALUE, true);
 	}
+	
+	String[] NUMBER_LITERALS = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 	
 	@AfterClass
 	public static void tearDown() throws Exception {
