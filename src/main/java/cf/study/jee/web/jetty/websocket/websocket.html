@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WebSocket Client Testing</title>
+<script type="text/javascript">
+	var wsUri = "ws://localhost:8080/websocket";
+	function createWebSocket(wsUri, onOpen, onClose, onMsg, onErr) {
+		var ws = new WebSocket(wsUri);
+		ws.onopen = onOpen;
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>
