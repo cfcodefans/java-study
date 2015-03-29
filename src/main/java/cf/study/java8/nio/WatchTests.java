@@ -1,5 +1,9 @@
 package cf.study.java8.nio;
 
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -19,14 +23,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static java.nio.file.StandardWatchEventKinds.*;
-import static java.nio.file.LinkOption.*;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class WatchTest {
+public class WatchTests {
 	
 	static WatchService ws = null;
 	static Map<WatchKey, Path> keys;
@@ -128,7 +129,7 @@ public class WatchTest {
 	@Test
 	public void testWatchDir() throws Exception {
 		ExecutorService thread = Executors.newSingleThreadExecutor();
-		thread.submit(WatchTest::processEvent);
+		thread.submit(WatchTests::processEvent);
 		
 		ScheduledExecutorService scheduledThread = Executors.newScheduledThreadPool(1);
 		scheduledThread.schedule(() -> {

@@ -3,11 +3,9 @@ package cf.study.data.binding.jackson.annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import junit.framework.Assert;
 import misc.Jsons;
-import misc.MiscUtils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;

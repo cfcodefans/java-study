@@ -1,3 +1,4 @@
+package cf.study.misc.quiz;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 

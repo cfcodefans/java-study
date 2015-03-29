@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-public class PathsTest {
+public class PathsTests {
 
 	@Test
 	public void testPaths() {

@@ -1,8 +1,11 @@
 package cf.study.java8.javax.script.javascript.rhino;
 
-import org.mozilla.javascript.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 
 /**
  * Matrix: An example host object class that implements the Scriptable

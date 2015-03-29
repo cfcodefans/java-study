@@ -1,15 +1,15 @@
 package cf.study.java8.javax.script;
 
+import static javax.script.ScriptContext.ENGINE_SCOPE;
+
 import javax.script.Bindings;
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.Invocable;
 import javax.script.ScriptContext;
-import static javax.script.ScriptContext.*;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleBindings;
-import javax.script.SimpleScriptContext;
 
 import junit.framework.Assert;
 import misc.MiscUtils;

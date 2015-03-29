@@ -1,4 +1,5 @@
-import java.awt.Rectangle;
+package cf.study.misc.quiz;
+
 import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;

@@ -20,8 +20,6 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.xbean.classloader.JarFileClassLoader;
 import org.junit.Test;
 
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
-
 public class Reflects {
 
 	public static Class<?> preloadClazzByName(String name) {

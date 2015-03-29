@@ -1,7 +1,5 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
-import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;

@@ -3,7 +3,6 @@ package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
