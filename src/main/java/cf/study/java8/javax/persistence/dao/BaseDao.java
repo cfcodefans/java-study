@@ -231,7 +231,6 @@ public class BaseDao<T> {
 		if (StringUtils.isBlank(hql)) {
 			return 0;
 		}
-		final List<?> resultList = queryPageByPositionalParams(hql, -1, -1, positionalParams);
 		return getCountFromResult(SimpleQueryBuilder.byHQL(hql, em).withPositionedParams(positionalParams).doQuery());
 	}
 
