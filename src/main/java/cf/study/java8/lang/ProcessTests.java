@@ -1,5 +1,7 @@
 package cf.study.java8.lang;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.PosixParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
@@ -28,8 +30,8 @@ public class ProcessTests {
 			
 		}
 		
-		public static void main(String[] args) {
-//			Comm
+		public static void main(String[] args) throws Exception {
+			CommandLine cl = new PosixParser().parse(null, args);
 		}
 	}
 }
