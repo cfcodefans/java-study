@@ -1,5 +1,6 @@
 package cf.study.misc.guava;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import misc.MiscUtils;
@@ -71,6 +72,26 @@ public class EventBusTests {
 		eb.register(new TestEventListener());
 		eb.post(new Integer(123));
 		MiscUtils.easySleep(10000);
+		eb.post("I am a string event");
+	}
+	
+	static class TestAsyncEventBus extends AsyncEventBus {
+		public TestAsyncEventBus(String identifier, Executor executor) {
+			super(identifier, executor);
+		}
+
+		protected void dispatchQueuedEvents() {
+			super.dispatchQueuedEvents();
+		}
+	}
+	
+	@Test
+	public void testAsyncEventBus_() {
+		String id = MiscUtils.invocationInfo();
+		EventBus eb = new TestAsyncEventBus(id, Executors.newSingleThreadExecutor());
+		eb.register(new TestEventListener());
+		eb.post(new Integer(123));
+//		MiscUtils.easySleep(10000);
 		eb.post("I am a string event");
 	}
 }

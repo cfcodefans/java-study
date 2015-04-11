@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -28,8 +31,10 @@ import org.apache.commons.collections4.iterators.ObjectArrayIterator;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -282,5 +287,54 @@ public class MiscUtils {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void callClassInProc(Class<?> cls) {
+		if (cls == null) {
+			System.err.println("try to run a null class");
+			return;
+		}
+		
+		Method mainMd = MethodUtils.getMatchingAccessibleMethod(cls, "main", String[].class);
+		if (!(mainMd != null 
+				&& mainMd.isAccessible() 
+				&& ((mainMd.getModifiers() & Modifier.STATIC) != 0))) {
+			System.err.println(String.format("%s doesn't have public void main(String[] args)", cls.getName()));
+			return;
+		}
+		
+//		StringUtils.join(classPaths.toArray(), SystemUtils.PATH_SEPARATOR)
+		String javaPath = SystemUtils.JAVA_HOME + SystemUtils.FILE_SEPARATOR + "bin" + SystemUtils.FILE_SEPARATOR + "java";
+		ProcessBuilder pb = new ProcessBuilder(javaPath,// "java",
+				"-cp", '"' + SystemUtils.JAVA_CLASS_PATH + '"',
+				// "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8765",
+				"-Xmx256m", "-Xms256m", "-Xmn192m", "-Xss128k",
+				cls.getName());
+	}
+	
+	public static class JavaProcBuilder {
+		private ProcessBuilder procBuilder;
+		
+		private Map<String, String> args = new LinkedHashMap<String, String>();
+		
+		private String className = StringUtils.EMPTY;
+		private String javaHome = SystemUtils.JAVA_HOME;
+		private String classPath = SystemUtils.JAVA_CLASS_PATH;
+		
+		public JavaProcBuilder(String className) {
+			this.className = className;
+		}
+		
+		public JavaProcBuilder setJavaHome(String javaHome) {
+			this.javaHome = javaHome;
+			return this;
+		}
+		
+		public JavaProcBuilder setClassPath(String classPath) {
+			this.classPath = classPath;
+			return this;
+		}
+		
+		
 	}
 }
