@@ -25,4 +25,14 @@ public class PathsTests {
 		URI uri = URI.create("folder1");
 		System.out.println(uri);
 	}
+	
+	@Test
+	public void testPath() {
+		Path _p = Paths.get(".");
+		System.out.println(_p.toAbsolutePath());
+		System.out.println(_p.normalize().toAbsolutePath());
+		System.out.println(_p.isAbsolute());
+		System.out.println(_p.getFileName());
+		System.out.println(_p.toAbsolutePath().getFileName());
+	}
 }

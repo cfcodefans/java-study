@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import misc.MiscUtils;
-
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -37,6 +35,8 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Test;
 
 import com.google.common.net.MediaType;
+
+import misc.MiscUtils;
 
 public class JettyTests {
 
@@ -333,4 +333,9 @@ public class JettyTests {
         // See http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html#join()
         server.join();
     }
+	
+	@Test
+	public void testResHandler() {
+		
+	}
 }
