@@ -3,6 +3,8 @@ package cf.study.jee.web.jetty.tutorial;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +20,9 @@ import org.apache.http.ParseException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
 import org.eclipse.jetty.jmx.MBeanContainer;
+import org.eclipse.jetty.proxy.ProxyServlet;
+import org.eclipse.jetty.rewrite.handler.RedirectPatternRule;
+import org.eclipse.jetty.rewrite.handler.RewriteHandler;
 import org.eclipse.jetty.security.HashLoginService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
@@ -52,6 +57,10 @@ public class JettyTests {
 	
 	public void testServer() {
 		testAtUrl("http://localhost:8080/");
+	}
+	
+	public void testServer(String pathStr) {
+		testAtUrl("http://localhost:8080/" + pathStr);
 	}
 
 	private void testAtUrl(String url) {
@@ -335,7 +344,97 @@ public class JettyTests {
     }
 	
 	@Test
-	public void testResHandler() {
+	public void testResHandler() throws Exception {
+		Server server = new Server(8080);
+		ResourceHandler resHandler = new ResourceHandler();
+		resHandler.setDirectoriesListed(true);
+		Path resBasePath = Paths.get(JettyTests.class.getResource(".").toURI()).resolve("../res") .toAbsolutePath().normalize();
 		
+		System.out.println(resBasePath);
+		
+		resHandler.setResourceBase(resBasePath.toString());
+		
+		ContextHandler ctxHandler = new ContextHandler("/res");
+		ctxHandler.setHandler(resHandler);
+		
+		HandlerList hls = new HandlerList();
+		hls.setHandlers(new Handler[] {ctxHandler});
+		server.setHandler(hls);
+		
+		server.start();
+		server.join();
+	}
+	
+	@Test
+	public void testRedirectToDifferentPath() throws Exception {
+		Server server = new Server(8080);
+		
+		RewriteHandler rewrite = new RewriteHandler();
+		rewrite.setRewritePathInfo(false);
+		rewrite.setRewriteRequestURI(false);
+		rewrite.setOriginalPathAttribute("requestedPath");
+		
+		RedirectPatternRule redirect = new RedirectPatternRule();
+		redirect.setPattern("/redirect/*");
+		redirect.setLocation("/true");
+		rewrite.addRule(redirect);
+		
+		ContextHandler ctxHandler = new ContextHandler("/true");
+		ctxHandler.setHandler(new HelloHandler(Boolean.TRUE.toString()));
+		
+		HandlerList hls = new HandlerList();
+		hls.addHandler(ctxHandler);
+		hls.addHandler(rewrite);
+		
+		server.setHandler(hls);
+		
+		server.start();
+		server.join();
+//		Executors.newScheduledThreadPool(1).schedule(()->this.testServer("redirect/what"), 1, TimeUnit.SECONDS);
+//		MiscUtils.easySleep(4000);
+	}
+	
+	@Test
+	public void testRedirectToDifferentServer() throws Exception {
+		Server rewriteSrv = new Server(8080);
+		
+		RewriteHandler rewrite = new RewriteHandler();
+		rewrite.setRewritePathInfo(true);
+		rewrite.setRewriteRequestURI(true);
+		rewrite.setOriginalPathAttribute("requestedPath");
+		
+		RedirectPatternRule redirect = new RedirectPatternRule();
+		redirect.setPattern("/redirect/*");
+		redirect.setLocation("http://localhost:8081/true/");
+		rewrite.addRule(redirect);
+		
+		
+//		HandlerList hls = new HandlerList();
+//		hls.addHandler(ctxHandler);
+//		hls.addHandler(rewrite);
+		
+		rewriteSrv.setHandler(rewrite);
+		rewriteSrv.start();
+		
+		Server server = new Server(8081);
+		ContextHandler ctxHandler = new ContextHandler("/true");
+		ctxHandler.setHandler(new HelloHandler(Boolean.TRUE.toString()));
+		server.setHandler(ctxHandler);
+		server.start();
+		
+//		server.join();
+		Executors.newScheduledThreadPool(1).schedule(()->this.testServer("redirect/what"), 1, TimeUnit.SECONDS);
+		MiscUtils.easySleep(4000);
+	}
+	
+	@Test
+	public void testProxySerlvet() {
+		Server proxySrv = new Server(8080);
+		
+		ServletContextHandler sch = new ServletContextHandler();
+		sch.setContextPath("/proxy");
+		sch.addServlet(ProxyServlet.class, "/*");
+		
+		proxySrv.setHandler(proxySrv);
 	}
 }

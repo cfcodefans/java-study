@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - Aiuto</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - Aiuto</h1>
+
+    <h2><a name="toc">Contenuto (TOC)</a></h2>
+
+    <ol>
+      <li><a href="#intro">Introduzione</a>
+      <li><a href="#supported">Browser supportati</a>
+      <li><a href="#contact_list">La tua Lista dei Contatti</a>
+        <ol>
+          <li><a href="#status">Indicatori di Stato</a>
+          <li><a href="#useradd">Aggiungere un Utente alla Lista dei Contatti</a>
+        </ol>
+      <li><a href="#prefs">Personalizzare (le tue preferenze)</a>
+    </ol>
+
+    <h2><a name="intro">Introduzione</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat e' un Instant Messenger (IM) come AIM, MSN Messenger, Yahoo!Messenger or ICQ. Significa che puoi gestire i tuoi contatti e chattare direttamente con altri utenti. Diversamente dagli altri IM puoi usarlo col tuo Browser senza dover installare altro software. Per un elenco dei <a href="#supported">Browser supportati</a> vedi sotto. La tua Lista dei Contatti e' salvata sul server, il che significa che ne hai accesso da praticamente ogni computer coneesso a internet.
+
+    <br clear="all">
+
+    <h2><a name="supported">Browser supportati</a></h2>
+    
+    Piattaforme e Browser supportati:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer a partire dalla versione 5.0</li>
+    <li>Netscape versioni 6 & 7</li>
+    <li>Mozilla (stable) dalla versione 1.0.2</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (stable) dalla versione 1.0.2</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">La tua Lista dei Contatti</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    La Lista dei Contatti tiene memoria di ogni Utente aggiunto. Cliccando su uno di essi col tasto destro del mouse appare un menu, come si vede nell'immagine a sinistra:
+
+    <ul>
+      <li>Invia Messaggio: Apre la finestra messaggi per questo utente
+      <li>Apri Chat: Apre una finestra di chat per questo utente
+      <li>Modifica Utente: Apre la finestra di dialogo per l'Utente, dove puoi impostare il suo Pseudonimo e impostare i Gruppi cui appartiene
+      <li>Mostra Info: Mostra profilo utente
+      <li>Storico: Apre la registrazione messaggi dell'utente
+      <li>Ri-Sottoscrivi: Apre una richesta a questo utente
+      <li>Rimuovi: Rimuove (completamente) l'Utente dalla Lista dei Contatti e revoca la tua Sottoscrizione (se c'e')
+    </ul>
+
+    Cliccare col tasto sinistro del mouse su un Utente apre una finestra messaggi
+
+    <br clear="all">
+    <h3><a name="status">Indicatori di Stato</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - L'Utente e' Connesso<br>
+    <img src="images/chat.gif" align="middle"> - L'Utente vuole chattare<br>
+    <img src="images/away.gif" align="middle"> - L'Utente e' Assente<br>
+    <img src="images/xa.gif" align="middle"> - L'Utente non e' Disponibile<br>
+    <img src="images/dnd.gif" align="middle"> - L'Utente non vuole esser disturbato<br>
+    <img src="images/unavailable.gif" align="middle"> - L'Utente e' Disconnesso<br>
+    <img src="images/invisible.gif" align="middle"> - L'Utente e' Invisibile<br>
+    <img src="images/stalker.gif" align="middle"> - L'Utente non ti ha autorizzato<br>
+    
+    <p>Cambia lo stato scegliendolo dalla finestra di selezione. Per alcuni stati puoi impostare un messaggio di stato perzonalizzato, che vedranno gli altri. Se scegli 'Invisibile' sembrerai Disconnesso.</p>
+      
+    <h3><a name="useradd">Aggiungere un Utente alla Lista dei Contatti</a></h3>
+          
+    Aggiungi un utente cliccando su <img src="images/screenshots/add-button.gif" width="24" height="22" alt="Aggiungi Utente">. Inserisci il suo Pseudonimo nel campo Sottoscrizione e clicca su 'Invia'. Inoltre puoi inserire un messaggio nel campo di testo sottostante. Una richiesta di sottoscrizione con questo messaggio sara' in viata all'utente. Se viene accettata, d'ora in poi potrai vederne lo stato <a href="#status">Connesso</a>
+
+    <p>
+      Dopo aver inviato questa richiesta, l'utente viene aggiunto alla Lista dei Contatti e viene aperta una finestra di modifica utente dove puoi impostare lo Pseudonimo relativo e aggiungerlo a uno o piu' Gruppi.
+
+    <p>
+      Puoi creare un nuovo Gruppo di utenti inserendo un nuovo nome per tale 'Gruppo' nel campo 'Gruppi Disponibili' e cliccando su "&gt;". Puoi togliere l'Utente dal Gruppo cliccando su "&lt;". Un Gruppo viene cancellato se non contiene piu' alcun Utente.
+
+
+    <h2><a name="prefs">Personalizzare (le tue preferenze)</a></h2>
+
+    Apri la finestra delle Preferenze cliccando su <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="Preferenze">. Ecco una piccola spiegazione delle opzioni:
+
+    <ul>
+      <li>Nascondi Utenti Disconnessi<br>
+        Nascondi Contatti Disconnessi
+      <li>Apri automaticamente messaggi e chat<br>
+        Se selezionato, ogni volta che ricevi un messaggio la corrispondente finestra di chat verra' aperta automaticamente.
+      <li>Auto-Popup quando Assente<br>
+        Se ricevere messaggi anche se il tuo stato e' 'Non Disponibile' o 'Chat'
+      <li>Abilita Suoni<br>
+        Se selezionato dei suoni indicheranno il verificarsi di certe azioni, come messaggi in arrivo o utenti connessi/disconnessi.
+      <li>Porta la finestra in primo piano quando ricevi un nuovo messaggio<br>
+        Questo fa in modo che la tua Lista dei Contatti o la Finestra Chat siano portate in primo piano quando un nuovo messaggio arriva
+      <li>Visualizza l'ora nella finestra di chat<br>
+        Mostra l'ora di arrivo di un messaggio vicino al nome Utente nella finestra di Chat
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

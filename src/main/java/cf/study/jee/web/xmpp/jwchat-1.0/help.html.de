@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - Hilfe</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - Hilfe</h1>
+
+    <h2><a name="toc">Inhaltsverzeichnis</a></h2>
+
+    <ol>
+      <li><a href="#intro">Einleitung</a>
+      <li><a href="#supported">Unterst&uuml;tzte Browser</a>
+      <li><a href="#contact_list">Deine Kontaktliste</a>
+        <ol>
+          <li><a href="#status">Onlinestatus-Indikator</a>
+          <li><a href="#useradd">Jemanden zu Deiner Kontaktliste hinzuf&uuml;gen</a>
+        </ol>
+      <li><a href="#prefs">Anpassen (Deine Einstellungen)</a>
+    </ol>
+
+    <h2><a name="intro">Einleitung</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat ist ein web-basierter <i>Instant Messenger</i> (IM) &auml;hnlich wie der AOL Instant Messenger(AIM), MSN Messenger, Yahoo! Messenger oder ICQ. Das hei&szlig;t, Du kannst damit Deine Kontakte verwalten und mit anderen Benutzern direkt chaten. Im Gegensatz zu anderen IMs kannst Du diesen benutzen ohne irgendeine Zusatzsoftware auf Deinem Rechner installieren zu m&uuml;ssen. Es reicht ein halbwegs moderner Web-Browser. Bitte beachte hierzu <a href="#supported">die Liste der unterst&uuml;tzen Browser</a> weiter unten!<br>Deine Kontaktliste wird auf dem Web-Server gespeichert. Das bedeutet, Du hast Zugriff darauf von so gut wie jedem beliebigen Rechner aus, solange ein Internetanschluss vorhanden ist.
+
+    <br clear="all">
+
+    <h2><a name="supported">Unterst&uuml;tzte Browser</a></h2>
+    
+    Unterst&uuml;tzte Browser und Betriebssysteme:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer ab Version 5.0</li>
+    <li>Netscape Version 6 & 7</li>
+    <li>Mozilla (stable) seit Version 1.0.2</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (stable) seit Version 1.0.2</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">Deine Kontaktliste</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    Die Kontakliste beherbergt Eintr&auml;ge f&uuml;r alle Benutzer, die Du hinzugef&uuml;gt hast. Durch einen Rechtsklick auf einen Eintrag erh&auml;ltst Du ein Kontextmen&uuml; wie es in der Abbildung links zu sehen ist:
+
+    <ul>
+      <li>Nachricht versenden: Öffnet einen Nachricht-Senden-Dialog
+      <li>Chat starten: Öffnet ein Chat-Fenster für diesen Kontakt.
+      <li>Kontakt bearbeiten: &Ouml;ffnet den Bearbeituns-Dialog f&uuml;r diesen Benutzer. Dort kannst Du seinen Spitznamen und die Gruppenzugeh&ouml;rigkeiten &auml;ndern.
+      <li>Zeige Infos: Öffnet das Profil des Kontakts.
+      <li>Protokoll: &Ouml;ffnet das Nachrichten-Protokoll f&uuml;r diesen Kontakt.
+      <li>Re-Authorisieren: Öffnet einen Authorisierungs-Dialog für diesen Kontakt
+      <li>Entfernen: Löscht diesen Benutzer vollständig aus Deiner Kontaktliste und widerruft Deine Authorisierung, so daß er Deinen Online-Status nicht mehr sehen kann.
+    </ul>
+
+    Ein Links-Klick auf einen Eintrag &ouml;ffnet den Nachricht-Senden-Dialog.
+
+    <br clear="all">
+    <h3><a name="status">Onlinestatus-Indikator</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - Online<br>
+    <img src="images/chat.gif" align="middle"> - Lust auf chatten<br>
+    <img src="images/away.gif" align="middle"> - Abwesend<br>
+    <img src="images/xa.gif" align="middle"> - Nicht verfügbar<br>
+    <img src="images/dnd.gif" align="middle"> - User doesn't want to be disturbed<br>
+    <img src="images/unavailable.gif" align="middle"> - Offline<br>
+    <img src="images/invisible.gif" align="middle"> - Unsichtbar<br>
+    <img src="images/stalker.gif" align="middle"> - Du bist nicht authorisiert<br>
+    
+    <p>&Auml;ndere Deinen Online-Status indem Du einen Eintrag aus der Auswahlliste am unteren Ende Deiner Kontaktliste w&auml;hlst. F&uuml;r einige Stati kannst Du eine pers&ouml;nliche, erg&auml;nzende Status-Nachricht eingeben, die anderen zus&auml;tzlich angezeigt wird.</p>
+      
+    <h3><a name="useradd">Jemanden zu Deiner Kontaktliste hinzuf&uuml;gen</a></h3>
+          
+    Klicke auf <img src="images/screenshots/add-button.gif" width="24" height="22" alt="Add User Button"> um einen neuen Kontakt hinzuzuf&uuml;gen. Es erscheint eine Dialog-Box, in der Du die Kennung des Benutzers eingeben mußt. Ferner kannst Du in dem großen Eingabe-Feld noch eine Nachricht für ihn eingeben. (Hinweis: Gib "help" in die Eingabezeile ein und es wird automatisch ein Benutzer hinzugefügt, den Du immer kontaktieren kannst, wenn Du Fragen zu dem Systemhast.). Klicke auf "Senden" und der entsprechende Benutzer erhält eine Authorisationsanforderung (mit der eingetragenen Nachricht) von Dir. Betstätigt er diese, so kannst Du ab sofort seinen Online-Status sehen.
+
+    <p>
+      Nachdem diese Authorisations-Anforderung geschickt wurde, wird der Kontakt automatisch zu Deiner Kontaktliste hinzugef&uuml;gt und es erscheint ein Bearbeiten-Dialog f&uuml;r diesen Benutzer. Dort kannst Du ihm einen Spitznamen geben und ihn einer oder mehreren Kontakt-Gruppen hinzuf&uuml;gen.
+
+    <p>
+      Eine neue Benutzergruppe kannst Du anlegen, indem Du einen neuen Namen in der Box "Verf&uuml;gbare Gruppen" angibst und auf "&gt;" klickst. Um einen Benutzer aus einer Gruppe zu entfernen, klicke auf "&lt;"! Eine Gruppe wird gel&ouml;scht, sobald kein Benutzer auf Deiner Kontaktliste mehr zu dieser Gruppe geh&ouml;rt.
+
+
+    <h2><a name="prefs">Anpassen (Deine Einstellungen)</a></h2>
+
+    Den Einstellungen-Dialog erreichst Du, indem Du auf <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="Preferences Button"> klickst. Folgendes l&auml;&szlig;t sich dort konfigurieren:
+
+    <ul>
+      <li>Verberge Offline-Kontakte<br>
+        Zeigt Benutzer die offline sind nicht auf Deiner Kontaktliste an
+      <li>&Ouml;ffne Chats und Nachrichten automatisch<br>
+        Ist diese Option gew&auml;hlt, werden Nachrichten-, bzw. Chat-Dialoge automatisch ge&ouml;ffnet sobald eine Nachricht von einem anderen Benutzer bei Dir eintrifft.
+      <li>Auto-Popup falls abwesend<br>
+        Ob Nachrichten auch dann automatisch ge&ouml;ffnet werden sollen, wenn Dein Status nicht auf "Verf&uuml;gbar" steht
+      <li>Klangeffekte verwenden<br>
+        Ist diese Option gew&auml;hlt, werden Kl&auml;nge abgespielt, sobald bestimmte Ereignisse- wie "Nachricht erhalten" oder "Ein Benutzer geht off-/online" - eintreten.
+      <li>Fenster in den Vordergrund bringen bei Nachrichteneingang<br>
+        Trifft eine neue Nachricht ein, wird - bei gesetzter Option - das Hauptfenster bzw. das zugeh&ouml;rige Chat-Fenster automatisch in den Vordergrund gebracht.
+      <li>Zeige Zeitstempel in Einzelchat an<br>
+        Zeigt in Chat-Fenstern einen Zeitstempel links neben den einzelnen Botschaften an
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

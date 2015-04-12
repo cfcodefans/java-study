@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - 帮助</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - 帮助</h1>
+
+    <h2><a name="toc">联系人列表</a></h2>
+
+    <ol>
+      <li><a href="#intro">介绍</a>
+      <li><a href="#supported">支持的浏览器</a>
+      <li><a href="#contact_list">您的联系人列表</a>
+        <ol>
+          <li><a href="#status">在线状态指示</a>
+          <li><a href="#useradd">新增一个用户到您的联系人列表</a>
+        </ol>
+      <li><a href="#prefs">自定义（您的属性）</a>
+    </ol>
+
+    <h2><a name="intro">介绍</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat 是一个基于 web 的即时通信工具(IM)，类似于 AIM、MSN Messenger、Yahoo! Messenger 与 ICQ 。它可以让您直接使用浏览器管理联系人、进行聊天，而不像其它即时通信工具那样需要安装额外的软件。下面有一个 <a href="#supported">支持的浏览器</a> 列表。您的联系人列表将存储在服务器上，也就是说您可以通过网络上的任何一台计算机进行访问，得到您的联系人信息。
+
+    <br clear="all">
+
+    <h2><a name="supported">支持的浏览器</a></h2>
+    
+    支持的浏览器与平台:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer 5.0 以上版本</li>
+    <li>Netscape version 6、 7</li>
+    <li>Mozilla (stable) 1.0.2 以上版本</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (stable) 1.0.2 以上版本</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">您的联系人列表</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    联系人列表中包含了您新增的每一个用户。鼠标右键单击用户项，您将看到如左图所示的上下文菜单：
+
+    <ul>
+      <li>发送消息： 为此用户打开消息对话框
+      <li>开始聊天： 为此用户打开聊天对话框
+      <li>编辑用户： 打开编辑对话框，您可以自定义他/她的昵称，设置其所属的组
+      <li>显示信息： 显示用户档案
+      <li>历史： 打开这个用户的消息历史
+      <li>重新邀请： 打开一个邀请此用户的对话框
+      <li>删除： 从您的联系人列表中彻底地去除这个用户，同时取消您对他/她的授权（如果有）
+    </ul>
+
+    左键单击用户项可以打开消息窗口。
+
+    <br clear="all">
+    <h3><a name="status">在线状态指示</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - 用户在线<br>
+    <img src="images/chat.gif" align="middle"> - 用户欢迎您与之聊天<br>
+    <img src="images/away.gif" align="middle"> - 用户离开了<br>
+    <img src="images/xa.gif" align="middle"> - 用户不可用<br>
+    <img src="images/dnd.gif" align="middle"> - 用户不想被打扰<br>
+    <img src="images/unavailable.gif" align="middle"> - 用户离线了<br>
+    <img src="images/invisible.gif" align="middle"> - 用户隐身了<br>
+    <img src="images/stalker.gif" align="middle"> - 用户没有对您授权<br>
+    
+    <p>您可以选择上述在线状态。对于有些状态，还可以设置一些显示给其他用户看的提示语。如果您选择了"隐身"，您在其他用户看来就是离线。</p>
+      
+    <h3><a name="useradd">新增一个用户到您的联系人列表</a></h3>
+          
+    单击这个按钮 <img src="images/screenshots/add-button.gif" width="24" height="22" alt="新增联系人"> 新增一个用户。在'发送邀请到'文本框中填写用户的昵称后单击'发送'按钮即可。同时您还可以在其下的文本框中写一些自定义的消息，这些消息将随同这条邀请发送给对方。如果他/她接受了邀请，您将从此可以看到其 <a href="#status">在线状态</a> 。
+
+    <p>
+      在您发送邀请之后，该用户就会加入到您的联系人列表。您可以在编辑用户的对话框中为其设置自定义的昵称，同时可以将其加入您联系人列表中一个或多个组。
+
+    <p>
+      您可以通过在"可用的组"文本框中键入名称来新建一个用户组。单击"&gt;"新增组用户，单击"&lt;"删除组用户。如果一个组中没有用户了，它可以被删除。
+
+
+    <h2><a name="prefs">自定义（您的属性）</a></h2>
+
+    单击这个按钮 <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="属性"> 打开属性窗口。下面是对相关选项的简要说明：
+
+    <ul>
+      <li>隐藏离线用户<br>
+        隐藏您的联系人列表中不在线的用户。
+      <li>自动打开消息<br>
+        如果选中，您每次收到其他联系人的消息时，消息窗口都会自动打开。
+      <li>离开时也自动打开消息<br>
+        无论您的在线状态如何，您每次收到其他联系人的消息时，消息窗口都会自动打开。
+      <li>播放音效<br>
+        如果选中，在用户上下线和消息到来的时候，会有叮当声响起。
+      <li>新消息到来时激活窗口<br>
+        在新消息到来的时候，使您的联系人列表或消息窗口出现在其它窗口之上。
+      <li>在一对一聊天窗口中显示时间戳<br>
+        在消息窗口中，收到消息的同时将在用户名的旁边显示消息的时间。
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

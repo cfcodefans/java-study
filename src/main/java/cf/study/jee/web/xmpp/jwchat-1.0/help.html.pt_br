@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - Ajuda</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - Ajuda</h1>
+
+    <h2><a name="toc">Tabela de Conteudo</a></h2>
+
+    <ol>
+      <li><a href="#intro">Introducao</a>
+      <li><a href="#supported">Navegadores Suportados</a>
+      <li><a href="#contact_list">Sua Lista de Contatos</a>
+        <ol>
+          <li><a href="#status">Indicadores de Status Online</a>
+          <li><a href="#useradd">Adicionando um usuario a sua Lista de Contato</a>
+        </ol>
+      <li><a href="#prefs">Edite (Suas Preferencias)</a>
+    </ol>
+
+    <h2><a name="intro">Introducao</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat e um web-based instant messenger (IM) como MSN Messenger, AIM, Yahoo! Messenger ou ICQ. Isto significa que voce pode manter os seus contatos e conversar com outros usuarios diretamente. Ao contrario de outros IMs, voce pode usar pelo seu navegador sem precisar instalar nenhum software adicional. Para uma lista dos <a href="#supported">navegadores suportados</a> veja abaixo. Sua lista de contatos e guardada no servidor. Isto significa que voce tem acesso a sua lista de praticamente qualquer computador com acesso a internet.
+
+    <br clear="all">
+
+    <h2><a name="supported">Navegadores Suportados</a></h2>
+    
+    Navegadores suportados e plataformas:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer desde a versao 5.0</li>
+    <li>Netscape versoes 6 & 7</li>
+    <li>Mozilla (estavel) desde versao 1.0.2</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (estavel) desde versao 1.0.2</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">Sua Lista de Contatos</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    A lista de contatos tem todas as entradas de cada usuario que voce adicionou. Clicando com o botao direito em um item, voce tera um menu como o mostrado na figura ao lado:
+
+    <ul>
+      <li>Enviar Mensagem: Abre uma caixa de dialogo para este usuario
+      <li>Iniciar Conversa: Abre uma janela para este usuario
+      <li>Editar Usuario: Abrir uma caixa de dialogo para este usuario onde voce pode setar um nick e mudar os grupos que este usuario pertence
+      <li>Mostrar Informacao: Mostrar o perfil do usuario
+      <li>Historico: Abrir historico de mensagens do usuario
+      <li>Enviar Pedido Novamente: Envia um pedido para o usuario
+      <li>Remover: Remove este usuario da sua lista de contatos (completamente) e tira a sua autenticacao desse usuario (se houver)
+    </ul>
+
+    Clicando com o botao esquerdo do mouse abre uma janela de dialogo para mensagem.
+
+    <br clear="all">
+    <h3><a name="status">Indicadores de Status Online</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - Usuario esta online<br>
+    <img src="images/chat.gif" align="middle"> - Usuario esta querendo conversar<br>
+    <img src="images/away.gif" align="middle"> - Usuario esta fora<br>
+    <img src="images/xa.gif" align="middle"> - Usuario nao esta disponivel<br>
+    <img src="images/dnd.gif" align="middle"> - Usuario nao quer ser incomodado<br>
+    <img src="images/unavailable.gif" align="middle"> - Ususario esta offline<br>
+    <img src="images/invisible.gif" align="middle"> - Usuario esta invisivel<br>
+    <img src="images/stalker.gif" align="middle"> - Usuario nao autenticou voce<br>
+    
+    <p>Mude a sua opcao de online escolhendo um estado na caixa de dialogo. Para alguns estados voce pode colocar uma mensagem que aparecera para os outros usuarios. Se voce escolher "invisivel" voce aparecera offline para os outros usuarios</p>
+      
+    <h3><a name="useradd">Adicionando um usuario a sua Lista de Contato</a></h3>
+          
+    Adicione um usuario clicando no <img src="images/screenshots/add-button.gif" width="24" height="22" alt="Botao de Adicionar Usuario">. Digite o nick do usuario no campo e clique em "Enviar". Adicionalmente voce pode colocar uma mensagem padrao na area de texto abaixo. Uma solicitacao de cadastro com essa mensagem eh enviada ao usuario. Se o usuario aceitar o pedido voce vera o seu <a href="#status">status online</a> de agora em diante.
+
+    <p>
+      Depois de enviar o pedido o usuario eh adicionado a sua lista e uma caixa de dialogo abre para que voce edite as informacoes dele, onde voce pode colocar um nick par este usuario e adiciona-lo a um grupo.
+
+    <p>
+      Voce pode criar um novo grupo colocando um novo nome para "Grupo" no "Grupos Disponiveis" clicando em "&gt;".  Remova um usuario do grupo clicando em "&lt;". Um grupo e apagado da sua lista de contatos caso nao exista nenhum usuario nele
+
+
+    <h2><a name="prefs">Edite (Suas Preferencias)</a></h2>
+
+    Abrir o dialogo de preferencias clicando em <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="Botao de Preferencias">. Aqui esta uma pequena explicacao para cada opcao que voce selecionar:
+
+    <ul>
+      <li>Esconder usuarios offline<br>
+        Esconder usuarios que nao estao online na sua lista de contatos.
+      <li>Abrir automaticamente mensagens e chats<br>
+        Se selecionado, toda a vez que receber uma mensagem de outro usuario uma caixa de dialogo abrira automaticamente.
+      <li>Auto-Pop-Up se away<br>
+        Abrir mensagens mesmo que seu status nao seja "disponivel" or "chat"
+      <li>Tocar sons<br>
+        Se selecionado, pequenos sons irao tocar para certas acoes, como chegada de mensagem ou usuario ficar online ou offline.
+      <li>Abrir janela se uma mensagem nova e recebida<br>
+        Isto fara com que sua lista de contatos ou seu dialogo com outro usuario va para frente de todas as outras janelas quando uma nova mensagem chegar
+      <li>Mostrar horario (timestamp) nas jenalas de chat um-a-um<br>
+        Mostrar a hora quando uma mensagem chegar antes do nome do usuario
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

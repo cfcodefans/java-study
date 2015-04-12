@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - aide</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - aide</h1>
+
+    <h2><a name="toc">Table des matières</a></h2>
+
+    <ol>
+      <li><a href="#intro">Introduction</a>
+      <li><a href="#supported">Navigateurs supportés</a>
+      <li><a href="#contact_list">Ta liste des contacts</a>
+        <ol>
+          <li><a href="#status">Indicateurs statut connexion</a>
+          <li><a href="#useradd">Ajouter quelqu'un à ta liste de contacts.</a>
+        </ol>
+      <li><a href="#prefs">Adapter (tes paramètres)</a>
+    </ol>
+
+    <h2><a name="intro">Introduction</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat est un <i>Instant Messenger</i> (IM) web, comme AOL Instant Messenger(AIM), MSN Messenger, Yahoo! Messenger ou ICQ. C'est à dire: tu peux l'utiliser pour gérer tes contacts et pour le chat direct avec d'autres utilisateurs/utilisatrices. Contrairement à d'autres IMs, tu peux employer celui-ci sans être obligé d'installer un logiciel supplémentaire sur ton ordinateur. Un browser de web plus ou moins moderne est suffisant. S'il te plaît, vérifie <a href="#supported"> la liste des browsers supportés </a> plus bas! <br>Ta liste de contacts sera enregistrée sur un serveur web. Tu y as donc accès à partir de n'impore quel ordinateur connecté à l'internet.
+
+    <br clear="all">
+
+    <h2><a name="supported">Navigateurs supportés</a></h2>
+    
+    Navigateurs et systèmes d'exploitation supportés:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer à partir de la version 5.0</li>
+    <li>Netscape version 6 & 7</li>
+    <li>Mozilla (stable) depuis version 1.0.2</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (stable) depuis version 1.0.2</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">Ta liste des contacts</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    La liste des contacts contient des entrées pour tous les utilisateurs que tu as ajoutés. En cliquant droit sur une entrée, tu fais apparaître un menu contextuel, comme on peut le voir sur l'illustration à gauche:
+
+    <ul>
+      <li>Diffuser le message: Ouvre le dialoge de la diffusion d'un message
+      <li>Démarrer chat: Ouvre une fenêtre de chat pour ce contact.
+      <li>Traiter le contact: Ouvre le cadre de traitement pour cet utilisateur/ cette utilisatrice. Tu peux y modifier son surnom et son appartenance aux groupes.
+      <li>Montre les Informations: Ouvre le profil du contact.
+      <li>Rapport: Ouvre le rapport messages pour ce contact.
+      <li>Re-autoriser: Ouvre un dialogue d'autorisation pour ce contact
+      <li>Effacer: efface cet utilisateur complètement de ta liste des contacts et révoque ton autorisation, de sorte qu'il ne puisse plus voir ton statut en ligne.
+    </ul>
+
+    Cliquer à gauche sur un enregistrement ouvre le dialogue - diffuser le message-.
+
+    <br clear="all">
+    <h3><a name="status">Indicateurs statut connexion</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - En ligne<br>
+    <img src="images/chat.gif" align="middle"> - Envie de chat<br>
+    <img src="images/away.gif" align="middle"> - Absent<br>
+    <img src="images/xa.gif" align="middle"> - Pas disponible<br>
+    <img src="images/dnd.gif" align="middle"> - User doesn't want to be disturbed<br>
+    <img src="images/unavailable.gif" align="middle"> - Hors ligne<br>
+    <img src="images/invisible.gif" align="middle"> - Invisible<br>
+    <img src="images/stalker.gif" align="middle"> - Tu n'es pas autorisé(e)<br>
+    
+    <p>Change ton statut de connexion en choisissant une option de la liste de choix, en bas de ta liste de contacts. Pour certains statuts, tu peux entrer une information de statut personnalisée qui est montrée aux autres utilisateurs. Si tu choisis "invisible", les autres te verront comme déconnecté(e)</p>
+      
+    <h3><a name="useradd">Ajouter quelqu'un à ta liste de contacts.</a></h3>
+          
+    Clique sur <img src="images/screenshots/add-button.gif" width="24" height="22" alt="Bouton d'ajout utilisateur"> pour ajouter un nouveau contact. Il apparaît un cadre de dialogue, dans lequel tu dois entrer ton nom d'utilisateur/ d'utilisatrice. De plus, tu peux entrer dans le grand cadre un message supplémentaire pour lui/elle. (Remarque: Entre"help" dans la ligne d'entrée et, automatiquement, un utilisateur/une utilisatrice est ajouté/e, que tu peux toujours contacter, lorsque tu as des questions à poser au système.). Clique sur "diffuser" et l'utilisateur concernant recoit une demande d'autorisation avec ton message. Si elle/ S'il l'accepte tu peux voir tout de suite son statut en ligne.
+
+    <p>
+      Après l'envoi de cette demande d'autorisation, le contact est ajouté automatiquement à ta liste de contacts et il apparaît un cadre pour cet utilisateur/ cette utilisatrice, où tu peux lui donner un surnom et l'ajouter à un ou plusieurs goupes de contacts.
+
+    <p>
+      You can create a new user group by entering a new name for "Group" at the "Available Groups" box followed by clicking on "&gt;". Remove a user from a group by clicking on "&lt;". A group is deleted from your contact list if there is no user left for this group.
+
+
+    <h2><a name="prefs">Adapter (tes paramètres)</a></h2>
+
+    Ouvre la fenêtre paramètres en cliquant sur <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="Bouton Paramètres">. Voici les options que tu peux configurer:
+
+    <ul>
+      <li>Cache les contacts hors ligne<br>
+        Dissimule les utilisateurs /utilisatrices qui sont hors ligne sur ta liste des contacts.
+      <li>Ouvre les chats et messages automatiquement<br>
+        Si on a choisi cette option, les messages seront ouverts automatiquement dès qu'un message d'un autre utilisateur arrivera chez toi.
+      <li>Auto-Popup si disparu<br>
+        Dit si les messages doivent être ouverts automatiquement, lorsque ton statut n'est pas "disponible" 
+      <li>Joue les sons<br>
+        Si on a choisi cette option, on entendra des sons dès que certaines actions comme  "Message recu" ou "Un utilisateur va en/hors ligne" - se passent.
+      <li>Monte la fenêtre à réception d'un nouveau message<br>
+        Si tu choisis cette option, l'arrivée d'un nouveau message provoquera la mise au premier plan de la fenêtre de discussion concernée.
+      <li>Montre horodatage dans les discussions individuelles.<br>
+        Montre dans les fenêtres du chat un horodatage à côté des messages individuels
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>

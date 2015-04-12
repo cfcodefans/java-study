@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>JWChat - Pomoc</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script src="switchStyle.js" language="JavaScript1.2"></script>
+    <style type="text/css">
+      body { margin: 8px; background-color: white; }
+      ul,li { margin-left: 14px; padding-left: 0px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>JWChat - Pomoc</h1>
+
+    <h2><a name="toc">Obsah</a></h2>
+
+    <ol>
+      <li><a href="#intro">Úvod</a>
+      <li><a href="#supported">Podporované prehliadače</a>
+      <li><a href="#contact_list">Váš zoznam kontaktov</a>
+        <ol>
+          <li><a href="#status">Indikátor online stavu</a>
+          <li><a href="#useradd">Pridať používateľa do vášho zoznamu</a>
+        </ol>
+      <li><a href="#prefs">Úprava (vaše nastavenia)</a>
+    </ol>
+
+    <h2><a name="intro">Úvod</h2></a>
+    
+    <img src="images/screenshots/jwchat.gif" width="168" height="344" alt="jwc screenshot" align="left" style="padding-right:4px;"> 
+    
+    JWChat je webový instant messenger (IM) podobne ako AIM, MSN Messenger, Yahoo! Messenger alebo ICQ. Čo znamená, že môžete upravovať svoje kontakty, alebo priamo si dopisovať s inými používateľmi. Narozdiel od iných IM, môžete použiť svoj web prehliadač na komunikácia, bez nutnosti inštalácie prídavných softvérov. Zoznam <a href="#supported">podporovaných prehliadačov</a> nájdete nižšie. Váš zoznam kontaktov je uložený na serveri. To znamená, že máte prístup k svojim kontaktom z každého počítača, pokiaľ ste online.
+
+    <br clear="all">
+
+    <h2><a name="supported">Podporované prehliadače</a></h2>
+    
+    Podporované prehliadače a platformy:
+    <p>
+      <b>Windows XP/2000/ME/98/95:</b>
+  <ul>
+    <li>MS Internet Explorer od verzie 5.0</li>
+    <li>Netscape verzia 6 & 7</li>
+    <li>Mozilla (stable) od verzie 1.0.2</li>
+  </ul>
+  
+  
+    <p>
+    <b>Mac OS X:</b>
+    <ul>
+      <li>Mozilla (stable) od verzie 1.0.2</li>
+      <li>Camino 0.7</li>
+      <li>Safari since version 3</li>
+    </ul>
+  
+    <p>
+      <b>Linux:</b>
+      <ul>
+        <li>Mozilla et al since version 1.0.2</li>
+      </ul>
+    </p>
+    
+    <h2><a name="contact_list">Váš zoznam kontaktov</a></h2>
+
+    <img src="images/screenshots/jwchat-contextmenu.gif" width="168" height="344" alt="the context menu" align="left">
+    Zoznam kontaktov obsahuje záznam pre každého používateľa, ktorého ste pridal(a). Pravým kliknutím na daný záznam sa vám zobrazí kontextové menu, tak ako je to na ukážke vľavo:
+
+    <ul>
+      <li>Poslať správu: otvorí dialóg pre rozhovor s týmto používateľom
+      <li>Začať rozhovor: otvorí okno pre rozhovor s používateľom
+      <li>Upraviť používateľa: Otvorí dialógové okno, v ktorom môžete nastaviť prezývku a zmeniť jeho/jej zaradenie do skupín
+      <li>Zobraziť informácie: zobrazí používateľov profil
+      <li>História: Otvorí sa história správ pre tohoto používateľa
+      <li>Znovu zapísanie: Otvorí formulár s požiadavkou na zapísanie pre tohoto používateľa.
+      <li>Odstrániť: Odstráni tohoto používateľa z vášho zoznamu kontaktov (úplne) a odoberie mu autorizáciu (ak nejakú mal)
+    </ul>
+
+    Kliknutím ľavým tlačidlom sa zobrazí dialóg s používateľom.
+
+    <br clear="all">
+    <h3><a name="status">Indikátor online stavu</a></h3>
+    
+    <img src="images/available.gif" align="middle"> - Používateľ je online<br>
+    <img src="images/chat.gif" align="middle"> - Používateľ je diskusie chtivý<br>
+    <img src="images/away.gif" align="middle"> - Používateľ je preč<br>
+    <img src="images/xa.gif" align="middle"> - Používateľ nie je k dispozícii<br>
+    <img src="images/dnd.gif" align="middle"> - Používateľ si nepraje byť rušený<br>
+    <img src="images/unavailable.gif" align="middle"> - Používateľ je offline<br>
+    <img src="images/invisible.gif" align="middle"> - Používateľ je neviditeľný<br>
+    <img src="images/stalker.gif" align="middle"> - Používateľ vás neautentifikoval<br>
+    
+    <p>Zmente svoje online nastavenie vybratím stavu z výberového okna na spodku vášho zoznamu kontaktov. Pre niektoré zo stavuv je možné nastaviť si vlastnú správu o stave, ktorá bude zobrazovaná ostatným používateľom. Ak si zvolíte "neviditeľný(á)" budete sa ostatným používateľom javiť ako offline.</p>
+      
+    <h3><a name="useradd">Pridať používateľa do vášho zoznamu</a></h3>
+          
+    Pridať používateľa kliknutím na <img src="images/screenshots/add-button.gif" width="24" height="22" alt="Tlačidlo pre pridanie používateľa">. Vložte používateľovu prezývku do formulára a kliknite na "Odoslať". Prípadne môžete pridať aj vysvetľujúcu správu, ktorá sa používateľovi zobrazí. Požiadavka o zapísanie bude odoslaná tomuto používateľovi. Ak on alebo ona akceptujú požiadavku, budete môct vidieť jej/jeho <a href="#status">online stav</a>.
+
+    <p>
+      Po odoslaní požiadavky na zapísanie je používateľ pridaný do vášho kontakt listu a prípadne môžete nastaviť preňho prezývku a priradiť jeho/ju do jednej alebo viacerých skupín kontaktov.
+
+    <p>
+      Môžete vytvoriť novú skupinu používateľov zadaním mena do "Skupina" v "dostupných skupinách" "&gt;".  Pre odstránenie používateľa zo skupiny kliknite na "&lt;". Skupina je zmazaná z vášho zoznamu kontaktov a žiadny používateľ v tejto skupine nezostal.
+
+
+    <h2><a name="prefs">Úprava (vaše nastavenia)</a></h2>
+
+    Otvorí sa dialóg s nastaveniami po kliknutí na <img src="images/screenshots/pref-button.gif" width="24" height="22" alt="Tlačidlo nastavní">. Tu je krátke vysvetlenie možností, ktoré môžete vybrať:
+
+    <ul>
+      <li>Skryť offline používateľov<br>
+        Skryť používateľov, ktorý nie sú online vo vašom zozname kontaktov.
+      <li>Automaticky otvor správu a rozhovor<br>
+        Ak je zaškrtnuté, potom zakaždým, keď vám niekto napíše automaticky sa vám zobrazí príslušné okno.
+      <li>Auto-Pop-Up ak som preč<br>
+        Zobrazovať pop-up správy aj v prípade, že stav nie je "dostupný" alebo "diskusia"
+      <li>Prehrávať zvuky<br>
+        Ak je zaškrtnuté, potom bude pri každej udalosti, ako napríklad pri prijatí správy, zahratý krátky zvuk.
+      <li>Zobraziť okno pri prijatí novej správy<br>
+        Toto spôsobí, že váš zoznam kontaktov a okná s rozhovormi budú znovu zobrazené akonáhle dorazí správa.
+      <li>Zobraziť čas pri rozhovore<br>
+        Zobrazovať čas, keď správa príde od používateľa, s ktorým prebieha diskusia
+    </ul>
+
+    <hr noshade>
+    <address>&copy 2003 <a href="mailto:steve@zeank.in-berlin.de">Stefan Strigler</a></address>
+<!-- Created: Thu Jun 26 19:11:34 CEST 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Dec  5 18:46:40 CET 2005
+<!-- hhmts end -->
+  </body>
+</html>
