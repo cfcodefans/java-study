@@ -51,7 +51,7 @@ public class JettyTests {
 		server.start();
 		server.dumpStdErr();
 		
-		Executors.newScheduledThreadPool(1).schedule(this::testServer, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testServer, 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -119,7 +119,7 @@ public class JettyTests {
 		server.setHandler(new HelloHandler(MiscUtils.invocInfo()));
 		server.start();
 		
-		Executors.newScheduledThreadPool(1).schedule(this::testServer, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testServer, 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -177,8 +177,8 @@ public class JettyTests {
 		server.addConnector(http);
 		
 		server.start();
-		Executors.newScheduledThreadPool(1).schedule(this::testServer, 1, TimeUnit.SECONDS);
-		Executors.newScheduledThreadPool(1).schedule(this::testServer, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testServer, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testServer, 1, TimeUnit.SECONDS);
 		
 		MiscUtils.easySleep(4000);
 	}
@@ -213,7 +213,7 @@ public class JettyTests {
 		
 		//start things up
 		server.start();
-		Executors.newScheduledThreadPool(1).schedule(this::testServer, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testServer, 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -229,7 +229,7 @@ public class JettyTests {
 		
 		//Can be accessed using http://localhost:8080/hello
 		server.start();
-		Executors.newScheduledThreadPool(1).schedule(this::testHelloContext, 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)this::testHelloContext, 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -263,10 +263,10 @@ public class JettyTests {
 		server.start();
 		ScheduledExecutorService threads = Executors.newScheduledThreadPool(4);
 		
-		threads.schedule(()->testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
-		threads.schedule(()->testAtUrl("http://localhost:8080/fr"), 1, TimeUnit.SECONDS);
-		threads.schedule(()->testAtUrl("http://localhost:8080/it"), 1, TimeUnit.SECONDS);
-		threads.schedule(()->testAtUrl("http://127.0.0.2:8080/"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/fr"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/it"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://127.0.0.2:8080/"), 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -287,8 +287,8 @@ public class JettyTests {
 		
 		ScheduledExecutorService threads = Executors.newScheduledThreadPool(4);
 		
-		threads.schedule(()->testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
-		threads.schedule(()->testAtUrl("http://localhost:8080/dump/fr"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/dump/fr"), 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -423,7 +423,7 @@ public class JettyTests {
 		server.start();
 		
 //		server.join();
-		Executors.newScheduledThreadPool(1).schedule(()->this.testServer("redirect/what"), 1, TimeUnit.SECONDS);
+		Executors.newScheduledThreadPool(1).schedule((Runnable)()->this.testServer("redirect/what"), 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	

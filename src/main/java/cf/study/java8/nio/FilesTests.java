@@ -1,5 +1,6 @@
 package cf.study.java8.nio;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -64,4 +65,5 @@ public class FilesTests {
 	public void testPattern() throws Exception {
 		System.out.println("AnnotationTests.java".matches(".*\\.java"));
 	}
+	
 }

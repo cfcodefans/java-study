@@ -26,7 +26,7 @@
  * Have a look at the README for hints and troubleshooting!
  */
 
-var SITENAME = "localhost:8080";
+var SITENAME = "cfcodefans";
 
 /* BACKENDS
  * Array of objects each describing a backend.
@@ -64,7 +64,8 @@ var BACKENDS =
 		{
 			name:"Native Polling",
 			description:"Ejabberd's native HTTP Polling backend",
-			httpbase:"/http-poll/",
+//			httpbase:"/http-poll/",
+			httpbase:"/xmpp/httpbind/",
 			type:"polling",
 			servers_allowed:[SITENAME]
 		},
@@ -94,7 +95,7 @@ var DEFAULTCONFERENCEROOM = "talks";
 var DEFAULTCONFERENCESERVER = "conference."+SITENAME;
 
 /* debugging options */
-var DEBUG = true; // turn debugging on
+var DEBUG = false; // turn debugging on
 var DEBUG_LVL = 2; // debug-level 0..4 (4 = very noisy)
 
 var USE_DEBUGJID = false; // if true only DEBUGJID gets the debugger
