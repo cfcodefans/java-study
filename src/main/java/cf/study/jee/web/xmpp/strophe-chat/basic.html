@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Xmpp.openfire-strophe.basic</title>
+	<link href="/res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<script type="text/javascript" src="/res/jquery-2.1.1.js" ></script>
+	<script type="text/javascript" src="/res/jquery.xslt.js"></script>
+	<script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="./strophe.js" ></script>
+</head>
+<body class="container-fluid">
+	<div class="row">
+		<div id="login" class="col-xs-8">
+			<form name="cred"  class="form-horizontal">
+			<div class="form-group">
+				<label for="jid" class="col-sm-2 control-label">JID: </label>
+				<div class="col-sm-10">
+				<input type="text" id="jid" class="form-control"/>
+				</div>
+				</div>
+			<div class="form-group">
+				<label for="pass" class="col-sm-2 control-label">Password: </label>
+				<div class=" col-sm-10">
+				<input type="password" id="pass" class="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="button" id="connect" value="connect" class="btn btn-primary col-sm-offset-4 col-sm-4"/>
+				</div>
+			</form>
+		</div>
+
+		<div id="log" class="col-xs-4">
+			<ul class="list-group">
+			
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var BOSH_SERVICE = "http://localhost/xmpp/httpbind/";
+		var connection = null;
+		
+		var logUL = $("#log .list-group");		
+		var connect = $("#connect")[0];
+		
+		function log(msg) {
+			logUL.append("<li class='list-group-item'>" + msg + "</li>");
+		}
+		function rawInput(data) { log('RECV: ' + data);	}
+		function rawOutput(data) { log('SENT: ' + data); }
+		
+		function onConnect(status) {
+			
+			if (status == Strophe.Status.CONNECTING) {
+				log("Strophe is connecting...");
+			} else if (status == Strophe.Status.CONNFAIL) {
+				log("Strophe failed to connect.");
+				connect.value = "connect";
+			} else if (status == Strophe.Status.DISCONNECTING) {
+				log("Strophe is disconnecting...");
+			} else if (status == Strophe.Status.DISCONNECTED) {
+				log("Strophe is disconnected.");
+				connect.value = "connect";
+			} else if (status == Strophe.Status.CONNECTED) {
+				log("Strophe is connected.");
+				connection.disconnect();
+			}
+		}
+		
+		$(document).ready(function() {
+			connection = new Strophe.Connection(BOSH_SERVICE);
+			connection.rawInput = rawInput;
+			connection.rawOutput = rawOutput;
+			
+			var connect = $("#connect");
+			
+			connect.bind("click", function() {
+				var connect = $("#connect")[0];
+				if (connect.value == "connect") {
+					connect.value = "disconnect";
+					connection.connect($("#jid")[0].value, $("#pass")[0].value, onConnect);
+				} else {
+					connect.value = "connect";
+					connection.disconnect();
+				}
+			});			
+		});
+	</script>
+</body>
+</html>

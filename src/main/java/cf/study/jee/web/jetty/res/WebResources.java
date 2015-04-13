@@ -13,7 +13,15 @@ public class WebResources {
 		return res("/res", resBasePath.toString());
 	}
 	
+	public static ContextHandler res(String ctxName, Class<?> cls, String path)  throws Exception {
+		Path resBasePath = Paths.get(cls.getResource(".").toURI()).resolve(path).toAbsolutePath().normalize();
+		return res(ctxName, resBasePath.toString());
+	}
+	
 	public static ContextHandler res(String ctxName, String basePathStr) {
+		basePathStr = basePathStr.replace("target\\test-classes", "src\\main\\java");
+		System.out.println(basePathStr);
+		
 		ResourceHandler resHandler = new ResourceHandler();
 		resHandler.setDirectoriesListed(true);
 		resHandler.setResourceBase(basePathStr);

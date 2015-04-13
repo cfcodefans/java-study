@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.proxy.ProxyServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.junit.Test;
@@ -65,17 +64,11 @@ public class XmppTests {
 		sch.setContextPath("/xmpp/httpbind");
 		sch.addServlet(HttpBindProxyServlet.class, "/*");
 
-
-		String jwchatPathStr = "jwchat-1.0";
-		Path jwchatPath = Paths.get(XmppTests.class.getResource(".").toURI()).resolve(jwchatPathStr).toAbsolutePath()
-				.normalize();
-		System.out.println(jwchatPath);
-		ContextHandler jwchat = WebResources.res("/jwchat", jwchatPath.toString());
-
-		// proxySrv.setHandler(sch);
-
 		HandlerList hls = new HandlerList();
-		hls.setHandlers(new Handler[] { sch, jwchat });
+		hls.setHandlers(new Handler[] { sch, 
+				WebResources.res("/jwchat", XmppTests.class, "jwchat-1.0") ,  
+				WebResources.res("/strophe-chat", XmppTests.class, "strophe-chat") , 
+				WebResources.defaultRes() });
 		proxySrv.setHandler(hls);
 
 		proxySrv.start();
