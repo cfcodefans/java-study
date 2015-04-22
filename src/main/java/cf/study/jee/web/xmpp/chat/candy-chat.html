@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Xmpp.openfire-strophe.basic</title>
+	<link href="/res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/res/style.css" rel="stylesheet" />
+	<script type="text/javascript" src="/res/jquery-2.1.1.js" ></script>
+	<script type="text/javascript" src="/res/jquery.xslt.js"></script>
+	<script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="./strophe.js" ></script>
+	<script type="text/javascript" src="./candy/libs/libs.bundle.js" ></script>
+	<script type="text/javascript" src="./candy/candy.bundle.js" ></script>
+</head>
+<body>
+	<div class="navbar navbar-default " role="navigation">
+		<div class="navbar-header navbar-brand">
+			Candy-Chat
+		</div>
+	</div>
+	<div class="container row">
+		<div id="login" class="col-xs-8">
+			<form name="cred"  class="form-inline">
+			<div class="form-group">
+				<label for="jid" class="sr-only">JID: </label>
+				<input type="text" id="jid" placeholder="Enter JID" class="form-control"/>
+				</div>
+			<div class="form-group">
+				<label for="pass" class="sr-only">Password: </label>
+				<input type="password" id="pass" class="form-control" placeholder="Password"/>
+			</div>
+				<div class="checkbox">
+					<label> <input type="checkbox">Create User
+					</label>
+				</div>
+				<input type="button" id="connect" value="connect" class="btn btn-primary"/>
+			</form>
+		</div>
+
+		<div id="log" class="col-xs-4 right-sidebar">
+			<ul class="list-group">
+			
+			</ul>
+		</div>
+	</div>
+<!-- 	<div class="container row" id="candy"> -->
+<!-- 	</div> -->
+	<script type="text/javascript">
+		var BOSH_SERVICE = "http://localhost/xmpp/httpbind/";
+		var connection = null;
+		
+		var logUL = $("#log .list-group");		
+		var connect = $("#connect")[0];
+		
+		function log(msg) {
+			logUL.append("<li class='list-group-item'>" + msg + "</li>");
+		}
+		function rawInput(data) { log('RECV: ' + data);	}
+		function rawOutput(data) { log('SENT: ' + data); }
+		
+		function onConnect(status) {
+			
+			if (status == Strophe.Status.CONNECTING) {
+				log("Strophe is connecting...");
+			} else if (status == Strophe.Status.CONNFAIL) {
+				log("Strophe failed to connect.");
+				connect.value = "connect";
+			} else if (status == Strophe.Status.DISCONNECTING) {
+				log("Strophe is disconnecting...");
+			} else if (status == Strophe.Status.DISCONNECTED) {
+				log("Strophe is disconnected.");
+				connect.value = "connect";
+			} else if (status == Strophe.Status.CONNECTED) {
+				log("Strophe is connected.");
+				connection.disconnect();
+			}
+		}
+		
+		var conn;
+		var candy;
+		$(function() {
+			Candy.init(BOSH_SERVICE, {
+				core:{debug:true, autojoin: false},
+				view: {assets: 'candy/res/'}
+			});
+			conn = Candy.Core.getConnection();
+			Candy.Core.registerEventHandlers = onConnect;
+			candy = Candy.Core;
+		});
+		
+		$("#connect").click(function() {
+			if (this.value == "connect") {
+				candy.connect($("#jid").val(), $("#pass").val(), $("#jid").val());
+				this.value = "disconnect";
+			} else {
+				candy.disconnect();
+			}
+		});
+		
+	</script>
+</body>
+</html>

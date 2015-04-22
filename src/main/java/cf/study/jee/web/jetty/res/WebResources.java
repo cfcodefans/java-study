@@ -5,6 +5,9 @@ import java.nio.file.Paths;
 
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 
 public class WebResources {
 
@@ -22,6 +25,10 @@ public class WebResources {
 		basePathStr = basePathStr.replace("target\\test-classes", "src\\main\\java");
 		System.out.println(basePathStr);
 		
+		return serveByDefaultServlet(ctxName, basePathStr);
+	}
+
+	private static ContextHandler _res(String ctxName, String basePathStr) {
 		ResourceHandler resHandler = new ResourceHandler();
 		resHandler.setDirectoriesListed(true);
 		resHandler.setResourceBase(basePathStr);
@@ -29,5 +36,17 @@ public class WebResources {
 		ContextHandler ctxHandler = new ContextHandler(ctxName);
 		ctxHandler.setHandler(resHandler);
 		return ctxHandler;
+	}
+	
+	private static ContextHandler serveByDefaultServlet(String ctxName, String basePathStr) {
+		ServletContextHandler sch = new ServletContextHandler();
+		sch.setContextPath(ctxName);
+		
+		ServletHolder sh = new ServletHolder(DefaultServlet.class);
+		sh.setInitParameter("useFileMappedBuffer", Boolean.FALSE.toString());
+		sh.setInitParameter("resourceBase", basePathStr);
+		sch.addServlet(sh, "/*");
+		
+		return sch;
 	}
 }

@@ -15,6 +15,7 @@ import org.eclipse.jetty.proxy.ProxyServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.junit.Test;
 
@@ -67,7 +68,6 @@ public class XmppTests {
 		HandlerList hls = new HandlerList();
 		hls.setHandlers(new Handler[] { sch, 
 				WebResources.res("/jwchat", XmppTests.class, "jwchat-1.0") ,  
-				WebResources.res("/strophe-chat", XmppTests.class, "strophe-chat") , 
 				WebResources.defaultRes() });
 		proxySrv.setHandler(hls);
 
@@ -75,6 +75,50 @@ public class XmppTests {
 //		proxySrv.dumpStdErr();
 		proxySrv.join();
 	}
+
+	@Test
+	public void testStropheWithOpenfire() throws Exception {
+		Server proxySrv = new Server(80);
+
+		ServletContextHandler sch = new ServletContextHandler();
+		sch.setContextPath("/xmpp/httpbind");
+		sch.addServlet(HttpBindProxyServlet.class, "/*");
+
+		HandlerList hls = new HandlerList();
+		hls.setHandlers(new Handler[] { sch, 
+				WebResources.res("/strophe-chat", XmppTests.class, "chat") , 
+				WebResources.defaultRes() });
+		proxySrv.setHandler(hls);
+
+		proxySrv.start();
+//		proxySrv.dumpStdErr();
+		proxySrv.join();
+	}
+	
+	@Test
+	public void testCandyChatWithOpenfire() throws Exception {
+		Server proxySrv = new Server(80);
+
+		ServletContextHandler sch = new ServletContextHandler();
+		sch.setContextPath("/xmpp/httpbind");
+		sch.addServlet(HttpBindProxyServlet.class, "/*");
+
+		HandlerList hls = new HandlerList();
+		hls.setHandlers(new Handler[] { sch, 
+				WebResources.res("/candy-chat", XmppTests.class, "chat") , 
+				WebResources.defaultRes() });
+		proxySrv.setHandler(hls);
+
+//		DefaultServlet defaultServlet = sch.getBean(DefaultServlet.class);
+//		System.out.println(defaultServlet.getInitParameter("useFileMappedBuffer"));
+		
+		
+		proxySrv.start();
+//		proxySrv.dumpStdErr();
+		proxySrv.join();
+	}
+	
+
 	
 	@Test
 	public void rename() throws Exception {
