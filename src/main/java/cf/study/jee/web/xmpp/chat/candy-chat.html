@@ -8,26 +8,23 @@
 	<script type="text/javascript" src="/res/jquery-2.1.1.js" ></script>
 	<script type="text/javascript" src="/res/jquery.xslt.js"></script>
 	<script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>	
-	<script type="text/javascript" src="./strophe.js" ></script>
 	<script type="text/javascript" src="./candy/libs/libs.bundle.js" ></script>
 	<script type="text/javascript" src="./candy/candy.bundle.js" ></script>
 </head>
 <body>
-	<div class="navbar navbar-default " role="navigation">
+	<nav class="navbar navbar-default" role="navigation">
 		<div class="navbar-header navbar-brand">
 			Candy-Chat
 		</div>
-	</div>
-	<div class="container row">
-		<div id="login" class="col-xs-8">
-			<form name="cred"  class="form-inline">
+		<div id="login" class="nav navbar-right navbar-top-links">
+			<form name="cred"  class="navbar-form">
 			<div class="form-group">
 				<label for="jid" class="sr-only">JID: </label>
-				<input type="text" id="jid" placeholder="Enter JID" class="form-control"/>
+				<input type="text" id="jid" placeholder="Enter JID" class="form-control" value="test1@cfcodefans"/>
 				</div>
 			<div class="form-group">
 				<label for="pass" class="sr-only">Password: </label>
-				<input type="password" id="pass" class="form-control" placeholder="Password"/>
+				<input type="password" id="pass" class="form-control" placeholder="Password" value="test1"/>
 			</div>
 				<div class="checkbox">
 					<label> <input type="checkbox">Create User
@@ -36,8 +33,19 @@
 				<input type="button" id="connect" value="connect" class="btn btn-primary"/>
 			</form>
 		</div>
-
-		<div id="log" class="col-xs-4 right-sidebar">
+	</nav>
+	<div class="container row">
+		<div id="chat_contacts" class="col-xs-3 left-sidebar">
+			<div id="chat_rooms" class="panel panel-default">
+				<div id="header" class="panel-header">
+				</div>
+				<div id="body" class="panel-body">
+				</div>
+			</div>
+		</div>
+		<div id="chat" class="col-xs-6">
+		</div>
+		<div id="log" class="col-xs-3">
 			<ul class="list-group">
 			
 			</ul>
@@ -47,33 +55,22 @@
 <!-- 	</div> -->
 	<script type="text/javascript">
 		var BOSH_SERVICE = "http://localhost/xmpp/httpbind/";
-		var connection = null;
 		
-		var logUL = $("#log .list-group");		
-		var connect = $("#connect")[0];
-		
+		var logUL = $("#log .list-group");	
 		function log(msg) {
 			logUL.append("<li class='list-group-item'>" + msg + "</li>");
 		}
 		function rawInput(data) { log('RECV: ' + data);	}
 		function rawOutput(data) { log('SENT: ' + data); }
 		
-		function onConnect(status) {
+		function _handler() {
 			
-			if (status == Strophe.Status.CONNECTING) {
-				log("Strophe is connecting...");
-			} else if (status == Strophe.Status.CONNFAIL) {
-				log("Strophe failed to connect.");
-				connect.value = "connect";
-			} else if (status == Strophe.Status.DISCONNECTING) {
-				log("Strophe is disconnecting...");
-			} else if (status == Strophe.Status.DISCONNECTED) {
+			var status = arguments[0];
+			if (status == Strophe.Status.DISCONNECTED) {
 				log("Strophe is disconnected.");
-				connect.value = "connect";
-			} else if (status == Strophe.Status.CONNECTED) {
-				log("Strophe is connected.");
-				connection.disconnect();
+				$("#connect").val("connect");
 			}
+			console.info(arguments);
 		}
 		
 		var conn;
@@ -84,13 +81,13 @@
 				view: {assets: 'candy/res/'}
 			});
 			conn = Candy.Core.getConnection();
-			Candy.Core.registerEventHandlers = onConnect;
 			candy = Candy.Core;
 		});
 		
 		$("#connect").click(function() {
 			if (this.value == "connect") {
 				candy.connect($("#jid").val(), $("#pass").val(), $("#jid").val());
+				candy.addHandler(_handler);
 				this.value = "disconnect";
 			} else {
 				candy.disconnect();
