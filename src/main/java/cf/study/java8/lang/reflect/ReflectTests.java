@@ -1,5 +1,7 @@
 package cf.study.java8.lang.reflect;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -45,10 +47,20 @@ public class ReflectTests {
 	}
 	
 	@Test
-	public void testGeneric() {
+	public void testGeneric() throws Exception {
 		Sample<String> ss = new Sample<String>();
-		System.out.println(ss.getClass().getName());
+		Class<? extends Sample> cls = ss.getClass();
 		
-		System.out.println(Sample.class);
+//		System.out.println(cls.getName());
+		System.out.println(Arrays.toString(cls.getTypeParameters()));
+		
+		TypeVariable<?> t = cls.getTypeParameters()[0];
+		System.out.println(t.getGenericDeclaration());
+		System.out.println(t.getTypeName());
+		Field f = cls.getField("genericField");
+		System.out.println(f);
+		System.out.println(f.getGenericType());
+		
+//		System.out.println(Sample.class);
 	}
 }

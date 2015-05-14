@@ -44,5 +44,26 @@
 		</properties>
 	</persistence-unit>
 
-
+	<persistence-unit name="transactions" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>cf.study.java8.javax.persistence.transactions.TestEntity</class>
+		<properties>
+<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
+			
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transactions" />
+			<property name="javax.persistence.jdbc.user" value="java" />
+			<property name="javax.persistence.jdbc.password" value="jdbc" />
+			<!-- create-drop -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.max_fetch_depth" value="8" />
+			<property name="hibernate.jdbc.batch_size" value="150" />
+			
+			<property name="hibernate.generate_statistics" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.current_session_context_class" value="thread" />
+		</properties>
+	</persistence-unit>
 </persistence>

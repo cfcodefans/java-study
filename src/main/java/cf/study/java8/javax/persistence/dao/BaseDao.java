@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -33,6 +35,20 @@ import org.apache.log4j.Logger;
 public class BaseDao<T> {
 	private static final Logger log = Logger.getLogger(BaseDao.class);
 	
+	public Object doFuncInTransaction(Function<BaseDao, Object> func) {
+		if (func == null) return null;
+		try {
+			this.beginTransaction();
+			return func.apply(this);
+		} catch(Exception e) {
+			log.error(e, e);
+			this.setRollback();
+		} finally {
+			this.endTransaction();
+		}
+		return null;
+	}
+	
 	@Inject
 	protected EntityManager em;
 	
@@ -53,7 +69,10 @@ public class BaseDao<T> {
 	}
 
 	protected Class<T> getEntityClass() {
-		TypeVariable<?> tv = this.getClass().getTypeParameters()[0];
+		TypeVariable<?>[] typeParameters = this.getClass().getSuperclass().getTypeParameters();
+		if (ArrayUtils.isEmpty(typeParameters)) return null;
+		
+		TypeVariable<?> tv = typeParameters[0];
 		return (Class<T>)tv.getBounds()[0];
 	}
 
@@ -351,25 +370,19 @@ public class BaseDao<T> {
 		
 		public SimpleQueryBuilder withNamedParams(Map<String, Object> namedParams) {
 			if (MapUtils.isEmpty(namedParams)) return this;
-			for (Map.Entry<String, Object> namedParam : namedParams.entrySet()) {
-				q.setParameter(namedParam.getKey(), namedParam.getValue());
-			}
+			namedParams.forEach((k, v)->q.setParameter(k, v));
 			return this;
 		}
 		
 		public SimpleQueryBuilder withPositionedParams(Map<Integer, Object> positionedParams) {
 			Object[] params = new Object[positionedParams.size()];
-			for (Map.Entry<Integer, Object> en : positionedParams.entrySet()) {
-				params[en.getKey()] = en.getValue();
-			}
+			positionedParams.forEach((k, v)->{params[k] = v;});
 			return withPositionedParams(params);
 		}
 		
 		public SimpleQueryBuilder withPositionedParams(Object...params) {
 			if (ArrayUtils.isNotEmpty(params)) {
-				for (int i = 0; i < params.length; i++) {
-					q.setParameter(1 + i, params[i]);
-				}
+				IntStream.range(0, params.length).forEach((i)->q.setParameter(1 + i, params[i]));
 			}
 			return this;
 		}
