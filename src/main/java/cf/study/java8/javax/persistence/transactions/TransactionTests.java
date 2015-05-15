@@ -1,5 +1,6 @@
 package cf.study.java8.javax.persistence.transactions;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -13,10 +14,10 @@ import javax.persistence.Persistence;
 
 import misc.MiscUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -44,7 +45,7 @@ public class TransactionTests {
 	
 	@BeforeClass
 	public static void setUp() {
-		emf = Persistence.createEntityManagerFactory("transactions");
+		emf = Persistence.createEntityManagerFactory("payment");
 	}
 	
 	@AfterClass
@@ -108,7 +109,76 @@ public class TransactionTests {
 	}
 	
 	@Test
+	public void testTransactionWaitWithPayment() throws Exception {
+		{
+			BaseDao bd = new BaseDao(getEm());
+			System.out.println(bd.countByNativeSqlWithIndexedParams("select count(1) from TT_ORDER;"));
+			List<Object[]> re = bd.queryByNativeSqlWithIndexedParams("show Variables where Variable_name like 'innodb_lock_wait_timeout';", 0, 0);
+			re.forEach(e->log.info(Arrays.toString(e)));
+		}
+		
+		ScheduledExecutorService es = Executors.newScheduledThreadPool(MiscUtils.AVAILABLE_PROCESSORS);
+		Runnable task1 = ()->{
+			try {
+				BaseDao<Serializable> bd = new BaseDao<Serializable>(getEm());
+				log.info("\n\tstart occupying at " + System.currentTimeMillis());
+				bd.doFuncInTransaction((_td)->{
+//				_td.executeNativeSqlUpdate("begin;");
+					_td.executeNativeSqlUpdate("update TT_ORDER set payment_type='wait' where sn = 1;");
+					_td.getEm().flush();
+					for (int i = 0; i < 55; i++) {
+						log.info(Thread.currentThread().getName() + " sleep " + i);
+						MiscUtils.easySleep(1000);
+					}
+//				_td.executeNativeSqlUpdate("commit;");
+					return null;
+				});
+				log.info("\n\tend occupying at " + System.currentTimeMillis());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		};
+	
+		for (int i = 0; i < 2; i++) {
+			es.submit(task1);
+		}
+		
+		Runnable task2 = ()->{
+			try {
+				BaseDao<Serializable> bd = new BaseDao<Serializable>(getEm());
+				log.info("\n\tstart occupying at " + System.currentTimeMillis());
+				bd.doFuncInTransaction((_td)->{
+//				_td.executeNativeSqlUpdate("begin;");
+					_td.executeNativeSqlUpdate("update TT_ORDER set payment_type='no-wait' where sn = 1;");
+					_td.getEm().flush();
+//				for (int i = 0; i < 55; i++) {
+//					log.info(Thread.currentThread().getName() + " sleep " + i);
+//					MiscUtils.easySleep(1000);
+//				}
+//				_td.executeNativeSqlUpdate("commit;");
+					return null;
+				});
+				log.info("\n\tend occupying at " + System.currentTimeMillis());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		};
+	
+		for (int i = 0; i < 2; i++) {
+			es.schedule(task2, 25000, TimeUnit.MILLISECONDS);
+		}
+		
+		es.shutdown();
+		es.awaitTermination(100, TimeUnit.SECONDS);
+	}
+	
+	@Test
 	public void testTransactionWait() throws Exception {
+		log.info(StringUtils.repeat("\n", 10));
+		testReadUncommitted();
+		
+		log.info(StringUtils.repeat("\n", 10));
+		
 		TestEntity en = null; 
 		{
 			TestDao td = new TestDao(getEm());
@@ -126,22 +196,35 @@ public class TransactionTests {
 		
 		Runnable task1 = ()->{
 			TestDao td = new TestDao(getEm());
-			log.info("\n\tstart occupying at " + System.currentTimeMillis());
-			td.doFuncInTransaction((_td)->{
-				_td.executeNativeSqlUpdate("begin;");
+			
+			try {
+//				td.executeNativeSqlUpdate("set session innodb_lock_wait_timeout=8;");
+				log.info(StringUtils.repeat("\n", 10));
+				testReadUncommitted();
+				log.info(StringUtils.repeat("\n", 10));
 				
-				TestEntity _en = (TestEntity) _td.find(id);
-				_en.value = _en.value + 1;
-				for (int i = 0; i < 40; i++) {
-					log.info(Thread.currentThread().getName() + " sleep " + i);
-					MiscUtils.easySleep(1000);
-				}
-				Object edited = _td.edit(_en);
-				_td.executeNativeSqlUpdate("commit;");
-				log.info(edited);
-				return edited;
-			});
-			log.info("\n\tend occupying at " + System.currentTimeMillis());
+				log.info("\n\tstart occupying at " + System.currentTimeMillis());
+				
+				
+				td.doFuncInTransaction((_td)->{
+//				_td.executeNativeSqlUpdate("begin;");
+					
+					TestEntity _en = (TestEntity) _td.find(id);
+					_en.value = _en.value + 1;
+					Object edited = _td.edit(_en);
+					td.getEm().flush();
+					for (int i = 0; i < 4; i++) {
+						log.info(Thread.currentThread().getName() + " sleep " + i);
+						MiscUtils.easySleep(1000);
+					}
+//				_td.executeNativeSqlUpdate("commit;");
+					log.info(edited);
+					return edited;
+				});
+				log.info("\n\tend occupying at " + System.currentTimeMillis());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		};
 	
 		for (int i = 0; i < 2; i++) {
@@ -151,17 +234,29 @@ public class TransactionTests {
 		
 		Runnable task2 = ()->{
 			TestDao td = new TestDao(getEm());
-			log.info("\n\tstart updating at " + System.currentTimeMillis());
-			td.doFuncInTransaction((_td)->{
-				_td.executeNativeSqlUpdate("begin;");
-				TestEntity _en = (TestEntity) _td.find(id);
-				_en.value = _en.value + 1;
-				Object edited = _td.edit(_en);
-				_td.executeNativeSqlUpdate("commit;");
-				log.info(edited);
-				return edited;
-			});
-			log.info("\n\tend updating at " + System.currentTimeMillis());
+			
+			try {
+//				td.executeNativeSqlUpdate("set session innodb_lock_wait_timeout=8;");
+				log.info(StringUtils.repeat("\n", 10));
+				testReadUncommitted();
+				log.info(StringUtils.repeat("\n", 10));
+				
+				log.info("\n\tstart occupying at " + System.currentTimeMillis());
+				
+				log.info("\n\tstart updating at " + System.currentTimeMillis());
+				td.doFuncInTransaction((_td)->{
+//				_td.executeNativeSqlUpdate("begin;");
+					TestEntity _en = (TestEntity) _td.find(id);
+					_en.value = _en.value + 1;
+					Object edited = _td.edit(_en);
+//				_td.executeNativeSqlUpdate("commit;");
+					log.info(edited);
+					return edited;
+				});
+				log.info("\n\tend updating at " + System.currentTimeMillis());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		};
 		for (int i = 0; i < 2; i++) {
 //			es.submit(task1);
@@ -170,6 +265,9 @@ public class TransactionTests {
 		
 		es.shutdown();
 		es.awaitTermination(100, TimeUnit.SECONDS);
+		
+//		MiscUtils.easySleep(20000);
+		
 		testConnection();
 	}
 	
@@ -183,6 +281,12 @@ public class TransactionTests {
 	
 	@Test
 	public void testReadUncommitted() {
+		BaseDao<Serializable> bd = new BaseDao<Serializable>(getEm());
+//		bd.executeNativeSqlUpdate(" SET session tx_isolation='READ-COMMITTED'");
+		List<Object[]> re = bd.queryByNativeSqlWithIndexedParams("show Variables where Variable_name like 'tx_isolation';", 0, 0);
+		re.forEach(e->log.info(Arrays.toString(e)));
 		
+		re = bd.queryByNativeSqlWithIndexedParams("show Variables where Variable_name like 'innodb_lock_wait_timeout';", 0, 0);
+		re.forEach(e->log.info(Arrays.toString(e)));
 	}
 }

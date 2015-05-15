@@ -199,8 +199,8 @@ public class BaseDao<T> {
 		}
 		if (resultList.size() == 1) {
 			Object first = resultList.get(0);
-			if (first instanceof Long) {
-				return (Long) resultList.get(0);
+			if (first instanceof Number) {
+				return ((Number) resultList.get(0)).longValue();
 			}
 			if (first.getClass().isArray()) {
 				return (Long)((Object[])first)[0];

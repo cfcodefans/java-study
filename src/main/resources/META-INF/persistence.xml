@@ -66,4 +66,27 @@
 			<property name="hibernate.current_session_context_class" value="thread" />
 		</properties>
 	</persistence-unit>
+	
+	<persistence-unit name="payment" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
+			
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://moleman-poppen/PaymentSystem" />
+			<property name="javax.persistence.jdbc.user" value="poppen_pay" />
+			<property name="javax.persistence.jdbc.password" value="NetNet2" />
+			<!-- create-drop -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.max_fetch_depth" value="8" />
+			<property name="hibernate.jdbc.batch_size" value="150" />
+			
+			<property name="hibernate.generate_statistics" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.current_session_context_class" value="thread" />
+		</properties>
+	</persistence-unit>
+	
 </persistence>
