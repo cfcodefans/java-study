@@ -2,7 +2,6 @@ package cf.study.framework.apache.poi.examples;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.StringWriter;
 
@@ -29,7 +28,6 @@ import org.apache.poi.poifs.filesystem.DirectoryNode;
 import org.apache.poi.poifs.filesystem.Entry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.XMLHelper;
-import org.apache.xerces.util.DOMUtil;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
