@@ -2,6 +2,8 @@ package cf.study.framework.apache.poi.examples;
 
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
+import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -15,6 +17,10 @@ import org.apache.poi.hpsf.PropertySet;
 import org.apache.poi.hpsf.PropertySetFactory;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.model.SEPX;
+import org.apache.poi.hwpf.usermodel.HeaderStories;
+import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageProperties;
 import org.apache.poi.openxml4j.util.Nullable;
@@ -172,6 +178,35 @@ public class POITests {
 			BeanUtils.describe(poiXmlProps.getExtendedProperties()).forEach((k, v)->System.out.println(String.format("%s:\t%s", k, v)));
 			System.out.println(StringUtils.repeat('\n', 2));
 		}
+	}
+	
+
+	@Test
+	public void testHWPFHeaderAndFooter() throws Exception {
+		final InputStream is = this.getClass().getResourceAsStream("sample.doc");
+		final HWPFDocument wordDocument = new HWPFDocument(is);
+		
+		Range hsr = wordDocument.getHeaderStoryRange();
+		System.out.println(hsr);
+		BeanUtils.describe(hsr).forEach((k, v)->System.out.println(String.format("%s:\t%s", k, v)));
+		
+		Paragraph p0 = hsr.getParagraph(0);
+		System.out.println(p0);
+		System.out.println(p0.text());
+		
+		System.out.println();
+		List<SEPX> sections = wordDocument.getSectionTable().getSections();
+		System.out.println(sections);
+		sections.forEach(System.out::println);
+		
+		
+		System.out.println();
+		HeaderStories hs = new HeaderStories(wordDocument);
+		System.out.println(hs.getRange().text());
+		
+		System.out.println();
+		Range dr = wordDocument.getRange();
+		System.out.println(dr);
 	}
 }
 

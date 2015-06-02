@@ -342,6 +342,11 @@
 			<artifactId>poi-examples</artifactId>
 			<version>3.12</version>
 		</dependency>
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.apache.xmlgraphics</groupId> -->
