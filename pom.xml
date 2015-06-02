@@ -11,7 +11,6 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -200,59 +199,7 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-servlet</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-client</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlet</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jmx</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-server</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-rewrite</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.lookfirst</groupId>
-			<artifactId>sardine</artifactId>
-			<version>5.4</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
@@ -301,7 +248,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+<!--
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-mapreduce-client-core</artifactId>
@@ -325,6 +272,7 @@
 			<artifactId>hadoop-mapreduce-client-app</artifactId>
 			<version>2.6.0</version>
 		</dependency>
+-->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-proxy</artifactId>
@@ -367,12 +315,13 @@
 		<!-- </exclusion> -->
 		<!-- </exclusions> -->
 		<!-- </dependency> -->
-
+<!--
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-examples_2.10</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+	-->
 	</dependencies>
 
 	<build>
@@ -405,5 +354,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<packaging>pom</packaging>
+	<modules>
+		<module>java_8</module>
+		<module>misc</module>
+		<module>JavaEE</module>
+	</modules>
 </project>
 

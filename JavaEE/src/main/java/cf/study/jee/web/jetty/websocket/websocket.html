@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WebSocket Client Testing</title>
+<script type="text/javascript">
+	var wsUri = "ws://localhost:8080/events/";
+	function createTextWebSocket(wsUri, onOpen, onClose, onMsg, onErr) {
+		try {
+			var ws = new WebSocket(wsUri);
+			if (typeof (onOpen) == "function") {
+				ws.onopen = onOpen;
+			}
+			if (typeof (onClose) == "function") {
+				ws.onclose = onClose;
+			}
+			if (typeof (onMsg) == "function") {
+				ws.onmessage = onMsg;
+			}
+			if (typeof (onErr) == "function") {
+				ws.onerror = onErr;
+			}
+			return ws;
+
+		} catch (e) {
+			console.error(e);
+		}
+	}
+
+	function log() {
+		console.info(this);
+	}
+
+	function logMsg(msg) {
+		console.info(this);
+		console.info(msg);
+	}
+
+	function logErr(err) {
+		console.info(this);
+		console.error(err);
+	}
+
+	//var ws = createTextWebSocket(wsUri,	log, log, logMsg, logErr);
+</script>
+</head>
+<body>
+
+</body>
+</html>
