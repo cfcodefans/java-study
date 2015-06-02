@@ -1,8 +1,7 @@
-package cf.study.framework.apache.poi.examples;
+package cf.study.framework.org.apache.poi.examples;
 
 import java.beans.PropertyDescriptor;
 import java.io.InputStream;
-import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -17,18 +16,20 @@ import org.apache.poi.hpsf.PropertySet;
 import org.apache.poi.hpsf.PropertySetFactory;
 import org.apache.poi.hpsf.SummaryInformation;
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.model.SEPX;
+import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.HeaderStories;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.hwpf.usermodel.Section;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageProperties;
 import org.apache.poi.openxml4j.util.Nullable;
 import org.apache.poi.poifs.filesystem.DirectoryNode;
 import org.apache.poi.poifs.filesystem.Entry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.eclipse.core.runtime.Assert;
+import org.junit.Assert;
 import org.junit.Test;
+
 
 
 public class POITests {
@@ -65,7 +66,7 @@ public class POITests {
 	public void testPOIFSFileSystem() {
 		try {
 			InputStream docInputStream = POITests.class.getResourceAsStream("sample.doc");
-			Assert.isNotNull(docInputStream);
+			Assert.assertNotNull(docInputStream);
 			
 			POIFSFileSystem fs = new POIFSFileSystem(docInputStream);
 			System.out.println(fs.getShortDescription());
@@ -91,10 +92,10 @@ public class POITests {
 	@Test
 	public void testHWPFDocument() throws Exception {
 		InputStream docInputStream = POITests.class.getResourceAsStream("sample.doc");
-		Assert.isNotNull(docInputStream);
+		Assert.assertNotNull(docInputStream);
 		
 		HWPFDocument hwpf = new HWPFDocument(docInputStream);
-		Assert.isNotNull(hwpf);
+		Assert.assertNotNull(hwpf);
 		
 //		System.out.println(hwpf.getText());
 	}
@@ -103,7 +104,7 @@ public class POITests {
 	public void testPOIDocument() throws Exception {
 		InputStream docInputStream = POITests.class.getResourceAsStream("sample.doc");
 
-		Assert.isNotNull(docInputStream);
+		Assert.assertNotNull(docInputStream);
 
 		POIDocument poiDoc = new HWPFDocument(docInputStream);
 		
@@ -134,7 +135,7 @@ public class POITests {
 	@Test
 	public void testFalseDoc() throws Exception {
 		InputStream docInputStream = POITests.class.getResourceAsStream("false.xls");
-		Assert.isNotNull(docInputStream);
+		Assert.assertNotNull(docInputStream);
 
 		POIDocument poiDoc = new HWPFDocument(docInputStream);
 		System.out.println(poiDoc.getSummaryInformation().getApplicationName());
@@ -144,7 +145,7 @@ public class POITests {
 	public void testOPCPackage() throws Exception {
 		{// can't parse Office 97-2003
 			InputStream docInputStream = POITests.class.getResourceAsStream("sample.xlsx");
-			Assert.isNotNull(docInputStream);
+			Assert.assertNotNull(docInputStream);
 			
 			OPCPackage opc = OPCPackage.open(docInputStream);
 			System.out.println(opc);
@@ -163,7 +164,6 @@ public class POITests {
 							System.out.println(String.format("%s:\t%s", pdName, val));
 						} catch (Exception e) {
 						}
-						;
 					} );
 			
 			System.out.println(StringUtils.repeat('\n', 2));
@@ -184,29 +184,61 @@ public class POITests {
 	@Test
 	public void testHWPFHeaderAndFooter() throws Exception {
 		final InputStream is = this.getClass().getResourceAsStream("sample.doc");
-		final HWPFDocument wordDocument = new HWPFDocument(is);
+		final HWPFDocument wd = new HWPFDocument(is);
 		
-		Range hsr = wordDocument.getHeaderStoryRange();
+		Range hsr = wd.getHeaderStoryRange();
 		System.out.println(hsr);
 		BeanUtils.describe(hsr).forEach((k, v)->System.out.println(String.format("%s:\t%s", k, v)));
 		
-		Paragraph p0 = hsr.getParagraph(0);
-		System.out.println(p0);
-		System.out.println(p0.text());
+		System.out.println();
+		System.out.println(hsr.numCharacterRuns());
+		IntStream.range(0, hsr.numCharacterRuns()).forEach(i->{
+			CharacterRun p0 = hsr.getCharacterRun(i);
+			System.out.println(p0);
+			System.out.println(p0.text());
+			System.out.println();
+		});
 		
 		System.out.println();
-		List<SEPX> sections = wordDocument.getSectionTable().getSections();
-		System.out.println(sections);
-		sections.forEach(System.out::println);
-		
+		System.out.println(hsr.numSections());
+		IntStream.range(0, hsr.numSections()).forEach(i->{
+			Section p0 = hsr.getSection(i);
+			System.out.println(p0);
+			System.out.println(p0.text());
+			System.out.println();
+		});
 		
 		System.out.println();
-		HeaderStories hs = new HeaderStories(wordDocument);
-		System.out.println(hs.getRange().text());
+		System.out.println(hsr.numParagraphs());
+		IntStream.range(0, hsr.numParagraphs()).forEach(i->{
+			Paragraph p0 = hsr.getParagraph(i);
+			System.out.println(p0);
+			System.out.println(p0.text());
+			System.out.println();
+		});
 		
-		System.out.println();
-		Range dr = wordDocument.getRange();
-		System.out.println(dr);
+//		System.out.println();
+//		Section h11 = h1.getSection(hsr.getStartOffset());
+//		System.out.println(h11);
+//		System.out.println(h11.text());
+		
+//		System.out.println();
+//		Range dr = wd.getRange();
+//		System.out.println(dr);
+		
+//		System.out.println();
+		HeaderStories hs = new HeaderStories(wd);
+		System.out.println(hs.getEvenFooterSubrange());
+		System.out.println(hs.getOddFooterSubrange());
+		System.out.println(hs.getOddFooterSubrange().text());
+		System.out.println(hs.getOddHeaderSubrange());
+		System.out.println(hs.getOddHeaderSubrange().text());
+//		Range fhs = hs.getFirstHeaderSubrange();
+//		System.out.println(fhs);
+//		System.out.println(fhs.text());
+//		Range r = hs.getRange();
+//		System.out.println(r);
+//		System.out.println(r.text());
 	}
 }
 

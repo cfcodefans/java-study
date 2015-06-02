@@ -251,7 +251,7 @@ public class MiscUtils {
 			HttpGet hg = new HttpGet(ub.build());
 			try (CloseableHttpResponse hr = hc.execute(hg)) {
 				BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
-				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+//				bhr.setEntity(entity);(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
 				return bhr;
 			}
 		} catch (Exception e) {
@@ -276,7 +276,7 @@ public class MiscUtils {
 			
 			try (CloseableHttpResponse hr = hc.execute(hp)) {
 				BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
-				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+//				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
 				return bhr;
 			}
 		} catch (Exception e) {

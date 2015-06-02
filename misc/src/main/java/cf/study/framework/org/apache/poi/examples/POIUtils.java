@@ -1,8 +1,9 @@
-package cf.study.framework.apache.poi.examples;
+package cf.study.framework.org.apache.poi.examples;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
@@ -36,6 +37,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.POILogFactory;
 import org.apache.poi.util.POILogger;
 import org.apache.poi.util.XMLHelper;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.sax.ToXMLContentHandler;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.in.Doc;
@@ -43,6 +48,8 @@ import org.docx4j.convert.out.HTMLSettings;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.junit.Test;
 import org.w3c.dom.Document;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
 
 public class POIUtils {
 
@@ -115,23 +122,33 @@ public class POIUtils {
 			super.processDocument(wordDocument);
 		}
 	
-		protected void processHeader(HWPFDocumentCore wordDocument) {
+		protected void processHeader(HWPFDocumentCore wordDocument, int sectionCounter) {
+			
+//			Range header = headerStories.getEvenHeaderSubrange();
 			
 		}
 		
+		protected void processFooter(HWPFDocumentCore wordDocument, int sectionCounter) {
+//			headerStories.getFooter(sectionCounter);
+		}
+		
 		protected void processSection(HWPFDocumentCore wordDocument, Section section, int sectionCounter) {
+			processHeader(wordDocument, sectionCounter);
 			super.processSection(wordDocument, section, sectionCounter);
+			processFooter(wordDocument, sectionCounter);
 		}
 
 		@Override
 		protected void processSingleSection(HWPFDocumentCore wordDocument, Section section) {
+			processHeader(wordDocument, 0);
 			super.processSingleSection(wordDocument, section);
+			processFooter(wordDocument, 0);
 		}
 	}
 	
 	public static String convertWordToHtmlByPOI(final InputStream is) throws Exception {
 		final HWPFDocument wordDocument = new HWPFDocument(is);// WordToHtmlUtils.loadDoc(is);
-		WordToHtmlConverter wordToHtmlConverter = new TestWordToHtmlConverter(XMLHelper.getDocumentBuilderFactory().newDocumentBuilder().newDocument());
+		TestWordToHtmlConverter wordToHtmlConverter = new TestWordToHtmlConverter(XMLHelper.getDocumentBuilderFactory().newDocumentBuilder().newDocument());
 		
 		wordToHtmlConverter.processDocument(wordDocument);
 		
@@ -262,21 +279,36 @@ public class POIUtils {
 	@Test
 	public void testConversion() {
 		try {
-			String htmlDocStr = convertWordToHtml(this.getClass().getResourceAsStream("sample.doc"));
-			String domToString = new String(htmlDocStr);
-//			System.out.println(domToString);
-			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), domToString);
+			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.docx")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-//		try {
-//			String htmlDocStr = convertWordToHtml(this.getClass().getResourceAsStream("sample.docx"));
-//			String domToString = new String(htmlDocStr);
-////			System.out.println(domToString);
-//			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), domToString);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+	}
+	
+	public static String parseToHTML(InputStream stream) throws IOException, SAXException, TikaException {
+	    ContentHandler handler = new ToXMLContentHandler();
+	     
+	    AutoDetectParser parser = new AutoDetectParser();
+	    Metadata metadata = new Metadata();
+	    try {
+	        parser.parse(stream, handler, metadata);
+	        return handler.toString();
+	    } finally {
+	        stream.close();
+	    }
+	}
+	
+	@Test
+	public void testTika() {
+		try {
+			FileUtils.writeStringToFile(new File("./test/docs/false_xls.html"), parseToHTML(this.getClass().getResourceAsStream("false.xls")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_xls.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xls")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_xlsx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xlsx")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), parseToHTML(this.getClass().getResourceAsStream("sample.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.docx")));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

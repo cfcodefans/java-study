@@ -17,7 +17,7 @@
 			<groupId>study_java_8</groupId>
 			<version>0.0.1</version>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-servlet</artifactId>
 			<version>${jetty-version}</version>
@@ -69,6 +69,40 @@
 			<groupId>com.github.lookfirst</groupId>
 			<artifactId>sardine</artifactId>
 			<version>5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-proxy</artifactId>
+			<version>${jetty-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.7.Final</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.glassfish.hk2</groupId>
+			<artifactId>class-model</artifactId>
+			<version>2.4.0-b07</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>2.4.2</version>
 		</dependency>
 	</dependencies>
 	<artifactId>JavaEE</artifactId>

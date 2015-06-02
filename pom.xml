@@ -63,46 +63,23 @@
 
 
 
-		<!-- <dependency> -->
-		<!-- <groupId>com.sun.messaging.mq</groupId> -->
-		<!-- <artifactId>fscontext</artifactId> -->
-		<!-- <version>4.6-b01</version> -->
-		<!-- </dependency> -->
+		
+		
+		
+		
+		
 		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<version>1.7R4</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.glassfish.common</groupId> -->
-		<!-- <artifactId>glassfish-naming</artifactId> -->
-		<!-- <version>3.0-b41</version> -->
-		<!-- </dependency> -->
-
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.0.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.7.Final</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		
+		
+		
+		
+		
 
 
-		<dependency>
-			<groupId>org.glassfish.hk2</groupId>
-			<artifactId>class-model</artifactId>
-			<version>2.4.0-b07</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.xbean</groupId>
@@ -110,11 +87,11 @@
 			<version>4.1</version>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.python</groupId> -->
-		<!-- <artifactId>jython</artifactId> -->
-		<!-- <version>2.7-b1</version> -->
-		<!-- </dependency> -->
+		
+		
+		
+		
+		
 
 
 		<dependency>
@@ -153,35 +130,9 @@
 			<version>4.1.5.RELEASE</version>
 		</dependency>
 
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>2.6.2</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-demo</artifactId>
-			<version>5.0.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jdt</groupId>
-			<artifactId>org.eclipse.jdt.core</artifactId>
-			<version>3.10.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-backward-codecs</artifactId>
-			<version>5.0.0</version>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -197,104 +148,15 @@
 					<groupId>commons-codec</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency><!-- <dependency> --><!-- <groupId>com.sun.messaging.mq</groupId> --><!-- <artifactId>fscontext</artifactId> --><!-- <version>4.6-b01</version> --><!-- </dependency> --><!-- <dependency> --><!-- <groupId>org.glassfish.common</groupId> --><!-- <artifactId>glassfish-naming</artifactId> --><!-- <version>3.0-b41</version> --><!-- </dependency> --><!-- <dependency> --><!-- <groupId>org.python</groupId> --><!-- <artifactId>jython</artifactId> --><!-- <version>2.7-b1</version> --><!-- </dependency> -->
 
 
 
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-examples</artifactId>
-			<version>2.6.0</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jersey-server</artifactId>
-					<groupId>com.sun.jersey</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-io</artifactId>
-					<groupId>commons-io</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-codec</artifactId>
-					<groupId>commons-codec</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jetty-util</artifactId>
-					<groupId>org.mortbay.jetty</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jersey-core</artifactId>
-					<groupId>com.sun.jersey</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jetty</artifactId>
-					<groupId>org.mortbay.jetty</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jsp-api</artifactId>
-					<groupId>javax.servlet.jsp</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-<!--
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-client-core</artifactId>
-			<version>2.6.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>jdk.tools</groupId>
-					<artifactId>jdk.tools</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+	
 
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-common</artifactId>
-			<version>2.6.0</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-mapreduce-client-app</artifactId>
-			<version>2.6.0</version>
-		</dependency>
--->
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-proxy</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
-			<version>2.4.2</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-examples</artifactId>
-			<version>3.12</version>
-		</dependency>
-		<dependency>
-			<groupId>org.docx4j</groupId>
-			<artifactId>docx4j</artifactId>
-			<version>3.2.1</version>
-		</dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.apache.xmlgraphics</groupId> -->
@@ -316,11 +178,7 @@
 		<!-- </exclusions> -->
 		<!-- </dependency> -->
 <!--
-		<dependency>
-			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-examples_2.10</artifactId>
-			<version>1.1.1</version>
-		</dependency>
+
 	-->
 	</dependencies>
 
@@ -359,6 +217,7 @@
 		<module>java_8</module>
 		<module>misc</module>
 		<module>JavaEE</module>
+		<module>Data</module>
 	</modules>
 </project>
 
