@@ -2,3 +2,12 @@ bin/
 target/
 test/
 .settings
+.idea
+.idea/**
+.settings/**
+test/**
+target/**
+
+**/.settings/**
+**/test/**
+**/target/**
