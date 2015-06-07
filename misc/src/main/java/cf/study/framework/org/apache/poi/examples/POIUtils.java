@@ -279,8 +279,9 @@ public class POIUtils {
 	@Test
 	public void testConversion() {
 		try {
-			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.doc")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.docx")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test.html"), 
+					convertWordToHtml(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
