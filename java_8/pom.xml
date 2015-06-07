@@ -8,8 +8,8 @@
 	</parent>
 	<dependencies>
 		<dependency>
-			<artifactId>misc</artifactId>
 			<groupId>study_java_8</groupId>
+			<artifactId>study_java_8</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 	</dependencies>

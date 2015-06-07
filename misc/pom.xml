@@ -9,6 +9,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>study_java_8</groupId>
+			<artifactId>study_java_8</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
 			<version>1.8.3</version>
@@ -19,10 +24,14 @@
 			<version>2.6.2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.4.2.RELEASE</version>
+		</dependency>		
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-examples</artifactId>
 			<version>3.12</version>
-			
 		</dependency>
 		<dependency>
 			<groupId>org.docx4j</groupId>
