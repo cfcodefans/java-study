@@ -28,7 +28,6 @@ import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.HWPFDocumentCore;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
 import org.apache.poi.hwpf.usermodel.HeaderStories;
-import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.hwpf.usermodel.Section;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.DirectoryNode;
@@ -280,8 +279,9 @@ public class POIUtils {
 	public void testConversion() {
 		try {
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.doc")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_test.html"), 
-					convertWordToHtml(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.docx")));
+
+			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("关于Word文档到HTML的转化.docx")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -303,11 +303,12 @@ public class POIUtils {
 	@Test
 	public void testTika() {
 		try {
-			FileUtils.writeStringToFile(new File("./test/docs/false_xls.html"), parseToHTML(this.getClass().getResourceAsStream("false.xls")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_xls.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xls")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_xlsx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xlsx")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), parseToHTML(this.getClass().getResourceAsStream("sample.doc")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.docx")));
+//			FileUtils.writeStringToFile(new File("./test/docs/false_xls.html"), parseToHTML(this.getClass().getResourceAsStream("false.xls")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_xls.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xls")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_xlsx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xlsx")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), parseToHTML(this.getClass().getResourceAsStream("sample.doc")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.docx")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_tika_docx.html"), parseToHTML(this.getClass().getResourceAsStream("关于Word文档到HTML的转化.docx")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
