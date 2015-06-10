@@ -68,6 +68,17 @@ public class POIUtils {
 		public String toString() {
 			return "DocInfo [version=" + version + ", appName=" + appName + "]";
 		}
+
+		public DocInfo() {}
+		
+		public DocInfo(Version version, String appName) {
+			super();
+			this.version = version;
+			this.appName = appName;
+		}
+		
+		public static final DocInfo word97 = new DocInfo(Version.OFFICE_97_2003, "Office word");
+		public static final DocInfo word2007 = new DocInfo(Version.OFFICE_2007, "Office word");
 	}
 
 	public static DocInfo getDocInfo(final InputStream is) throws Exception {
@@ -276,12 +287,27 @@ public class POIUtils {
 	}
 
 	@Test
-	public void testConversion() {
+	public void testDocx4jConversion() {
 		try {
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.doc")));
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("sample.docx")));
 
-			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("关于Word文档到HTML的转化.docx")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_doc.html"), 
+					convertWordToHtmlByDocx4J(this.getClass().getResourceAsStream("测试链接.doc"), DocInfo.word97));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_docx.html"), 
+					convertWordToHtmlByDocx4J(this.getClass().getResourceAsStream("测试链接.docx"), DocInfo.word2007));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testConversion() {
+		try {
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.doc")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.docx")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -308,7 +334,7 @@ public class POIUtils {
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_xlsx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.xlsx")));
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_doc.html"), parseToHTML(this.getClass().getResourceAsStream("sample.doc")));
 //			FileUtils.writeStringToFile(new File("./test/docs/sample_docx.html"), parseToHTML(this.getClass().getResourceAsStream("sample.docx")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_tika_docx.html"), parseToHTML(this.getClass().getResourceAsStream("关于Word文档到HTML的转化.docx")));
+			FileUtils.writeStringToFile(new File("./test/docs/sample_tika_docx.html"), parseToHTML(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
