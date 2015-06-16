@@ -114,5 +114,5 @@
 
 	</dependencies>
 	<artifactId>Data</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 </project>

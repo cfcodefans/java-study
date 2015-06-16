@@ -10,7 +10,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>study_java_8</groupId>
-			<artifactId>study_java_8</artifactId>
+			<artifactId>commons</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 		<dependency>
