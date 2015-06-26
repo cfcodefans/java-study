@@ -1,10 +1,13 @@
 package cf.study.java8.lang;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -35,6 +38,25 @@ public class ProcessTests {
 		
 		String path = envVars.get("Path");
 		Stream.of(StringUtils.split(path, ';')).map(String::trim).forEach(System.out::println);
+	}
+	
+	@Test
+	public void testEcho() throws Exception {
+		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "echo 'echo'");
+		Process proc = pb.start();
+		IOUtils.copy(proc.getInputStream(), System.out);
+		System.out.flush();
+	}
+	
+	@Test
+	public void testRedirect() throws Exception {
+		ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "echo 'echo'");
+		Process proc = pb.start();
+		File file = Paths.get("./test/redirect").toFile();
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		System.out.println(FileUtils.readFileToString(pb.redirectInput(file).redirectInput().file()));
 	}
 	
 	public static class JavaProcBuilder {

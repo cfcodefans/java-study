@@ -27,7 +27,7 @@ public class SortTests <T extends Comparable<?>> {
 			return data;
 		}
 		
-		ArrayList<T> _data = new ArrayList(data);
+		ArrayList<T> _data = new ArrayList<T>(data);
 		
 		for (int i = 0, _i = data.size(); i < _i; i++) {
 			for (int j = 0, _j = _i - i - 1; j < _j; j++) {

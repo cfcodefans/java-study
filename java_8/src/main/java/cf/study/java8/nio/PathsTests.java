@@ -1,10 +1,11 @@
 package cf.study.java8.nio;
 
+import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -36,6 +37,30 @@ public class PathsTests {
 		System.out.println(_p.isAbsolute());
 		System.out.println(_p.getFileName());
 		System.out.println(_p.toAbsolutePath().getFileName());
+		
+		_p = Paths.get(".", "test");
+		System.out.println(_p.toAbsolutePath());
+		System.out.println(_p.normalize().toAbsolutePath());
+		System.out.println(_p.isAbsolute());
+		System.out.println(_p.getFileName());
+		System.out.println(_p.toAbsolutePath().getFileName());
+		
+		_p = Paths.get("./test");
+		System.out.println(_p.toAbsolutePath());
+		System.out.println(_p.normalize().toAbsolutePath());
+		System.out.println(_p.isAbsolute());
+		System.out.println(_p.getFileName());
+		System.out.println(_p.toAbsolutePath().getFileName());
+		
+		System.out.println();
+		
+		_p.forEach(__p->System.out.print(__p + ">"));
+		
+		System.out.println();
+		
+		_p.toAbsolutePath().forEach(__p->System.out.print(__p + ">"));
+		
+		_p.toAbsolutePath().forEach(__p->System.out.println(__p.toAbsolutePath() + ">"));
 	}
 
 	@Test
@@ -54,5 +79,15 @@ public class PathsTests {
 		System.out.println(metaInf);
 		
 		metaInf.iterator().forEachRemaining(System.out::println);
+	}
+	
+	@Test
+	public void testToFile() {
+		File f = Paths.get("test/f").toAbsolutePath().toFile();
+		File _f = Paths.get("test/f").toFile();
+		
+		System.out.println(f);
+		System.out.println(_f);
+		System.out.println(Objects.equals(f, _f));
 	}
 }
