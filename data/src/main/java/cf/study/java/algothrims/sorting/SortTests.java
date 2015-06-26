@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.Range;
 import org.junit.Test;
 
 import misc.MiscUtils;
@@ -21,6 +22,7 @@ public class SortTests <T extends Comparable<?>> {
 	};
 	
 	public BiFunction<List<T>, Comparator<T>, List<T>> bubbleSort = (List<T> data, Comparator<T> cmp)->{
+		System.out.println(data);
 		if (CollectionUtils.isEmpty(data) || data.size() == 1) {
 			return data;
 		}
@@ -38,6 +40,22 @@ public class SortTests <T extends Comparable<?>> {
 		return _data;
 	};
 	
+	public BiFunction<List<T>, Comparator<T>, List<T>> quickSort = (List<T> data, final Comparator<T> cmp)->{
+		System.out.println(data);
+		if (CollectionUtils.isEmpty(data) || data.size() == 1) {
+			return data;
+		}
+		
+		ArrayList<T> _data = new ArrayList(data);
+		
+		BiFunction<List<T>, Range<Integer>, List<T>> swap = (List<T> __data, Range<Integer> range) -> {
+//			if (range.getMinimum())
+			return __data;
+		};
+		
+		return _data;
+	};
+	
 	@Test
 	public void testBubbleSort() {
 		List<Long> data = MiscUtils.pi2Longs(10);
@@ -47,5 +65,13 @@ public class SortTests <T extends Comparable<?>> {
 		List<Long> sorted = st.bubbleSort.apply(data, st._cmp);
 		
 		System.out.println(sorted);
+		System.out.println(st.bubbleSort.apply(MiscUtils.pi2Longs(1), st._cmp));
+		System.out.println(st.bubbleSort.apply(MiscUtils.pi2Longs(4), st._cmp));
+	}
+	
+	@Test
+	public void testBubbleSort1() {	
+		SortTests<Long> st = new SortTests<Long>();
+		System.out.println(st.bubbleSort.apply(MiscUtils.pi2Longs(400), st._cmp));
 	}
 }

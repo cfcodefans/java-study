@@ -347,6 +347,11 @@ public class MiscUtils {
 				n = 0;
 			}
 			
+			if (n == 0) return null;
+			if (n == 1) return new BigDecimal(3);
+			if (n == 2) return new BigDecimal(3.1);
+			if (n == 3) return new BigDecimal(3.14);
+			
 			MathContext mc = new MathContext(n);
 			BigDecimal pi = new BigDecimal(BigInteger.ZERO, n, mc);
 			BigDecimal one = new BigDecimal(BigInteger.ONE, n, mc);

@@ -306,8 +306,8 @@ public class POIUtils {
 	public void testConversion() {
 		try {
 			FileUtils.writeStringToFile(new File("./test/docs/sample_test_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("CNAS标准规范.doc")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.doc")));
-			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.docx")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_doc.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.doc")));
+//			FileUtils.writeStringToFile(new File("./test/docs/sample_test_link_docx.html"), convertWordToHtml(this.getClass().getResourceAsStream("测试链接.docx")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
