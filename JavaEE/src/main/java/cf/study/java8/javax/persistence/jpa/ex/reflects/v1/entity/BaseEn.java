@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Basic;
@@ -78,7 +79,7 @@ public class BaseEn {
 	public long version;
 	
 	public BaseEn(String qualifiedName, BaseEn enclosing, CategoryEn cat) {
-		super();
+		this();
 		this.name = qualifiedName;
 		this.enclosing = enclosing;
 		this.category = cat;
@@ -87,7 +88,11 @@ public class BaseEn {
 			enclosing.children.add(this);
 	}
 
+	public static AtomicLong ID = new AtomicLong(0);
+	
 	public BaseEn() {
+		this.id = ID.incrementAndGet();
+		System.out.println(id);
 	}
 
 	public static Set<Modifier> getModifiers(int mod) {
