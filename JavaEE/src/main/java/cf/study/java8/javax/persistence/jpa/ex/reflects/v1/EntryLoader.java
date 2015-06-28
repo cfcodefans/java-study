@@ -22,7 +22,9 @@ import java.util.stream.Stream;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.xbean.classloader.JarFileClassLoader;
+import org.junit.Test;
 
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
@@ -32,7 +34,7 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
 
-class EntryLoader {
+public class EntryLoader {
 
 	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
 		act.accept(be);
@@ -368,5 +370,11 @@ class EntryLoader {
 
 		pe.paramType = inflateClassEnByClz(pe.parameter.getType());
 		return pe;
+	}
+	
+	@Test
+	public void testLoading() throws Exception {
+		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		extractJarStructure(_f);
 	}
 }

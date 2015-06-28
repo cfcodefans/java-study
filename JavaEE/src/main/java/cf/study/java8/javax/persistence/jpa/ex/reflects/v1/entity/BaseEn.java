@@ -198,9 +198,7 @@ public class BaseEn {
 //		});
 //		
 		Collection<BaseEn> children2 = _be.children;
-		children.forEach(child->{
-			children2.add(child.clone());
-		});
+		children.stream().map(BaseEn::clone).forEach(children2::add);
 //		
 //		if (enclosing != null)
 //			_be.enclosing = enclosing.clone();

@@ -55,9 +55,7 @@ public class DataTests {
 		
 		ReflectDao dao = ReflectDao.threadLocal.get();
 		dao.beginTransaction();
-		el.roots.forEach((en)->{
-			dao.persist(en);
-		});
+		el.roots.forEach(dao::persist);
 		dao.endTransaction();
 	}
 	
@@ -103,19 +101,15 @@ public class DataTests {
 
 		System.out.println("preload is done");
 //		
-		el.classEnPool.values().parallelStream().forEach((ce) -> {
-			el.inflateClassEnByClz(ce);
-		});
+		el.classEnPool.values().parallelStream().forEach(el::inflateClassEnByClz);
 //		
 		System.out.println("inflation is done");
 //		
 		ReflectDao dao = ReflectDao.threadLocal.get();//new ReflectDao(JpaModule.getEntityManager());
 		dao.beginTransaction();
-		el.classEnPool.values().forEach((ce)->{
-			dao.refresh(ce);
-		});
+		el.classEnPool.values().forEach(dao::refresh);
 		el.classEnPool.values().forEach((be)->{
-			EntryLoader.traverse(be, (_be)->{dao.edit(_be);}, ()->{});
+			EntryLoader.traverse(be, dao::edit, ()->{});
 		});
 		dao.getEm().flush();
 		dao.endTransaction();
@@ -155,7 +149,7 @@ public class DataTests {
 		el.roots.parallelStream().forEach((be)->{
 			ReflectDao dao = ReflectDao.threadLocal.get();
 			dao.beginTransaction();
-			EntryLoader.traverse(be, (_be)->{dao.create(_be);}, ()->{dao.getEm().flush();});
+			EntryLoader.traverse(be, dao::create, ()->{dao.getEm().flush();});
 			dao.endTransaction();
 		});
 		System.out.println("Preload class: " + el.classEnPool.size());
