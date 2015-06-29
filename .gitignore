@@ -14,3 +14,4 @@ target/**
 **/test/**
 **/target/**
 **/.classpath
+.classpath
