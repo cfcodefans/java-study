@@ -19,7 +19,7 @@ public class FixTests {
 	public static final String pathStr = "D:\\dev";
 	
 	public List<File> getAllLogs() {
-		List<File> fileList = Stream.of(Paths.get(pathStr).toFile().listFiles()).filter(f->f.getName().contains("server.log")).collect(Collectors.toList());
+		List<File> fileList = Stream.of(Paths.get(pathStr).toFile().listFiles()).filter(f->f.getName().contains("server.log_2015-06-27")).collect(Collectors.toList());
 		Collections.sort(fileList);
 		return fileList;
 	}
@@ -31,7 +31,7 @@ public class FixTests {
 		
 		List<String> tmpList = new LinkedList<String>();
 		
-		fileList.subList(0, 1).stream().map(this::extract).forEach(tmpList::addAll);
+		fileList.stream().map(this::extract).forEach(tmpList::addAll);
 		
 //		tmpList.forEach(System.out::println);
 		
@@ -61,6 +61,7 @@ public class FixTests {
 						if ((_line.contains("ThreadID=" + threadID) && !_line.contains("CAB") && !_line.contains("ERROR"))
 								&& (tmp.contains("USERNR") || tmp.contains("uid-"))){
 							tmpList.add(StringUtils.substringBefore(tmp, "|#]") + "|#]\n");
+							System.out.println(tmpList.size());
 							break;
 						}
 					}
