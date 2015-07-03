@@ -1,4 +1,4 @@
-package cf.study.data.mining;
+package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -13,11 +13,18 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import misc.MiscUtils;
+
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -38,11 +45,13 @@ import cf.study.java8.lang.reflect.Reflects;
 public class DataCollector {
 	private static final Logger log = Logger.getLogger(DataCollector.class);
 
-	public final Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>(1000));
-	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
+	public final Map<String, PackageEn> packageEnPool = new ConcurrentHashMap<String, PackageEn>(1000);
+	public final ConcurrentHashMap<String, AtomicReference<ClassEn>> classEnPool = new ConcurrentHashMap<String, AtomicReference<ClassEn>>(21000);
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 	public final DataCollector base;
-	public final ReentrantLock lock = new ReentrantLock();
+	
+	
+	
 	
 	
 //	public DataCollector(final DataCollector _base) {
@@ -61,7 +70,8 @@ public class DataCollector {
 			if (ce != null) return ce;
 		}
 		
-		return classEnPool.get(clzName);
+		AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+		return ref == null ? null : ref.get();
 	}
 	
 	public PackageEn getPackageEnFromCache(String pkgName) {
@@ -111,37 +121,53 @@ public class DataCollector {
 		if (clz == null)
 			return null;
 
+//		System.out.println(MiscUtils.invocationInfo() + " clz:\t" + clz);
+		
 		while (clz.isArray()) {
 			clz = clz.getComponentType();
 		}
 
 		ClassEn _ce = null;
 		try {
-			PackageEn pe = null;
-			pe = processPackageEn(clz.getPackage());
-			String clzName = ClassEn.checkClzName(clz);
+			final PackageEn pe = processPackageEn(clz.getPackage());
+			final String clzName = ClassEn.checkClzName(clz);
 			
-			lock.lockInterruptibly();
 			_ce = getClassEnFromCache(clzName);
 			if (_ce != null) {
 				return _ce;
 			}
-
-			Class<?> enclosingClz = ClassEn.getEnclossingClz(clz);
-
-			ClassEn enclosingClassEn = processClass(enclosingClz);
-			_ce = new ClassEn(clz, ObjectUtils.defaultIfNull(enclosingClassEn, pe));
 			
-			System.out.println(_ce);
+//			while (!(lock.tryLock() || lock.tryLock(1, TimeUnit.SECONDS))) {
+//				log.warn("wait for lock to process: " + clz);
+//			}
 			
-			_ce.pkg = pe;
+			
+			
+			if (classEnPool.putIfAbsent(clzName, new AtomicReference<ClassEn>()) == null) {
+				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+				
 
-			classEnPool.put(clzName, _ce);
-		} catch (InterruptedException e) {
+				_ce = new ClassEn(clz, null);//ObjectUtils.defaultIfNull(enclosingClassEn, pe));
+				if (ref.getAndSet(_ce) != null) {
+					log.warn("found repeated: " + clzName);
+				}
+				
+				Class<?> enclosingClz = ClassEn.getEnclossingClz(clz);
+				ClassEn enclosingClassEn = processClass(enclosingClz);
+				_ce.pkg = pe;
+				_ce.enclosing = ObjectUtils.defaultIfNull(enclosingClassEn, pe);
+			} else {
+				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+				while ((_ce = ref.get()) == null) {
+					Thread.sleep(1);
+				};
+			}			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return _ce;
 		} finally {
-			lock.unlock();
+//			if (lock.isHeldByCurrentThread())
+//				lock.unlock();
 		}
 
 		return processClassEn(_ce);
@@ -246,7 +272,7 @@ public class DataCollector {
 		DataCollector dc = new DataCollector();
 		dc.processClass(Object.class);
 //		dc.classEnPool.keySet().forEach(log::info);
-		ClassEn ce = dc.classEnPool.get(Object.class.getName());
+		ClassEn ce = getClassEnFromCache(Object.class.getName());
 		log.info(ce);
 	}
 	
@@ -260,9 +286,20 @@ public class DataCollector {
 		
 		clzzList.stream().parallel().forEach(this::processClass);
 		
-		System.out.println(this.classEnPool.size());
-		ClassEn objEn = this.classEnPool.get(Object.class.getName());
-		
-		System.out.println(objEn);
+//		System.out.println(this.classEnPool.size());
+//		ClassEn objEn = this.classEnPool.get(Object.class.getName());
+//		
+//		System.out.println(objEn);
+//		
+//		this.roots.stream().forEach(en -> traverse(en, System.out::println, ()->{}));
+	}
+
+	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
+		if (be instanceof ClassEn) {
+			System.out.println(be);
+		}
+		act.accept(be);
+		be.children.forEach(en -> traverse(en, act, interAct));
+		interAct.run();
 	}
 }

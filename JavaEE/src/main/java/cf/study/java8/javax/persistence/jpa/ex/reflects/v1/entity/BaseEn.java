@@ -41,6 +41,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import misc.MiscUtils;
+
 import org.apache.commons.collections4.CollectionUtils;
 
 @Entity
@@ -80,10 +82,17 @@ public class BaseEn {
 	
 	public BaseEn(String qualifiedName, BaseEn enclosing, CategoryEn cat) {
 		this();
+//		System.out.println(qualifiedName);
 		this.name = qualifiedName;
-		this.enclosing = enclosing;
 		this.category = cat;
 		
+		setEnclosing(enclosing);
+		
+//		System.out.println(this);
+	}
+	
+	public void setEnclosing(final BaseEn enclosing) {
+		this.enclosing = enclosing;
 		if (enclosing != null)
 			enclosing.children.add(this);
 	}
@@ -92,7 +101,6 @@ public class BaseEn {
 	
 	public BaseEn() {
 		this.id = ID.incrementAndGet();
-		System.out.println(id);
 	}
 
 	public static Set<Modifier> getModifiers(int mod) {
@@ -127,7 +135,7 @@ public class BaseEn {
 	@Override
 	public String toString() {
 //		return Jsons.toString(this);
-		return category + ": " + name;
+		return String.valueOf(id) + "\t" + category + ": " + name;
 	}
 
 	@Override
@@ -203,7 +211,7 @@ public class BaseEn {
 //		});
 //		
 		Collection<BaseEn> children2 = _be.children;
-		children.stream().map(BaseEn::clone).forEach(children2::add);
+		children.stream().map(c->c.clone()).forEach(children2::add);
 //		
 //		if (enclosing != null)
 //			_be.enclosing = enclosing.clone();

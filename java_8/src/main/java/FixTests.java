@@ -27,7 +27,7 @@ public class FixTests {
 		List<String> lines = new ArrayList<String>(10000);
 		fileList.stream().filter(f->f.getName().contains("server.log_2015-06-2")).map(this::extract).forEach(lines::addAll);
 		
-		FileUtils.writeLines(new File("D:\\dev\\output.txt"), lines);
+		FileUtils.writeLines(new File("D:\\dev\\output_cab.txt"), lines);
 	}
 	
 	@Test
@@ -151,7 +151,7 @@ public class FixTests {
 		return !Stream.of(targets).map(t -> "USERNR:" + String.valueOf(t)).anyMatch(log::contains);
 	}
 	
-	@Test
+	@Test	
 	public void getCancels() throws Exception {
 		List<String> logs = combine(FileUtils.readLines(new File(outputPath)));
 		//1981955
@@ -430,7 +430,8 @@ public class FixTests {
 			for (int _i = i - 1; _i > 0; _i--) {
 				String _log = logList.get(_i);
 				if (_log.contains("ThreadID=" + threadID)
-						&& (_log.contains("USERNR") || _log.contains("uid-"))) {
+						&& !(_log.contains("USERNR") || _log.contains("uid-"))
+						&& _log.contains("CABMigrationMMSTopicConsumer")) {
 					changeList.add(_log);
 					break;
 				}
