@@ -5,15 +5,13 @@ test/
 .idea
 .idea/**
 .settings/**
+.settings/**/*
 test/**
 target/**
 
 **/.settings/**
+**/.settings/**/*
 **/test/**
 **/target/**
-.classpath
 **/.classpath
-*.log
-**/*.log
-**/.settings
-**/.settings/**
+.classpath

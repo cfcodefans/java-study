@@ -692,3 +692,5 @@
 15-06-10 20:53:41 WARN  RunFontSelector main - No mapping from null
 15-06-10 20:53:41 WARN  RunFontSelector main - Font 'µ»œﬂ' is not mapped to a physical font. 
 15-06-10 20:53:41 WARN  RunFontSelector main - No mapping from null
+15-06-19 08:53:38 WARN  ResourceUtils main - Couldn't get resource: docx4j.properties
+15-06-19 08:53:38 WARN  Docx4jProperties main - Couldn't find/read docx4j.properties; docx4j.properties not found via classloader.

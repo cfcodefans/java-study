@@ -21,10 +21,13 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry excluding="**" kind="src" path="src/test/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+=======
+>>>>>>> branch 'multiple_modules' of https://github.com/cfcodefans/study_java_8.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
