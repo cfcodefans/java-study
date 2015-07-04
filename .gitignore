@@ -13,3 +13,7 @@ target/**
 **/target/**
 .classpath
 **/.classpath
+*.log
+**/*.log
+**/.settings
+**/.settings/**
