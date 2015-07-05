@@ -17,7 +17,7 @@ public class JarEn {
 	public static final AtomicLong ID = new AtomicLong();
 	
 	public JarEn() {
-		id = ID.incrementAndGet();
+//		id = ID.incrementAndGet();
 	}
 	
 	@Id

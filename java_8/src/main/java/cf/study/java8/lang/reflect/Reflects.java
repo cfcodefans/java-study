@@ -3,16 +3,21 @@ package cf.study.java8.lang.reflect;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Native;
+import java.lang.annotation.Target;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -24,6 +29,7 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 import misc.MiscUtils;
+import misc.MiscUtils.TraverseMatcher;
 
 public class Reflects {
 
@@ -179,6 +185,10 @@ public class Reflects {
 		
 //		Stream.of(ac1.getAnnotations()).map(Annotation::annotationType).spliterator().
 		
+		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
+		tc1.getChildren = (c)->Stream.of(c.getAnnotations()).map(Annotation::annotationType).collect(Collectors.toList());
+		tc1.condition = (c)->c == ac2;
+		
 		return Stream.of(ac2.getAnnotations()).anyMatch(_ac->isCycleAnnotated(ac1, _ac.annotationType()));
 	}
 	
@@ -211,6 +221,25 @@ public class Reflects {
 	
 	@Test
 	public void testAnnotation() throws Exception {
+		final Set<Class<?>> clzSet = new LinkedHashSet<Class<?>>();
 		
+		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
+		
+		tc1.getChildren = (c)->Stream.of(c.getAnnotations())
+				.map(Annotation::annotationType)
+				.filter(ac->!clzSet.contains(c))
+				.collect(Collectors.toList());
+		
+		tc1.condition = (c)->{ 
+			clzSet.add(c);
+			System.out.println(c + ": " + (c != Target.class));
+			return c != Native.class;
+		};
+		tc1.after = (c)->{
+			System.out.println(c);
+			return true;
+		};
+		
+		tc1.traverse(FunctionalInterface.class);
 	}
 }

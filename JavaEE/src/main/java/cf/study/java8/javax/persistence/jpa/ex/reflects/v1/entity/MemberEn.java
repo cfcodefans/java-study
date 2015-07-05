@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "member_en")
-@Cacheable(false)
+//@Cacheable(false)
 public class MemberEn extends BaseEn {
 	
 	public MemberEn() {

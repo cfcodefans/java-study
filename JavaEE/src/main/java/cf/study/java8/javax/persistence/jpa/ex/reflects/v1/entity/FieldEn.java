@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "field_en")
-@Cacheable(false)
+//@Cacheable(false)
 public class FieldEn extends MemberEn {
 	
 	@Transient

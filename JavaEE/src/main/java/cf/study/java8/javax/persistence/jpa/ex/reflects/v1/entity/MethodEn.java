@@ -1,12 +1,13 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
 import java.lang.reflect.Executable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,7 +19,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "method_en")
-@Cacheable(false)
+//@Cacheable(false)
 public class MethodEn extends MemberEn {
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
@@ -85,7 +86,8 @@ public class MethodEn extends MemberEn {
 		if (ce == null || exe == null) return null;
 		
 		try {
-			Optional<BaseEn> meOpt = ce.children.stream()
+			Collection<BaseEn> slibings = new ArrayList<BaseEn>(ce.children);
+			Optional<BaseEn> meOpt = slibings.stream()
 					.filter((me)->(me instanceof MethodEn && ((MethodEn)me).isMatch(exe)))
 					.findFirst();
 			MethodEn me = meOpt.isPresent() ? (MethodEn) meOpt.get() : new MethodEn(exe, ce);

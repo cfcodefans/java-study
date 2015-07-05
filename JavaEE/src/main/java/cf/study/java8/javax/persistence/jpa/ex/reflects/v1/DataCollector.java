@@ -17,11 +17,14 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipFile;
 
@@ -120,9 +123,7 @@ public class DataCollector {
 			.filter(ac-> {
 				if (be instanceof ClassEn) {
 					ClassEn ce = (ClassEn)be;
-					boolean re = Reflects.isCycleAnnotated(ce.clazz, ac);
-					if (re) System.out.println("cycled: " + ce.clazz + ": " + ac);
-					return !re;
+					return ac != ce.clazz;
 				}
 				return true;
 			})
@@ -173,12 +174,6 @@ public class DataCollector {
 				return _ce;
 			}
 			
-//			while (!(lock.tryLock() || lock.tryLock(1, TimeUnit.SECONDS))) {
-//				log.warn("wait for lock to process: " + clz);
-//			}
-			
-			
-			
 			if (classEnPool.putIfAbsent(clzName, new AtomicReference<ClassEn>()) == null) {
 				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
 				
@@ -192,6 +187,8 @@ public class DataCollector {
 				ClassEn enclosingClassEn = processClass(enclosingClz);
 				_ce.pkg = pe;
 				_ce.enclosing = ObjectUtils.defaultIfNull(enclosingClassEn, pe);
+				if (_ce.enclosing != null)
+					_ce.enclosing.children.add(_ce);
 			} else {
 				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
 				while ((_ce = ref.get()) == null) {
@@ -425,11 +422,17 @@ public class DataCollector {
 			Consumer<BaseEn> act, 
 			Consumer<BaseEn> _act) {
 
-		System.out.println(be);
-		if (threshold != null && !threshold.test(be)) return;
+		if (threshold != null && !threshold.test(be)) {
+			System.out.println(be);
+			return;
+		}
 		
 		if (act != null) act.accept(be);
-		to.apply(be).stream().filter(_be->_be != be).forEach(en -> traverse(en, threshold, to, act, _act));
+		
+		to.apply(be).stream()
+			.filter(_be->_be != be)
+			.forEach(en -> traverse(en, threshold, to, act, _act));
+		
 		if (_act != null) _act.accept(be);
 	}
 	
@@ -461,49 +464,81 @@ public class DataCollector {
 		} );
 
 		System.out.println(this.classEnPool.get(Object.class.getName()).get().source);
+		final Set<BaseEn> queue = new LinkedHashSet<BaseEn>();
+		
+		
+		List<ClassEn> ceList = classEnPool.values().stream().map(AtomicReference::get).collect(Collectors.toList());
 
-		this.roots.forEach(be -> {
-			ReflectDao dao = ReflectDao.threadLocal.get();
-			dao.beginTransaction();
+		ceList.stream().filter(ce->ce.clazz.isAnnotation()).forEach(ce->{
+			organizeClasses(ce, queue);
+		});
+		System.out.println("annotations are stored");
+		
+		roots.forEach(root->{
+			organizeClasses(root, queue);
+		});
+		System.out.println("roots are stored");
+		
+		ceList.forEach(ce->{
+			organizeClasses(ce, queue);
+		});
+		System.out.println("classes are stored");
+		
+		ceList.forEach(ce->{
+			organizeMembers(ce, queue);
+		});
+		
+//		queue.forEach(System.out::println);
+		System.out.println(roots.size());
+		System.out.println(queue.size());
 
-			EntityManager em = dao.getEm();
-			Session session = (Session) em.getDelegate();
-
-			classEnPool.values().stream().map(AtomicReference::get).forEach((ce) -> {
-				traverse(ce, null, (_ce) -> _ce.annotations, (_ce) -> {
-					if (session.contains(_ce))
-						return;
-					session.save(_ce);
-				} , null);
-			} );
-
-			traverse(be, (_be) -> {
-				return be instanceof PackageEn;
-			} , (_be) -> {
-				if (em.contains(_be))
-					return;
-
-				// if (_be instanceof ClassEn) {
-				// return;
-				// }
-
-				session.save(_be);
-				// _be.annotations.forEach(session::save);
-				session.flush();
-				// _be.children.forEach(session::save);
-			} , (_be) -> {
-				// EntityManager em = dao.getEm();
-				// if (em.contains(_be)) return;
-				// Session session = (Session) em.getDelegate();
-				//
-				// if (_be instanceof ClassEn) {
-				// ClassEn ce = (ClassEn) _be;
-				// session.save(ce);
-				// }
-				//
-				// session.flush();
-			} );
-			dao.endTransaction();
+		ReflectDao dao = ReflectDao.threadLocal.get();
+		dao.beginTransaction();
+		EntityManager em = dao.getEm();
+		Session session = (Session) em.getDelegate();
+		queue.forEach(be -> {
+			System.out.println(be.id + ":\t" + be);
+			session.save(be);
+			session.flush();
 		} );
+		dao.endTransaction();
+	}
+	
+	public void organizeClasses(final BaseEn be, final Set<BaseEn> queue) {
+		if (be == null || queue.contains(be)) return;
+		
+		System.out.println(be.id + ":\t" + be);
+		
+		if (be instanceof PackageEn) {
+			be.annotations.forEach(_be->organizeClasses(_be, queue));
+			PackageEn pe = (PackageEn) be;
+			organizeClasses(pe.enclosing, queue);
+			queue.add(pe);
+			pe.children.forEach(_be->organizeClasses(_be, queue));
+		}
+		
+		if (be instanceof ClassEn) {
+			ClassEn ce = (ClassEn) be;
+
+			organizeClasses(ce.enclosing, queue);
+			
+			if (ce.clazz.isAnnotation()) {
+				queue.add(ce);
+				return;
+			}
+			
+			be.annotations.forEach(_be->organizeClasses(_be, queue));
+			organizeClasses(ce.superClz, queue);
+
+			ce.infs.forEach(_be->organizeClasses(_be, queue));
+			queue.add(ce);
+//			ce.children.forEach(_be->organize(_be, queue));
+		}
+	}
+	
+	public void organizeMembers(final BaseEn be, final Set<BaseEn> queue) {
+		if (be == null || queue.contains(be)) return;
+		queue.add(be);
+		be.children.forEach(_be->organizeMembers(_be, queue));
 	}
 }

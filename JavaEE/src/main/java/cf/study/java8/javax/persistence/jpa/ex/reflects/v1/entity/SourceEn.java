@@ -21,7 +21,7 @@ public class SourceEn {
 	public static final AtomicLong ID = new AtomicLong();
 	
 	public SourceEn() {
-		id = ID.incrementAndGet();
+//		id = ID.incrementAndGet();
 	}
 	
 	public SourceEn(final String _name) {
@@ -45,7 +45,7 @@ public class SourceEn {
 	public JarEn jar;
 
 	@Basic
-	@Column(columnDefinition="text")
+	@Column(columnDefinition="MEDIUMTEXT")
 	public String source;
 
 	@Override

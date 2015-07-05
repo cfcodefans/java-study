@@ -1,13 +1,9 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
-import java.lang.annotation.Annotation;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -21,16 +17,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import cf.study.java8.lang.reflect.Reflects;
-import misc.MiscUtils;
 
 @Entity
 @Table(name = "class_en")
-@Cacheable(false)
+//@Cacheable(false)
 public class ClassEn extends BaseEn {
 
 	public static Class<?> getEnclossingClz(Class<?> clz) {

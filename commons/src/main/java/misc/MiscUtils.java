@@ -1,6 +1,5 @@
 package misc;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -13,13 +12,18 @@ import java.math.MathContext;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -46,12 +50,11 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+
 
 public class MiscUtils {
 	
@@ -387,5 +390,37 @@ public class MiscUtils {
 		});
 		
 		return list;
+	}
+	
+	public static <T> Predicate<T> predicate(Predicate<T> pre, boolean defaultValue) {
+		return pre == null ? ((T t)->defaultValue) : pre;
+	}
+	
+	public static class TraverseMatcher<T> {
+		public Predicate<T> condition = null;
+		public Function<T, Collection<T>> getChildren = null;
+		public Predicate<T> after = null;
+		
+		public boolean traverse(T t) {
+			if (condition != null && !condition.test(t)) 
+				return false;
+			
+			if (getChildren == null) {
+				return predicate(after, true).test(t);
+			}
+			
+			Collection<T> children = getChildren.apply(t);
+			if (children == null) {
+				return predicate(after, true).test(t);
+			}
+			
+			for (T _t : children) {
+				if (!traverse(_t)) {
+					break;
+				}
+			}
+			
+			return predicate(after, true).test(t);
+		}
 	}
 }

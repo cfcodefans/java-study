@@ -17,10 +17,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Basic;
@@ -31,6 +27,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Inheritance;
@@ -44,26 +41,22 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Cacheable(false)
-//@IdClass(BaseEnIdClz.class)
 //@DiscriminatorColumn(name="category", discriminatorType = DiscriminatorType.STRING)
 public class BaseEn {
 	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-	@GeneratedValue(generator = "assigned")    
-	@GenericGenerator(name = "assigned", strategy = "assigned")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Long id;
 
 	@Basic
 	@Column(name="name", length=512)
 	public String name;
 
-	@ManyToOne(cascade = { CascadeType.REFRESH})
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name="enclosing", nullable=true)
 	public BaseEn enclosing;
 	
@@ -75,7 +68,7 @@ public class BaseEn {
 	@Column(name="category")
 	public CategoryEn category = CategoryEn.DEFAULT;
 	
-	@ManyToMany(cascade = { CascadeType.REFRESH})
+	@ManyToMany(cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "annotations", 
 				joinColumns = {@JoinColumn(name="base_en_id", referencedColumnName="id")},
 				inverseJoinColumns = {@JoinColumn(name="annotation_en_id", referencedColumnName="id")})
@@ -94,10 +87,8 @@ public class BaseEn {
 			enclosing.children.add(this);
 	}
 
-	public static AtomicLong ID = new AtomicLong(0);
-	
 	public BaseEn() {
-		this.id = ID.incrementAndGet();
+		
 	}
 
 	public static Set<Modifier> getModifiers(int mod) {
@@ -201,24 +192,18 @@ public class BaseEn {
 		_be.name = name;
 		_be.category = category;
 		_be.version = version;
-
+		
+//		List<ClassEn> ans = _be.annotations;
+//		annotations.forEach(an->{
+//			ans.add(an.clone());
+//		});
+//		
 		Collection<BaseEn> children2 = _be.children;
 		children.stream().map(BaseEn::clone).forEach(children2::add);
+//		
+//		if (enclosing != null)
+//			_be.enclosing = enclosing.clone();
 		
 		return _be;
-	}
-
-	public static void traverse(BaseEn be,
-			Predicate<BaseEn> threshold,
-			Function<BaseEn, Collection<? extends BaseEn>> to,
-			Consumer<BaseEn> act, 
-			Consumer<BaseEn> _act) {
-	
-		System.out.println(be);
-		if (threshold != null && !threshold.test(be)) return;
-		
-		if (act != null) act.accept(be);
-		to.apply(be).stream().filter(_be->_be != be).forEach(en -> traverse(en, threshold, to, act, _act));
-		if (_act != null) _act.accept(be);
 	}
 }
