@@ -84,13 +84,18 @@ public class MethodEn extends MemberEn {
 	public static MethodEn instance(ClassEn ce, Executable exe) {
 		if (ce == null || exe == null) return null;
 		
-		Optional<BaseEn> meOpt = ce.children.stream().filter((me)->(me instanceof MethodEn && ((MethodEn)me).isMatch(exe))).findFirst();
-//		if (meOpt.isPresent()) {
-//			System.out.println(ce.name + ". " + exe.getName());
-//		}
-		MethodEn me = meOpt.isPresent() ? (MethodEn) meOpt.get() : new MethodEn(exe, ce);
-		me.method = exe;
-		return me;
+		try {
+			Optional<BaseEn> meOpt = ce.children.stream()
+					.filter((me)->(me instanceof MethodEn && ((MethodEn)me).isMatch(exe)))
+					.findFirst();
+			MethodEn me = meOpt.isPresent() ? (MethodEn) meOpt.get() : new MethodEn(exe, ce);
+			me.method = exe;
+			return me;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public MethodEn clone() {

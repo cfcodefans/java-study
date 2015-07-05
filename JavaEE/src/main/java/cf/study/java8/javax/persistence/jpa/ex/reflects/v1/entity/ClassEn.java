@@ -1,8 +1,10 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Cacheable;
@@ -19,10 +21,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import misc.MiscUtils;
-
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+
+import cf.study.java8.lang.reflect.Reflects;
+import misc.MiscUtils;
 
 @Entity
 @Table(name = "class_en")
@@ -37,18 +41,6 @@ public class ClassEn extends BaseEn {
 		
 		return null;
 	}
-	
-	public static String checkClzName(Class<?> clz) {
-		if (clz == null) return StringUtils.EMPTY;
-		String clzName = clz.getName();
-		
-		if (primitives.containsKey(clzName)) {
-			clz = primitives.get(clzName);
-			clzName = clz.getName();
-		}
-		return clzName;
-	}
-	
 	
 	@Transient
 	public transient Class<?> clazz;
@@ -95,32 +87,15 @@ public class ClassEn extends BaseEn {
 	@JoinTable(name="interfaces", joinColumns = {@JoinColumn(name="implement_en_id", referencedColumnName="id")},
 	                              inverseJoinColumns = {@JoinColumn(name="interface_en_id", referencedColumnName="id")})
 	public Set<ClassEn> infs = new HashSet<ClassEn>();
+	
+	@ManyToOne(cascade= {CascadeType.REFRESH, CascadeType.PERSIST})
+	@JoinColumn(name="source", nullable=true)
+	public SourceEn source;
 
 	private static final Logger log = Logger.getLogger(ClassEn.class);
 
-	@SuppressWarnings("unchecked")
-	public static final Map<String, Class<?>> primitives = MiscUtils.map(
-				"void", void.class,
-				"long", long.class,
-				"int", int.class,
-				"char", char.class,
-				"boolean", boolean.class,
-				"byte", byte.class,
-				"double", double.class,
-				"short", short.class,
-				"float", float.class
-			);
-
 	public void loadClass() {
-		if (primitives.containsKey(name)) {
-			clazz = primitives.get(name);
-			return;
-		}
-		try {
-			clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
-		} catch (ClassNotFoundException e) {
-			log.error("class not found: " + name);
-		}
+		clazz = Reflects.loadClass(name);
 	}
 	
 	public ClassEn clone() {
@@ -146,8 +121,8 @@ public class ClassEn extends BaseEn {
 //		Set<ClassEn> infs2 = _ce.infs;
 //		infs.stream().forEach(inf->{
 //			infs2.add(inf.clone());
-//		});
-		
+		// });
+
 		return _ce;
 	}
 }

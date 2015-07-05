@@ -16,8 +16,6 @@ import java.util.stream.Stream;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 
-import misc.MiscUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -29,6 +27,7 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
+import misc.MiscUtils;
 
 @RequestScoped
 public class ReflectDao extends BaseDao<Object> {

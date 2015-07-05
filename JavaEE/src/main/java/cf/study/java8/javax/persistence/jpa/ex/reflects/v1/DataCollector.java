@@ -1,48 +1,78 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Target;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.zip.ZipFile;
 
-import misc.MiscUtils;
+import javax.persistence.EntityManager;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import cf.study.java8.javax.cdi.weld.WeldTest;
+import cf.study.java8.javax.persistence.dao.JpaModule;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.JarEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.SourceEn;
 import cf.study.java8.lang.reflect.Reflects;
 
 
 
 public class DataCollector {
+	public static DataCollector _base = new DataCollector();
+	
+	@BeforeClass
+	public static void setUp() {
+		WeldTest.setUp();
+		JpaModule.instance();
+		
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce join fetch ce.source");
+			ceList.parallelStream().forEach(ce -> _base.classEnPool.put(ce.name, new AtomicReference<ClassEn>(ce)));
+
+			List<PackageEn> peList = (List<PackageEn>) dao.queryEntity("select pe from PackageEn pe");
+			peList.parallelStream().forEach(pe -> _base.packageEnPool.put(pe.name, pe));
+			
+//			Object delegate = dao.getEm().getDelegate();
+//			System.out.println(delegate);
+		}
+	}
+	
 	private static final Logger log = Logger.getLogger(DataCollector.class);
 
 	public final Map<String, PackageEn> packageEnPool = new ConcurrentHashMap<String, PackageEn>(1000);
@@ -50,17 +80,14 @@ public class DataCollector {
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 	public final DataCollector base;
 	
-	
-	
-	
+	public DataCollector() {
+		this.base = null;
+//		this(null);
+	}
 	
 //	public DataCollector(final DataCollector _base) {
 //		this.base = _base;
 //	}
-	
-	public DataCollector() {
-		base = null;
-	}
 	
 	public ClassEn getClassEnFromCache(String clzName) {
 		if (StringUtils.isBlank(clzName)) return null;
@@ -90,8 +117,17 @@ public class DataCollector {
 		Stream.of(ae.getDeclaredAnnotations())
 //			.map((an)->clazzProc.apply(an.annotationType()))
 			.map(Annotation::annotationType)
+			.filter(ac-> {
+				if (be instanceof ClassEn) {
+					ClassEn ce = (ClassEn)be;
+					boolean re = Reflects.isCycleAnnotated(ce.clazz, ac);
+					if (re) System.out.println("cycled: " + ce.clazz + ": " + ac);
+					return !re;
+				}
+				return true;
+			})
 			.map(this::processClass)
-			.filter(ce->ce != null)
+			.filter(ce -> ce != null)
 			.forEach(be.annotations::add);
 	}
 	
@@ -130,7 +166,7 @@ public class DataCollector {
 		ClassEn _ce = null;
 		try {
 			final PackageEn pe = processPackageEn(clz.getPackage());
-			final String clzName = ClassEn.checkClzName(clz);
+			final String clzName = Reflects.checkClzName(clz);
 			
 			_ce = getClassEnFromCache(clzName);
 			if (_ce != null) {
@@ -267,39 +303,207 @@ public class DataCollector {
 		return this;
 	}
 	
-	@Test
-	public void test1() {
-		DataCollector dc = new DataCollector();
-		dc.processClass(Object.class);
-//		dc.classEnPool.keySet().forEach(log::info);
-		ClassEn ce = getClassEnFromCache(Object.class.getName());
-		log.info(ce);
+	public static Map<String, SourceEn> loadSource(final File srcZip) {
+		Map<String, SourceEn> reMap = new HashMap<String, SourceEn>();
+		if (!(srcZip != null && srcZip.isFile() && srcZip.canRead())) {
+			return reMap;
+		}
+		
+		final JarEn je = new JarEn();
+		je.name = srcZip.getName();
+		
+		try (ZipFile zf = new ZipFile(srcZip)) {
+			zf.stream()
+				.filter(ze->!ze.isDirectory())
+				.filter(ze->ze.getName().endsWith("java"))
+				.parallel()
+				.forEach(ze -> {
+					try {
+						SourceEn src = new SourceEn(ze.getName());
+						InputStream is = zf.getInputStream(ze);
+						src.source = IOUtils.toString(is);
+						src.jar = je;
+						reMap.put(src.clzName, src);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				} );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return reMap;
+	}
+
+	public static List<String> associateByNativeSql(BaseEn be) {
+		if (be == null) return Collections.emptyList();
+		
+		List<String> sb = new LinkedList<String>();
+		
+		if (be instanceof ClassEn) {
+			ClassEn ce = (ClassEn) be;
+			ClassEn superClzEn = ce.superClz;
+			if (superClzEn != null) {
+				sb.add(String.format("update class_en set super=%d where id=%d;", superClzEn.id, ce.id));
+			}
+			
+			ce.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+			
+			ce.infs.forEach((inf) -> {
+				sb.add(String.format(
+						"insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);",
+						ce.id, inf.id));
+			});
+		}
+		
+		if (be instanceof MethodEn) {
+			MethodEn me = (MethodEn) be;
+			if (me.method instanceof Method) {
+				Method md = (Method)me.method;
+				if (md.getReturnType() != null) {
+					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;",
+							me.returnClass.id, 
+							me.id));
+				}
+				
+			}
+			
+			me.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+			
+			me.exceptionClzz.forEach(exClz->{
+				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);", 
+						me.id, 
+						exClz.id));
+			});
+		}
+		
+		if (be instanceof FieldEn) {
+			FieldEn fe = (FieldEn) be;
+			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;", 
+					fe.fieldType.id, 
+					fe.id));
+			
+			fe.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+		}
+		
+		if (be instanceof ParameterEn) {
+			ParameterEn pe = (ParameterEn) be;
+			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;", 
+					pe.paramType.id, 
+					pe.id));
+			
+			pe.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+		}
+		
+		return sb;
+	}
+
+	public static void traverse(BaseEn be,
+			Predicate<BaseEn> threshold,
+			Consumer<BaseEn> act, 
+			Consumer<BaseEn> _act) {
+
+		System.out.println(be);
+		if (!threshold.test(be)) return;
+		
+		act.accept(be);
+		be.children.forEach(en -> traverse(en, threshold, act, _act));
+		_act.accept(be);
 	}
 	
+	public static void traverse(BaseEn be,
+			Predicate<BaseEn> threshold,
+			Function<BaseEn, Collection<? extends BaseEn>> to,
+			Consumer<BaseEn> act, 
+			Consumer<BaseEn> _act) {
+
+		System.out.println(be);
+		if (threshold != null && !threshold.test(be)) return;
+		
+		if (act != null) act.accept(be);
+		to.apply(be).stream().filter(_be->_be != be).forEach(en -> traverse(en, threshold, to, act, _act));
+		if (_act != null) _act.accept(be);
+	}
+	
+	@Test
+	public void testObject() {
+		DataCollector dc = new DataCollector();
+		dc.processClass(Target.class);
+		ClassEn ce = dc.getClassEnFromCache(Target.class.getName());
+		log.info(ce);
+	}
+
 	@Test
 	public void testCollectRawData() {
 		List<Class<?>> clzzList = new LinkedList<>();
 		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 		clzzList.addAll(Reflects.extractClazz(_f));
 
-		System.out.println(clzzList.size());
-		
-		clzzList.stream().parallel().forEach(this::processClass);
-		
-//		System.out.println(this.classEnPool.size());
-//		ClassEn objEn = this.classEnPool.get(Object.class.getName());
-//		
-//		System.out.println(objEn);
-//		
-//		this.roots.stream().forEach(en -> traverse(en, System.out::println, ()->{}));
-	}
+		System.out.println("load source for each class");
+		final Map<String, SourceEn> srcEnPool = loadSource(
+				Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip").toFile());
 
-	public static void traverse(BaseEn be, Consumer<BaseEn> act, Runnable interAct) {
-		if (be instanceof ClassEn) {
-			System.out.println(be);
-		}
-		act.accept(be);
-		be.children.forEach(en -> traverse(en, act, interAct));
-		interAct.run();
+		System.out.println(clzzList.size());
+		System.out.println(srcEnPool.size());
+
+		clzzList.stream().parallel().forEach(this::processClass);
+
+		this.classEnPool.values().stream().parallel().map(AtomicReference<ClassEn>::get).forEach(ce -> {
+			ce.source = srcEnPool.get(ce.name);
+		} );
+
+		System.out.println(this.classEnPool.get(Object.class.getName()).get().source);
+
+		this.roots.forEach(be -> {
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			dao.beginTransaction();
+
+			EntityManager em = dao.getEm();
+			Session session = (Session) em.getDelegate();
+
+			classEnPool.values().stream().map(AtomicReference::get).forEach((ce) -> {
+				traverse(ce, null, (_ce) -> _ce.annotations, (_ce) -> {
+					if (session.contains(_ce))
+						return;
+					session.save(_ce);
+				} , null);
+			} );
+
+			traverse(be, (_be) -> {
+				return be instanceof PackageEn;
+			} , (_be) -> {
+				if (em.contains(_be))
+					return;
+
+				// if (_be instanceof ClassEn) {
+				// return;
+				// }
+
+				session.save(_be);
+				// _be.annotations.forEach(session::save);
+				session.flush();
+				// _be.children.forEach(session::save);
+			} , (_be) -> {
+				// EntityManager em = dao.getEm();
+				// if (em.contains(_be)) return;
+				// Session session = (Session) em.getDelegate();
+				//
+				// if (_be instanceof ClassEn) {
+				// ClassEn ce = (ClassEn) _be;
+				// session.save(ce);
+				// }
+				//
+				// session.flush();
+			} );
+			dao.endTransaction();
+		} );
 	}
 }

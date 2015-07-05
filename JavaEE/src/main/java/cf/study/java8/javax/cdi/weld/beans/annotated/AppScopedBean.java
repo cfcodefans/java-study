@@ -7,5 +7,5 @@ import javax.inject.Inject;
 public class AppScopedBean {
 
 	@Inject 
-	public long id;
+	private long id;
 }

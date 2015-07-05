@@ -7,7 +7,7 @@
 	<persistence-unit name="reflects" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
-
+		<class>cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity</class>
 		<properties>
 			<!-- Auto detect annotation model classes -->
 			<property name="hibernate.archive.autodetection" value="class" />
@@ -36,8 +36,9 @@
 			<!-- hibernate debug properties -->
 			<property name="hibernate.generate_statistics" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.show_sql" value="true" />
+<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
+			
 			<property name="hibernate.current_session_context_class" value="thread" />
 
 
@@ -78,7 +79,7 @@
 			<property name="javax.persistence.jdbc.user" value="poppen_pay" />
 			<property name="javax.persistence.jdbc.password" value="NetNet2" />
 			<!-- create-drop -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create, drop" />
 			<property name="hibernate.max_fetch_depth" value="8" />
 			<property name="hibernate.jdbc.batch_size" value="150" />
 			

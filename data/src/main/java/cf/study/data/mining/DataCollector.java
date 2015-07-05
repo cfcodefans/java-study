@@ -119,7 +119,7 @@ public class DataCollector {
 		try {
 			PackageEn pe = null;
 			pe = processPackageEn(clz.getPackage());
-			String clzName = ClassEn.checkClzName(clz);
+			String clzName = Reflects.checkClzName(clz);
 			
 			lock.lockInterruptibly();
 			_ce = getClassEnFromCache(clzName);

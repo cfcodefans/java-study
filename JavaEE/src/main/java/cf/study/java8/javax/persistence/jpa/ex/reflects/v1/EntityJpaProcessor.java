@@ -376,7 +376,7 @@ public class EntityJpaProcessor {
 		try {
 			PackageEn pe = null;
 			pe = processPackageEn(clz.getPackage());
-			String clzName = ClassEn.checkClzName(clz);
+			String clzName = Reflects.checkClzName(clz);
 			
 			lock.lockInterruptibly();
 			_ce = getClassEnFromCache(clzName);
@@ -440,7 +440,7 @@ public class EntityJpaProcessor {
 		
 		try {
 			lock.lockInterruptibly();
-			String clzName = ClassEn.checkClzName(clz);
+			String clzName = Reflects.checkClzName(clz);
 			
 			_ce = inflatedClassEnPool.get(clzName);
 			if (_ce != null) {
@@ -462,7 +462,7 @@ public class EntityJpaProcessor {
 		try {
 			PackageEn pe = null;
 			pe = processPackageEn(clz.getPackage());
-			String clzName = ClassEn.checkClzName(clz);
+			String clzName = Reflects.checkClzName(clz);
 			
 			lock.lockInterruptibly();
 			_ce = getClassEnFromCache(clzName);
@@ -564,7 +564,7 @@ public class EntityJpaProcessor {
 		ClassEn _ce = null;
 		if (clz == null) return _ce;
 		try {
-			String clzName = ClassEn.checkClzName(clz);
+			String clzName = Reflects.checkClzName(clz);
 			
 			_ce = inflatedClassEnPool.get(clzName);
 			if (_ce != null) {
