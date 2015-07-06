@@ -1,57 +1,98 @@
 package cf.study.data.mining;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Target;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipFile;
 
+import javax.persistence.EntityManager;
+
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import cf.study.java8.javax.cdi.weld.WeldTest;
+import cf.study.java8.javax.persistence.dao.JpaModule;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.JarEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
+import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.SourceEn;
 import cf.study.java8.lang.reflect.Reflects;
 
 
 
 public class DataCollector {
+	public static DataCollector _base = new DataCollector();
+	
+//	@BeforeClass
+	public static void setUp() {
+		WeldTest.setUp();
+		JpaModule.instance();
+		
+		{
+			ReflectDao dao = ReflectDao.threadLocal.get();
+			List<ClassEn> ceList = (List<ClassEn>) dao.queryEntity("select ce from ClassEn ce join fetch ce.source");
+			ceList.parallelStream().forEach(ce -> _base.classEnPool.put(ce.name, new AtomicReference<ClassEn>(ce)));
+
+			List<PackageEn> peList = (List<PackageEn>) dao.queryEntity("select pe from PackageEn pe");
+			peList.parallelStream().forEach(pe -> _base.packageEnPool.put(pe.name, pe));
+			
+//			Object delegate = dao.getEm().getDelegate();
+//			System.out.println(delegate);
+		}
+	}
+	
 	private static final Logger log = Logger.getLogger(DataCollector.class);
 
-	public final Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>(1000));
-	public final Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
+	public final Map<String, PackageEn> packageEnPool = new ConcurrentHashMap<String, PackageEn>(1000);
+	public final ConcurrentHashMap<String, AtomicReference<ClassEn>> classEnPool = new ConcurrentHashMap<String, AtomicReference<ClassEn>>(21000);
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
-	public final DataCollector base;
-	public final ReentrantLock lock = new ReentrantLock();
+	public DataCollector base;
 	
+	public DataCollector() {
+		this.base = null;
+//		this(null);
+	}
 	
 //	public DataCollector(final DataCollector _base) {
 //		this.base = _base;
 //	}
-	
-	public DataCollector() {
-		base = null;
-	}
 	
 	public ClassEn getClassEnFromCache(String clzName) {
 		if (StringUtils.isBlank(clzName)) return null;
@@ -61,7 +102,8 @@ public class DataCollector {
 			if (ce != null) return ce;
 		}
 		
-		return classEnPool.get(clzName);
+		AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+		return ref == null ? null : ref.get();
 	}
 	
 	public PackageEn getPackageEnFromCache(String pkgName) {
@@ -80,8 +122,15 @@ public class DataCollector {
 		Stream.of(ae.getDeclaredAnnotations())
 //			.map((an)->clazzProc.apply(an.annotationType()))
 			.map(Annotation::annotationType)
+			.filter(ac-> {
+				if (be instanceof ClassEn) {
+					ClassEn ce = (ClassEn)be;
+					return ac != ce.clazz;
+				}
+				return true;
+			})
 			.map(this::processClass)
-			.filter(ce->ce != null)
+			.filter(ce -> ce != null)
 			.forEach(be.annotations::add);
 	}
 	
@@ -111,34 +160,49 @@ public class DataCollector {
 		if (clz == null)
 			return null;
 
+//		System.out.println(MiscUtils.invocationInfo() + " clz:\t" + clz);
+		
 		while (clz.isArray()) {
 			clz = clz.getComponentType();
 		}
 
 		ClassEn _ce = null;
 		try {
-			PackageEn pe = null;
-			pe = processPackageEn(clz.getPackage());
-			String clzName = Reflects.checkClzName(clz);
+			final PackageEn pe = processPackageEn(clz.getPackage());
+			final String clzName = Reflects.checkClzName(clz);
 			
-			lock.lockInterruptibly();
 			_ce = getClassEnFromCache(clzName);
 			if (_ce != null) {
 				return _ce;
 			}
+			
+			if (classEnPool.putIfAbsent(clzName, new AtomicReference<ClassEn>()) == null) {
+				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+				
 
-			Class<?> enclosingClz = ClassEn.getEnclossingClz(clz);
-
-			ClassEn enclosingClassEn = processClass(enclosingClz);
-			_ce = new ClassEn(clz, ObjectUtils.defaultIfNull(enclosingClassEn, pe));
-			_ce.pkg = pe;
-
-			classEnPool.put(clzName, _ce);
-		} catch (InterruptedException e) {
+				_ce = new ClassEn(clz, null);//ObjectUtils.defaultIfNull(enclosingClassEn, pe));
+				if (ref.getAndSet(_ce) != null) {
+					log.warn("found repeated: " + clzName);
+				}
+				
+				Class<?> enclosingClz = ClassEn.getEnclossingClz(clz);
+				ClassEn enclosingClassEn = processClass(enclosingClz);
+				_ce.pkg = pe;
+				_ce.enclosing = ObjectUtils.defaultIfNull(enclosingClassEn, pe);
+				if (_ce.enclosing != null)
+					_ce.enclosing.children.add(_ce);
+			} else {
+				AtomicReference<ClassEn> ref = classEnPool.get(clzName);
+				while ((_ce = ref.get()) == null) {
+					Thread.sleep(1);
+				};
+			}			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return _ce;
 		} finally {
-			lock.unlock();
+//			if (lock.isHeldByCurrentThread())
+//				lock.unlock();
 		}
 
 		return processClassEn(_ce);
@@ -238,21 +302,223 @@ public class DataCollector {
 		return this;
 	}
 	
-	@Test
-	public void test1() {
-		DataCollector dc = new DataCollector();
-		dc.processClass(Object.class);
-//		dc.classEnPool.keySet().forEach(log::info);
-		ClassEn ce = dc.classEnPool.get(Object.class.getName());
-		log.info(ce);
+	public static Map<String, SourceEn> loadSource(final File srcZip) {
+		Map<String, SourceEn> reMap = new HashMap<String, SourceEn>();
+		if (!(srcZip != null && srcZip.isFile() && srcZip.canRead())) {
+			return reMap;
+		}
+		
+		final JarEn je = new JarEn();
+		je.name = srcZip.getName();
+		
+		try (ZipFile zf = new ZipFile(srcZip)) {
+			zf.stream()
+				.filter(ze->!ze.isDirectory())
+				.filter(ze->ze.getName().endsWith("java"))
+				.parallel()
+				.forEach(ze -> {
+					try {
+						SourceEn src = new SourceEn(ze.getName());
+						InputStream is = zf.getInputStream(ze);
+						src.source = IOUtils.toString(is);
+						src.jar = je;
+						reMap.put(src.clzName, src);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				} );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return reMap;
+	}
+
+	public static List<String> associateByNativeSql(BaseEn be) {
+		if (be == null) return Collections.emptyList();
+		
+		List<String> sb = new LinkedList<String>();
+		
+		if (be instanceof ClassEn) {
+			ClassEn ce = (ClassEn) be;
+			ClassEn superClzEn = ce.superClz;
+			if (superClzEn != null) {
+				sb.add(String.format("update class_en set super=%d where id=%d;", superClzEn.id, ce.id));
+			}
+			
+			ce.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+			
+			ce.infs.forEach((inf) -> {
+				sb.add(String.format(
+						"insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);",
+						ce.id, inf.id));
+			});
+		}
+		
+		if (be instanceof MethodEn) {
+			MethodEn me = (MethodEn) be;
+			if (me.method instanceof Method) {
+				Method md = (Method)me.method;
+				if (md.getReturnType() != null) {
+					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;",
+							me.returnClass.id, 
+							me.id));
+				}
+				
+			}
+			
+			me.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+			
+			me.exceptionClzz.forEach(exClz->{
+				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);", 
+						me.id, 
+						exClz.id));
+			});
+		}
+		
+		if (be instanceof FieldEn) {
+			FieldEn fe = (FieldEn) be;
+			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;", 
+					fe.fieldType.id, 
+					fe.id));
+			
+			fe.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+		}
+		
+		if (be instanceof ParameterEn) {
+			ParameterEn pe = (ParameterEn) be;
+			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;", 
+					pe.paramType.id, 
+					pe.id));
+			
+			pe.annotations.forEach(ae->{
+				sb.add(String.format("insert into annotations (base_en_id, annotation_en_id) values (%d, %d);", be.id, ae.id));
+			});
+		}
+		
+		return sb;
+	}
+
+	public static void traverse(BaseEn be,
+			Predicate<BaseEn> threshold,
+			Consumer<BaseEn> act, 
+			Consumer<BaseEn> _act) {
+
+		System.out.println(be);
+		if (!threshold.test(be)) return;
+		
+		act.accept(be);
+		be.children.forEach(en -> traverse(en, threshold, act, _act));
+		_act.accept(be);
+	}
+	
+	public static void traverse(BaseEn be,
+			Predicate<BaseEn> threshold,
+			Function<BaseEn, Collection<? extends BaseEn>> to,
+			Consumer<BaseEn> act, 
+			Consumer<BaseEn> _act) {
+
+		if (threshold != null && !threshold.test(be)) {
+			System.out.println(be);
+			return;
+		}
+		
+		if (act != null) act.accept(be);
+		
+		to.apply(be).stream()
+			.filter(_be->_be != be)
+			.forEach(en -> traverse(en, threshold, to, act, _act));
+		
+		if (_act != null) _act.accept(be);
 	}
 	
 	@Test
-	public void testCollectRawData() {
-		List<Class<?>> clzzList = new LinkedList<>();
-		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
-		clzzList.addAll(Reflects.extractClazz(_f));
+	public void testObject() {
+		DataCollector dc = new DataCollector();
+		dc.processClass(Target.class);
+		ClassEn ce = dc.getClassEnFromCache(Target.class.getName());
+		log.info(ce);
+	}
+	
+	public static DataCollector process(final DataCollector base, final File jar, final File src) {
+		if (jar == null) return null;
+		
+		final DataCollector dc = new DataCollector();
+		dc.base = base;
+		
+		List<Class<?>> clzList = Reflects.extractClazz(jar);
+		log.info(String.format("found %d classes in %s", clzList.size(), jar));
+		
+		clzList.forEach(dc::processClass);
+		
+		List<ClassEn> classEnList = dc.getClassEnList();
+		final Map<String, SourceEn> srcMap = loadSource(src);
+		if (MapUtils.isNotEmpty(srcMap)) {
+			classEnList.forEach(ce->ce.source = srcMap.get(ce.name));
+		}
+		
+		return dc;
+	}
+	
+	public List<ClassEn> getClassEnList() {
+		return classEnPool.values().stream()
+				.parallel()
+				.map(AtomicReference<ClassEn>::get)
+				.filter(ce->ce != null)
+				.collect(Collectors.toList());
+	}
+	
+	
 
-		System.out.println(clzzList.size());
+	@Test
+	public void testCollectRawData() {
+		File jar = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		File srcFile = Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip").toFile();
+		
+		DataCollector dc = process(null, jar, srcFile);
+		System.out.println(dc.classEnPool.size());
+	}
+	
+	public void organizeClasses(final BaseEn be, final Set<BaseEn> queue) {
+		if (be == null || queue.contains(be)) return;
+		
+		System.out.println(be.id + ":\t" + be);
+		
+		if (be instanceof PackageEn) {
+			be.annotations.forEach(_be->organizeClasses(_be, queue));
+			PackageEn pe = (PackageEn) be;
+			organizeClasses(pe.enclosing, queue);
+			queue.add(pe);
+			pe.children.forEach(_be->organizeClasses(_be, queue));
+		}
+		
+		if (be instanceof ClassEn) {
+			ClassEn ce = (ClassEn) be;
+
+			organizeClasses(ce.enclosing, queue);
+			
+			if (ce.clazz.isAnnotation()) {
+				queue.add(ce);
+				return;
+			}
+			
+			be.annotations.forEach(_be->organizeClasses(_be, queue));
+			organizeClasses(ce.superClz, queue);
+
+			ce.infs.forEach(_be->organizeClasses(_be, queue));
+			queue.add(ce);
+		}
+	}
+	
+	public void organizeMembers(final BaseEn be, final Set<BaseEn> queue) {
+		if (be == null || queue.contains(be)) return;
+		queue.add(be);
+		be.children.forEach(_be->organizeMembers(_be, queue));
 	}
 }
