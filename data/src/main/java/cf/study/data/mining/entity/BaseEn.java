@@ -1,4 +1,4 @@
-package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
+package cf.study.data.mining.entity;
 
 import static java.lang.reflect.Modifier.isAbstract;
 import static java.lang.reflect.Modifier.isFinal;
@@ -46,7 +46,6 @@ import org.apache.commons.collections4.CollectionUtils;
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
 @Inheritance(strategy = InheritanceType.JOINED)
 @Cacheable(false)
-//@DiscriminatorColumn(name="category", discriminatorType = DiscriminatorType.STRING)
 public class BaseEn {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -60,7 +59,6 @@ public class BaseEn {
 	@JoinColumn(name="enclosing", nullable=true)
 	public BaseEn enclosing;
 	
-//	@Transient
 	@OneToMany(cascade= {CascadeType.REFRESH}, mappedBy="enclosing")
 	public Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
@@ -122,7 +120,6 @@ public class BaseEn {
 	
 	@Override
 	public String toString() {
-//		return Jsons.toString(this);
 		return category + ": " + name;
 	}
 
@@ -193,16 +190,8 @@ public class BaseEn {
 		_be.category = category;
 		_be.version = version;
 		
-//		List<ClassEn> ans = _be.annotations;
-//		annotations.forEach(an->{
-//			ans.add(an.clone());
-//		});
-//		
 		Collection<BaseEn> children2 = _be.children;
 		children.stream().map(this::clone).forEach(children2::add);
-//		
-//		if (enclosing != null)
-//			_be.enclosing = enclosing.clone();
 		
 		return _be;
 	}

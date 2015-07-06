@@ -125,7 +125,7 @@ public class DataTests {
 	@Test
 	public void prepareData() {
 		EntryLoader el = new EntryLoader();
-		el.preloadClassEnByClz(com.sun.awt.AWTUtilities.class);
+//		el.preloadClassEnByClz(com.sun.awt.AWTUtilities.class);
 		
 		el.classEnPool.keySet().parallelStream().forEach((key) -> {
 			ClassEn ce = el.classEnPool.get(key);

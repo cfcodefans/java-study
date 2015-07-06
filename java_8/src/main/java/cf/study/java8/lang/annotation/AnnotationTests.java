@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cf.study.java8.lang.annotation.test.Dummy;
+//import cf.study.java8.lang.annotation.test.Dummy;
 
 
 public class AnnotationTests {
@@ -80,13 +80,13 @@ public class AnnotationTests {
 	public void testParamAnnotation() throws Exception {
 		final Method md = Rectangle.class.getMethod("draw", IDrawable.class);
 		Assert.assertNotNull(md);
-		Stream.of(md.getParameters()).forEach((Parameter param)->{System.out.println(param.getAnnotation(ParamAt.class));});
+		Stream.of(md.getParameters()).forEach(param->{System.out.println(param.getAnnotation(ParamAt.class));});
 	}
 	
 	@Test
 	public void testPackageAnnotation() {
-		final PackageAt at = Dummy.class.getAnnotation(PackageAt.class);
-		System.out.println(at);
+//		final PackageAt at = Dummy.class.getAnnotation(PackageAt.class);
+//		System.out.println(at);
 	}
 
 	public static final String TYPE_NAME = "cf.study.java8.lang.annotation.AnnotationTests";
