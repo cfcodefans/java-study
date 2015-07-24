@@ -12,16 +12,15 @@ import java.math.MathContext;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
@@ -43,6 +42,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -57,6 +57,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 
 public class MiscUtils {
+	
+	public static String now() {
+		return DateFormatUtils.format(Calendar.getInstance(), "yy-MM-dd hh:mm:ss");
+	}
 	
 	public static String loadResAsString(final Class<?> cls, final String fileName) {
 		if (cls == null || StringUtils.isBlank(fileName)) {
