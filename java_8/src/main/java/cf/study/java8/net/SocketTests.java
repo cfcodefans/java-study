@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -380,4 +381,13 @@ The number of keys, possibly zero, whose ready-operation sets were updated*/
 		log.info("inbound: \t" + inboundAddrs.size());
 	}
 	
+	
+	@Test
+	public void testAioSocket() throws Exception {
+		final AsynchronousServerSocketChannel asch = AsynchronousServerSocketChannel.open();
+		
+		asch.bind(addr);
+		
+		
+	}
 }

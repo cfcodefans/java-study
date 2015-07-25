@@ -58,6 +58,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 public class MiscUtils {
 	
+	@FunctionalInterface
+	public static interface ExConsumer<T> {
+		void accept(T t) throws Exception;
+	}
+	
 	public static String now() {
 		return DateFormatUtils.format(Calendar.getInstance(), "yy-MM-dd hh:mm:ss");
 	}
