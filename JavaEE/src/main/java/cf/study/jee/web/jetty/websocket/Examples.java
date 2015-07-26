@@ -112,7 +112,7 @@ public class Examples {
 
 		// Add a websocket to a specific path spec
 		ServletHolder holderEvents = new ServletHolder("ws-events", SampleWebSocketServlet.class);
-		context.addServlet(holderEvents, "/events/*");
+		context.addServlet(holderEvents, "/websocket/server/*");
 
 		try {
 			server.start();

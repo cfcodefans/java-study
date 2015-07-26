@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>WebSocket Client Testing</title>
 <script type="text/javascript">
-	var wsUri = "ws://localhost:8080/events/";
+	var wsUri = "ws://localhost:8080/websocket/server/";
 	function createTextWebSocket(wsUri, onOpen, onClose, onMsg, onErr) {
 		try {
 			var ws = new WebSocket(wsUri);
@@ -41,7 +41,7 @@
 		console.error(err);
 	}
 
-	//var ws = createTextWebSocket(wsUri,	log, log, logMsg, logErr);
+	var ws = createTextWebSocket(wsUri,	log, log, logMsg, logErr);
 </script>
 </head>
 <body>
