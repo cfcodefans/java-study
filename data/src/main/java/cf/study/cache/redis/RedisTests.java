@@ -1,8 +1,13 @@
 package cf.study.cache.redis;
 
+import java.time.Month;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import misc.MiscUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
@@ -39,8 +44,9 @@ public class RedisTests {
 			poolCfg.setTestOnBorrow(true);
 			poolCfg.setTestOnReturn(true);
 			poolCfg.setTestWhileIdle(true);
-
-			jedisPool = new JedisPool(poolCfg, "192.168.138.131", 6379);
+			
+			jedisPool = new JedisPool(poolCfg, "192.168.60.129", 6379);
+//			jedisPool = new JedisPool(poolCfg, "192.168.138.131", 6379);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -149,6 +155,12 @@ public class RedisTests {
 	}
 	
 	@Test
+	public void testClient() {
+		System.out.println(jedis.clientList());
+		System.out.println(jedis.clientGetname());
+	}
+	
+	@Test
 	public void testDecr() {
 		byte[] key = "byte_key".getBytes();
 		jedis.set(key, bytes(0,0,0,0,0,0,0,5));
@@ -171,6 +183,41 @@ public class RedisTests {
 		Assert.assertEquals(7, jedis.decrBy(sk, 3).intValue());
 		Assert.assertEquals(10, jedis.decrBy(sk, -3).intValue());
 	}
+	
+	@Test 
+	public void testExistsAndDel() {
+		String key1 = "key1";
+		Assert.assertFalse(jedis.exists(key1));
+		jedis.set(key1, "value1");
+		Assert.assertTrue(jedis.exists(key1));
+		jedis.del(key1);
+		Assert.assertFalse(jedis.exists(key1));
+	}
+	
+	@Test
+	public void testExpire() {
+		String key = "key";
+		jedis.set(key, "value");
+		Assert.assertTrue(jedis.exists(key));
+		jedis.expire(key, 2);
+		MiscUtils.easySleep(1000);
+		Assert.assertTrue(jedis.exists(key));
+		MiscUtils.easySleep(1000);
+		Assert.assertFalse(jedis.exists(key));
+	}
+	
+	@Test
+	public void testExpireAt() {
+		String key = "key";
+		jedis.set(key, "value");
+		Assert.assertTrue(jedis.exists(key));
+		jedis.expireAt(key, Calendar.getInstance().getTimeInMillis() / 1000 + 2);
+		MiscUtils.easySleep(1000);
+		Assert.assertTrue(jedis.exists(key));
+		MiscUtils.easySleep(1001);
+		Assert.assertFalse(jedis.exists(key));
+	}
+	
 	
 	@Test
 	public void testGet() {
@@ -212,7 +259,6 @@ public class RedisTests {
 		Assert.assertEquals(key, jedis.getSet(key, value));
 	}
 	
-	
 	@Test
 	public void testIncr() {
 		String key = "key";
@@ -242,11 +288,6 @@ public class RedisTests {
 	}
 	
 	@Test
-	public void testMisc() {
-		System.out.println(jedis.asking());
-	}
-	
-	@Test
 	public void testMGet() {
 		String key1 = "key1";
 		String key2 = "key2";
@@ -259,6 +300,11 @@ public class RedisTests {
 		Assert.assertEquals("my fault", mget.get(1));
 		Assert.assertNull(mget.get(2));
 		
+	}
+	
+	@Test
+	public void testMisc() {
+		System.out.println(jedis.asking());
 	}
 	
 	@Test
@@ -276,12 +322,79 @@ public class RedisTests {
 		
 	}
 	
-	
 	@Test
 	public void testSet() {
 		byte[] key = "byte_key".getBytes();
 		jedis.set(key, bytes(1));
 		System.out.println(Arrays.toString(bytes(1)));
 		System.out.println(Arrays.toString(jedis.get(key)));
+	}
+	
+	@Test
+	public void testMSet_MGet_Keys() {
+		jedis.mset("one", "1", "two", "2", "three", "3", "four", "4");
+		final List<String> vals = jedis.mget("one", "two", "three");
+		Assert.assertEquals(vals, Arrays.asList("1", "2", "3"));
+		
+		Set<String> keys = jedis.keys("*o*");
+		Assert.assertTrue(keys.contains("one"));
+		Assert.assertTrue(keys.contains("two"));
+		Assert.assertTrue(keys.contains("four"));
+		Assert.assertFalse(keys.contains("three"));
+		
+		keys = jedis.keys("o*");
+		Assert.assertTrue(keys.contains("one"));
+		Assert.assertFalse(keys.contains("two"));
+		Assert.assertFalse(keys.contains("four"));
+		Assert.assertFalse(keys.contains("three"));
+		
+		keys = jedis.keys("[^o]*");
+		System.out.println(keys);
+		Assert.assertFalse(keys.contains("one"));
+		Assert.assertTrue(keys.contains("two"));
+		Assert.assertTrue(keys.contains("four"));
+		Assert.assertTrue(keys.contains("three"));
+	}
+	
+	@Test
+	public void testRename() {
+		String key = "k";
+		final String value = "v";
+		jedis.set(key, value);
+		Assert.assertTrue(jedis.exists(key));
+		final String newkey = "key";
+		jedis.rename(key, newkey);
+		Assert.assertFalse(jedis.exists(key));
+		Assert.assertTrue(jedis.exists(newkey));
+		Assert.assertEquals(value, jedis.get(newkey));
+	}
+	
+	@Test
+	public void testList() {
+		final String key = "month";
+		Stream.of(Month.values()).forEach(m->jedis.lpush(key, m.name()));
+		System.out.println(jedis.lrange(key, 0, -1));
+		System.out.println(jedis.lrange(key, 0, jedis.llen(key)));
+		System.out.println(jedis.lrange(key, 0, 0));
+		System.out.println(jedis.lindex(key, 0));
+		Assert.assertEquals(jedis.lindex(key, 0), jedis.lpop(key)); 
+		System.out.println(jedis.lrange(key, 0, -1));
+		jedis.lset(key, 0, Month.DECEMBER.name());
+		Assert.assertEquals(Month.DECEMBER.name(), jedis.lpop(key)); 
+		Assert.assertEquals(10, jedis.llen(key).intValue());
+		jedis.lrem(key, 0, Month.JANUARY.name());
+		System.out.println(jedis.lrange(key, 0, -1));
+	}
+	
+	@Test
+	public void testSets() {
+		final String key = "months";
+		Stream.of(Month.values()).forEach(m->jedis.sadd(key, m.name()));
+		
+		System.out.println(jedis.scard(key) + ":" + jedis.smembers(key));
+		
+		jedis.sadd(key, Month.MAY.name());
+		
+		System.out.println(jedis.scard(key) + ":" +jedis.smembers(key));
 	}
 }
