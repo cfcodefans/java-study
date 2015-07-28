@@ -3,7 +3,9 @@ package cf.study.java.algothrims.sorting;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.function.BiFunction;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -40,6 +42,33 @@ public class SortTests <T extends Comparable<?>> {
 		return _data;
 	};
 	
+	public List<T> insertSort(List<T> data, Comparator<T> cmp) {
+		System.out.println(data);
+		if (CollectionUtils.isEmpty(data) || data.size() == 1) {
+			return data;
+		}
+		
+		final LinkedList<T> linkedList = new LinkedList<T>();
+		
+		linkedList.addFirst(data.get(0));
+		
+		data.stream().skip(1).forEach(t -> {
+			for (ListIterator<T> it = linkedList.listIterator(); it.hasNext();) {
+				T _t = it.next();
+				int _i = it.nextIndex();
+				if (cmp.compare(_t, t) <= 0) {
+					continue;
+				}
+				it.previous();
+				it.add(t);
+				return;
+			}
+			linkedList.addLast(t);
+		});
+		
+		return linkedList;
+	};
+	
 	public BiFunction<List<T>, Comparator<T>, List<T>> quickSort = (List<T> data, final Comparator<T> cmp)->{
 		System.out.println(data);
 		if (CollectionUtils.isEmpty(data) || data.size() == 1) {
@@ -73,5 +102,11 @@ public class SortTests <T extends Comparable<?>> {
 	public void testBubbleSort1() {	
 		SortTests<Long> st = new SortTests<Long>();
 		System.out.println(st.bubbleSort.apply(MiscUtils.pi2Longs(400), st._cmp));
+	}
+	
+	@Test
+	public void testInsertSort1() {	
+		SortTests<Long> st = new SortTests<Long>();
+		System.out.println(st.insertSort(MiscUtils.pi2Longs(8), st._cmp));
 	}
 }
