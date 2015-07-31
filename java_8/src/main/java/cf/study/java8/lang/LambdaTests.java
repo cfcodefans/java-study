@@ -1,6 +1,7 @@
 package cf.study.java8.lang;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
@@ -31,6 +32,17 @@ public class LambdaTests {
 			Runnable r = () -> log.info("My lambda Runnable");
 			new Thread(r).start();
 		}
+	}
+	
+	public static interface VarArgConsumer<T> {
+		void accept(T...args);
+	}
+	
+	@Test
+	public void testVarArg() {
+//		VarArgConsumer<Integer> vac1 = (i1, i2, i3) ->  Math.max(Math.max(i1, i2), i3);
+		//doesn't work
+		VarArgConsumer<Integer> vac1 = (Integer...is) -> System.out.println(Arrays.toString(is));
 	}
 	
 	/*

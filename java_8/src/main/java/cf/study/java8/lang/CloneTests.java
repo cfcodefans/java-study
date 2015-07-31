@@ -1,20 +1,15 @@
-package cf.study.jdk7.lang;
+package cf.study.java8.lang;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.SerializationUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import misc.MiscUtils;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 
-import cf.study.jdk7.lang.SerializableTest.A;
-import cf.study.jdk7.lang.SerializableTest.B;
-import cf.study.jdk7.lang.SerializableTest.C;
-import cf.study.utils.MiscUtils;
-
-public class CloneTest {
+public class CloneTests {
 	
 	public static class CloneableBaseCls implements Cloneable {
 		private String	name;

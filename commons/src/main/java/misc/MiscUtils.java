@@ -63,6 +63,18 @@ public class MiscUtils {
 		void accept(T t) throws Exception;
 	}
 	
+	public static interface BiFunc<T, U, R> {
+		R apply(T t, U u);
+	}
+	
+	public static interface BiConsumer<T, U> {
+		void accept(T t, U u);
+	}
+	
+	public static interface VarArgConsumer<T> {
+		void accept(T...args);
+	}
+	
 	public static String now() {
 		return DateFormatUtils.format(Calendar.getInstance(), "yy-MM-dd hh:mm:ss");
 	}

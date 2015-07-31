@@ -1,17 +1,16 @@
-package cf.study.jdk7.lang;
+package cf.study.java8.lang;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.SerializationUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import misc.MiscUtils;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 
-import cf.study.utils.MiscUtils;
-
-public class SerializableTest {
-	public static class SerializableBaseCls extends CloneTest.CloneableBaseCls implements Serializable {
+public class SerializableTests {
+	public static class SerializableBaseCls extends CloneTests.CloneableBaseCls implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		public Object publicAttr;
@@ -27,7 +26,6 @@ public class SerializableTest {
 			System.out.println("SerializableBaseCls() -> " + this.toString());
 		}
 
-		@Override
 		public String toString() {
 			return String.format("super.toString()=%s \n\tSerializableBaseCls [publicAttr=%s, privateAttr=%s, protectedAttr=%s]\n",super.toString(), publicAttr, privateAttr, protectedAttr);
 		}
