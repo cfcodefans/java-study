@@ -1,4 +1,4 @@
-package cf.study.data.encryption;
+package cf.study.old.data.encryption;
 
 import java.security.SecureRandom;
 
@@ -13,15 +13,15 @@ public class DESEncryptionTest {
 		try {
 			SecureRandom random = new SecureRandom();
 			DESKeySpec desKey = new DESKeySpec(password.getBytes());
-			// ´´½¨Ò»¸öÃÜ³×¹¤³§£¬È»ºóÓÃËü°ÑDESKeySpec×ª»»³É
+			// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ü³×¹ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DESKeySpec×ªï¿½ï¿½ï¿½ï¿½
 			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
 			SecretKey securekey = keyFactory.generateSecret(desKey);
-			// Cipher¶ÔÏóÊµ¼ÊÍê³É¼ÓÃÜ²Ù×÷
+			// Cipherï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½É¼ï¿½ï¿½Ü²ï¿½ï¿½ï¿½
 			Cipher cipher = Cipher.getInstance("DES");
-			// ÓÃÃÜ³×³õÊ¼»¯Cipher¶ÔÏó
+			// ï¿½ï¿½ï¿½Ü³×³ï¿½Ê¼ï¿½ï¿½Cipherï¿½ï¿½ï¿½ï¿½
 			cipher.init(Cipher.ENCRYPT_MODE, securekey, random);
-			// ÏÖÔÚ£¬»ñÈ¡Êı¾İ²¢¼ÓÃÜ
-			// ÕıÊ½Ö´ĞĞ¼ÓÃÜ²Ù×÷
+			// ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½İ²ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½Ê½Ö´ï¿½Ğ¼ï¿½ï¿½Ü²ï¿½ï¿½ï¿½
 			return cipher.doFinal(datasource);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -30,34 +30,34 @@ public class DESEncryptionTest {
 	}
 
 	private static byte[] decrypt(byte[] src, String password) throws Exception {
-		// DESËã·¨ÒªÇóÓĞÒ»¸ö¿ÉĞÅÈÎµÄËæ»úÊıÔ´
+		// DESï¿½ã·¨Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
 		SecureRandom random = new SecureRandom();
-		// ´´½¨Ò»¸öDESKeySpec¶ÔÏó
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½DESKeySpecï¿½ï¿½ï¿½ï¿½
 		DESKeySpec desKey = new DESKeySpec(password.getBytes());
-		// ´´½¨Ò»¸öÃÜ³×¹¤³§
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ü³×¹ï¿½ï¿½ï¿½
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-		// ½«DESKeySpec¶ÔÏó×ª»»³ÉSecretKey¶ÔÏó
+		// ï¿½ï¿½DESKeySpecï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½SecretKeyï¿½ï¿½ï¿½ï¿½
 		SecretKey securekey = keyFactory.generateSecret(desKey);
-		// Cipher¶ÔÏóÊµ¼ÊÍê³É½âÃÜ²Ù×÷
+		// Cipherï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½
 		Cipher cipher = Cipher.getInstance("DES");
-		// ÓÃÃÜ³×³õÊ¼»¯Cipher¶ÔÏó
+		// ï¿½ï¿½ï¿½Ü³×³ï¿½Ê¼ï¿½ï¿½Cipherï¿½ï¿½ï¿½ï¿½
 		cipher.init(Cipher.DECRYPT_MODE, securekey, random);
-		// ÕæÕı¿ªÊ¼½âÃÜ²Ù×÷
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½
 		return cipher.doFinal(src);
 	}
 
 	public static void main(String[] args) {
-		// ´ı¼ÓÃÜÄÚÈİ
-		String str = "²âÊÔÄÚÈİ";
-		// ÃÜÂë£¬³¤¶ÈÒªÊÇ8µÄ±¶Êı
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		String str = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		// ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½8ï¿½Ä±ï¿½ï¿½ï¿½
 		String password = "12345678";
 		byte[] result = DESEncryptionTest.desCrypto(str.getBytes(), password);
-		System.out.println("¼ÓÃÜºóÄÚÈİÎª£º" + new String(result));
+		System.out.println("ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + new String(result));
 
-		// Ö±½Ó½«ÈçÉÏÄÚÈİ½âÃÜ
+		// Ö±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ½ï¿½ï¿½ï¿½
 		try {
 			byte[] decryResult = DESEncryptionTest.decrypt(result, password);
-			System.out.println("¼ÓÃÜºóÄÚÈİÎª£º" + new String(decryResult));
+			System.out.println("ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½" + new String(decryResult));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

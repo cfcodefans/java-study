@@ -1,4 +1,4 @@
-package cf.study.data.json;
+package cf.study.old.data.json;
 
 import java.io.IOException;
 import java.util.Date;

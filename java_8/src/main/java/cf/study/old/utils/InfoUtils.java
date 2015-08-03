@@ -1,9 +1,8 @@
-package cf.study.utils;
+package cf.study.old.utils;
 
 import java.beans.PropertyDescriptor;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,13 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -222,7 +219,7 @@ public class InfoUtils {
 		}
 	}
 
-	private static final Log _l = LogFactory.getLog(InfoUtils.class);
+	private static final Logger _l = Logger.getLogger(InfoUtils.class);
 
 	public static String[][] toString(ResultSet rs) throws Exception {
 		if (rs == null) {

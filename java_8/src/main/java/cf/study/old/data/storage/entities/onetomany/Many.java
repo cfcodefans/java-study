@@ -1,4 +1,4 @@
-package cf.study.data.storage.entities.onetomany;
+package cf.study.old.data.storage.entities.onetomany;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

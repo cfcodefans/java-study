@@ -1,22 +1,11 @@
-package cf.study.network.distributed.zookeeper;
+package cf.study.old.network.distributed.zookeeper;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooDefs.Ids;
-import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.data.Stat;
-import org.apache.zookeeper.server.ServerConfig;
-import org.apache.zookeeper.server.ZooKeeperServerMain;
-import org.apache.zookeeper.server.quorum.QuorumPeerConfig.ConfigException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,13 +35,13 @@ public class ZooKeeperClusterTest {
 					try {
 						ZooKeeperServerMain zs = new ZooKeeperServerMain();
 						zs.runFromConfig(sc);
-						_logger.info("[Distribution]  distribution server started up.... host:" + sc.getClientPortAddress().getHostName() + ";address:"
+						log.info("[Distribution]  distribution server started up.... host:" + sc.getClientPortAddress().getHostName() + ";address:"
 								+ sc.getClientPortAddress().getAddress().getHostAddress() + ";port:" + sc.getClientPortAddress().getPort());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 
-					_logger.info("[Distribution]  distribution server shutdown....");
+					log.info("[Distribution]  distribution server shutdown....");
 				}
 			};
 
@@ -70,7 +59,7 @@ public class ZooKeeperClusterTest {
 	}
 
 	ZooKeeper zk;
-	private static Log _logger = LogFactory.getLog(ZooKeeperClusterTest.class);
+	private static Logger log = Logger.getLogger(ZooKeeperClusterTest.class);
 
 	@Before
 	public void initZooKeeper() {
@@ -78,8 +67,8 @@ public class ZooKeeperClusterTest {
 			Watcher watcher = new Watcher() {
 				@Override
 				public void process(WatchedEvent ev) {
-					_logger.info("get an event: ");
-					_logger.info(ev);
+					log.info("get an event: ");
+					log.info(ev);
 				}
 			};
 			zk = new ZooKeeper("localhost:2181", 3000, watcher);
@@ -109,20 +98,20 @@ public class ZooKeeperClusterTest {
 				i++;
 				continue;
 			}
-			_logger.info(zk.create(subPath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT));
+			log.info(zk.create(subPath, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT));
 		}
 		if (zk.exists(path, false) == null) {
-			_logger.info(zk.create(path, data, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT));
+			log.info(zk.create(path, data, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT));
 		}
 	}
 
 	Watcher w = new Watcher() {
 		@Override
 		public void process(WatchedEvent ev) {
-			_logger.info("child watcher");
-			_logger.info(ev);
+			log.info("child watcher");
+			log.info(ev);
 			try {
-				_logger.info(zk.getChildren(ev.getPath(), this));
+				log.info(zk.getChildren(ev.getPath(), this));
 			} catch (KeeperException | InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -133,7 +122,7 @@ public class ZooKeeperClusterTest {
 	public void testChildWatcher() {
 		try {
 			createNode(zk, ROOT_PATH, "init.root".getBytes());
-			_logger.info(zk.getChildren(ROOT_PATH, w, null));
+			log.info(zk.getChildren(ROOT_PATH, w, null));
 			createNode(zk, PATH, "data".getBytes());
 			zk.close();
 		} catch (Exception e) {
@@ -146,7 +135,7 @@ public class ZooKeeperClusterTest {
 		try {
 			zk.create("/a", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 			zk.create("/a/b", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-			_logger.info(zk.getChildren("/a/b", w));
+			log.info(zk.getChildren("/a/b", w));
 			zk.create("/a/b/c", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 			zk.create("/a/b/c/d", null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 //			zk.close();
@@ -158,8 +147,8 @@ public class ZooKeeperClusterTest {
 	@Test
 	public void testWatcher() {
 		try {
-			_logger.info(zk.getChildren(ROOT_PATH, false));
-			_logger.info(zk.getChildren(PATH, false));
+			log.info(zk.getChildren(ROOT_PATH, false));
+			log.info(zk.getChildren(PATH, false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
