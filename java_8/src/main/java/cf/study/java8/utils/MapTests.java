@@ -43,7 +43,7 @@ public class MapTests {
 	public void testRehash() {
 		final KeyClzz key_1 = new KeyClzz();
 		key_1.hash = 1;
-		final Map<KeyClzz, String> map = new HashMap<MapTests.KeyClzz, String>();
+		final Map<KeyClzz, String> map = new HashMap<KeyClzz, String>();
 		map.put(key_1, key_1.toString());
 		
 		Assert.assertTrue(map.containsKey(key_1));
