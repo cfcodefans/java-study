@@ -1,4 +1,4 @@
-package cf.study.jee.web.jetty.websocket;
+package cf.study.jee.web.jetty.html5.websocket;
 
 import java.io.IOException;
 

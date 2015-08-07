@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Medie Capture</title>
+<link href="/res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="/res/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/res/jquery.xslt.js"></script>
+<script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="container-fluid">
+<!-- has to select the file, doesn't meet the expectation 
+	<div class="row">
+		<form method="post" enctype="multipart/form-data">
+			<input type="file" accept="image/*" capture="camera">
+			<input type="file" accept="video/*" capture="camcorder">
+			<input type="file" accept="audio/*" capture="microphone">
+		</form>
+	</div>
+ -->
+	
+	<div class="row" style="height: 320">
+		<video autoplay id="v"></video>
+	</div>
+	<hr/>
+	<script type="text/javascript">
+		function hasGetUserMedia() {
+			return (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		}
+		
+		function onError(e) {
+			console.log("Rejected!", e);
+		}
+		
+		function init(localMediaStream) {
+			console.info(localMediaStream);
+			var video = $("#v")[0];
+			video.src = window.URL.createObjectURL(localMediaStream);
+			video.onloadedmetadata = function(e) {
+				console.info(e);
+			}
+		}
+
+		function main() {
+			var getUserMedia = hasGetUserMedia();
+			if (!getUserMedia) {
+				alert("getUserMedia() is not supported in your browser");
+				return;
+			}
+			console.info(getUserMedia);
+			getUserMedia.call(navigator, {video:true, audio:true}, init, onError);
+		}
+		
+		$(main);
+	</script>
+</body>
+
+</html>
