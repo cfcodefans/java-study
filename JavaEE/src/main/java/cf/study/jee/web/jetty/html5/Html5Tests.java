@@ -2,17 +2,16 @@ package cf.study.jee.web.jetty.html5;
 
 import javax.servlet.http.HttpServlet;
 
+import junit.framework.Assert;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.Test;
 
 import cf.study.jee.web.jetty.html5.websocket.WebSocketTests.TextEchoServlet;
 import cf.study.jee.web.jetty.res.WebResources;
-import junit.framework.Assert;
 
 public class Html5Tests {
 
