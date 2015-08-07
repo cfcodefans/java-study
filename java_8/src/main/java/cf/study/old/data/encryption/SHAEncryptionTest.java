@@ -1,4 +1,4 @@
-package cf.study.data.encryption;
+package cf.study.old.data.encryption;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -58,7 +58,7 @@ public class SHAEncryptionTest {
 		// add random code into hash computation
 		md.update(salt);
 	
-		// °´SSHA°Ñµ±Ç°ÓÃ»§ÃÜÂë½øÐÐ¼ÆËã
+		// ï¿½ï¿½SSHAï¿½Ñµï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½
 		// calculate current user password
 		byte[] inputpwbyte = md.digest();
 	

@@ -18,6 +18,11 @@ public class OperTests {
 	}
 	
 	@Test
+	public void testComparisons() {
+//		Assert.assertTrue(true > false);
+	}
+	
+	@Test
 	public void arithmetic() {
 		int i = 1;
 //		System.out.println(i + i);

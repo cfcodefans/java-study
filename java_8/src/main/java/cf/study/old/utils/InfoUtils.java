@@ -1,4 +1,4 @@
-package cf.study.utils;
+package cf.study.old.utils;
 
 import java.beans.PropertyDescriptor;
 import java.sql.ResultSet;
