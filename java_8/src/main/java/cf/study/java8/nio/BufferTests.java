@@ -1,4 +1,4 @@
-package cf.study.jdk7.io.nio;
+package cf.study.java8.nio;
 
 import java.nio.ByteBuffer;
 
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class BufferTest {
+public class BufferTests {
 	ByteBuffer buf = ByteBuffer.allocate(26);
 	
 	@Before

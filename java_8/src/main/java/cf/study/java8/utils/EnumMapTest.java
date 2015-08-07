@@ -1,8 +1,9 @@
-package cf.study.jdk7._enum;
+package cf.study.java8.utils;
 
 import java.util.EnumMap;
 
-import org.apache.commons.lang.enums.EnumUtils;
+import org.apache.commons.lang3.EnumUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class EnumMapTest {
@@ -13,14 +14,15 @@ public class EnumMapTest {
 	@Test
 	public void testEnumMapTest() {
 		EnumMap<Metal, String> m = new EnumMap<EnumMapTest.Metal, String>(Metal.class);
-		System.out.println(m.size());
-		
+		System.out.println(m);
+		Assert.assertEquals(m.size(), Metal.values().length);
 	}
 	
 	@Test
 	public void enumMapTest() {
 		Metal m = Metal.valueOf("iron");
-		System.out.println(m);
+		EnumMap<Metal, String> _m = new EnumMap<EnumMapTest.Metal, String>(Metal.class);
+		System.out.println(_m.get(m));
 	}
 	
 	@Test
