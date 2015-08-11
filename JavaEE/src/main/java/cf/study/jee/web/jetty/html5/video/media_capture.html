@@ -1,43 +1,76 @@
 <html>
 <head>
-<title>Medie Capture</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Media Capture</title>
 <link href="/res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript" src="/res/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>
-
+<style>
+	.vd {
+		width: 640px;
+		height: 480px;
+		margin-left: -320px;
+	}
+	
+	
+	@media(max-width: 640px) {
+		.vd {
+			width: 480px;
+			height: 320px;
+			margin-left: -240px;
+		}
+	}
+	@media (max-width: 480px), (max-width: 320px) {
+		.vd {
+			width: 320px;
+			height: 320px;
+			margin-left: -160px;
+		}
+	}
+	
+	.vd_center {
+		position: absolute;
+		left: 50%;
+	}
+	
+	.footer {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  height: 60px;
+	  background-color: #f5f5f5;
+	}
+</style>
 </head>
 
-<body class="container-fluid">
-<!-- has to select the file, doesn't meet the expectation 
-	<div class="row">
-		<form method="post" enctype="multipart/form-data">
-			<input type="file" accept="image/*" capture="camera">
-			<input type="file" accept="video/*" capture="camcorder">
-			<input type="file" accept="audio/*" capture="microphone">
-		</form>
-	</div>
- -->
+<body>
+	<article class="container-fluid">
+		<video id="v" autoplay class="vd vd_center">
+		</video>
+	</article>
+
+	<footer class="footer container">
+	</footer>
 	
-	<div class="row" style="height: 320">
-		<video autoplay id="v"></video>
-	</div>
-	<hr/>
 	<script type="text/javascript">
 		function hasGetUserMedia() {
-			return (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+			return (navigator.getUserMedia || navigator.webkitGetUserMedia
+					|| navigator.mozGetUserMedia || navigator.msGetUserMedia);
 		}
-		
+
 		function onError(e) {
 			console.log("Rejected!", e);
 		}
-		
+
 		function init(localMediaStream) {
 			console.info(localMediaStream);
+			
+			window.cameraStream = localMediaStream;
+			
 			var video = $("#v")[0];
 			video.src = window.URL.createObjectURL(localMediaStream);
-			video.onloadedmetadata = function(e) {
-				console.info(e);
-			}
+			video.onloadedmetadata = console.info
 		}
 
 		function main() {
@@ -47,11 +80,10 @@
 				return;
 			}
 			console.info(getUserMedia);
-			getUserMedia.call(navigator, {video:true, audio:true}, init, onError);
+			getUserMedia.call(navigator, {video : true,	audio : false}, init, onError);
 		}
-		
+
 		$(main);
 	</script>
 </body>
-
 </html>
