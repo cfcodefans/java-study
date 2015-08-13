@@ -79,20 +79,26 @@
 		<dependency>
 			<groupId>org.apache.mina</groupId>
 			<artifactId>mina-example</artifactId>
-		<scope>test</scope>
-		<version>2.0.8</version>
-	</dependency>
+			<scope>test</scope>
+			<version>2.0.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jgroups</groupId>
+			<artifactId>jgroups</artifactId>
+			<version>3.6.4</version>
+		</dependency>
 	</dependencies>
 
 	<artifactId>misc</artifactId>
-	
+
 	<build>
 		<plugins>
-		<plugin>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-bundle-plugin</artifactId>
-            <extensions>true</extensions>
-        </plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

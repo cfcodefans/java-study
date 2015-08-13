@@ -279,6 +279,6 @@ public class StreamTests {
 	
 	@Test
 	public void testRange() {
-		IntStream.range(0, 10).forEach((i)->{System.out.println(i);});
+		IntStream.range(0, 10).forEach(System.out::println);
 	}
 }
