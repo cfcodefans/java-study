@@ -1,6 +1,9 @@
 package cf.study.java8.nio;
 
+import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,5 +59,25 @@ public class BufferTests {
 		buf.get(ba);
 		System.out.println(new String(buf.array()));
 		System.out.println(new String(ba));
+	}
+	
+	@Test
+	public void testFilp() throws Exception {
+		ReadableByteChannel ch = Channels.newChannel(new ByteArrayInputStream("abcdefghijklmnopqrstuvwxyz".getBytes()));
+		
+		ByteBuffer bf = ByteBuffer.allocate(10);
+		ch.read(bf);
+		
+		bf.rewind();
+		
+		System.out.println(new String(bf.array()));
+		
+		bf.flip();
+		
+		ch.read(bf);
+		
+		bf.rewind();
+		
+		System.out.println(new String(bf.array()));
 	}
 }
