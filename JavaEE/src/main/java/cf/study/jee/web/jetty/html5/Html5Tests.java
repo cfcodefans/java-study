@@ -15,20 +15,19 @@ import cf.study.jee.web.jetty.res.WebResources;
 
 public class Html5Tests {
 
-	private static final Logger log = Logger.getLogger(Html5Tests.class);
+	private static final Logger	log	= Logger.getLogger(Html5Tests.class);
+
 	private Server setUpServlet(Class<? extends HttpServlet> servletClass) throws Exception {
-		if (servletClass == null) return null;
-		
+		if (servletClass == null)
+			return null;
+
 		Server server = new Server(8080);
-		
+
 		HandlerList hls = new HandlerList();
-		hls.setHandlers(new Handler[] {
-			WebResources.res("/html5", Html5Tests.class, "."),
-			WebResources.defaultRes(),
-		});
-		
+		hls.setHandlers(new Handler[] { WebResources.res("/html5", Html5Tests.class, "."), WebResources.defaultRes(), });
+
 		server.setHandler(hls);
-		
+
 		return server;
 	}
 
@@ -37,7 +36,7 @@ public class Html5Tests {
 		Server server = setUpServlet(TextEchoServlet.class);
 		Assert.assertNotNull(server);
 		Assert.assertFalse(server.isStarted());
-		
+
 		server.start();
 		server.join();
 	}

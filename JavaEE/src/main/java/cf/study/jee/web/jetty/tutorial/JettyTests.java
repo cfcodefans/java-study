@@ -9,16 +9,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import misc.MiscUtils;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.proxy.ProxyServlet;
 import org.eclipse.jetty.rewrite.handler.RedirectPatternRule;
@@ -36,14 +40,15 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Test;
 
 import com.google.common.net.MediaType;
 
-import misc.MiscUtils;
-
 public class JettyTests {
+
+	private static final Logger log = Logger.getLogger(JettyTests.class);
 
 	@Test
 	public void creatServer() throws Exception {
@@ -184,6 +189,10 @@ public class JettyTests {
 	}
 	
 	public static class HelloServlet extends HttpServlet {
+		public HelloServlet() {
+			log.info(MiscUtils.invocationInfo());
+		}
+		
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //			super.doGet(req, resp);
@@ -291,6 +300,41 @@ public class JettyTests {
 		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/dump/fr"), 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
+	
+	@Test
+	public void testServletHolder() throws Exception {
+		Server server = new Server(8080);
+
+		ServletContextHandler ctx = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		ctx.setContextPath("/");
+		ctx.setResourceBase(SystemUtils.JAVA_IO_TMPDIR);
+
+		server.setHandler(ctx);
+
+		ServletHolder sh = ctx.addServlet(HelloServlet.class, "/*");
+		
+		Servlet si0 = sh.getServletInstance();
+		log.info(si0);
+
+		server.start();
+
+		Servlet si1 = sh.getServletInstance();
+		log.info(si1);
+		
+		ScheduledExecutorService threads = Executors.newScheduledThreadPool(4);
+
+		threads.schedule((Runnable) () -> testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
+		
+		Servlet si3 = sh.getServletInstance();
+		log.info(si3);
+		
+		Servlet si4 = sh.getServletInstance();
+		log.info(si4);
+		
+		MiscUtils.easySleep(4000);
+	}
+	
+	
 	
 	public void war() throws Exception {
         // Create a basic jetty server object that will listen on port 8080.

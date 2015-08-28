@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Angular JS Study</title>
+<link href="/res/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="/res/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/res/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/res/angular.js"></script>
+<style>
+	section {
+		padding: 15px
+	}
+</style>
+<script type="text/javascript">
+	this.testApp = angular.module("TestApp", []);
+</script>
+</head>
+
+<body ng-app="TestApp">
+	<article class="container" style="padding-top: 15px">
+		<div class="row">
+			<ul class="nav nav-pills nav-stacked col-md-2" role="tablist">
+				<li role="presentation" class="active"><a href="#ExpCtrl" aria-controls="ExpCtrl" role="tab" data-toggle="pill">Angular Expression</a></li>
+				<li role="presentation"><a href="#PhoneListCtrl" aria-controls="PhoneListCtrl" role="tab" data-toggle="pill">Phone Excample</a></li>
+				<li role="presentation"><a href="#BindingCtrl" aria-controls="BindingCtrl" role="tab" data-toggle="pill">Binding</a></li>
+
+				<li role="presentation"><a href="#XHR_DI_Ctrl" aria-controls="XHR_DI_Ctrl" role="tab" data-toggle="pill">XHR & Dependency Injection</a></li>
+			</ul>
+
+			
+			<div class="tab-content col-md-9 panel panel-default"  style="margin-top: 15px">
+				<section role="tabpanel" class="tab-pane active" ng-controller="ExpCtrl" id="ExpCtrl">
+					<script type="text/javascript">
+						function initExpCtrl($scope) {
+							console.info($scope);
+							$scope.now = function() {
+								return new Date();
+							};
+							$scope.Date = Date.prototype;
+							$scope.Math = Math;
+						}
+						this.testApp.controller("ExpCtrl", initExpCtrl);
+					</script>
+					<pre>1 + 2 = {{1 + 2}}</pre>
+					<pre>"a" + "b" = {{"a" + "b"}}</pre>
+					<pre>Math.PI = {{Math.PI}}
+can't get PI</pre>
+					<pre>1 > 2 ? "NO" : "YES" = {{1 > 2 ? "NO" : "YES"}}</pre>
+					<pre>now() = {{now()}}
+can't call function directly</pre>
+					<pre>new Date() = {{"new Date()"}}
+No function declarations 
+or RegExp creation with literal notation
+can't parse "new"
+			</pre>
+				</section>
+
+				<section role="tabpanel" class="tab-pane" ng-controller="PhoneListCtrl" id="PhoneListCtrl">
+					<script type="text/javascript">
+						function initPhoneListCtrl($scope) {
+							console.info($scope);
+							$scope.phones = [ {
+								name : "Nexus S",
+								snippet : "Fast just get faster with Nexus S.",
+								age : 1
+							}, {
+								name : "Motorola XOOM with Wi-Fi",
+								snippet : "The Next, Next Generation tablet.",
+								age : 2
+							}, {
+								name : "MOTOROLA XOOM",
+								snippet : "The Next, Next Generation tablet.",
+								age : 3
+							} ];
+
+							$scope.orderProp = 'age'; //default value for ng-model="orderProp"
+						}
+						this.testApp.controller("PhoneListCtrl",
+								initPhoneListCtrl);
+					</script>
+					<p>Total number of phones: {{phones.length}}</p>
+					<ul>
+						<li ng-repeat="phone in phones"><span>{{phone.name}}</span>
+							<p>{{phone.snippet}}</p></li>
+					</ul>
+
+					<ul>
+						<li ng-repeat="i in [0,1,2]"><span>{{phones[i].name}}</span>
+							<p>{{phones[i].snippet}}</p></li>
+					</ul>
+
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-2">
+								<!--Sidebar content-->
+								Search: <input ng-model="query"> Sort by: <select ng-model="orderProp">
+									<option value="name">Alphabetical</option>
+									<option value="age">Newest</option>
+								</select>
+							</div>
+							<div class="col-md-10">
+								<!--Body content-->
+								<ul class="phones">
+									<li ng-repeat="phone in phones | filter:query | orderBy:orderProp">{{phone.name}}
+										<p>{{phone.snippet}}</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</section>
+
+				<section role="tabpanel" class="tab-pane" ng-controller="BindingCtrl" id="BindingCtrl">
+					<script type="text/javascript">
+						function initBindingCtrl($scope) {
+							console.info($scope);
+							$scope.txt = "what";
+						}
+						this.testApp.controller("BindingCtrl", initBindingCtrl);
+					</script>
+					<div class="row">
+						<div class="col-md-3">
+							<input type="text" ng-model="txt" />
+						</div>
+						<span class="col-md-3">{{txt}}</span>
+					</div>
+				</section>
+
+				<section role="tabpanel" class="tab-pane" ng-controller="XHR_DI_Ctrl" id="XHR_DI_Ctrl">
+					<script type="text/javascript">
+						function initXHR_DI_Ctrl($scope, $http) {
+							var api_now = "/jersey/rest/test/now";
+							$http.get(api_now).success(function(data) {
+								console.info("api_now: " + data);
+								$scope._now = new Date(parseInt(data));
+							});
+							$http({
+								method:"POST",
+								url:"/jersey/rest/test/now",
+								headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+								data:"offset=2"})
+							.success(function(data) {
+								console.info("api_nows: " + data);
+								$scope._nows = data;
+							});
+							
+							$scope.reload = function() {
+								return initXHR_DI_Ctrl($scope, $http);
+							}
+							
+							$scope.$on('reload', $scope.reload);
+						}
+						this.testApp.controller("XHR_DI_Ctrl", initXHR_DI_Ctrl);
+					</script>
+					<pre>{{_now}}</pre>
+					<pre>{{_nows}}</pre>
+					<button ng-click="reload()">refresh</button>
+					<button ng-click="$emit('reload')">refresh with event</button>
+				</section>
+			</div>
+		</div>
+	</article>
+
+	<script type="text/javascript">
+		function now() {
+			return new Date();
+		}
+	</script>
+</body>
+</html>
