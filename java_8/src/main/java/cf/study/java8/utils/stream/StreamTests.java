@@ -4,11 +4,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -16,15 +19,72 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import misc.MiscUtils;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
+import misc.MiscUtils;
 
 public class StreamTests {
 	
 	static class DummyList<E> extends ArrayList<E> {
 		
+	}
+	
+	@Test
+	public void findNumbersGreaterThan5() {
+		Integer[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+		{
+			// here we keep our results in list
+			List<Integer> resultList = new ArrayList<Integer>();
+			for (int i = 0, j = numbers.length; i < j; i++) {
+				if (numbers[i] > 5) {
+					resultList.add(numbers[i]);
+				}
+			}
+		}
+		
+		{
+		List<Integer> asList = Arrays.asList(numbers);
+		Predicate<Integer> greaterThan5 = new Predicate<Integer>() {
+			public boolean apply(Integer input) {
+				return input > 5;
+			}
+		};
+		Collection<Integer> results = Collections2.filter(asList, greaterThan5);
+		}
+		
+		{
+			List<Integer> resultList = new ArrayList<Integer>();
+			Consumer<Integer> consumer = new Consumer<Integer>() {
+				public void accept(Integer number) {
+					if (number > 5) {
+						resultList.add(5);
+					}
+				}
+			};
+			Stream.of(numbers).forEach(consumer);
+		}
+		
+		{
+			final List<Integer> resultList = new ArrayList<Integer>();
+			Stream.of(numbers).forEach((Integer number) -> {
+				if (number > 5) {
+					resultList.add(number);
+				}
+			});
+		}
+		
+		{
+			List<Integer> resultList = Stream.of(numbers).filter(number -> number > 5).collect(Collectors.toList());
+			Consumer<Integer> consumer = new Consumer<Integer>() {
+				public void accept(Integer number) {
+					resultList.add(number);
+				}
+			};
+		}
 	}
 	
 	@Test
@@ -346,5 +406,21 @@ public class StreamTests {
 	@Test
 	public void testRange() {
 		IntStream.range(0, 10).forEach(System.out::println);
+	}
+	
+	interface Foo {
+		void bar();
+	}
+	
+	Foo foo = ()->System.out.println("Foo.bar");
+	
+	private void callFoo(Foo f) {
+		f.bar();
+	}
+	
+	@Test
+	public void testLambda() {
+		callFoo(()->System.out.println("Foo.bar"));
+		callFoo(System.out::println);
 	}
 }
