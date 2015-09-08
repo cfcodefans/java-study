@@ -26,6 +26,9 @@ public class AngularJSTests {
 		server.setHandler(hls);
 		
 		server.start();
+		
+		log.info("started");
+		
 		server.join();
 	}
 }
