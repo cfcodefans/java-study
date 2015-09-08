@@ -194,8 +194,8 @@
 	<modules>
 		<module>commons</module>
 		<module>java_8</module>
-		<module>misc</module>
 		<module>JavaEE</module>
+		<module>misc</module>
 		<module>Data</module>
 	</modules>
 </project>
