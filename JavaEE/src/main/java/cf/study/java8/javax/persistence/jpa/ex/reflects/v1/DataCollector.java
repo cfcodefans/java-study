@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -58,6 +57,7 @@ import cf.study.java8.lang.reflect.Reflects;
 public class DataCollector {
 	public static DataCollector _base = new DataCollector();
 	
+	@SuppressWarnings("unchecked")
 	@BeforeClass
 	public static void setUp() {
 		WeldTest.setUp();

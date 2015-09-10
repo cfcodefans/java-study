@@ -47,7 +47,7 @@ public class DataTests {
 	@Test
 	public void testWithObject() {
 		EntryLoader el = new EntryLoader();
-		ClassEn ce = el.preloadClassEnByClz(Object.class);
+//		ClassEn ce = el.preloadClassEnByClz(Object.class);
 		
 //		el.roots.forEach((en) -> {
 //			EntryLoader.traverse(en, act);
@@ -141,6 +141,7 @@ public class DataTests {
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testTraverseWithObject1() {
 		EntryLoader el = new EntryLoader();
@@ -244,10 +245,11 @@ public class DataTests {
 		WeldTest.tearDown();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		WeldTest.setUp();
 		JpaModule.instance();
-		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+//		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
 		
 		EntryLoader el = new EntryLoader();
 		try {
@@ -272,9 +274,9 @@ public class DataTests {
 						} else {
 							//log.info(String.format("%s \t%s.%s", _be.category, (_be.enclosing == null ? "_" : _be.enclosing.name), _be.name));
 						}
-					}, () -> {
-						dao.getEm().flush();
-					});
+					}, 
+						dao.getEm()::flush
+					);
 					dao.getEm().flush();
 					dao.endTransaction();
 				});

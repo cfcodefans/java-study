@@ -7,5 +7,5 @@ import javax.inject.Inject;
 public class ReqScopedBean {
 
 	@Inject 
-	private long id;
+	protected long id;
 }

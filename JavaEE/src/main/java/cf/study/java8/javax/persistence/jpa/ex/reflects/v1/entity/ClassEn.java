@@ -86,6 +86,7 @@ public class ClassEn extends BaseEn {
 	@JoinColumn(name="source", nullable=true)
 	public SourceEn source;
 
+	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(ClassEn.class);
 
 	public void loadClass() {

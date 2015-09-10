@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import misc.MiscUtils;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -34,7 +36,6 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
-import misc.MiscUtils;
 
 public class EntityAssembler {
 
@@ -468,6 +469,7 @@ public class EntityAssembler {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test3() {
 		EntityAssembler ea = new EntityAssembler();
@@ -505,6 +507,7 @@ public class EntityAssembler {
 		log.info("finished!!!");
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void inflate(int i) {
 		EntityAssembler ea = new EntityAssembler();
 		

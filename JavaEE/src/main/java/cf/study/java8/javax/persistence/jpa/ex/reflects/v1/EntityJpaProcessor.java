@@ -185,6 +185,7 @@ public class EntityJpaProcessor {
 		ep.preload(null, Object.class).process();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test4() {
 		String libName = "junit";
@@ -619,8 +620,6 @@ public class EntityJpaProcessor {
 		}
 
 		ClassEn _ce = null;
-		if (clz == null)
-			return _ce;
 		try {
 			String clzName = Reflects.checkClzName(clz);
 

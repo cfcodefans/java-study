@@ -1,7 +1,7 @@
 package cf.study.java8.javax.cdi.weld;
 
+import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -21,7 +21,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cf.study.java8.javax.cdi.weld.beans.AppBean;
+import cf.study.java8.javax.cdi.weld.beans.BizBean;
 import cf.study.java8.javax.cdi.weld.beans.BizRequest;
+import cf.study.java8.javax.cdi.weld.beans.IBizProcessor;
 import cf.study.java8.javax.cdi.weld.beans.annotated.AnyBean;
 import cf.study.java8.javax.cdi.weld.beans.annotated.AppScopedBean;
 import cf.study.java8.javax.cdi.weld.beans.annotated.BlankBean;
@@ -34,7 +36,8 @@ public class WeldTest {
 	public static Weld weld;
 	public static WeldContainer container;
 	public static BeanManager bm;
-	public static CDI cdi;
+	@SuppressWarnings("rawtypes")
+	public static CDI _CDI;
 
 	// @Inject
 
@@ -44,7 +47,7 @@ public class WeldTest {
 			weld = new Weld();
 			container = weld.initialize();
 			bm = container.getBeanManager();
-			cdi = CDI.current();
+			_CDI = CDI.current();
 		} catch (final Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -84,7 +87,7 @@ public class WeldTest {
 		 * In this case Weld is using unbound RequestContext that is associated with a thread (RequestContext). 
 		 * You need to manually initialize new RequestContext in a thread that You're creating
 		 */
-		RequestContext reqCtx = (RequestContext) cdi.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		RequestContext reqCtx = (RequestContext) _CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
 		reqCtx.activate();
 		
 		System.out.println(bm.getBeans("bizRequest"));
@@ -96,29 +99,49 @@ public class WeldTest {
 		});
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSelectClzzByScope() {
-		Consumer printer = (i) -> {
-			try {
-				System.out.println(ToStringBuilder.reflectionToString(i, ToStringStyle.MULTI_LINE_STYLE));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		};
-		
-//		cdi.forEach(printer);
-		
-		bm.getBeans(BlankBean.class, AnyLiteral.INSTANCE).forEach(printer);
+		bm.getBeans(BlankBean.class, AnyLiteral.INSTANCE).stream()
+			.map(b->ToStringBuilder.reflectionToString(b, ToStringStyle.MULTI_LINE_STYLE))
+			.forEach(System.out::println);
 	}
 
 	
 	@Test
 	public void testInterceptor() {
-		RequestContext reqCtx = (RequestContext) cdi.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		//in JAVA SE, only application scope and request scope are available
+		RequestContext reqCtx = (RequestContext) _CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
 		reqCtx.activate();
 		BizRequest req = getBean(BizRequest.class);
 		req.setParam("param 1");
+	}
+	
+	@Test
+	public void testInjection() {
+		RequestContext rc = (RequestContext)_CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		rc.activate();
+		BizBean sb = getBean(BizBean.class);
+		IBizProcessor<Object, List<Class>> infProc = sb.getInfProc();
+		
+		System.out.println(infProc.getClass());
+		
+		infProc.proc(new String()).forEach(System.out::println);
+	}
+	
+	@Test
+	public void testEvent()	{
+		RequestContext rc = (RequestContext)_CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		rc.activate();
+		BizBean sb = getBean(BizBean.class);
+		
+		BizRequest req = getBean(BizRequest.class);
+		req.setParam(new Object());
+		
+		sb.process(req);
+		
+		BizRequest req1 = getBean(BizRequest.class);
+		req1.setParam(new String("abc"));
+		sb.process(req1);
 	}
 	
 	@AfterClass
@@ -132,7 +155,7 @@ public class WeldTest {
 	}
 	
 	public static <T> T getBeanInReqScope(Class<T> cls) {
-		RequestContext reqCtx = (RequestContext) cdi.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+		RequestContext reqCtx = (RequestContext) _CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
 		reqCtx.activate();
 		return CDI.current().select(cls).get();
 	}
