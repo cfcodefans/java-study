@@ -9,6 +9,7 @@ import javax.enterprise.inject.spi.CDI;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.jboss.weld.context.ApplicationContext;
 import org.jboss.weld.context.RequestContext;
 import org.jboss.weld.context.unbound.UnboundLiteral;
 import org.jboss.weld.environment.se.Weld;
@@ -130,18 +131,22 @@ public class WeldTest {
 	
 	@Test
 	public void testEvent()	{
-		RequestContext rc = (RequestContext)_CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
-		rc.activate();
-		BizBean sb = getBean(BizBean.class);
+//		RequestContext rc = (RequestContext)_CDI.select(RequestContext.class, UnboundLiteral.INSTANCE).get();
+//		rc.activate();
+//		BizBean sb = getBean(BizBean.class);
+//		
+//		BizRequest req = getBean(BizRequest.class);
+//		req.setParam(new Object());
+//		
+//		sb.process(req);
+//		
+//		BizRequest req1 = getBean(BizRequest.class);
+//		req1.setParam(new String("abc"));
+//		sb.process(req1);
 		
-		BizRequest req = getBean(BizRequest.class);
-		req.setParam(new Object());
-		
-		sb.process(req);
-		
-		BizRequest req1 = getBean(BizRequest.class);
-		req1.setParam(new String("abc"));
-		sb.process(req1);
+		ApplicationContext ac = (ApplicationContext)_CDI.select(ApplicationContext.class, UnboundLiteral.INSTANCE).get();
+		AppBean ap = getBean(AppBean.class);
+		System.out.println(ap);
 	}
 	
 	@AfterClass
