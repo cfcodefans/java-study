@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.CharUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MathTests {
@@ -14,6 +15,10 @@ public class MathTests {
 	public void testCeilAndFloor() {
 		System.out.println(Math.ceil(0.05));
 		System.out.println(Math.floor(0.05));
+	}
+	
+	@Test
+	public void testLog() {
 	}
 
 	@Test
