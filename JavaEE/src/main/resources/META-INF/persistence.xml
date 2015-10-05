@@ -89,5 +89,4 @@
 			<property name="hibernate.current_session_context_class" value="thread" />
 		</properties>
 	</persistence-unit>
-	
 </persistence>

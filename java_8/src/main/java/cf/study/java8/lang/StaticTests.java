@@ -16,6 +16,10 @@ class Sub extends Super {
 	public static void bar() {
 		System.out.println("Sub.bar");
 	}
+	
+	public static void foo() {
+		bar();
+	}
 }
 
 class StringUtils extends org.apache.commons.lang3.StringUtils {
@@ -34,4 +38,12 @@ public class StaticTests {
 		System.out.println(Sub.str);
 	}
 	
+	
+	@Test
+	public void testStaticMethodInheritance() {
+		Sub s = new Sub();
+		s.foo();
+		Super _s = (Super)s;
+		_s.foo();
+	}
 }

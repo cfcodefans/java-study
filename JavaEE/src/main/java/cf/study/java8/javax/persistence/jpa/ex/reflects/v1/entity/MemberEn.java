@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

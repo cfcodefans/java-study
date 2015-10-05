@@ -3,7 +3,6 @@ package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 import java.lang.reflect.Field;
 import java.util.Optional;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

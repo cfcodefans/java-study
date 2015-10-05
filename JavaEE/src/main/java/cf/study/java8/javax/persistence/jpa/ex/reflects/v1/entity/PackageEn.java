@@ -1,7 +1,6 @@
 package cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;

@@ -1,5 +1,7 @@
 package cf.study.java8.javax.cdi.weld.beans;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,11 @@ public class SeqGenerator {
 		final long newId = seq.incrementAndGet();
 		log.info(String.format("%s \t-> \t{newId: %d}", MiscUtils.invocationInfo(), newId));
 		return newId;
+	}
+	
+	@Produces
+	public Date getTimeStamp() {
+		return Calendar.getInstance().getTime();
 	}
 	
 	@PostConstruct
