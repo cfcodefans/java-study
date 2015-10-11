@@ -1,9 +1,16 @@
 package cf.study.java8.utils.stream;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +25,8 @@ import java.util.stream.Stream;
 
 import misc.MiscUtils;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -345,6 +354,98 @@ public class StreamTests {
 
 	@Test
 	public void testRange() {
-		IntStream.range(0, 10).forEach(System.out::println);
+		int[] sum = new int[1];
+		IntStream.range(0, 10).forEach(i->sum[0] += i);
+	}
+	
+	@Test
+	public void testException() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		IntStream.range(0, 100).forEach(baos::write);
+	}
+	
+	
+	static interface VarArgFunc<T, R> {
+		R apply(T...ts);
+	}
+	
+	String foo(String... strs) {
+		return StringUtils.join(strs, '\t');
+	}
+	
+	void call(VarArgFunc<String, String> vaf) {}
+	
+	@Test
+	public void testVarArgs() {
+		call(this::foo);
+	}
+	
+	static interface SerializableFunc<T, R> extends Serializable {
+		R apply(T t);
+	}
+	
+	public static class SerializableHolder<T> implements Serializable {
+		private static final long	serialVersionUID	= 1L;
+		public final T obj;
+
+		public SerializableHolder(T obj) {
+			super();
+			this.obj = obj;
+		}
+	}
+	
+	@Test
+	public void testSerializableWrite() throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(baos);
+		oos.writeObject((Runnable&Serializable)()->System.out.println(new Date()));
+		oos.flush();
+		
+		byte[] buf = baos.toByteArray();
+		System.out.println(new String(buf));
+		
+		FileUtils.writeByteArrayToFile(Paths.get("/temp/lambda").toFile(), buf);
+	}
+
+	@Test
+	public void testSerializableRead() throws Exception {
+		byte[] buf = FileUtils.readFileToByteArray(Paths.get("/temp/lambda").toFile());
+		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
+		ObjectInputStream ois = new ObjectInputStream(bais);
+		Object read = ois.readObject();
+		Assert.assertTrue(read instanceof Runnable);
+		
+		Runnable r = (Runnable)read;
+		r.run();
+	}
+	
+	@Test
+	public void testSerializableWrite1() throws Exception {
+		
+		SerializableHolder<Runnable> sh = new SerializableHolder<Runnable>((Runnable&Serializable)()->System.out.println(new Date()));
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(baos);
+		oos.writeObject(sh);
+		oos.flush();
+		
+		byte[] buf = baos.toByteArray();
+		System.out.println(new String(buf));
+		
+		FileUtils.writeByteArrayToFile(Paths.get("/temp/lambda").toFile(), buf);
+	}
+
+	@Test
+	public void testSerializableRead1() throws Exception {
+		byte[] buf = FileUtils.readFileToByteArray(Paths.get("/temp/lambda").toFile());
+		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
+		ObjectInputStream ois = new ObjectInputStream(bais);
+		Object read = ois.readObject();
+		Assert.assertTrue(read instanceof SerializableHolder);
+		
+		SerializableHolder<Runnable> sh = (SerializableHolder<Runnable>)read;
+		
+		Runnable _addOne = sh.obj;
+		_addOne.run();
 	}
 }

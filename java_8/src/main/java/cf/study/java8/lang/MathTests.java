@@ -15,6 +15,12 @@ public class MathTests {
 		System.out.println(Math.ceil(0.05));
 		System.out.println(Math.floor(0.05));
 	}
+	
+	@Test
+	public void testBits() {
+		System.out.println(1 << 24);
+		System.out.println(1 << 8);
+	}
 
 	@Test
 	public void testMathContext() {
