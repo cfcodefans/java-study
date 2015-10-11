@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.CharUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class MathTests {
@@ -18,7 +17,9 @@ public class MathTests {
 	}
 	
 	@Test
-	public void testLog() {
+	public void testBits() {
+		System.out.println(1 << 24);
+		System.out.println(1 << 8);
 	}
 
 	@Test

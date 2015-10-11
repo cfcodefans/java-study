@@ -58,21 +58,20 @@ import org.apache.http.message.BasicNameValuePair;
 
 public class MiscUtils {
 	
-	@FunctionalInterface
 	public static interface ExConsumer<T> {
 		void accept(T t) throws Exception;
 	}
 	
-	public static interface BiFunc<T, U, R> {
-		R apply(T t, U u);
+	public static interface ExBiFunc<T, U, R> {
+		R apply(T t, U u) throws Exception;
 	}
 	
-	public static interface BiConsumer<T, U> {
-		void accept(T t, U u);
+	public static interface ExBiConsumer<T, U> {
+		void accept(T t, U u) throws Exception;
 	}
 	
-	public static interface VarArgConsumer<T> {
-		void accept(T...args);
+	public static interface ExVarArgConsumer<T> {
+		void accept(T...args) throws Exception;
 	}
 	
 	public static String now() {
