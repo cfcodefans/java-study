@@ -178,4 +178,13 @@ public class LambdaTests {
 				  			.getAsInt();
 		System.out.println(sum);
 	}
+	
+	private int addOne(int i) {
+		if (i == 0) throw new IllegalArgumentException();
+		return i + 1;
+	}
+	
+	@Test public void testL() {
+		IntStream.of(1, 2, 3).map(this::addOne);
+	}
 }

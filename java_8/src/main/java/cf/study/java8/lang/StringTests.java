@@ -1,5 +1,7 @@
 package cf.study.java8.lang;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -32,5 +34,20 @@ public class StringTests {
 		System.out.println(String.format("%02d", 124));
 		
 		System.out.println(DateUtils.parseDate("2015-06-27 00:00:00", "yyyy-MM-dd hh:mm:ss"));
+	}
+	
+	@Test
+	public void testUrlEncoding() throws Exception {
+		Character z = new Character((char)26);
+		System.out.println(z);
+		String encoded = URLEncoder.encode(z.toString(), "UTF-8");
+		System.out.println(encoded);
+		
+		char _z = '\u0026';
+		System.out.println(_z);
+		String _encoded = URLEncoder.encode(z.toString(), "UTF-8");
+		System.out.println(_encoded);
+		
+		System.out.println(Integer.toHexString(26));
 	}
 }
