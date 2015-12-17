@@ -152,11 +152,17 @@
 			<artifactId>oauth1-client</artifactId>
 			<version>${jersey-version}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!--     <groupId>org.glassfish.jersey.examples</groupId> -->
-<!--     <artifactId>oauth-client-twitter</artifactId> -->
-<!--     <version>2.21</version> -->
-<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.glassfish.jersey.examples</groupId> -->
+		<!-- <artifactId>oauth-client-twitter</artifactId> -->
+		<!-- <version>2.21</version> -->
+		<!-- </dependency> -->
+
+<dependency>
+    <groupId>rocks.xmpp</groupId>
+    <artifactId>xmpp-extensions-client</artifactId>
+    <version>0.6.2</version>
+</dependency>
 	</dependencies>
 	<artifactId>JavaEE</artifactId>
 	<properties>
