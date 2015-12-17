@@ -1,21 +1,17 @@
 package cf.study.java8.utils.stream;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -23,17 +19,72 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import misc.MiscUtils;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
+import misc.MiscUtils;
 
 public class StreamTests {
 	
 	static class DummyList<E> extends ArrayList<E> {
 		
+	}
+	
+	@Test
+	public void findNumbersGreaterThan5() {
+		Integer[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+		{
+			// here we keep our results in list
+			List<Integer> resultList = new ArrayList<Integer>();
+			for (int i = 0, j = numbers.length; i < j; i++) {
+				if (numbers[i] > 5) {
+					resultList.add(numbers[i]);
+				}
+			}
+		}
+		
+		{
+		List<Integer> asList = Arrays.asList(numbers);
+		Predicate<Integer> greaterThan5 = new Predicate<Integer>() {
+			public boolean apply(Integer input) {
+				return input > 5;
+			}
+		};
+		Collection<Integer> results = Collections2.filter(asList, greaterThan5);
+		}
+		
+		{
+			List<Integer> resultList = new ArrayList<Integer>();
+			Consumer<Integer> consumer = new Consumer<Integer>() {
+				public void accept(Integer number) {
+					if (number > 5) {
+						resultList.add(5);
+					}
+				}
+			};
+			Stream.of(numbers).forEach(consumer);
+		}
+		
+		{
+			final List<Integer> resultList = new ArrayList<Integer>();
+			Stream.of(numbers).forEach((Integer number) -> {
+				if (number > 5) {
+					resultList.add(number);
+				}
+			});
+		}
+		
+		{
+			List<Integer> resultList = Stream.of(numbers).filter(number -> number > 5).collect(Collectors.toList());
+			Consumer<Integer> consumer = new Consumer<Integer>() {
+				public void accept(Integer number) {
+					resultList.add(number);
+				}
+			};
+		}
 	}
 	
 	@Test
@@ -359,98 +410,22 @@ public class StreamTests {
 
 	@Test
 	public void testRange() {
-		int[] sum = new int[1];
-		IntStream.range(0, 10).forEach(i->sum[0] += i);
+		IntStream.range(0, 10).forEach(System.out::println);
+	}
+	
+	interface Foo {
+		void bar();
+	}
+	
+	Foo foo = ()->System.out.println("Foo.bar");
+	
+	private void callFoo(Foo f) {
+		f.bar();
 	}
 	
 	@Test
-	public void testException() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		IntStream.range(0, 100).forEach(baos::write);
-	}
-	
-	
-	static interface VarArgFunc<T, R> {
-		R apply(T...ts);
-	}
-	
-	String foo(String... strs) {
-		return StringUtils.join(strs, '\t');
-	}
-	
-	void call(VarArgFunc<String, String> vaf) {}
-	
-	@Test
-	public void testVarArgs() {
-		call(this::foo);
-	}
-	
-	static interface SerializableFunc<T, R> extends Serializable {
-		R apply(T t);
-	}
-	
-	public static class SerializableHolder<T> implements Serializable {
-		private static final long	serialVersionUID	= 1L;
-		public final T obj;
-
-		public SerializableHolder(T obj) {
-			super();
-			this.obj = obj;
-		}
-	}
-	
-	@Test
-	public void testSerializableWrite() throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(baos);
-		oos.writeObject((Runnable&Serializable)()->System.out.println(new Date()));
-		oos.flush();
-		
-		byte[] buf = baos.toByteArray();
-		System.out.println(new String(buf));
-		
-		FileUtils.writeByteArrayToFile(Paths.get("/temp/lambda").toFile(), buf);
-	}
-
-	@Test
-	public void testSerializableRead() throws Exception {
-		byte[] buf = FileUtils.readFileToByteArray(Paths.get("/temp/lambda").toFile());
-		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
-		ObjectInputStream ois = new ObjectInputStream(bais);
-		Object read = ois.readObject();
-		Assert.assertTrue(read instanceof Runnable);
-		
-		Runnable r = (Runnable)read;
-		r.run();
-	}
-	
-	@Test
-	public void testSerializableWrite1() throws Exception {
-		
-		SerializableHolder<Runnable> sh = new SerializableHolder<Runnable>((Runnable&Serializable)()->System.out.println(new Date()));
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(baos);
-		oos.writeObject(sh);
-		oos.flush();
-		
-		byte[] buf = baos.toByteArray();
-		System.out.println(new String(buf));
-		
-		FileUtils.writeByteArrayToFile(Paths.get("/temp/lambda").toFile(), buf);
-	}
-
-	@Test
-	public void testSerializableRead1() throws Exception {
-		byte[] buf = FileUtils.readFileToByteArray(Paths.get("/temp/lambda").toFile());
-		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
-		ObjectInputStream ois = new ObjectInputStream(bais);
-		Object read = ois.readObject();
-		Assert.assertTrue(read instanceof SerializableHolder);
-		
-		SerializableHolder<Runnable> sh = (SerializableHolder<Runnable>)read;
-		
-		Runnable _addOne = sh.obj;
-		_addOne.run();
+	public void testLambda() {
+		callFoo(()->System.out.println("Foo.bar"));
+		callFoo(System.out::println);
 	}
 }
