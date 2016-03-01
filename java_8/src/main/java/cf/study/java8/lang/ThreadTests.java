@@ -120,6 +120,29 @@ public class ThreadTests {
 		}
 
 	}
+	
+	@Test
+	public void testNotInterrupte() {
+		Thread th = new Thread(()-> {
+			for (int i = 10; i > 0; i--) {
+				try {
+					Thread.currentThread().sleep(2000);
+					System.out.println(i + "\t" + Thread.currentThread().interrupted());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		th.setDaemon(true);
+		th.start();
+		try {
+			Thread.currentThread().sleep(4000);
+			th.interrupt();
+			th.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	static class Base {}
 	

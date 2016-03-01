@@ -3,6 +3,7 @@ package cf.study.java8.lang;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -49,5 +50,11 @@ public class StringTests {
 		System.out.println(_encoded);
 		
 		System.out.println(Integer.toHexString(26));
+	}
+	
+	@Test
+	public void testSplit() throws Exception {
+		System.out.println(Arrays.toString("abc".split(",")));
+		System.out.println(Arrays.toString("/abc".split(",")));
 	}
 }
