@@ -20,4 +20,15 @@ public class SystemTests {
 		System.arraycopy(ia, 0, ba, 0, 1);
 		System.out.println(Arrays.toString(ba));
 	}
+	
+	@Test
+	public void testEnv() {
+		System.getenv().forEach((k, v)->System.out.println(k + " = \t" + v));
+	}
+	
+	@Test
+	public void testProperties() {	
+		System.getProperties().forEach((k, v)->System.out.println(k + " = \t" + v));
+	}
+	
 }

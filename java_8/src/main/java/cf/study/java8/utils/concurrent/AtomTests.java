@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import junit.framework.Assert;
 
-import org.jboss.weld.environment.se.threading.RunnableDecorator;
 import org.junit.Test;
 
 public class AtomTests {

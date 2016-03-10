@@ -11,9 +11,25 @@
     <context:component-scan base-package="cf.study.framework.spring.script.groovy">
     </context:component-scan>
     
-	<lang:groovy id="groovyEmployeeCacheService" script-source="cf/study/framework/spring/script/groovy/GroovyEmployeeCacheService.groovy">
-	</lang:groovy>    
+	<bean id="employeeCacheService" class="cf.study.framework.spring.config.EmployeeCacheService">
+	</bean>
 	
+	<bean id="head" class="cf.study.framework.spring.script.groovy.Employee">
+		<constructor-arg index="0">
+			<value>fan</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>chen</value>
+		</constructor-arg>
+	</bean>
 	
-	
+	<bean id="addEmployee" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="employeeCacheService"></property>
+		<property name="targetMethod" value="addEmployeeToCache"></property>
+		<property name="arguments">
+			<list>
+				<ref bean="head"/>
+			</list>
+		</property>
+	</bean>
 </beans>

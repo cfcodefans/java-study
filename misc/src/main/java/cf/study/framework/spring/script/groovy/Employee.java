@@ -9,6 +9,12 @@ public class Employee implements Serializable {
 	private String				name;
 	private String				surname;
 
+	public Employee(String name, String surname) {
+		super();
+		this.name = name;
+		this.surname = surname;
+	}
+
 	public long getId() {
 		return id;
 	}

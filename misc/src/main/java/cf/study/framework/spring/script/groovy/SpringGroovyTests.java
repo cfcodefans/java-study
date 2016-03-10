@@ -38,5 +38,6 @@ public class SpringGroovyTests {
 	@Test
 	public void testAutowired() {
 		Assert.assertTrue(_ecs instanceof IEmployeeCacheService);
+		_ecs.addEmployeeToCache(new Employee("fan", "chen"));
 	}
 }
