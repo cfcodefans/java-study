@@ -18,6 +18,7 @@ import org.jboss.weld.literal.AnyLiteral;
 import org.jboss.weld.literal.DefaultLiteral;
 import org.jboss.weld.literal.NamedLiteral;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -56,9 +57,16 @@ public class WeldTest {
 	}
 
 	@Test
+	public void testCDI() {
+		AppBean app = getBean(AppBean.class);
+		Assert.assertNotNull(app);
+	}
+	
+	@Test
 	public void testAppBean() throws Exception {
 		System.out.println(bm.getBeans("appBean"));
 		Set<Bean<?>> appBeans = bm.getBeans(AppBean.class);
+		
 		System.out.println(appBeans);
 		appBeans.forEach((bean) -> {
 			System.out.println(ToStringBuilder.reflectionToString(bean, ToStringStyle.MULTI_LINE_STYLE));

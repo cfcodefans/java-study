@@ -11,9 +11,10 @@
     <context:component-scan base-package="cf.study.framework.spring.script.groovy">
     </context:component-scan>
     
+	<bean id="CONST" class="java.lang.String" scope="singleton">
+		<constructor-arg value="_const"/>
+	</bean>
+    
 	<lang:groovy id="groovyEmployeeCacheService" script-source="cf/study/framework/spring/script/groovy/GroovyEmployeeCacheService.groovy">
 	</lang:groovy>    
-	
-	
-	
 </beans>

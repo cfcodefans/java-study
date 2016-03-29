@@ -7,6 +7,7 @@ import misc.MiscUtils;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import cf.study.framework.spring.script.groovy.IEmployeeCacheService;
 
@@ -14,9 +15,17 @@ import cf.study.framework.spring.script.groovy.IEmployeeCacheService;
 public class GroovyEmployeeCacheService implements IEmployeeCacheService {
 	private Map<Long, Employee>	cache	= new ConcurrentHashMap<>();
 	static final Logger			log		= Logger.getLogger(GroovyEmployeeCacheService.class);
+/**/
+	@Autowired
+	private String _const;
+	
+	public GroovyEmployeeCacheService() {
+		log.info("_const:\t" + _const);
+	}
 
 	public void addEmployeeToCache(Employee employee) {
 		getCache().put(employee.getId(), employee);
+		log.info("_const:\t" + _const);
 		log.info(MiscUtils.invocationInfo() + "\n" + employee);
 	}
 

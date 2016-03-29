@@ -20,6 +20,9 @@ public class SpringGroovyTests {
 	@Autowired
 	private ApplicationContext ac;
 	
+	@Autowired
+	private String _const;
+	
 	@Test
 	public void testAppCtx() {
 		Assert.assertNotNull(ac);
