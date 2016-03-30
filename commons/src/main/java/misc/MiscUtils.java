@@ -366,37 +366,37 @@ public class MiscUtils {
 	}
 
 	public static BigDecimal pi(Integer n) {
-			if (n == null) {
-				n = 0;
-			}
-			
-			if (n == 0) return null;
-			if (n == 1) return new BigDecimal(3);
-			if (n == 2) return new BigDecimal(3.1);
-			if (n == 3) return new BigDecimal(3.14);
-			
-			MathContext mc = new MathContext(n);
-			BigDecimal pi = new BigDecimal(BigInteger.ZERO, n, mc);
-			BigDecimal one = new BigDecimal(BigInteger.ONE, n, mc);
-			BigDecimal two = new BigDecimal(new BigInteger("2"), n, mc);
-			BigDecimal four = new BigDecimal(new BigInteger("4"), n, mc);
-			for (int k = 0; k < n; k++) {
-				BigDecimal tmp1 = one.divide(new BigDecimal(16).pow(k, mc), mc);
-				
-				BigDecimal tmp2_1 = four.divide(new BigDecimal(8 * k + 1, mc), mc);
-				BigDecimal tmp2_2 = two.divide(new BigDecimal(8 * k + 4, mc), mc);
-				BigDecimal tmp2_3 = one.divide(new BigDecimal(8 * k + 5, mc), mc);
-				BigDecimal tmp2_4 = one.divide(new BigDecimal(8 * k + 6, mc), mc);
-				
-				BigDecimal tmp2 = tmp2_1.subtract(tmp2_2, mc).subtract(tmp2_3, mc).subtract(tmp2_4, mc);
-				pi = pi.add(tmp1.multiply(tmp2, mc));
-			}
-			
-	//		pi.setScale(n, BigDecimal.ROUND_UP);
-			pi.scaleByPowerOfTen(n);
-			
-			return pi;
+		if (n == null) {
+			n = 0;
 		}
+		
+		if (n == 0) return null;
+		if (n == 1) return new BigDecimal(3);
+		if (n == 2) return new BigDecimal(3.1);
+		if (n == 3) return new BigDecimal(3.14);
+		
+		MathContext mc = new MathContext(n);
+		BigDecimal pi = new BigDecimal(BigInteger.ZERO, n, mc);
+		BigDecimal one = new BigDecimal(BigInteger.ONE, n, mc);
+		BigDecimal two = new BigDecimal(new BigInteger("2"), n, mc);
+		BigDecimal four = new BigDecimal(new BigInteger("4"), n, mc);
+		for (int k = 0; k < n; k++) {
+			BigDecimal tmp1 = one.divide(new BigDecimal(16).pow(k, mc), mc);
+			
+			BigDecimal tmp2_1 = four.divide(new BigDecimal(8 * k + 1, mc), mc);
+			BigDecimal tmp2_2 = two.divide(new BigDecimal(8 * k + 4, mc), mc);
+			BigDecimal tmp2_3 = one.divide(new BigDecimal(8 * k + 5, mc), mc);
+			BigDecimal tmp2_4 = one.divide(new BigDecimal(8 * k + 6, mc), mc);
+			
+			BigDecimal tmp2 = tmp2_1.subtract(tmp2_2, mc).subtract(tmp2_3, mc).subtract(tmp2_4, mc);
+			pi = pi.add(tmp1.multiply(tmp2, mc));
+		}
+		
+//		pi.setScale(n, BigDecimal.ROUND_UP);
+		pi.scaleByPowerOfTen(n);
+		
+		return pi;
+	}
 
 	public static List<Long> pi2Longs(Integer n) {
 		BigDecimal pi = pi(n);
