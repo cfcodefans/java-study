@@ -9,7 +9,7 @@ import java.util.ListIterator;
 import java.util.function.BiFunction;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ import misc.MiscUtils;
 
 
 
-public class SortTests <T extends Comparable<?>> {
+public class SortTests <T extends Comparable<? super T>> {
 	
 	public Comparator<T> _cmp = (T c1, T c2)->{
 		return ObjectUtils.compare(c1, c2);
@@ -55,7 +55,6 @@ public class SortTests <T extends Comparable<?>> {
 		data.stream().skip(1).forEach(t -> {
 			for (ListIterator<T> it = linkedList.listIterator(); it.hasNext();) {
 				T _t = it.next();
-				int _i = it.nextIndex();
 				if (cmp.compare(_t, t) <= 0) {
 					continue;
 				}
@@ -75,7 +74,7 @@ public class SortTests <T extends Comparable<?>> {
 			return data;
 		}
 		
-		ArrayList<T> _data = new ArrayList(data);
+		ArrayList<T> _data = new ArrayList<T>(data);
 		
 		BiFunction<List<T>, Range<Integer>, List<T>> swap = (List<T> __data, Range<Integer> range) -> {
 //			if (range.getMinimum())
@@ -107,6 +106,6 @@ public class SortTests <T extends Comparable<?>> {
 	@Test
 	public void testInsertSort1() {	
 		SortTests<Long> st = new SortTests<Long>();
-		System.out.println(st.insertSort(MiscUtils.pi2Longs(8), st._cmp));
+		System.out.println(st.insertSort(MiscUtils.pi2Longs(400), st._cmp));
 	}
 }

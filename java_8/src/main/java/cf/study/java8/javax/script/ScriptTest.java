@@ -10,14 +10,15 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleBindings;
-
-import junit.framework.Assert;
-import misc.MiscUtils;
+import javax.script.SimpleScriptContext;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
+
+import junit.framework.Assert;
+import misc.MiscUtils;
 
 public class ScriptTest {
 	@Test
@@ -149,52 +150,53 @@ public class ScriptTest {
 	public void testContextBetweenEngines() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();
 
-//		{
-//			ScriptContext sc = new SimpleScriptContext();
+		{
+			ScriptContext sc = new SimpleScriptContext();
+
+			sc.getBindings(ScriptContext.GLOBAL_SCOPE);
+			ScriptEngine jse = sem.getEngineByExtension("js");
+			jse.eval("this.shared = 'abc'", sc);
+
+			ScriptEngine jse1 = sem.getEngineByExtension("js");
+			jse1.eval("print(this.shared)", jse.getContext());
+		}
 //
-//			sc.getBindings(ScriptContext.GLOBAL_SCOPE);
-//			ScriptEngine jse = sem.getEngineByExtension("js");
-//			jse.eval("this.shared = 'abc'", sc);
-//
-//			ScriptEngine jse1 = sem.getEngineByExtension("js");
-//			jse1.eval("print(this.shared)", jse.getContext());
-//		}
-//
-//		{
-//			ScriptEngine jse = sem.getEngineByExtension("js");
-//			jse.eval("this.shared = 'abc'", sem.getBindings());
-//
-//			ScriptEngine jse1 = sem.getEngineByExtension("js");
-//			jse1.eval("print(this.shared)", sem.getBindings());
-//		}
+		{
+			ScriptEngine jse = sem.getEngineByExtension("js");
+			jse.eval("this.shared = 'abc'", sem.getBindings());
+
+			ScriptEngine jse1 = sem.getEngineByExtension("js");
+			jse1.eval("print(this.shared)", sem.getBindings());
+		}
 //		
-//		{
-//			ScriptEngine jse = sem.getEngineByExtension("js");
-//			jse.eval("var shared = 'abc'");
-//
-//			ScriptEngine jse1 = sem.getEngineByExtension("js");
-//			jse1.eval("print(this.shared)", jse.getContext());
-//			
-//			 ScriptEngine pse = sem.getEngineByExtension("py");
-//			 pse.eval("print(shared)", jse.getContext());
-//		}
+		{
+			ScriptEngine jse = sem.getEngineByExtension("js");
+			Object eval = jse.eval("var shared = 'abc';");
+
+			ScriptEngine jse1 = sem.getEngineByExtension("js");
+			jse1.eval("print(shared); var v = 1;", jse.getContext());
+			
+			 ScriptEngine pse = sem.getEngineByExtension("js");
+			 pse.setContext(jse1.getContext());
+			 pse.eval("print(shared); print(v);");
+		}
 		
-//		{
-//			ScriptContext sc = new SimpleScriptContext();
-//			ScriptEngine jse = sem.getEngineByExtension("js");
-//			jse.eval("this.shared = 'abc'", sc);
-//			
-//			sc.getBindings(ScriptContext.ENGINE_SCOPE).putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
-//			
-//			ScriptEngine jse1 = sem.getEngineByExtension("js");
-//			jse1.eval("print(this.shared)", sc.getBindings(ScriptContext.ENGINE_SCOPE));
-//			jse1.eval("print(this.shared)", jse.getBindings(ScriptContext.ENGINE_SCOPE));
-//			jse1.eval("print(this.shared)", sc);
-//			
-//			
-////			 ScriptEngine pse = sem.getEngineByExtension("py");
-////			 pse.eval("print(shared)", sc);
-//		}
+		{
+			ScriptContext sc = new SimpleScriptContext();
+			ScriptEngine jse = sem.getEngineByExtension("js");
+			jse.eval("this.shared = 'abc'", sc);
+			
+			sc.getBindings(ScriptContext.ENGINE_SCOPE).putAll(jse.getBindings(ScriptContext.ENGINE_SCOPE));
+			
+			ScriptEngine jse1 = sem.getEngineByExtension("js");
+			jse1.eval("print(this.shared)", sc.getBindings(ScriptContext.ENGINE_SCOPE));
+			jse1.eval("print(this.shared)", jse.getBindings(ScriptContext.ENGINE_SCOPE));
+			jse1.eval("print(this.shared)", sc);
+			
+			
+//			 ScriptEngine pse = sem.getEngineByExtension("py");
+//			 pse.eval("print(shared)", sc);
+		}
 		
 //		{
 //			ScriptContext sc = new SimpleScriptContext();
@@ -228,14 +230,14 @@ public class ScriptTest {
 	public void testSharedBindingsBetweenEngines() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();
 		
-		if (false) {
+		{
 			ScriptEngine jse = sem.getEngineByExtension("js"), jse1 = sem.getEngineByExtension("js");
 
 			Bindings bindings = new SimpleBindings();
 
 			bindings.put("bound", 123);
 
-			jse.eval("shared = 'abc';", bindings);
+			jse.eval("var shared = 'abc';", bindings);
 
 			bindings.putAll(jse.getBindings(ENGINE_SCOPE));
 
@@ -251,9 +253,9 @@ public class ScriptTest {
 
 			jse.eval("shared = 'abc';", bindings);
 
-//			bindings.putAll(jse.getBindings(ENGINE_SCOPE));
+			bindings.putAll(jse.getBindings(ENGINE_SCOPE));
 			
-//			jse1.setBindings(jse.getBindings(ENGINE_SCOPE), ENGINE_SCOPE);
+			jse1.setBindings(bindings, ENGINE_SCOPE);
 
 			jse1.eval("print(shared); print(bound);", jse.getContext());
 		}
@@ -294,5 +296,127 @@ public class ScriptTest {
 
 		// Evaluate the script.
 		engine.eval("print(color); print(shape);");
+	}
+	
+	
+	private static void print(Bindings b) {
+		b.forEach((k, v) -> System.out.println(String.format("%s\t= %s", k, v)));
+	}
+	
+	@Test
+	public void testSharing() throws Exception {
+		ScriptEngineManager sem = new ScriptEngineManager();
+		if (false) { // can't work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			ScriptContext sc = new SimpleScriptContext();
+			se.eval("var shared = 'abc';", sc);
+			se1.eval("print(shared);", sc);
+		}
+		
+		if (false) {//can work 
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			se.eval("var shared = 'abc';");
+			ScriptContext sc = se.getContext();
+			se1.eval("print(shared);", sc);
+		}
+		
+		if (false) { // can't work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+			
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile("print(shared);");
+			ScriptContext sc = new SimpleScriptContext();
+			cs1.eval(sc);
+			ScriptContext _sc = cs1.getEngine().getContext();
+			cs2.eval(_sc);
+		}
+		
+		if (false) { // can work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile("print(shared);");
+			ScriptContext sc = new SimpleScriptContext();
+			cs1.eval(sc);
+			
+			ScriptEngine _se = cs1.getEngine();
+			se.eval("print(shared);", sc);
+//			cs2.eval(sc);
+		}
+		
+		{ // can work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile("print(shared);");
+			ScriptContext sc = new SimpleScriptContext();
+			cs1.eval(sc);
+			
+			ScriptEngine _se = cs1.getEngine();
+			se1.setBindings(_se.getBindings(ScriptContext.ENGINE_SCOPE), ScriptContext.ENGINE_SCOPE);
+			se1.eval("print(shared);");
+//			cs2.eval(sc);
+		}		
+		
+		if (false) { // can work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile(" shared += '123'; print(shared);");
+			cs1.eval();
+			
+			ScriptContext sc1 = cs1.getEngine().getContext();
+			cs2.eval(sc1);
+			
+			ScriptContext sc2 = cs2.getEngine().getContext();
+			{
+				Bindings esc = sc2.getBindings(ScriptContext.ENGINE_SCOPE);
+				print(esc);
+				System.out.println(esc.get("shared"));
+				Bindings gsc = sc2.getBindings(ScriptContext.GLOBAL_SCOPE);
+				print(gsc);
+//				System.out.println(ToStringBuilder.reflectionToString(sc2, ToStringStyle.MULTI_LINE_STYLE));
+				
+			}
+			//for (int i = 0; i < 10; i++) {
+			if (false) { // can't work
+				ScriptEngine _se = sem.getEngineByExtension("js");
+				Compilable _c = (Compilable) _se;
+				CompiledScript _cs = _c.compile("print(shared);");
+				_cs.eval(sc2);
+				sc2 = _cs.getEngine().getContext();
+			}
+		}
+		
+		if (false) { // can't work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile("print(shared);");
+			ScriptContext sc = new SimpleScriptContext();
+			cs1.eval(sc);
+			
+			cs2.eval(sc);
+		}
+		
+		if (false){ // can't work
+			ScriptEngine se = sem.getEngineByExtension("js"), se1 = sem.getEngineByExtension("js");
+			Compilable c1 = (Compilable) se, c2 = (Compilable) se1;
+
+			CompiledScript cs1 = c1.compile("var shared = 'abc';");
+			CompiledScript cs2 = c2.compile("print(shared);");
+			ScriptContext sc = new SimpleScriptContext();
+			cs1.eval(sc);
+			
+			ScriptEngine _se = cs1.getEngine();
+			cs2.eval(_se.getContext());
+		}
+
+
 	}
 }

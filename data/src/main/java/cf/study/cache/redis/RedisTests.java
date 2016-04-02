@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import misc.MiscUtils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
