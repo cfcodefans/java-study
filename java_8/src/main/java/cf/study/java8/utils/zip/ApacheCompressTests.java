@@ -10,22 +10,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
-import java.util.zip.Adler32;
-import java.util.zip.CheckedInputStream;
-import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 
-public class ZipTests {
+public class ApacheCompressTests {
 
 	public Path getSrcZipPath() {
 		return Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip");
@@ -56,17 +57,14 @@ public class ZipTests {
 		p.toFile().delete();
 
 		try (Stream<Path> paths = Files.walk(p, FileVisitOption.FOLLOW_LINKS)) {
-
-			try (FileOutputStream fos = new FileOutputStream("./test-output/src.zip")) {
-				CheckedOutputStream cos = new CheckedOutputStream(fos, new Adler32());
-				try (ZipOutputStream zos = new ZipOutputStream(cos)) {
+//			try (FileOutputStream fos = new FileOutputStream("./test-output/src.zip")) {
+				try (ZipArchiveOutputStream zos = new ZipArchiveOutputStream(new File("./test-output/src.zip"))) {
 					zos.setMethod(ZipOutputStream.DEFLATED);
 					zos.setLevel(9);
 					// zos.setMethod(method);
 					paths.forEach((Path _p) -> {
 						File f = _p.toFile();
 						String zipPath = FilenameUtils.separatorsToUnix(_p.toString());
-						System.out.println(zipPath);
 						
 						
 						ZipEntry ze = new ZipEntry(zipPath);
@@ -79,33 +77,32 @@ public class ZipTests {
 
 							byte[] fileBytes = FileUtils.readFileToByteArray(f);
 							ze.setSize(fileBytes.length);
-							String sizeInfo = String.format("size: %d", fileBytes.length);
-							ze.setComment(sizeInfo);
-							ze.setExtra(sizeInfo.getBytes());
 							ze.setMethod(ZipEntry.DEFLATED);
-							zos.putNextEntry(ze);
+							ZipArchiveEntry ae = new ZipArchiveEntry(ze);
+							ae.setSize(fileBytes.length);
+							zos.putArchiveEntry(ae);
+							System.out.println(zipPath + "\t" + ae + "\t" + ae.getSize());
 							zos.write(fileBytes);
-//							zos.closeEntry();
+							zos.closeArchiveEntry();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					});
 					zos.flush();
 				}
-				fos.flush();
-			}
+//				fos.flush();
+//			}
 		}
 	}
 	
 	@Test
 	public void testZipInputStream() throws Exception {
 		try (FileInputStream fis = new FileInputStream("./test-output/src.zip")) {
-			CheckedInputStream cis = new CheckedInputStream(fis, new Adler32());
-			try (ZipInputStream zis = new ZipInputStream(cis)) {
-				for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
+			try (ZipArchiveInputStream zis = new ZipArchiveInputStream(fis)) {
+				for (ZipArchiveEntry ze = zis.getNextZipEntry(); ze != null; ze = zis.getNextZipEntry()) {
 //					System.out.println(ToStringBuilder.reflectionToString(ze));
 //					zis.closeEntry();
-					System.out.println(String.format("%s %s", ze.getName(), new String(ze.getExtra())));
+					System.out.println(ze.getName() + "\t" + ze.getSize() + "\t" + StringUtils.join(ze.getExtraFields(), '\t'));
 				}
 			}
 		}

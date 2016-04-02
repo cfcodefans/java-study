@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+    
+        
+    <context:component-scan base-package="cf.study.framework.spring.script.groovy">
+    </context:component-scan>
+    
+	<bean id="employeeCacheService" class="cf.study.framework.spring.config.EmployeeCacheService">
+	</bean>
+	
+	<bean id="head" class="cf.study.framework.spring.script.groovy.Employee">
+		<constructor-arg index="0">
+			<value>fan</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>chen</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="addEmployee" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" ref="employeeCacheService"></property>
+		<property name="targetMethod" value="addEmployeeToCache"></property>
+		<property name="arguments">
+			<list>
+				<ref bean="head"/>
+			</list>
+		</property>
+	</bean>
+</beans>

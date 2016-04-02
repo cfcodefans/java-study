@@ -241,6 +241,11 @@ public class StreamTests {
 		flatStream.forEach(System.out::println);
 	}
 
+	@Test 
+	public void foldLeft() {
+		
+	}
+	
 	@Test
 	public void reduce() {
 		{

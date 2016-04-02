@@ -4,11 +4,12 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import misc.MiscUtils;
-import misc.MiscUtils.BiConsumer;
+//import misc.MiscUtils.BiConsumer;
 
 import org.apache.log4j.Logger;
 import org.apache.mina.core.buffer.IoBuffer;
@@ -61,8 +62,8 @@ public class MinaTests {
 	    	if (onMsg != null)  onMsgSent.accept(session, message);
 	    }
 		
-	    public MiscUtils.BiConsumer<IoSession, Object> onMsg = (session, message) -> log.info(message);
-	    public MiscUtils.BiConsumer<IoSession, Object> onMsgSent = (session, message) -> log.info(message);
+	    public BiConsumer<IoSession, Object> onMsg = (session, message) -> log.info(message);
+	    public BiConsumer<IoSession, Object> onMsgSent = (session, message) -> log.info(message);
 	    public BiConsumer<IoSession, Throwable> onErr = (session, e)->log.info(e);
 	    public BiConsumer<IoSession, IdleStatus> onIdle = (session, status)->log.info(status);
 	    public Consumer<IoSession> onOpen = log::info;
