@@ -8,14 +8,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 import difflib.Delta;
 import difflib.DiffUtils;
 import difflib.Patch;
 import difflib.PatchFailedException;
+import junit.framework.Assert;
 
 public class DiffTests {
 	@Test

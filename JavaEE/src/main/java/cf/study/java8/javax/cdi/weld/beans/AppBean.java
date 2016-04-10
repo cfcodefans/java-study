@@ -8,14 +8,16 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import misc.MiscUtils;
 
-import org.apache.log4j.Logger;
 
 @ApplicationScoped
 public class AppBean extends BasicBean {
 
-	private static Logger log = Logger.getLogger(AppBean.class);
+	private static Logger log = LoggerFactory.getLogger(AppBean.class);
 	
 	@Inject
 	@Initialized(ApplicationScoped.class)

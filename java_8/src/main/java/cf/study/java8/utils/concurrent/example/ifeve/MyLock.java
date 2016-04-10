@@ -6,6 +6,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MyLock extends ReentrantLock {
+	private static final long serialVersionUID = 1L;
+
 	public String getOwnerName() {
 		if (this.getOwner() == null) {
 			return "None";

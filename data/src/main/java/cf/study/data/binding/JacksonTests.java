@@ -116,7 +116,7 @@ public class JacksonTests {
 		ObjectMapper OM = new ObjectMapper();
 		ObjectWriter OW = null;
 		{
-			SimpleModule simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
+			SimpleModule simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null, null, null));
 			simpleModule.addSerializer(new SimpleSerializer());
 			OM.registerModule(simpleModule);
 		}

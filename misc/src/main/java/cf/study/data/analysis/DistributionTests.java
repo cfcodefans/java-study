@@ -100,6 +100,5 @@ public class DistributionTests {
 		ds.forEach(i -> log.info(String.format("%d\t%d\t%f", i, CollectionUtils.countMatches(samples, (v)->i.equals(v)), bd.probability(i))));
 		
 		log.info("");
-		
 	}
 }

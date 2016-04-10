@@ -6,17 +6,17 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import cf.study.java8.javax.persistence.dao.BaseDao;
 import cf.study.java8.javax.persistence.dao.JpaModule;
 
 @Transactional
 @Interceptor
 public class TransactionalInterceptor {
 	
-	private static final Logger log = Logger.getLogger(BaseDao.class);
+	private static Logger log = LoggerFactory.getLogger(TransactionalInterceptor.class);
 
 	@AroundInvoke
 	public Object withTransaction(InvocationContext ctx) throws Throwable {

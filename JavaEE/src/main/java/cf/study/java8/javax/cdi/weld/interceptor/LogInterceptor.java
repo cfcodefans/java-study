@@ -5,13 +5,14 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Logged
 @Interceptor
 public class LogInterceptor {
 	
-	private static final Logger log = Logger.getLogger(LogInterceptor.class);
+	private static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
 
 	@AroundInvoke
 	public Object withTransaction(InvocationContext ctx) throws Throwable {

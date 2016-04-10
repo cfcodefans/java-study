@@ -17,7 +17,6 @@ import misc.Jsons;
 import misc.MiscUtils;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.log4j.Logger;
 import org.glassfish.jersey.message.DeflateEncoder;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -25,10 +24,12 @@ import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.oauth1.OAuth1ServerFeature;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Oauth1Tests {
 
-	private static final Logger log = Logger.getLogger(Oauth1Tests.class);
+	private static final Logger log = LoggerFactory.getLogger(Oauth1Tests.class);
 	public static class Oauth1App extends ResourceConfig {
 		
 		public Oauth1App() {
@@ -72,7 +73,7 @@ public class Oauth1Tests {
 			Map<String, Calendar> res = Stream.of(TimeZone.getAvailableIDs(offset * 3600 * 1000))
 				.map(tzId->new ImmutablePair<>(tzId, Calendar.getInstance(TimeZone.getTimeZone(tzId))))
 				.collect(Collectors.toMap(ImmutablePair::getLeft, ImmutablePair::getRight));
-			log.info(res);
+			log.info(res.toString());
 			return Jsons.toString(res);
 		}
 		

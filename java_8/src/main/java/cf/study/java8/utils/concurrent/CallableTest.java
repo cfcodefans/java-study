@@ -29,7 +29,6 @@ public class CallableTest {
 
 		@Override
 		public Void call() throws Exception {
-			long t = System.currentTimeMillis();
 			System.out.println("I am started");
 			try {
 				for (int i = 0; i < d; i++) {

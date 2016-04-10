@@ -3,7 +3,6 @@ package cf.study.data.mining.entity;
 import java.lang.reflect.Field;
 import java.util.Optional;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

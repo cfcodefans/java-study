@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.junit.Test;
-import org.springframework.util.Assert;
 
 public class ReflectTests {
 
@@ -20,6 +19,7 @@ public class ReflectTests {
 		static class StaticClz{}
 		
 		public void method() {
+			@SuppressWarnings("unused")
 			class MethodClz {};
 		}
 	}
@@ -43,6 +43,7 @@ public class ReflectTests {
 		});
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testClzMeta() {
 		Class<Sample[]> arrayClz = Sample[].class;
@@ -53,6 +54,7 @@ public class ReflectTests {
 		System.out.println(arrayClz.getComponentType());
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testGeneric() throws Exception {
 		Sample<String> ss = new Sample<String>();
@@ -71,13 +73,14 @@ public class ReflectTests {
 //		System.out.println(Sample.class);
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testGenericSuper() throws Exception {
 		StringSample _ss = new StringSample();
 		Type _type = StringSample.class.getGenericSuperclass();
 		System.out.println(_type);
 		
-		Assert.isInstanceOf(ParameterizedType.class, _type);
+//		Assert.assertTure(ParameterizedType.class.gett _type);
 		
 		ParameterizedType pt = (ParameterizedType)_type;
 		Stream.of(pt.getActualTypeArguments()).forEach(System.out::println);

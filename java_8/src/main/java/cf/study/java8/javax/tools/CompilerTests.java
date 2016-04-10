@@ -16,6 +16,7 @@ public class CompilerTests {
 
 	private JavaCompiler			compiler;
 
+	@SuppressWarnings("unused")
 	private StandardJavaFileManager	javaSrcMgr;
 
 	@Before
@@ -43,6 +44,7 @@ public class CompilerTests {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unused")
 	private Map<String, byte[]> compile(String fileName, String source, Writer err, String srcPath, String clsPath) throws Exception {
 		// to collect errors, warnings etc.
 		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();

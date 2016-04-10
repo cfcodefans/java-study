@@ -5,18 +5,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SimpleDateFormatTests {
 
 	@Test
 	public void testPatterns() {
 		Date now = new Date();
-		
 		System.out.println(new SimpleDateFormat("S").format(now));
-		
-		log.info(now);
+		log.info(now.toString());
 	}
 	
 	@Test
@@ -35,7 +34,7 @@ public class SimpleDateFormatTests {
 		System.out.println(s2.format(calendar.getTime()));
 	}
 
-	private static final Logger log = Logger.getLogger(SimpleDateFormatTests.class);
+	private static final Logger log = LoggerFactory.getLogger(SimpleDateFormatTests.class);
 
 	@Override
 	public String toString() {

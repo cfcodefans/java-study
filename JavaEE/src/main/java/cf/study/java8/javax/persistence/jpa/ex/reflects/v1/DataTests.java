@@ -8,10 +8,11 @@ import java.util.function.Consumer;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
@@ -29,7 +30,7 @@ public class DataTests {
 		JpaModule.instance();
 	}
 
-	private static final Logger log = Logger.getLogger(DataTests.class);
+	private static final Logger log = LoggerFactory.getLogger(DataTests.class);
 	
 	@Test
 	public void test() {

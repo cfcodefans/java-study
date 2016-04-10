@@ -4,7 +4,6 @@ import java.lang.reflect.Parameter;
 import java.util.Optional;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

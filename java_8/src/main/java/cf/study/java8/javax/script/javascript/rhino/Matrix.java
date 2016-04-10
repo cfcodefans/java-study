@@ -226,7 +226,7 @@ public class Matrix implements Scriptable {
 	 * Use the convenience method from Context that takes care of calling
 	 * toString, etc.
 	 */
-	public Object getDefaultValue(Class typeHint) {
+	public Object getDefaultValue(@SuppressWarnings("rawtypes") Class typeHint) {
 		return "[object Matrix]";
 	}
 

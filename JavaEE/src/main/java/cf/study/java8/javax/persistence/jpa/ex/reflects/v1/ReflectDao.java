@@ -19,7 +19,8 @@ import javax.persistence.EntityManager;
 import misc.MiscUtils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.BaseDao;
@@ -33,7 +34,7 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 @RequestScoped
 public class ReflectDao extends BaseDao<Object> {
 
-	private static final Logger log = Logger.getLogger(ReflectDao.class);
+	private static final Logger log = LoggerFactory.getLogger(ReflectDao.class);
 
 	public static final Map<Object, BaseEn> lockSet = new ConcurrentHashMap<Object, BaseEn>();
 

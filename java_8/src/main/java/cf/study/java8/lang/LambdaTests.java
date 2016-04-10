@@ -35,9 +35,11 @@ public class LambdaTests {
 	}
 	
 	public static interface VarArgConsumer<T> {
+		@SuppressWarnings("unchecked")
 		void accept(T...args);
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testVarArg() {
 //		VarArgConsumer<Integer> vac1 = (i1, i2, i3) ->  Math.max(Math.max(i1, i2), i3);

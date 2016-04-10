@@ -37,6 +37,7 @@ public class ForkJoinTests {
 	}
 
 	static class QuickSortTask extends RecursiveAction {
+		private static final long serialVersionUID = 1L;
 		final long[] array;
 		final int lo, hi;
 		static final int THRESHOLD = 10;

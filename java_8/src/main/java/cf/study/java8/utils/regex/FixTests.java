@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +39,7 @@ public class FixTests {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	private List<String> extract(File f) {
 		List<String> tmpList = new LinkedList<String>();
 		

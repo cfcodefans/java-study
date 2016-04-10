@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -24,6 +23,8 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.jee.web.jetty.res.WebResources;
 import junit.framework.Assert;
@@ -31,7 +32,7 @@ import misc.MiscUtils;
 
 public class WebSocketTests {
 
-	private static final Logger log = Logger.getLogger(WebSocketTests.class);
+	private static final Logger log = LoggerFactory.getLogger(WebSocketTests.class);
 
 	private Server setUpServlet(Class<? extends HttpServlet> servletClass) throws Exception {
 		if (servletClass == null) return null;
@@ -103,7 +104,7 @@ public class WebSocketTests {
 		@Override
 		protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			log.info(MiscUtils.invocationInfo());
-			log.info(request);
+			log.info(request.toString());
 			super.service(request, response);
 		}
 	}

@@ -15,9 +15,9 @@ import javax.script.SimpleScriptContext;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.time.StopWatch;
+import org.junit.Assert;
 import org.junit.Test;
 
-import junit.framework.Assert;
 import misc.MiscUtils;
 
 public class ScriptTest {
@@ -64,6 +64,7 @@ public class ScriptTest {
 		System.out.println(se.eval(loadResAsString));
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testCompilable() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();
@@ -146,6 +147,7 @@ public class ScriptTest {
 		// compiled1.eval(se.getContext());
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testContextBetweenEngines() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();
@@ -303,6 +305,7 @@ public class ScriptTest {
 		b.forEach((k, v) -> System.out.println(String.format("%s\t= %s", k, v)));
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testSharing() throws Exception {
 		ScriptEngineManager sem = new ScriptEngineManager();

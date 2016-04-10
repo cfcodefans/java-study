@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import misc.MiscUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import misc.MiscUtils;
 import redis.clients.jedis.BitOP;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

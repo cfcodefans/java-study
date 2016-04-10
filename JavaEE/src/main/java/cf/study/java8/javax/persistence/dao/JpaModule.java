@@ -16,10 +16,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import misc.MiscUtils;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cf.study.java8.javax.cdi.weld.beans.AppBean;
+import misc.MiscUtils;
 
 
 @ApplicationScoped
@@ -33,7 +35,7 @@ public class JpaModule {
 	
 	private static ThreadLocal<EntityManager> ems = new ThreadLocal<EntityManager>();
 
-	private static final Logger log = Logger.getLogger(JpaModule.class);
+	private static Logger log = LoggerFactory.getLogger(JpaModule.class);
 	
 	@PostConstruct
 	public void init() {

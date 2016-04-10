@@ -6,6 +6,7 @@
 		<artifactId>study_java_8</artifactId>
 		<version>0.0.1</version>
 	</parent>
+
 	<dependencies>
 		<dependency>
 			<groupId>study_java_8</groupId>
@@ -96,7 +97,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.7.Final</version>
+			<version>${hibernate-ver}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
@@ -161,13 +162,15 @@
 		<dependency>
 			<groupId>rocks.xmpp</groupId>
 			<artifactId>xmpp-extensions-client</artifactId>
-			<version>0.6.2</version>
+			<version>0.7.0-beta-1</version>
 		</dependency>
+
 
 	</dependencies>
 	<artifactId>JavaEE</artifactId>
 	<properties>
-		<jersey-version>2.21</jersey-version>
-		<jetty-version>9.3.0.M2</jetty-version>
+		<jersey-version>2.22.2</jersey-version>
+		<jetty-version>9.3.9.M0</jetty-version>
+		<hibernate-ver>5.1.0.Final</hibernate-ver>
 	</properties>
 </project>

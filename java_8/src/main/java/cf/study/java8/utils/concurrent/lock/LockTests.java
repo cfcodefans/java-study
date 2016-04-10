@@ -9,12 +9,13 @@ import java.util.stream.IntStream;
 
 import misc.MiscUtils;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LockTests {
 
-	private static final Logger	log	= Logger.getLogger(LockTests.class);
+	private static final Logger	log	= LoggerFactory.getLogger(LockTests.class);
 	ExecutorService				es	= Executors.newFixedThreadPool(2, MiscUtils.namedThreadFactory("something"));
 
 	@Test

@@ -15,11 +15,12 @@ import javax.persistence.Persistence;
 import misc.MiscUtils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.persistence.dao.BaseDao;
 
@@ -57,7 +58,7 @@ public class TransactionTests {
 		emf.close();
 	}
 
-	private static final Logger log = Logger.getLogger(TransactionTests.class);
+	private static final Logger log = LoggerFactory.getLogger(TransactionTests.class);
 	
 	@Test
 	public void testConnection() {
@@ -82,7 +83,7 @@ public class TransactionTests {
 				return _td.create(new TestEntity(10l));
 			});
 			Assert.assertNotNull(en);
-			log.info(en);
+			log.info(en.toString());
 			MiscUtils.easySleep(1000);
 		}
 		
@@ -186,7 +187,7 @@ public class TransactionTests {
 				return _td.create(new TestEntity(10l));
 			});
 			Assert.assertNotNull(en);
-			log.info(en);
+			log.info(en.toString());
 			MiscUtils.easySleep(1000);
 		}
 		
@@ -218,7 +219,7 @@ public class TransactionTests {
 						MiscUtils.easySleep(1000);
 					}
 //				_td.executeNativeSqlUpdate("commit;");
-					log.info(edited);
+					log.info(edited.toString());
 					return edited;
 				});
 				log.info("\n\tend occupying at " + System.currentTimeMillis());
@@ -250,7 +251,7 @@ public class TransactionTests {
 					_en.value = _en.value + 1;
 					Object edited = _td.edit(_en);
 //				_td.executeNativeSqlUpdate("commit;");
-					log.info(edited);
+					log.info(edited.toString());
 					return edited;
 				});
 				log.info("\n\tend updating at " + System.currentTimeMillis());

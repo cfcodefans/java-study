@@ -36,12 +36,14 @@ class TaggedArray<T> {
 			fence = _fence;
 		}
 
+		@SuppressWarnings("unchecked")
 		public void forEachRemaining(Consumer<? super T> action) {
 			for (; origin < fence; origin += 2) {
 				action.accept((T) array[origin]);
 			}
 		};
 		
+		@SuppressWarnings("unchecked")
 		@Override
 		public boolean tryAdvance(Consumer<? super T> action) {
 			if (origin < fence) {
@@ -52,6 +54,7 @@ class TaggedArray<T> {
 			return false;
 		}
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@Override
 		public Spliterator<T> trySplit() {
 			int lo = origin; // divide range in half

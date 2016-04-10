@@ -39,6 +39,7 @@ public class StaticTests {
 	}
 	
 	
+	@SuppressWarnings("static-access")
 	@Test
 	public void testStaticMethodInheritance() {
 		Sub s = new Sub();

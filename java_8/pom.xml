@@ -14,6 +14,16 @@
 			<artifactId>commons</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>rhino</artifactId>
+			<version>1.7.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-classloader</artifactId>
+			<version>4.5</version>
+		</dependency>
 	</dependencies>
 
 </project>

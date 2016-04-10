@@ -4,20 +4,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.IntStream;
-
-import misc.MiscUtils;
 
 import org.apache.commons.lang3.time.StopWatch;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import misc.MiscUtils;
 
 public class PerformanceComparison {
 
-	private static final Logger log = Logger.getLogger(PerformanceComparison.class);
+	private static final Logger log = LoggerFactory.getLogger(PerformanceComparison.class);
 
 	long value = 0;
 	final long target = 400000000L;

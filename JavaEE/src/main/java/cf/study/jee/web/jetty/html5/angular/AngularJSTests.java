@@ -1,16 +1,17 @@
 package cf.study.jee.web.jetty.html5.angular;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.jee.web.jetty.res.WebResources;
 import cf.study.jee.web.ws.restful.jersey.JerseyTests;
 
 public class AngularJSTests {
-	private static final Logger	log	= Logger.getLogger(AngularJSTests.class);
+	private static final Logger log = LoggerFactory.getLogger(AngularJSTests.class);
 	
 	@Test
 	public void runAngularJS() throws Exception {

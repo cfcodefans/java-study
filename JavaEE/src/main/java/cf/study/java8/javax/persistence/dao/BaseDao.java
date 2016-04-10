@@ -21,7 +21,8 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -33,7 +34,7 @@ import org.apache.log4j.Logger;
 @SuppressWarnings("unchecked")
 @Default
 public class BaseDao<T> {
-	private static final Logger log = Logger.getLogger(BaseDao.class);
+	private static Logger log = LoggerFactory.getLogger(BaseDao.class);
 	
 	public Object doFuncInTransaction(Function<BaseDao, Object> func) {
 		if (func == null) return null;
@@ -41,7 +42,7 @@ public class BaseDao<T> {
 			this.beginTransaction();
 			return func.apply(this);
 		} catch(Exception e) {
-			log.error(e, e);
+			log.error(e.getMessage(), e);
 			this.setRollback();
 		} finally {
 			this.endTransaction();

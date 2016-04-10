@@ -1,17 +1,17 @@
 
 import java.util.logging.Logger;
 
-import junit.framework.Assert;
-import misc.MiscUtils;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExternalResource;
+
+import misc.MiscUtils;
 
 public class JUnit4Test {
 
@@ -71,7 +71,7 @@ public class JUnit4Test {
 	
 	@Test(timeout = 3000) 
 	public void testTimeout() throws Exception {
-		Thread.currentThread().sleep(4000);
+		Thread.sleep(4000);
 	}
 	
 	@Ignore

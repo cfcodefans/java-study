@@ -159,7 +159,8 @@ public class KeyWordTests {
 			case 5:
 				System.out.println(5);
 				i = 1;
-				// continue _1; continue can't be used outside of loop
+//				continue _1; //continue can't be used outside of loop
+				break _1;
 				// for() {continue _1}; no statement between label and outer loop
 			case 6:
 				System.out.println(6);
@@ -364,6 +365,7 @@ public class KeyWordTests {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testSwitchWithStr() {
 		System.out.println();
@@ -409,6 +411,7 @@ public class KeyWordTests {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testSwitchWithNull() {
 		System.out.println();

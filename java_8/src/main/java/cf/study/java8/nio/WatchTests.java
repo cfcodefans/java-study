@@ -63,6 +63,7 @@ public class WatchTests {
         return (WatchEvent<T>)event;
     }
 	
+	@SuppressWarnings("rawtypes")
 	public static void processEvent() {
 		while (true) {
 			// wait for key to be signalled

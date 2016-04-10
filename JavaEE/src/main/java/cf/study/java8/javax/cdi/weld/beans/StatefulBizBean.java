@@ -4,16 +4,17 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 
-import misc.MiscUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import misc.MiscUtils;
 
 @SessionScoped
 public class StatefulBizBean extends BasicBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger log = Logger.getLogger(StatefulBizBean.class);
+	private static Logger log = LoggerFactory.getLogger(StatefulBizBean.class);
 	
 	private Object state;
 

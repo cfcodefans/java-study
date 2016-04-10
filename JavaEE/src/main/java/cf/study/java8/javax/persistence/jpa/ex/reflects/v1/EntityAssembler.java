@@ -23,9 +23,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
@@ -67,7 +68,7 @@ public class EntityAssembler {
 	}
 
 	public final Context ctx = new Context();
-	private static final Logger log = Logger.getLogger(EntityAssembler.class);
+	private static final Logger log = LoggerFactory.getLogger(EntityAssembler.class);
 
 	public synchronized FieldEn assembleFieldEn(Field field) {
 		if (field == null)
@@ -576,7 +577,7 @@ public class EntityAssembler {
 	public ClassEn associate(ClassEn ce) {
 		if (ce == null) return ce;
 		
-		log.info(ce);
+		log.info(ce.toString());
 		ce.loadClass();
 		
 		associateAnnotations(ce, ce.clazz);

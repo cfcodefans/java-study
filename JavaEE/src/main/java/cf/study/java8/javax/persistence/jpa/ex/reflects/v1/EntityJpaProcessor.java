@@ -33,10 +33,11 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.time.StopWatch;
-import org.apache.log4j.Logger;
 import org.hibernate.internal.SessionImpl;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
@@ -362,7 +363,7 @@ public class EntityJpaProcessor {
 			.synchronizedMap(new LinkedHashMap<String, PackageEn>(1000));
 	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
-	private static final Logger log = Logger.getLogger(EntityJpaProcessor.class);
+	private static final Logger log = LoggerFactory.getLogger(EntityJpaProcessor.class);
 
 	public ClassEn getClassEnFromCache(String clzName) {
 		if (StringUtils.isBlank(clzName))

@@ -19,7 +19,6 @@ import misc.MiscUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -30,6 +29,8 @@ import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JerseyTests {
 	
@@ -72,7 +73,7 @@ public class JerseyTests {
 			Map<String, Calendar> res = Stream.of(TimeZone.getAvailableIDs(offset * 3600 * 1000))
 				.map(tzId->new ImmutablePair<>(tzId, Calendar.getInstance(TimeZone.getTimeZone(tzId))))
 				.collect(Collectors.toMap(ImmutablePair::getLeft, ImmutablePair::getRight));
-			log.info(res);
+			log.info(res.toString());
 			return Jsons.toString(res);
 		}
 		
@@ -84,7 +85,7 @@ public class JerseyTests {
 		}
 	}
 
-	private static final Logger log = Logger.getLogger(JerseyTests.class);
+	private static final Logger log = LoggerFactory.getLogger(JerseyTests.class);
 	
 	@Test
 	public void helloWorld() throws Exception {

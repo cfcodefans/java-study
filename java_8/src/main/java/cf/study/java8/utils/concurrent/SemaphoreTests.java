@@ -8,12 +8,13 @@ import java.util.stream.IntStream;
 
 import misc.MiscUtils;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SemaphoreTests {
 
-	private static final Logger log = Logger.getLogger(SemaphoreTests.class);
+	private static final Logger log = LoggerFactory.getLogger(SemaphoreTests.class);
 	
 	ExecutorService es = Executors.newCachedThreadPool(MiscUtils.namedThreadFactory("something"));
 	
@@ -29,7 +30,7 @@ public class SemaphoreTests {
 					log.info(":\tstill need to wait");
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("", e);
 			}
 				
 			log.info(":\tI am in! will stay here for 3 seconds");

@@ -1,19 +1,19 @@
 package cf.study.java8.utils.concurrent.lock;
 
+import static misc.MiscUtils.easySleep;
+
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import misc.MiscUtils;
-
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static misc.MiscUtils.easySleep;
+import misc.MiscUtils;
 
 public class ReadWriteLockTest {
 
@@ -55,6 +55,7 @@ public class ReadWriteLockTest {
 
 	ExecutorService	es	= Executors.newFixedThreadPool(5, MiscUtils.namedThreadFactory("something"));
 
+	@SuppressWarnings("static-access")
 	int callable_read() {
 		for (int i = 0; i < 3; i++) {
 			int readValue = ReadWriteLockTest.this.read();
@@ -63,6 +64,7 @@ public class ReadWriteLockTest {
 		return ReadWriteLockTest.this.v.i;
 	}
 
+	@SuppressWarnings("static-access")
 	int callable_write() {
 		for (int i = 0; i < 3; i++) {
 			ReadWriteLockTest.this.write(i);
@@ -71,7 +73,7 @@ public class ReadWriteLockTest {
 		return ReadWriteLockTest.this.v.i;
 	}
 
-	private static final Logger	log	= Logger.getLogger(ReadWriteLockTest.class);
+	private static final Logger	log	= LoggerFactory.getLogger(ReadWriteLockTest.class);
 
 	@Test
 	public void readAndRead() {

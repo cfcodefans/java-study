@@ -2,7 +2,6 @@ package cf.study.java8.utils.zip;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
@@ -23,7 +22,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 
 public class ApacheCompressTests {

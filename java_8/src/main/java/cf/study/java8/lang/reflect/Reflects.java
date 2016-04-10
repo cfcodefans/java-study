@@ -23,11 +23,12 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
 import org.apache.xbean.classloader.JarFileClassLoader;
+import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import junit.framework.Assert;
 import misc.MiscUtils;
 import misc.MiscUtils.TraverseMatcher;
 
@@ -155,7 +156,7 @@ public class Reflects {
 				"short", short.class,
 				"float", float.class
 			);
-	private static final Logger log = Logger.getLogger(Reflects.class);
+	private static final Logger log = LoggerFactory.getLogger(Reflects.class);
 
 	public static String checkClzName(Class<?> clz) {
 		if (clz == null) return StringUtils.EMPTY;

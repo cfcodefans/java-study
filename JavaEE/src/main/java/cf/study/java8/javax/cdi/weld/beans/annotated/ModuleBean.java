@@ -5,16 +5,18 @@ import javax.enterprise.context.Destroyed;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import misc.MiscUtils;
 
-import org.apache.log4j.Logger;
 
 import cf.study.java8.javax.cdi.weld.beans.AppBean;
 import cf.study.java8.javax.cdi.weld.beans.BasicBean;
 
 @ApplicationScoped
 public class ModuleBean extends BasicBean {
-	private static Logger log = Logger.getLogger(ModuleBean.class);
+	private static Logger log = LoggerFactory.getLogger(ModuleBean.class);
 	
 	public void onStart(@Observes @Initialized(ApplicationScoped.class) AppBean app) {
 		log.info(MiscUtils.invocationInfo());

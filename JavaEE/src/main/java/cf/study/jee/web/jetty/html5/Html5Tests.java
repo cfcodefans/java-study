@@ -4,18 +4,19 @@ import javax.servlet.http.HttpServlet;
 
 import junit.framework.Assert;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.jee.web.jetty.html5.websocket.WebSocketTests.TextEchoServlet;
 import cf.study.jee.web.jetty.res.WebResources;
 
 public class Html5Tests {
 
-	private static final Logger	log	= Logger.getLogger(Html5Tests.class);
+	private static final Logger log = LoggerFactory.getLogger(Html5Tests.class);
 
 	private Server setUpServlet(Class<? extends HttpServlet> servletClass) throws Exception {
 		if (servletClass == null)

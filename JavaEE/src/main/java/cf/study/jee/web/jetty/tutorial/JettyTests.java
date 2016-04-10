@@ -22,7 +22,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.proxy.ProxyServlet;
 import org.eclipse.jetty.rewrite.handler.RedirectPatternRule;
@@ -43,12 +42,14 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.net.MediaType;
 
 public class JettyTests {
 
-	private static final Logger log = Logger.getLogger(JettyTests.class);
+	private static final Logger log = LoggerFactory.getLogger(JettyTests.class);
 
 	@Test
 	public void creatServer() throws Exception {
@@ -314,22 +315,22 @@ public class JettyTests {
 		ServletHolder sh = ctx.addServlet(HelloServlet.class, "/*");
 		
 		Servlet si0 = sh.getServletInstance();
-		log.info(si0);
+		log.info(si0.toString());
 
 		server.start();
 
 		Servlet si1 = sh.getServletInstance();
-		log.info(si1);
+		log.info(si1.toString());
 		
 		ScheduledExecutorService threads = Executors.newScheduledThreadPool(4);
 
 		threads.schedule((Runnable) () -> testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
 		
 		Servlet si3 = sh.getServletInstance();
-		log.info(si3);
+		log.info(si3.toString());
 		
 		Servlet si4 = sh.getServletInstance();
-		log.info(si4);
+		log.info(si4.toString());
 		
 		MiscUtils.easySleep(4000);
 	}

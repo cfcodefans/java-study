@@ -10,7 +10,9 @@ import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 //@SessionScoped
 @RequestScoped
@@ -21,7 +23,7 @@ public class BizBean extends BasicBean {
 	@Named("infProc")
 	protected IBizProcessor<Object, List<Class>> infProc;
 	
-	private static Logger log = Logger.getLogger(BizBean.class);
+	private static Logger log = LoggerFactory.getLogger(BizBean.class);
 
 	public IBizProcessor<Object, List<Class>> getInfProc() {
 		return infProc;

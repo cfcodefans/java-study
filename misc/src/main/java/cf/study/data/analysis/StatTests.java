@@ -1,14 +1,22 @@
 package cf.study.data.analysis;
 
+import static org.apache.commons.math3.stat.StatUtils.geometricMean;
+import static org.apache.commons.math3.stat.StatUtils.mean;
+import static org.apache.commons.math3.stat.StatUtils.normalize;
+import static org.apache.commons.math3.stat.StatUtils.populationVariance;
+import static org.apache.commons.math3.stat.StatUtils.sum;
+import static org.apache.commons.math3.stat.StatUtils.variance;
+
 import java.util.Arrays;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
-import misc.MiscUtils;
-import static org.apache.commons.math3.stat.StatUtils.*;
-
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.math3.stat.descriptive.rank.Median;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
+import misc.MiscUtils;
 
 public class StatTests {
 	
@@ -123,5 +131,14 @@ public class StatTests {
 		log.info(Arrays.toString(rs));
 		double sum = sum(rs);
 		log.info(sum);
+	}
+	
+	@Test
+	public void testMedian() {
+		double[] rs = randoms(RandomUtils.nextInt() % 20);
+		Median m = new Median();
+		double evaluate = m.evaluate(rs);
+		Arrays.sort(rs);
+		log.info(String.format("median of %s \n is %f", Arrays.toString(rs), evaluate));
 	}
 }

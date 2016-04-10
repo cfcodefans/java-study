@@ -2,16 +2,16 @@ package cf.study.java8.javax.cdi.weld.beans;
 
 import javax.enterprise.context.RequestScoped;
 
-import misc.MiscUtils;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.interceptor.Logged;
+import misc.MiscUtils;
 
 @RequestScoped
 public class BizRequest extends BasicBean {
 
-	private static Logger log = Logger.getLogger(BizRequest.class);
+	private static Logger log = LoggerFactory.getLogger(BizRequest.class);
 	
 	private Object param;
 

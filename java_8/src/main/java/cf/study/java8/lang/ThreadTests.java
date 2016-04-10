@@ -8,12 +8,13 @@ import java.util.Random;
 import misc.MiscUtils;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ThreadTests {
 
-	private static final Logger log = Logger.getLogger(ThreadTests.class);
+	private static final Logger log = LoggerFactory.getLogger(ThreadTests.class);
 
 	@Test
 	public void testDaemon() throws Exception {
@@ -101,7 +102,7 @@ public class ThreadTests {
 			public void run() {
 				try {
 					for (int i = 10; i > 0; i--) {
-						Thread.currentThread().sleep(2000);
+						Thread.sleep(2000);
 						System.out.println(i + "\t" + Thread.interrupted());
 					}
 				} catch (InterruptedException e) {
@@ -116,7 +117,7 @@ public class ThreadTests {
 		th.start();
 
 		try {
-			Thread.currentThread().sleep(4000);
+			Thread.sleep(4000);
 			th.interrupt();
 			th.join();
 		} catch (InterruptedException e) {
@@ -130,8 +131,8 @@ public class ThreadTests {
 		Thread th = new Thread(()-> {
 			for (int i = 10; i > 0; i--) {
 				try {
-					Thread.currentThread().sleep(2000);
-					System.out.println(i + "\t" + Thread.currentThread().interrupted());
+					Thread.sleep(2000);
+					System.out.println(i + "\t" + Thread.interrupted());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -140,7 +141,7 @@ public class ThreadTests {
 		th.setDaemon(true);
 		th.start();
 		try {
-			Thread.currentThread().sleep(4000);
+			Thread.sleep(4000);
 			th.interrupt();
 			th.join();
 		} catch (InterruptedException e) {
@@ -154,6 +155,7 @@ public class ThreadTests {
 	public void testFinalizerInThread() {
 		// final Base b = new Base();
 		Thread th = new Thread(new Runnable() {
+			@SuppressWarnings("unused")
 			public void run() {
 				Base b = new Base();
 				// b = null;
@@ -174,7 +176,7 @@ public class ThreadTests {
 	public void testSleep() {
 		for (;;) {
 			try {
-				Thread.currentThread().sleep(new Random().nextInt() % (new Random().nextInt() % 3000));
+				Thread.sleep(new Random().nextInt() % (new Random().nextInt() % 3000));
 				final String randomAlphabetic = RandomStringUtils.randomAlphabetic(new Random().nextInt() % 80);
 
 				System.out.println(String.format("%s %s %s\t %s", new Date(), Thread.currentThread().getName(), MiscUtils.invocationInfo(), randomAlphabetic));
@@ -189,7 +191,7 @@ public class ThreadTests {
 		Thread thread = new Thread(()-> {
 			System.out.println("running");
 			try {
-				Thread.currentThread().sleep(5000);
+				Thread.sleep(5000);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -219,7 +221,7 @@ public class ThreadTests {
 						//do something else
 					}
 					System.out.println(threadName + " I got object, then I sleep");	
-					Thread.currentThread().sleep(3000);
+					Thread.sleep(3000);
 					System.out.println(threadName + " I don't hold the object, then I wait");
 					object.wait();
 					System.out.println(threadName + " someone notified me");

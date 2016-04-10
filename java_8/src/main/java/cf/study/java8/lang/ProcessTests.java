@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class ProcessTests {
 
 	@Test
@@ -63,6 +64,7 @@ public class ProcessTests {
 		
 	}
 	
+
 	public static class ProcProxy {
 		private Process proc;
 	}

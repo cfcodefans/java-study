@@ -80,9 +80,9 @@ public class EventBusTests {
 			super(identifier, executor);
 		}
 
-		protected void dispatchQueuedEvents() {
-			super.dispatchQueuedEvents();
-		}
+//		protected void dispatchQueuedEvents() {
+//			super.dispatchQueuedEvents();
+//		}
 	}
 	
 	@Test

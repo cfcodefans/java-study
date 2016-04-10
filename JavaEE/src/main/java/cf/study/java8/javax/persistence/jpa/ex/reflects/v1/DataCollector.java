@@ -35,10 +35,11 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
@@ -76,7 +77,7 @@ public class DataCollector {
 		}
 	}
 	
-	private static final Logger log = Logger.getLogger(DataCollector.class);
+	private static final Logger log = LoggerFactory.getLogger(DataCollector.class);
 
 	public final Map<String, PackageEn> packageEnPool = new ConcurrentHashMap<String, PackageEn>(1000);
 	public final ConcurrentHashMap<String, AtomicReference<ClassEn>> classEnPool = new ConcurrentHashMap<String, AtomicReference<ClassEn>>(21000);
@@ -441,7 +442,7 @@ public class DataCollector {
 		DataCollector dc = new DataCollector();
 		dc.processClass(Target.class);
 		ClassEn ce = dc.getClassEnFromCache(Target.class.getName());
-		log.info(ce);
+		log.info(ce.toString());
 	}
 
 	@Test

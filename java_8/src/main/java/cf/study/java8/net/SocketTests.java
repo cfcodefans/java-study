@@ -31,14 +31,15 @@ import misc.MiscUtils.ExConsumer;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SocketTests {
 	
-	private static final Logger log = Logger.getLogger(SocketTests.class);
+	private static final Logger log = LoggerFactory.getLogger(SocketTests.class);
 
 	private static final String SERVER_NAME = "localhost";
 	private static final int SERVER_PORT = 12900;
@@ -56,6 +57,7 @@ public class SocketTests {
 		return sb.toString();
 	}
 
+	@SuppressWarnings("resource")
 	@Test
 	public void testServerSocket() throws Exception {
 		// Create an unbound server socket
@@ -279,6 +281,7 @@ The number of keys, possibly zero, whose ready-operation sets were updated*/
 		};
 	}
 	
+	@SuppressWarnings("unused")
 	@Test 
 	public void testNioSelectSocketV2() throws Exception {
 		final ServerSocketChannel ssch = ServerSocketChannel.open();
@@ -289,7 +292,7 @@ The number of keys, possibly zero, whose ready-operation sets were updated*/
 		final SelectionKey acceptKey = ssch.register(sel, SelectionKey.OP_ACCEPT);
 		
 		final Function<SelectionKey, String> keyToStr = (sk) -> sk.attachment() + " is " + (sk.isAcceptable() ? "acceptable " : "") + (sk.isReadable() ? "readable " : "")  + (sk.isWritable() ? "writable " : "");
-		final Map<SocketAddress, String> inboundAddrs = new ConcurrentHashMap();
+		final Map<SocketAddress, String> inboundAddrs = new ConcurrentHashMap<SocketAddress, String>();
 
 		final Consumer<SocketChannel> onReq = (sc) -> {
 			final SelectionKey sk = sc.keyFor(sel);

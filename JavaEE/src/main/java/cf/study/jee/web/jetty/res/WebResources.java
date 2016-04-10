@@ -3,15 +3,16 @@ package cf.study.jee.web.jetty.res;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebResources {
 
-	private static final Logger log = Logger.getLogger(WebResources.class);
+	private static final Logger log = LoggerFactory.getLogger(WebResources.class);
 	
 	public static ContextHandler defaultRes() throws Exception {
 		Path resBasePath = Paths.get(WebResources.class.getResource(".").toURI()).toAbsolutePath().normalize();

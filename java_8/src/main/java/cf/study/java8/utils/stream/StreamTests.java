@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -30,9 +29,11 @@ import misc.MiscUtils;
 public class StreamTests {
 	
 	static class DummyList<E> extends ArrayList<E> {
+		private static final long serialVersionUID = 1L;
 		
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void findNumbersGreaterThan5() {
 		Integer[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
@@ -108,7 +109,7 @@ public class StreamTests {
 		}
 	}
 
-	@Test
+	@Test @SuppressWarnings("unused")
 	public void createStream() {
 		{
 			Stream<Integer> intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
@@ -180,7 +181,7 @@ public class StreamTests {
 		System.out.println(intList);
 
 		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
-		Map intAndChars = intStream.distinct().collect(Collectors.toMap(i -> i, i -> (char) (97 + i)));
+		Map<?, ?> intAndChars = intStream.distinct().collect(Collectors.toMap(i -> i, i -> (char) (97 + i)));
 		System.out.println(intAndChars);
 
 		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);

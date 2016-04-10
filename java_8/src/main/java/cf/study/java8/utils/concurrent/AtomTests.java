@@ -6,8 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 public class AtomTests {
@@ -20,6 +19,7 @@ public class AtomTests {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testAtomIntInThreads() {
 		final AtomicInteger ai = new AtomicInteger();
@@ -50,6 +50,7 @@ public class AtomTests {
 		Assert.assertEquals(ai.get(), cnt);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testIntInThreads() {
 		final int[] i = new int[1];
@@ -80,6 +81,7 @@ public class AtomTests {
 		Assert.assertEquals(i[0], cnt);
 	}
 	
+	@SuppressWarnings("unused")
 	private Object shareable;
 	
 	@Test

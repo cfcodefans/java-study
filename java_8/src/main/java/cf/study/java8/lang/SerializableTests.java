@@ -106,11 +106,13 @@ public class SerializableTests {
 	}
 	
 	public static class B extends A implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public Object b;
 		public B() {System.out.println(MiscUtils.invocationInfo());};
 	}
 	
 	public static class C extends B {
+		private static final long serialVersionUID = 1L;
 		public Object c;
 		public C() {System.out.println(MiscUtils.invocationInfo());};
 	}
@@ -131,6 +133,7 @@ public class SerializableTests {
 	}
 	
 	static class SerializableSingleton implements Serializable {
+		private static final long serialVersionUID = 1L;
 		static SerializableSingleton instance = new SerializableSingleton();
 		private Object readResolve() {
 			System.out.println(this);

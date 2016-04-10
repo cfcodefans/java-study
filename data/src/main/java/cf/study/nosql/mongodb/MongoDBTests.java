@@ -1,6 +1,13 @@
 package cf.study.nosql.mongodb;
 
 
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.lt;
+import static com.mongodb.client.model.Projections.fields;
+import static com.mongodb.client.model.Projections.include;
+import static com.mongodb.client.model.Sorts.ascending;
 import static java.util.Arrays.asList;
 
 import java.text.DateFormat;
@@ -15,15 +22,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
-
-import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Projections.*;
-import static com.mongodb.client.model.Sorts.*;
 
 public class MongoDBTests {
 
@@ -97,20 +101,20 @@ public class MongoDBTests {
 	
 	@Test
 	public void testFindConds() {
-		col.find(eq("name", "Vella")).forEach(this::print);
+		col.find(eq("name", "Vella")).forEach(printer);
 		System.out.println();
-		col.find(new Document("address.zipcode", "10075")).projection(include("name")).limit(5).forEach(this::print);
+		col.find(new Document("address.zipcode", "10075")).projection(include("name")).limit(5).forEach(printer);
 		System.out.println();
 		print(col.find(eq("grades.grade", "B")).first());
 		System.out.println();
 		print(col.find(and(eq("grades.grade", "B"), eq("grades.grade", "A"))).projection(include("name", "grades.grade")).first());
 		System.out.println();
-		col.find(gt("grades.score", 5)).projection(include("name", "grades.score")).limit(5).forEach(this::print);
+		col.find(gt("grades.score", 5)).projection(include("name", "grades.score")).limit(5).forEach(printer);
 		System.out.println();
-		col.find(lt("grades.score", 5)).projection(include("name", "grades.score")).limit(5).forEach(this::print);
+		col.find(lt("grades.score", 5)).projection(include("name", "grades.score")).limit(5).forEach(printer);
 		
 		System.out.println();
-		col.find(and(lt("grades.score", 6), gt("grades.score", 4))).projection(include("grades.score")).limit(5).forEach(this::print);
+		col.find(and(lt("grades.score", 6), gt("grades.score", 4))).projection(include("grades.score")).limit(5).forEach(printer);
 		
 	}
 	
@@ -121,28 +125,28 @@ public class MongoDBTests {
 			.sort(new Document("borough", 1).append("address.zipcode", 1))
 			.projection(include("name", "address.zipcode"))
 			.limit(5)
-			.forEach(this::print);
+			.forEach(printer);
 		
 		System.out.println("sort compound fields ascendently");
 		col.find()
 			.sort(new Document("borough", 1).append("address.zipcode", 1).append("name", 1))
 			.projection(include("name", "address.zipcode"))
 			.limit(5)
-			.forEach(this::print);
+			.forEach(printer);
 		
 		System.out.println("sort decendently");
 		col.find()
 			.sort(new Document("borough", 1).append("address.zipcode", -1))
 			.projection(include("name", "address.zipcode"))
 			.limit(5)
-			.forEach(this::print);
+			.forEach(printer);
 		
 		System.out.println("sorts decendently");
 		col.find()
 			.sort(ascending("name", "address.zipcode"))
 			.projection(include("name", "address.zipcode"))
 			.limit(5)
-			.forEach(this::print);
+			.forEach(printer);
 
 	}
 	
@@ -150,15 +154,17 @@ public class MongoDBTests {
 		System.out.println(d.toJson());
 	}
 	
+	Block<Document> printer = this::print;
+	
 	@Test 
 	public void testProjection() {
 		System.out.println("include");
-		col.find().projection(include("name", "address.zipcode")).limit(1).forEach(this::print);
+		col.find().projection(include("name", "address.zipcode")).limit(1).forEach(printer);
 		
 		System.out.println("fields");
-		col.find().projection(fields(include("name"), include("address.zipcode"))).limit(1).forEach(this::print);
+		col.find().projection(fields(include("name"), include("address.zipcode"))).limit(1).forEach(printer);
 		
 		System.out.println("elemMatch");
-		col.find().projection(Projections.elemMatch("grades.score", and(lt("grades.score", 6), gt("grades.score", 4)))).limit(1).forEach(this::print);
+		col.find().projection(Projections.elemMatch("grades.score", and(lt("grades.score", 6), gt("grades.score", 4)))).limit(1).forEach(printer);
 	}
 }

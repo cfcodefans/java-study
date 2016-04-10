@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -339,31 +338,29 @@ public class MiscUtils {
 				cls.getName());
 	}
 	
-	public static class JavaProcBuilder {
-		private ProcessBuilder procBuilder;
-		
-		private Map<String, String> args = new LinkedHashMap<String, String>();
-		
-		private String className = StringUtils.EMPTY;
-		private String javaHome = SystemUtils.JAVA_HOME;
-		private String classPath = SystemUtils.JAVA_CLASS_PATH;
-		
-		public JavaProcBuilder(String className) {
-			this.className = className;
-		}
-		
-		public JavaProcBuilder setJavaHome(String javaHome) {
-			this.javaHome = javaHome;
-			return this;
-		}
-		
-		public JavaProcBuilder setClassPath(String classPath) {
-			this.classPath = classPath;
-			return this;
-		}
-		
-		
-	}
+//	public static class JavaProcBuilder {
+//		private ProcessBuilder procBuilder;
+//		
+//		private Map<String, String> args = new LinkedHashMap<String, String>();
+//		
+//		private String className = StringUtils.EMPTY;
+//		private String javaHome = SystemUtils.JAVA_HOME;
+//		private String classPath = SystemUtils.JAVA_CLASS_PATH;
+//		
+//		public JavaProcBuilder(String className) {
+//			this.className = className;
+//		}
+//		
+//		public JavaProcBuilder setJavaHome(String javaHome) {
+//			this.javaHome = javaHome;
+//			return this;
+//		}
+//		
+//		public JavaProcBuilder setClassPath(String classPath) {
+//			this.classPath = classPath;
+//			return this;
+//		}
+//	}
 
 	public static BigDecimal pi(Integer n) {
 		if (n == null) {
@@ -402,12 +399,11 @@ public class MiscUtils {
 		BigDecimal pi = pi(n);
 		
 		List<Long> list = new ArrayList<Long>(n);
-		pi.toString().substring(0, n).chars().forEach((i)->{
-			char c = (char)i;
-			if (CharUtils.isAsciiNumeric(c)) {
-				list.add((long)(c - 48));
-			}
-		});
+		pi.toString().substring(0, n).chars()
+			.filter(i -> CharUtils.isAsciiNumeric((char)i))
+			.map(i -> i - 48)
+			.mapToLong(i -> (long)i)
+			.forEach(list::add);
 		
 		return list;
 	}

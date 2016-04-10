@@ -18,7 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cf.study.java8.lang.reflect.Reflects;
 
@@ -87,7 +88,7 @@ public class ClassEn extends BaseEn {
 	public SourceEn source;
 
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger(ClassEn.class);
+	private static final Logger log = LoggerFactory.getLogger(ClassEn.class);
 
 	public void loadClass() {
 		clazz = Reflects.loadClass(name);

@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class TestClass implements Serializable {
+	private static final long serialVersionUID = 1L;
 	String					msg	= "HEY!";
 	SerializableRunnable	runnable;
 

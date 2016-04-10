@@ -9,14 +9,15 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
-import misc.MiscUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import misc.MiscUtils;
 
 //@Singleton
 @ApplicationScoped
 public class SeqGenerator {
-	private static Logger log = Logger.getLogger(SeqGenerator.class);
+	private static Logger log = LoggerFactory.getLogger(SeqGenerator.class);
 	
 	private AtomicLong seq;
 	

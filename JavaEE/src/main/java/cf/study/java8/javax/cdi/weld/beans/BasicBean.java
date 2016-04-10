@@ -5,16 +5,17 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import misc.MiscUtils;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import misc.MiscUtils;
 
 @Dependent
 public class BasicBean {
 
-	private static Logger log = Logger.getLogger(BasicBean.class);
+	private static Logger log = LoggerFactory.getLogger(BasicBean.class);
 	
 	protected Long createdTime = System.currentTimeMillis();
 
