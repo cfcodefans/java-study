@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -23,6 +24,8 @@ import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisTests {
 
+	private static final Logger log = Logger.getLogger(RedisTests.class);
+	
 	private static JedisPool jedisPool;
 	
 	public static byte[] bytes(int...is) {
@@ -44,7 +47,8 @@ public class RedisTests {
 			poolCfg.setTestOnReturn(true);
 			poolCfg.setTestWhileIdle(true);
 			
-			jedisPool = new JedisPool(poolCfg, "192.168.60.129", 6379);
+//			jedisPool = new JedisPool(poolCfg, "192.168.60.129", 6379);
+			jedisPool = new JedisPool(poolCfg, "127.0.0.1", 6379);
 //			jedisPool = new JedisPool(poolCfg, "192.168.138.131", 6379);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,16 +89,17 @@ public class RedisTests {
 	@Test
 	public void testAuth() {
 		jedis.configGet("*").forEach(System.out::println);
-//		System.out.println(jedis.auth(""));
+//		log.info(jedis.auth(""));
 	}
 	
 	@Test
 	public void testBitCount() {
 		String key = "BITCOUNT_key";
-		System.out.println(jedis.set(key.getBytes(), new byte[] {2}));
-		Assert.assertEquals(jedis.bitcount(key.getBytes()).intValue(), 1);
-		Assert.assertEquals(jedis.append(key.getBytes(), new byte[] {6}).intValue(), 2);
-		Assert.assertEquals(jedis.bitcount(key.getBytes()).intValue(), 3);
+		byte[] kbs = key.getBytes();
+		log.info(jedis.set(kbs, new byte[] {2}));
+		Assert.assertEquals(jedis.bitcount(kbs).intValue(), 1);
+		Assert.assertEquals(jedis.append(kbs, new byte[] {6}).intValue(), 2);
+		Assert.assertEquals(jedis.bitcount(kbs).intValue(), 3);
 	}
 	
 	@Test
@@ -105,40 +110,40 @@ public class RedisTests {
 		
 		jedis.set(key1, bytes(2));
 		jedis.set(key2, bytes(1));
-		System.out.println(Arrays.toString(jedis.get(key1)));
-		System.out.println(Arrays.toString(jedis.get(key2)));
+		log.info(Arrays.toString(jedis.get(key1)));
+		log.info(Arrays.toString(jedis.get(key2)));
 		jedis.bitop(BitOP.AND, reKey, key1, key2);
 		byte[] expecteds = jedis.get(reKey);
-		System.out.println(Arrays.toString(expecteds));
+		log.info(Arrays.toString(expecteds));
 		Assert.assertArrayEquals(expecteds, bytes(0));
-		System.out.println();
+		log.info("");
 		
 		jedis.set(key1, bytes(2));
 		jedis.set(key2, bytes(1));
-		System.out.println(Arrays.toString(jedis.get(key1)));
-		System.out.println(Arrays.toString(jedis.get(key2)));
+		log.info(Arrays.toString(jedis.get(key1)));
+		log.info(Arrays.toString(jedis.get(key2)));
 		jedis.bitop(BitOP.OR, reKey, key1, key2);
 		expecteds = jedis.get(reKey);
-		System.out.println(Arrays.toString(expecteds));
+		log.info(Arrays.toString(expecteds));
 		Assert.assertArrayEquals(expecteds, bytes(3));
-		System.out.println();
+		log.info("");
 		
 		jedis.set(key2, bytes(1));
 		jedis.bitop(BitOP.NOT, reKey, key2);
-		System.out.println(Arrays.toString(jedis.get(key2)));
-		System.out.println(Arrays.toString(expecteds));
+		log.info(Arrays.toString(jedis.get(key2)));
+		log.info(Arrays.toString(expecteds));
 		Assert.assertArrayEquals(jedis.get(reKey), bytes(-2));
-		System.out.println();
+		log.info("");
 		
 		jedis.set(key1, bytes(3));
 		jedis.set(key2, bytes(1));
-		System.out.println(Arrays.toString(jedis.get(key1)));
-		System.out.println(Arrays.toString(jedis.get(key2)));
+		log.info(Arrays.toString(jedis.get(key1)));
+		log.info(Arrays.toString(jedis.get(key2)));
 		jedis.bitop(BitOP.XOR, reKey, key1, key2);
 		expecteds = jedis.get(reKey);
-		System.out.println(Arrays.toString(expecteds));
+		log.info(Arrays.toString(expecteds));
 		Assert.assertArrayEquals(expecteds, bytes(2));
-		System.out.println();
+		log.info("");
 	}
 	
 	@Test
@@ -146,33 +151,32 @@ public class RedisTests {
 		//from right to left
 		byte[] key = "byte_key".getBytes();
 		jedis.set(key, bytes(4));
-		System.out.println(jedis.bitpos(key, true));
+		log.info(jedis.bitpos(key, true));
 		jedis.set(key, bytes(2));
-		System.out.println(jedis.bitpos(key, true));
+		log.info(jedis.bitpos(key, true));
 		jedis.set(key, bytes(128));
 		Assert.assertEquals(jedis.bitpos(key, true).intValue(), 1);
 	}
 	
 	@Test
 	public void testClient() {
-		System.out.println(jedis.clientList());
-		System.out.println(jedis.clientGetname());
+		log.info(jedis.clientList());
+		log.info(jedis.clientGetname());
 	}
 	
 	@Test
 	public void testDecr() {
 		byte[] key = "byte_key".getBytes();
 		jedis.set(key, bytes(0,0,0,0,0,0,0,5));
-		System.out.println(Arrays.toString(jedis.get(key)));
+		log.info(Arrays.toString(jedis.get(key)));
 		jedis.decr(key);
 		byte[] expecteds = jedis.get(key);
-		System.out.println(Arrays.toString(expecteds));
+		log.info(Arrays.toString(expecteds));
 //		Assert.assertArrayEquals(expecteds, bytes(0, 4));
 		
 		String sk = "key";
 		jedis.set(sk, "10");
-		System.out.println(jedis.decr(sk));
-		
+		log.info(jedis.decr(sk));
 	}
 	
 	@Test
@@ -235,8 +239,8 @@ public class RedisTests {
 		Assert.assertTrue(jedis.getbit(key, 1));
 		jedis.setbit(key, 7, true);
 		Assert.assertTrue(jedis.getbit(key, 7));
-		System.out.println((short)jedis.get(key).charAt(0));
-		System.out.println((short)'A');
+		log.info((short)jedis.get(key).charAt(0));
+		log.info((short)'A');
 	}
 	
 	@Test
@@ -303,7 +307,7 @@ public class RedisTests {
 	
 	@Test
 	public void testMisc() {
-		System.out.println(jedis.asking());
+		log.info(jedis.asking());
 	}
 	
 	@Test
@@ -325,8 +329,8 @@ public class RedisTests {
 	public void testSet() {
 		byte[] key = "byte_key".getBytes();
 		jedis.set(key, bytes(1));
-		System.out.println(Arrays.toString(bytes(1)));
-		System.out.println(Arrays.toString(jedis.get(key)));
+		log.info(Arrays.toString(bytes(1)));
+		log.info(Arrays.toString(jedis.get(key)));
 	}
 	
 	@Test
@@ -348,7 +352,7 @@ public class RedisTests {
 		Assert.assertFalse(keys.contains("three"));
 		
 		keys = jedis.keys("[^o]*");
-		System.out.println(keys);
+		log.info(keys);
 		Assert.assertFalse(keys.contains("one"));
 		Assert.assertTrue(keys.contains("two"));
 		Assert.assertTrue(keys.contains("four"));
@@ -372,17 +376,17 @@ public class RedisTests {
 	public void testList() {
 		final String key = "month";
 		Stream.of(Month.values()).forEach(m->jedis.lpush(key, m.name()));
-		System.out.println(jedis.lrange(key, 0, -1));
-		System.out.println(jedis.lrange(key, 0, jedis.llen(key)));
-		System.out.println(jedis.lrange(key, 0, 0));
-		System.out.println(jedis.lindex(key, 0));
+		log.info(jedis.lrange(key, 0, -1));
+		log.info(jedis.lrange(key, 0, jedis.llen(key)));
+		log.info(jedis.lrange(key, 0, 0));
+		log.info(jedis.lindex(key, 0));
 		Assert.assertEquals(jedis.lindex(key, 0), jedis.lpop(key)); 
-		System.out.println(jedis.lrange(key, 0, -1));
+		log.info(jedis.lrange(key, 0, -1));
 		jedis.lset(key, 0, Month.DECEMBER.name());
 		Assert.assertEquals(Month.DECEMBER.name(), jedis.lpop(key)); 
 		Assert.assertEquals(10, jedis.llen(key).intValue());
 		jedis.lrem(key, 0, Month.JANUARY.name());
-		System.out.println(jedis.lrange(key, 0, -1));
+		log.info(jedis.lrange(key, 0, -1));
 	}
 	
 	@Test
@@ -390,10 +394,10 @@ public class RedisTests {
 		final String key = "months";
 		Stream.of(Month.values()).forEach(m->jedis.sadd(key, m.name()));
 		
-		System.out.println(jedis.scard(key) + ":" + jedis.smembers(key));
+		log.info(jedis.scard(key) + ":" + jedis.smembers(key));
 		
 		jedis.sadd(key, Month.MAY.name());
 		
-		System.out.println(jedis.scard(key) + ":" +jedis.smembers(key));
+		log.info(jedis.scard(key) + ":" +jedis.smembers(key));
 	}
 }
