@@ -1,6 +1,6 @@
 package cf.study.misc.algo.datastructure;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;

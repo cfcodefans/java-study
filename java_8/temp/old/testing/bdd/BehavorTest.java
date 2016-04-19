@@ -1,6 +1,6 @@
 package cf.study.testing.bdd;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import cucumber.annotation.en.But;
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;

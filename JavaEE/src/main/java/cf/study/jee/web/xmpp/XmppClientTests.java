@@ -17,11 +17,12 @@ public class XmppClientTests {
 		SSLContext sslCtx = SSLContext.getDefault();
 		TcpConnectionConfiguration tcpCfg = TcpConnectionConfiguration.builder().hostname("atkins.thenetcircle.lab").port(5222).sslContext(sslCtx).keepAliveInterval(5).build();
 
-		XmppClient xmppClient = new XmppClient("poppen.xmpp.lab", tcpCfg);
+		try (XmppClient xmppClient = XmppClient.create("poppen.xmpp.lab", tcpCfg)) {
 
-		xmppClient.addInboundPresenceListener(e -> {
-			Presence p = e.getPresence();
-			System.out.println(ToStringBuilder.reflectionToString(p, ToStringStyle.MULTI_LINE_STYLE));
-		});
+			xmppClient.addInboundPresenceListener(e -> {
+				Presence p = e.getPresence();
+				System.out.println(ToStringBuilder.reflectionToString(p, ToStringStyle.MULTI_LINE_STYLE));
+			});
+		}
 	}
 }

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -135,10 +135,12 @@ public class StatTests {
 	
 	@Test
 	public void testMedian() {
-		double[] rs = randoms(RandomUtils.nextInt() % 20);
+		double[] rs = randoms(RandomUtils.nextInt(9, 19));
 		Median m = new Median();
 		double evaluate = m.evaluate(rs);
 		Arrays.sort(rs);
 		log.info(String.format("median of %s \n is %f", Arrays.toString(rs), evaluate));
 	}
+	
+	
 }

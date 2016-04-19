@@ -1,5 +1,6 @@
 package misc;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -49,10 +50,12 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 
 public class MiscUtils {
@@ -142,7 +145,7 @@ public class MiscUtils {
 	}
 
 	public static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
-	private static long HOST_HASH = System.currentTimeMillis();
+	public static long HOST_HASH = System.currentTimeMillis();
 	private static long IDX = 0;
 
 	static {
@@ -273,7 +276,7 @@ public class MiscUtils {
 			HttpGet hg = new HttpGet(ub.build());
 			try (CloseableHttpResponse hr = hc.execute(hg)) {
 				BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
-//				bhr.setEntity(entity);(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
 				return bhr;
 			}
 		} catch (Exception e) {
@@ -298,7 +301,7 @@ public class MiscUtils {
 			
 			try (CloseableHttpResponse hr = hc.execute(hp)) {
 				BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
-//				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+				bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
 				return bhr;
 			}
 		} catch (Exception e) {

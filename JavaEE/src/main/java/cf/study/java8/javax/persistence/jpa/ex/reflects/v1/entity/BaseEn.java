@@ -13,6 +13,7 @@ import static java.lang.reflect.Modifier.isTransient;
 import static java.lang.reflect.Modifier.isVolatile;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,8 +41,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 @Entity
 @Table(name = "base_en", indexes = { @Index(name="name_idx", columnList = "name"), @Index(columnList="category", name="cat_idx") })
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -62,7 +61,7 @@ public class BaseEn {
 	
 //	@Transient
 	@OneToMany(cascade= {CascadeType.REFRESH}, mappedBy="enclosing")
-	public Collection<BaseEn> children = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+	public Collection<BaseEn> children = Collections.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="category")

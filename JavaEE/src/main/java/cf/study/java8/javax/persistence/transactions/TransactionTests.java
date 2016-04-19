@@ -113,7 +113,7 @@ public class TransactionTests {
 	public void testTransactionWaitWithPayment() throws Exception {
 		{
 			BaseDao bd = new BaseDao(getEm());
-			System.out.println(bd.countByNativeSqlWithIndexedParams("select count(1) from TT_ORDER;"));
+			log.info(String.valueOf(bd.countByNativeSqlWithIndexedParams("select count(1) from TT_ORDER;")));
 			List<Object[]> re = bd.queryByNativeSqlWithIndexedParams("show Variables where Variable_name like 'innodb_lock_wait_timeout';", 0, 0);
 			re.forEach(e->log.info(Arrays.toString(e)));
 		}

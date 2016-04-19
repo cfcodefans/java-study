@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -17,9 +18,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import misc.MiscUtils;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,13 +35,14 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 import cf.study.java8.lang.reflect.Reflects;
+import misc.MiscUtils;
 
 public class EntityAssembler {
 
 	public static class Context {
 		public Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>());
 		public Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
-		public Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+		public Collection<BaseEn> roots = Collections.synchronizedCollection(new LinkedHashSet<BaseEn>());
 		public Map<String, ClassEn> inflatedClassEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
 
 		public void reset() {

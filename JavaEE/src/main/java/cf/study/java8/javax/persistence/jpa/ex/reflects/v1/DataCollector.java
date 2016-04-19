@@ -29,7 +29,6 @@ import java.util.zip.ZipFile;
 
 import javax.persistence.EntityManager;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -81,7 +80,7 @@ public class DataCollector {
 
 	public final Map<String, PackageEn> packageEnPool = new ConcurrentHashMap<String, PackageEn>(1000);
 	public final ConcurrentHashMap<String, AtomicReference<ClassEn>> classEnPool = new ConcurrentHashMap<String, AtomicReference<ClassEn>>(21000);
-	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+	public final Collection<BaseEn> roots = Collections.synchronizedCollection(new LinkedHashSet<BaseEn>());
 	public final DataCollector base;
 	
 	public DataCollector() {

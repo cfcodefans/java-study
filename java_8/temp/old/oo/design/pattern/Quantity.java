@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Currency;
 import java.util.Locale;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 
 class Money implements Comparable<Money> {

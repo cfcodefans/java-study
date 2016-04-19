@@ -25,7 +25,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -361,7 +360,7 @@ public class EntityJpaProcessor {
 			.synchronizedMap(new LinkedHashMap<String, ClassEn>(21000));
 	public final Map<String, PackageEn> packageEnPool = MapUtils
 			.synchronizedMap(new LinkedHashMap<String, PackageEn>(1000));
-	public final Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
+	public final Collection<BaseEn> roots = Collections.synchronizedCollection(new LinkedHashSet<BaseEn>());
 
 	private static final Logger log = LoggerFactory.getLogger(EntityJpaProcessor.class);
 

@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -19,7 +20,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -46,8 +46,8 @@ public class EntryLoader {
 
 	Map<String, PackageEn> packageEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, PackageEn>());
 	Map<String, ClassEn> classEnPool = MapUtils.synchronizedMap(new LinkedHashMap<String, ClassEn>());
-	Collection<BaseEn> roots = CollectionUtils.synchronizedCollection(new LinkedHashSet<BaseEn>());
-	Collection<String> inflatedClassSet = CollectionUtils.synchronizedCollection(new LinkedHashSet<String>());
+	Collection<BaseEn> roots = Collections.synchronizedCollection(new LinkedHashSet<BaseEn>());
+	Collection<String> inflatedClassSet = Collections.synchronizedCollection(new LinkedHashSet<String>());
 
 	private final ReentrantLock lock = new ReentrantLock();
 
@@ -61,14 +61,10 @@ public class EntryLoader {
 	}
 
 	void extractJarStructure(final File f) throws MalformedURLException, IOException {
-		JarFileClassLoader cl = new JarFileClassLoader("jfcl", new URL[] { f.toURI().toURL() }, ClassLoader.getSystemClassLoader());
-
-		try {
+		try (JarFileClassLoader cl = new JarFileClassLoader("jfcl", new URL[] { f.toURI().toURL() }, ClassLoader.getSystemClassLoader())) {
 			try (JarFile jf = new JarFile(f)) {
 				System.out.println(String.format("entries: %d", jf.size()));
-
 				try (Stream<JarEntry> entryStream = jf.stream()) {
-
 					entryStream.filter((je) -> {
 						return !(je.isDirectory() || "META-INF".equals(je.getName()) || je.getName().endsWith("package-info"));
 					}).forEach((je) -> {
@@ -85,9 +81,7 @@ public class EntryLoader {
 					});
 				}
 			}
-		} finally {
-			cl.close();
-		}
+		} 
 	}
 
 	public PackageEn preloadPackageEnByName(String name) {

@@ -8,7 +8,7 @@
 	</parent>
 
 	<properties>
-		<spring-ver>4.2.5</spring-ver>
+		<spring-ver>4.2.5.RELEASE</spring-ver>
 	</properties>
 
 	<dependencies>
@@ -21,6 +21,12 @@
 			<groupId>study_java_8</groupId>
 			<artifactId>commons</artifactId>
 			<version>0.0.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -35,7 +41,13 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
-			<version>1.4.2.RELEASE</version>
+			<version>1.7.1.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -51,12 +63,20 @@
 					<artifactId>poi-scratchpad</artifactId>
 					<groupId>org.apache.poi</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-parsers</artifactId>
-			<version>1.8</version>
+			<version>1.12</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>poi-scratchpad</artifactId>
@@ -70,6 +90,10 @@
 					<artifactId>poi-ooxml</artifactId>
 					<groupId>org.apache.poi</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -77,6 +101,12 @@
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-all</artifactId>
 			<version>1.2.3</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -90,6 +120,12 @@
 			<artifactId>mina-example</artifactId>
 			<!-- <scope>test</scope> -->
 			<version>2.0.8</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

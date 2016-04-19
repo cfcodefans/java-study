@@ -20,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cf.study.java8.javax.cdi.weld.beans.AppBean;
 import misc.MiscUtils;
 
 

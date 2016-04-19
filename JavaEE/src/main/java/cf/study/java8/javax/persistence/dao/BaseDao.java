@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class BaseDao<T> {
 	private static Logger log = LoggerFactory.getLogger(BaseDao.class);
 	
-	public Object doFuncInTransaction(Function<BaseDao, Object> func) {
+	public Object doFuncInTransaction(Function<BaseDao<T>, Object> func) {
 		if (func == null) return null;
 		try {
 			this.beginTransaction();

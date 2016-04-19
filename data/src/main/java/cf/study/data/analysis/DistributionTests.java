@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import misc.MiscUtils;
-
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
+import misc.MiscUtils;
 
 public class DistributionTests {
 	
@@ -85,7 +85,7 @@ public class DistributionTests {
 		log.info(String.format("%d is even", rds.stream().filter(r -> r % 2 == 0).count()));
 		log.info(String.format("%d is odd", rds.stream().filter(r -> r % 2 != 0).count()));
 		
-		rds.stream().distinct().sorted().forEach(i -> log.info(String.format("%d appears %d times", i, CollectionUtils.countMatches(rds, (v)->v==i))));
+		rds.stream().distinct().sorted().forEach(i -> log.info(String.format("%d appears %d times", i, IterableUtils.countMatches(rds, (v)->v==i))));
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class DistributionTests {
 		
 		List<Integer> ds = samples.stream().distinct().sorted().collect(Collectors.toList());
 		
-		ds.forEach(i -> log.info(String.format("%d\t%d\t%f", i, CollectionUtils.countMatches(samples, (v)->i.equals(v)), bd.probability(i))));
+		ds.forEach(i -> log.info(String.format("%d\t%d\t%f", i, IterableUtils.countMatches(samples, (v)->i.equals(v)), bd.probability(i))));
 		
 		log.info("");
 	}

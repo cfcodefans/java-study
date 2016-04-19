@@ -2,7 +2,7 @@ package cf.study.framework.spring.eg.ibm.redis;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

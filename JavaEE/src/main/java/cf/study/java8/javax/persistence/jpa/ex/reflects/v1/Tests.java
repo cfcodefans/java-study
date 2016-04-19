@@ -8,8 +8,6 @@ import java.util.stream.Stream;
 
 import javax.enterprise.inject.spi.Bean;
 
-import junit.framework.Assert;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -21,6 +19,7 @@ import org.junit.Test;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.lang.reflect.Reflects;
+import org.junit.Assert;
 
 public class Tests {
 

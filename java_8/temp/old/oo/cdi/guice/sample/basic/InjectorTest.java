@@ -2,7 +2,7 @@ package cf.study.oo.cdi.guice.sample.basic;
 
 import javax.inject.Inject;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

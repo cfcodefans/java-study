@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.httpclient.HttpClient;

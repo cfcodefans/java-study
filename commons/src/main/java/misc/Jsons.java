@@ -1,6 +1,7 @@
 package misc;
 
 import java.io.InputStream;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public final class Jsons {
 	private Jsons() {
@@ -77,5 +79,14 @@ public final class Jsons {
 		}
 	}
 
+	public static JsonNode toJson(Map<String, Object> map) {
+		try {
+			ObjectNode jn = MAPPER.createObjectNode();
+			map.forEach((k,v) -> jn.putPOJO(k, v));
+			return jn;
+		} catch (Exception e) {
+			throw new RuntimeException("deserialing json to string",e);
+		}
+	}
 }
 

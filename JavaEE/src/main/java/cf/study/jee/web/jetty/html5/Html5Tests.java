@@ -2,7 +2,7 @@ package cf.study.jee.web.jetty.html5;
 
 import javax.servlet.http.HttpServlet;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
