@@ -123,7 +123,44 @@ public class ThreadTests {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	@Test
+	public void testInterruptBlocked() {
+		Object obj = new Object();
+		Thread holder = new Thread(()-> {
+			try {
+				Thread.sleep(1000);
+				log.info("holder ready");
+				synchronized (obj) {
+					Thread.sleep(2000);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		
+		Thread taker = new Thread(()-> {
+			try {
+				Thread.sleep(1000);
+				log.info("taker ready");
+				synchronized (obj) {
+					log.info("get the obj " + Thread.interrupted());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		holder.start();
+		taker.start();
+		
+		MiscUtils.easySleep(1500);
+		log.info("taker stop!");
+		
+		taker.interrupt();
+		
+		MiscUtils.easySleep(1500);
 	}
 	
 	@Test
