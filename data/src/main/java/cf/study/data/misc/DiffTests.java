@@ -64,6 +64,7 @@ public class DiffTests {
 		
 		Patch<String> patch = DiffUtils.diff(original, revised);
 		Delta<String> delta = patch.getDeltas().get(0);
+		System.out.println(delta);
 	}
 	
 	@Test

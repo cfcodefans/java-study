@@ -26,7 +26,7 @@ public final class Jsons {
 		MAPPER.setSerializationInclusion(Include.NON_NULL);
 		MAPPER.configure(SerializationFeature.INDENT_OUTPUT, true);
 		MAPPER.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true);
-		MAPPER.configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, false);
+		MAPPER.configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
 		
 //		JaxbAnnotationModule module = new JaxbAnnotationModule();
 //		// configure as necessary

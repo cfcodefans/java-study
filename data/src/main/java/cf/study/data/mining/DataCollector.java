@@ -9,6 +9,8 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,6 +19,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,6 +31,7 @@ import java.util.stream.Stream;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -35,6 +39,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
@@ -48,6 +59,7 @@ import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.SourceEn;
 import cf.study.java8.lang.reflect.Reflects;
+import misc.MiscUtils;
 
 
 
@@ -68,7 +80,7 @@ public class DataCollector {
 			peList.parallelStream().forEach(pe -> _base.packageEnPool.put(pe.name, pe));
 			
 //			Object delegate = dao.getEm().getDelegate();
-//			System.out.println(delegate);
+//			log.info(delegate);
 		}
 	}
 	
@@ -154,7 +166,7 @@ public class DataCollector {
 		if (clz == null)
 			return null;
 
-//		System.out.println(MiscUtils.invocationInfo() + " clz:\t" + clz);
+//		log.info(MiscUtils.invocationInfo() + " clz:\t" + clz);
 		
 		while (clz.isArray()) {
 			clz = clz.getComponentType();
@@ -404,7 +416,7 @@ public class DataCollector {
 			Consumer<BaseEn> act, 
 			Consumer<BaseEn> _act) {
 
-		System.out.println(be);
+		log.info(be);
 		if (!threshold.test(be)) return;
 		
 		act.accept(be);
@@ -419,7 +431,7 @@ public class DataCollector {
 			Consumer<BaseEn> _act) {
 
 		if (threshold != null && !threshold.test(be)) {
-			System.out.println(be);
+			log.info(be);
 			return;
 		}
 		
@@ -437,7 +449,8 @@ public class DataCollector {
 		DataCollector dc = new DataCollector();
 		dc.processClass(Target.class);
 		ClassEn ce = dc.getClassEnFromCache(Target.class.getName());
-		log.info(ce);
+		log.info("ce: " + ce);
+//		log.info("json: " + Jsons.toString(ce));
 	}
 	
 	public static DataCollector process(final DataCollector base, final File jar, final File src) {
@@ -476,13 +489,61 @@ public class DataCollector {
 		File srcFile = Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip").toFile();
 		
 		DataCollector dc = process(null, jar, srcFile);
-		System.out.println(dc.classEnPool.size());
+		log.info(dc.classEnPool.size());
+	}
+	
+	@Test
+	public void generateJsonData() throws Exception {
+		File jar = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));
+		File srcFile = Paths.get(SystemUtils.JAVA_HOME).getParent().resolve("src.zip").toFile();
+		
+		DataCollector dc = process(null, jar, srcFile);
+		log.info(dc.classEnPool.size());
+		
+		ObjectMapper MAPPER = new ObjectMapper();
+		MAPPER.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+		MAPPER.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+		MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+		MAPPER.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		MAPPER.setSerializationInclusion(Include.NON_NULL);
+		MAPPER.configure(SerializationFeature.INDENT_OUTPUT, false);
+		MAPPER.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true);
+		MAPPER.configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
+		
+		List<String> jnList = dc.classEnPool.values().stream().map(AtomicReference::get)//.limit(1)
+				.map(ce -> MiscUtils.map("name", ce.name,
+										 "package", ce.pkg == null ? null : ce.pkg.name,
+										 "category", ce.category.name(),
+										 "super", ce.superClz == null ? null : ce.superClz.name,
+										 "interfaces", ce.infs.stream().map(ie -> ie.name).collect(Collectors.toList()),
+										 "modifiers", ce.modifiers,
+										 "fields", ce.children.stream().filter(be -> be instanceof FieldEn).map(be -> (FieldEn)be)
+										 			.map(be-> MiscUtils.map("name", be.name,
+										 									"field_type", be.fieldType.name)).collect(Collectors.toList()),
+										 "methods", ce.children.stream().filter(be -> be instanceof MethodEn).map(be -> (MethodEn)be)
+										 			.map(be-> MiscUtils.map("name", be.name,
+										 									"return", be.returnClass == null ? null : be.returnClass.name,
+										 									"params", be.children.stream().map(pe->pe.name).collect(Collectors.toList())))
+										 			.collect(Collectors.toList())))
+				.map(m->{
+					try {
+						return MAPPER.writeValueAsString(m);
+					} catch (Exception e) {
+						log.error(e);
+						return null;
+					}
+				}).collect(Collectors.toList());
+		
+		String outputFilePathStr = ".\\test\\crawler\\class.json";
+		Path path = Paths.get(outputFilePathStr);
+		Files.deleteIfExists(path);
+		FileUtils.writeLines(Files.createFile(path).toFile(), jnList);
 	}
 	
 	public void organizeClasses(final BaseEn be, final Set<BaseEn> queue) {
 		if (be == null || queue.contains(be)) return;
 		
-		System.out.println(be.id + ":\t" + be);
+		log.info(be.id + ":\t" + be);
 		
 		if (be instanceof PackageEn) {
 			be.annotations.forEach(_be->organizeClasses(_be, queue));

@@ -44,7 +44,7 @@ public class ClassEn extends BaseEn {
 			try {
 				clazz = Class.forName(name, false, ClassLoader.getSystemClassLoader());
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("couldn't load class: " + name);
 			}
 		}
 	}
