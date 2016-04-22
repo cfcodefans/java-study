@@ -25,7 +25,7 @@ public class BasicBean {
 	protected String name;
 
 	public BasicBean() {
-		log.info(MiscUtils.invocationInfo() + "\n\t" + this);
+		log.info(MiscUtils.invocationInfo());
 	}
 	@Override
 	public boolean equals(Object obj) {

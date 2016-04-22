@@ -15,7 +15,6 @@ public class BizRequest extends BasicBean {
 	
 	private Object param;
 
-	@Logged
 	public Object getParam() {
 		return param;
 	}
@@ -31,6 +30,6 @@ public class BizRequest extends BasicBean {
 
 	@Override
 	public String toString() {
-		return "BizRequest [getParam()=" + getParam() + ", getCreatedTime()=" + getCreatedTime() + ", getId()=" + getId() + ", getName()=" + getName() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+		return "BizRequest [param=" + param + ", createdTime=" + createdTime + ", id=" + id + ", name=" + name + "]";
 	}
 }

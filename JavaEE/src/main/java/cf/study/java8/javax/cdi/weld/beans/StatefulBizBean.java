@@ -2,14 +2,17 @@ package cf.study.java8.javax.cdi.weld.beans;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cf.study.java8.javax.cdi.weld.interceptor.Interested;
+import cf.study.java8.javax.cdi.weld.interceptor.Logged;
 import misc.MiscUtils;
 
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class StatefulBizBean extends BasicBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +25,8 @@ public class StatefulBizBean extends BasicBean implements Serializable {
 		return state;
 	}
 
+	@Interested
+	@Logged
 	public void setState(Object state) {
 		this.state = state;
 	}

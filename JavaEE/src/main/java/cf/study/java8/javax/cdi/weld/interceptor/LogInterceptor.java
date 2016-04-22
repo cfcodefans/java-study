@@ -15,7 +15,7 @@ public class LogInterceptor {
 	private static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
 
 	@AroundInvoke
-	public Object withTransaction(InvocationContext ctx) throws Throwable {
+	public Object log(InvocationContext ctx) throws Throwable {
 		log.info(String.format("%s.%s(%s)", ctx.getTarget().getClass().getSimpleName(), 
 				ctx.getMethod().getName(), 
 				StringUtils.join(ctx.getParameters(), ',')));
