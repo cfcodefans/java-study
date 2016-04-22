@@ -9,9 +9,15 @@
 
 	<properties>
 		<spring-ver>4.2.5.RELEASE</spring-ver>
+		<aspectj-ver>1.8.9</aspectj-ver>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj-ver}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -93,6 +99,10 @@
 				<exclusion>
 					<artifactId>slf4j-api</artifactId>
 					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aspectjrt</artifactId>
+					<groupId>org.aspectj</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
