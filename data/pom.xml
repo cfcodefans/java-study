@@ -72,7 +72,46 @@
 			<artifactId>mongodb-driver</artifactId>
 			<version>3.2.2</version>
 		</dependency>
+
+
+<!-- OrientDB -->
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-object</artifactId>
+			<version>${orientdb-ver}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-core</artifactId>
+			<version>${orientdb-ver}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-enterprise</artifactId>
+			<version>2.2.0-beta</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>orientdb-core</artifactId>
+					<groupId>com.orientechnologies</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.orientechnologies</groupId>
+			<artifactId>orientdb-server</artifactId>
+			<version>${orientdb-ver}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>orientdb-core</artifactId>
+					<groupId>com.orientechnologies</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 	<artifactId>Data</artifactId>
 	<packaging>jar</packaging>
+	
+	<properties>
+		<orientdb-ver>2.2.0-beta2</orientdb-ver>
+	</properties>
 </project>
