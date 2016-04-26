@@ -3,7 +3,6 @@ package cf.study.data.mining;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.lang.annotation.Target;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
@@ -19,7 +18,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -47,17 +45,17 @@ import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import cf.study.data.mining.entity.BaseEn;
+import cf.study.data.mining.entity.ClassEn;
+import cf.study.data.mining.entity.FieldEn;
+import cf.study.data.mining.entity.JarEn;
+import cf.study.data.mining.entity.MethodEn;
+import cf.study.data.mining.entity.PackageEn;
+import cf.study.data.mining.entity.ParameterEn;
+import cf.study.data.mining.entity.SourceEn;
 import cf.study.java8.javax.cdi.weld.WeldTest;
 import cf.study.java8.javax.persistence.dao.JpaModule;
 import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.BaseEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ClassEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.FieldEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.JarEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.MethodEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.PackageEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.ParameterEn;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity.SourceEn;
 import cf.study.java8.lang.reflect.Reflects;
 import misc.MiscUtils;
 
@@ -447,9 +445,10 @@ public class DataCollector {
 	@Test
 	public void testObject() {
 		DataCollector dc = new DataCollector();
-		dc.processClass(Target.class);
-		ClassEn ce = dc.getClassEnFromCache(Target.class.getName());
+		dc.processClass(Object.class);
+		ClassEn ce = dc.getClassEnFromCache(Object.class.getName());
 		log.info("ce: " + ce);
+		log.info(dc.classEnPool.size());
 //		log.info("json: " + Jsons.toString(ce));
 	}
 	
