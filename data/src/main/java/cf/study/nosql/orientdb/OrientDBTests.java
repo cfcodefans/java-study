@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
@@ -19,7 +20,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
 import com.orientechnologies.orient.core.entity.OEntityManager;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.object.db.OObjectDatabaseTx;
@@ -34,7 +34,9 @@ import com.orientechnologies.orient.server.config.OServerUserConfiguration;
 import com.orientechnologies.orient.server.token.OrientTokenHandler;
 
 import cf.study.nosql.orientdb.domain.TestEntity;
+import cf.study.nosql.orientdb.domain._Schema;
 import cf.study.nosql.orientdb.sample.QueryDbExample;
+import misc.Jsons;
 import misc.MiscUtils;
 
 public class OrientDBTests {
@@ -56,12 +58,7 @@ public class OrientDBTests {
 				log.info(String.format("database path is created at %s", Files.createDirectories(databasePath)));
 			}
 
-			String orientdbHome = new File(ORIENTDB_HOME).getAbsolutePath(); // Set
-																				// OrientDB
-																				// home
-																				// to
-																				// current
-																				// directory
+			String orientdbHome = new File(ORIENTDB_HOME).getAbsolutePath(); 
 			System.setProperty("ORIENTDB_HOME", orientdbHome);
 			System.setProperty("ORIENTDB_ROOT_PASSWORD", PASSWORD);
 
@@ -205,6 +202,25 @@ public class OrientDBTests {
 	public void testSample() {
 //		QueryDbExample.createPerson(db);
 		QueryDbExample.queryPersons(db);
+	}
+
+	@Test
+	public void _testSave() throws Exception {
+		_Schema cs = new _Schema();
+		cs.setSid(RandomUtils.nextLong(100, 400));
+		cs.setName(RandomStringUtils.randomAlphanumeric(10));
+		_Schema saved = db.save(cs);
+		saved = db.detachAll(saved, true);
+		
+		log.info(Jsons.toString(cs));
+		log.info("");
+		log.info(Jsons.toString(saved));
+	}
+
+	@Test
+	public void _testSearch() throws Exception {
+		Iterable<_Schema> schemas = db.browseClass(_Schema.class);
+		log.info(StringUtils.join(schemas, "\n"));
 	}
 
 	private static final Logger log = Logger.getLogger(OrientDBTests.class);

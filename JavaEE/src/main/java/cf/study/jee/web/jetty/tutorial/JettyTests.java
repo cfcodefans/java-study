@@ -17,7 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import misc.MiscUtils;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.entity.ContentType;
@@ -72,16 +76,16 @@ public class JettyTests {
 	private void testAtUrl(String url) {
 		HttpResponse httpResponse = MiscUtils.easyGet(url);
 		if (httpResponse == null) {
-			System.out.println("response is null");
-		} else {
-			System.out.println(httpResponse.toString());
-			try {
-				System.out.println(EntityUtils.toString(httpResponse.getEntity()));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			log.info("response is null");
+			return;
+		}
+		log.info(httpResponse.toString());
+		try {
+			log.info(EntityUtils.toString(httpResponse.getEntity()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -95,10 +99,10 @@ public class JettyTests {
 
 		@Override
 		public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-			System.out.println("target: \t" + target);
-			System.out.println("baseRequest: \t" + baseRequest);
-			System.out.println("request: \t" + request);
-			System.out.println("response: \t" + response);
+			log.info("target: \t" + target);
+			log.info("baseRequest: \t" + baseRequest);
+			log.info("request: \t" + request);
+			log.info("response: \t" + response);
 			
 			response.setContentType(MediaType.HTML_UTF_8.toString());
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -112,10 +116,10 @@ public class JettyTests {
 	public static class LogHandler extends AbstractHandler {
 		@Override
 		public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-			System.out.println("target: \t" + target);
-			System.out.println("baseRequest: \t" + baseRequest);
-			System.out.println("request: \t" + request);
-			System.out.println("response: \t" + response);
+			log.info("target: \t" + target);
+			log.info("baseRequest: \t" + baseRequest);
+			log.info("request: \t" + request);
+			log.info("response: \t" + response);
 		}
 	}
 	
@@ -166,13 +170,13 @@ public class JettyTests {
 			@Override
 			protected void doStart() throws Exception {
 				super.doStart();
-				System.out.println(MiscUtils.invocationInfo());
+				log.info(MiscUtils.invocationInfo());
 			}
 			
 			@Override
 			protected void doStop() throws Exception {
 				super.doStop();
-				System.out.println(MiscUtils.invocationInfo());
+				log.info(MiscUtils.invocationInfo());
 			}
 		};
 		http.setHost("localhost");
@@ -202,6 +206,13 @@ public class JettyTests {
 			resp.setContentType(ContentType.TEXT_HTML.getMimeType());
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.getWriter().println("<h1>Hello from <br>\n" + MiscUtils.invocationInfo() + "</h1>");
+			log.info("context: \t" + this.getServletContext().getContextPath());
+			log.info(req.getPathInfo());
+			log.info(req.getPathTranslated());
+			log.info(this.getServletContext().getRealPath("."));
+			log.info(req.getRequestURI());
+			log.info(req.getRequestURL().toString());
+			log.info(this.getServletContext().getResource("/").toString());
 		}
 	}
 	
@@ -287,7 +298,7 @@ public class JettyTests {
 		Server server = new Server(8080);
 		
 		ServletContextHandler ctx = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		ctx.setContextPath("/");
+		ctx.setContextPath("/ctx");
 		ctx.setResourceBase(SystemUtils.JAVA_IO_TMPDIR);
 		
 		server.setHandler(ctx);
@@ -299,8 +310,8 @@ public class JettyTests {
 		
 		ScheduledExecutorService threads = Executors.newScheduledThreadPool(4);
 		
-		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/"), 1, TimeUnit.SECONDS);
-		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/dump/fr"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/ctx"), 1, TimeUnit.SECONDS);
+		threads.schedule((Runnable)()->testAtUrl("http://localhost:8080/ctx/dump/fr"), 1, TimeUnit.SECONDS);
 		MiscUtils.easySleep(4000);
 	}
 	
@@ -397,7 +408,7 @@ public class JettyTests {
 		resHandler.setDirectoriesListed(true);
 		Path resBasePath = Paths.get(JettyTests.class.getResource(".").toURI()).resolve("../res") .toAbsolutePath().normalize();
 		
-		System.out.println(resBasePath);
+		log.info(resBasePath.toString());
 		
 		resHandler.setResourceBase(resBasePath.toString());
 		

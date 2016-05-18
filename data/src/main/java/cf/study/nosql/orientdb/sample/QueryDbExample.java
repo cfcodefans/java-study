@@ -1,17 +1,26 @@
 package cf.study.nosql.orientdb.sample;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.orientechnologies.orient.object.db.OObjectDatabaseTx;
+import com.orientechnologies.orient.object.enhancement.OObjectProxyMethodHandler;
 
 import cf.study.nosql.orientdb.domain.Account;
 import cf.study.nosql.orientdb.domain.Address;
 import cf.study.nosql.orientdb.domain.Person;
+import cf.study.nosql.orientdb.domain._Schema;
+import javassist.util.proxy.ProxyObject;
+import misc.Jsons;
 
 /**
  * @author Decebal Suiu
@@ -20,16 +29,16 @@ public class QueryDbExample {
 
 	private static final Logger log = LoggerFactory.getLogger(QueryDbExample.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		long time = System.currentTimeMillis();
 
 		OObjectDatabaseTx db = getDatabase();
 
-		long personCount = db.countClass(Person.class);
+		long personCount = db.countClass(_Schema.class);
 		if (personCount == 0) {
-			createPerson(db);
+			_testSave(db);
 		}
-		queryPersons(db);
+		_testSearch(db);
 
 		db.close();
 
@@ -126,6 +135,39 @@ public class QueryDbExample {
 		log.info("in again");
 		persons = db.query(new OSQLSynchQuery<Person>("select * from Person where lastName in ?"), new String[] { "Suiu", "abc"});
 		log.info(StringUtils.join(persons, "\n"));
+		
+		Consumer<Object> printORID = (o)->{
+			Assert.assertTrue(o instanceof ProxyObject);
+			ProxyObject po = (ProxyObject) o;
+			Assert.assertTrue(po.getHandler() instanceof OObjectProxyMethodHandler);
+			OObjectProxyMethodHandler opmd = (OObjectProxyMethodHandler) po.getHandler();
+			log.info(String.valueOf(opmd.getDoc().getIdentity()));
+		};
+		
+		printORID.accept(persons.get(0));
+		printORID.accept(persons.get(0).getAccount());
+		printORID.accept(persons.get(0).getDefaultAddress());
+		
+		Object detachAll = db.detachAll(persons.get(0), true);
+	}
+
+	@Test
+	public static void _testSave(OObjectDatabaseTx db) throws Exception {
+		_Schema cs = new _Schema();
+		cs.setSid(RandomUtils.nextLong(100, 400));
+		cs.setName(RandomStringUtils.randomAlphanumeric(10));
+		_Schema saved = db.save(cs);
+		saved = db.detachAll(saved, true);
+		
+		log.info(Jsons.toString(cs));
+		log.info("");
+		log.info(Jsons.toString(saved));
+	}
+
+	@Test
+	public static void _testSearch(OObjectDatabaseTx db) throws Exception {
+		Iterable<_Schema> schemas = db.browseClass(_Schema.class);
+		log.info(StringUtils.join(schemas, "\n"));
 	}
 
 }

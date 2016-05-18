@@ -81,7 +81,7 @@ public class EntryLoader {
 					});
 				}
 			}
-		} 
+		}
 	}
 
 	public PackageEn preloadPackageEnByName(String name) {
@@ -100,8 +100,7 @@ public class EntryLoader {
 			if (pkg == null)
 				return null;
 
-			PackageEn enclosing = StringUtils.contains(name, '.') ? preloadPackageEnByName(StringUtils
-					.substringBeforeLast(name, ".")) : null;
+			PackageEn enclosing = StringUtils.contains(name, '.') ? preloadPackageEnByName(StringUtils.substringBeforeLast(name, ".")) : null;
 			pe = new PackageEn(pkg, enclosing);
 			packageEnPool.put(name, pe);
 
@@ -155,8 +154,8 @@ public class EntryLoader {
 
 			Stream.of(cls.getInterfaces()).forEach((inf) -> {
 				// _ce.infs.add(getClassEnByClz(inf));
-					preloadClassEnByClz(inf);
-				});
+				preloadClassEnByClz(inf);
+			});
 
 			Stream.of(cls.getDeclaredFields()).forEach((field) -> {
 				preloadFieldEnByFiled(field, _ce);
@@ -241,8 +240,8 @@ public class EntryLoader {
 		});
 		Stream.of(method.getExceptionTypes()).forEach((clz) -> {
 			// _me.exceptionClzz.add(getClassEnByClz(clz));
-				preloadClassEnByClz(clz);
-			});
+			preloadClassEnByClz(clz);
+		});
 
 		return me;
 	}
@@ -365,7 +364,7 @@ public class EntryLoader {
 		pe.paramType = inflateClassEnByClz(pe.parameter.getType());
 		return pe;
 	}
-	
+
 	@Test
 	public void testLoading() throws Exception {
 		File _f = new File(String.format("%s/lib/rt.jar", SystemUtils.JAVA_HOME));

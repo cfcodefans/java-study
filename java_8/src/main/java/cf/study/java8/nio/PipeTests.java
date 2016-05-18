@@ -10,12 +10,13 @@ import java.nio.channels.Selector;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public class PipeTests {
 
-	private static final Logger log = Logger.getLogger(PipeTests.class);
+	private static final Logger log = LogManager.getLogger(ChannelTests.class);
 
 	@Test
 	public void testPipe() throws Exception {
@@ -47,7 +48,6 @@ public class PipeTests {
 						}
 						log.info("received:\t" + sb.toString());
 					}
-					;
 				}
 				log.info("interrupted:\t" + Thread.interrupted());
 			} catch (Exception e) {

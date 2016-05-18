@@ -5,8 +5,11 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ReflectTests {
@@ -84,5 +87,10 @@ public class ReflectTests {
 		
 		ParameterizedType pt = (ParameterizedType)_type;
 		Stream.of(pt.getActualTypeArguments()).forEach(System.out::println);
+	}
+	
+	@Test
+	public void testAssignedFrom() {
+		Assert.assertTrue(Collection.class.isAssignableFrom(List.class));
 	}
 }

@@ -1,9 +1,15 @@
 package cf.study.java8.lang;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
 
@@ -12,10 +18,55 @@ public class GenericTests {
 		T t;
 	}
 
+	public static class StringHolder extends Holder<String> {
+		
+	}
+	
+	
+	@Test
+	public void testSuperTypeParam() {
+		StringHolder sh = new StringHolder();
+		Type gs = sh.getClass().getGenericSuperclass();
+		System.out.println(gs);
+		System.out.println(gs instanceof ParameterizedType);
+		ParameterizedType pt = (ParameterizedType) gs;
+		System.out.println(pt.getActualTypeArguments()[0]);
+	}
+	
 	@Test
 	public void testTypeParam() {
-		Holder<Object> strHolder = new Holder<Object>();
-		System.out.println(strHolder.getClass().getGenericSuperclass());
+		Holder<String> strHolder = new Holder<String>();
+		Class<? extends Holder> clz = strHolder.getClass();
+		TypeVariable<?>[] tps = clz.getTypeParameters();
+		System.out.println(Arrays.toString(tps));
+		TypeVariable<?> tv = tps[0];
+		
+		System.out.println(ToStringBuilder.reflectionToString(tv));
+		System.out.println( tv.getBounds()[0].getTypeName());
+		
+		System.out.println();
+		Type genericSuperclass = clz.getGenericSuperclass();
+		System.out.println(genericSuperclass);
+	}
+	
+	public static class Cmp implements Comparator<String> {
+		@Override
+		public int compare(String o1, String o2) {
+			return o1.compareTo(o2);
+		}
+	}
+	
+	@Test
+	public void testTypeParam1() {
+		Cmp cmp = new Cmp();
+		Class<? extends Cmp> clz = cmp.getClass();
+		TypeVariable<?>[] tps = clz.getTypeParameters();
+		System.out.println(Arrays.toString(tps));
+		System.out.println(Arrays.toString(clz.getGenericInterfaces()));
+		Type t = clz.getGenericInterfaces()[0];
+		ParameterizedType pt = (ParameterizedType) t;
+		System.out.println(t.toString());
+		System.out.println(ToStringBuilder.reflectionToString(pt));
 	}
 
 	@SuppressWarnings("null")

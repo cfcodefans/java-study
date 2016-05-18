@@ -6,7 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import sun.nio.ch.ChannelInputStream;
@@ -15,7 +16,7 @@ import sun.nio.ch.ChannelInputStream;
 public class ChannelTests {
 
 	Path srcPath = Paths.get("./src/main/java/cf/study/java8/nio/ChannelTests.java");
-	private static final Logger log = Logger.getLogger(ChannelTests.class);
+	private static final Logger log = LogManager.getLogger(ChannelTests.class);
 
 	@Test
 	public void testReadFromChannel() throws Exception {
