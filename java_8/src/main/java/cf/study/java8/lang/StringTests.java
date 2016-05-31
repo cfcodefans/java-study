@@ -34,6 +34,8 @@ public class StringTests {
 		System.out.println(String.format("%02d", 124));
 		
 		System.out.println(DateUtils.parseDate("2015-06-27 00:00:00", "yyyy-MM-dd hh:mm:ss"));
+		
+		System.out.println(String.format("%s.%s", "a", "b"));
 	}
 	
 	@Test

@@ -7,76 +7,86 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public class PathsTests {
 
+	private static final Logger log = LogManager.getLogger(PathsTests.class);
+	
 	@Test
 	public void testPaths() {
 		Path p = Paths.get("folder1", "folder2");
-		System.out.println(p);
+		log.info(p);
 
 		p = Paths.get("folder1/", "folder2");
-		System.out.println(p);
+		log.info(p);
 
 		p = Paths.get("folder1", "/folder2");
-		System.out.println(p);
+		log.info(p);
 
 		p = Paths.get("folder1/", "/folder2");
-		System.out.println(p);
+		log.info(p);
 
 		URI uri = URI.create("folder1");
-		System.out.println(uri);
+		log.info(uri);
+	}
+	
+	@Test
+	public void testRelatize() {
+		Path p1 = Paths.get("/a/b/c/d/e");
+		Path p2 = Paths.get("/a/b/c");
+		
+		log.info(p2.relativize(p1));
+		log.info(p1.relativize(p2));
 	}
 
 	@Test
 	public void testPath() {
 		Path _p = Paths.get(".");
-		System.out.println(_p.toAbsolutePath());
-		System.out.println(_p.normalize().toAbsolutePath());
-		System.out.println(_p.isAbsolute());
-		System.out.println(_p.getFileName());
-		System.out.println(_p.toAbsolutePath().getFileName());
+		log.info(_p.toAbsolutePath());
+		log.info(_p.normalize().toAbsolutePath());
+		log.info(_p.isAbsolute());
+		log.info(_p.getFileName());
+		log.info(_p.toAbsolutePath().getFileName());
 		
 		_p = Paths.get(".", "test");
-		System.out.println(_p.toAbsolutePath());
-		System.out.println(_p.normalize().toAbsolutePath());
-		System.out.println(_p.isAbsolute());
-		System.out.println(_p.getFileName());
-		System.out.println(_p.toAbsolutePath().getFileName());
+		log.info(_p.toAbsolutePath());
+		log.info(_p.normalize().toAbsolutePath());
+		log.info(_p.isAbsolute());
+		log.info(_p.getFileName());
+		log.info(_p.toAbsolutePath().getFileName());
 		
 		_p = Paths.get("./test");
-		System.out.println(_p.toAbsolutePath());
-		System.out.println(_p.normalize().toAbsolutePath());
-		System.out.println(_p.isAbsolute());
-		System.out.println(_p.getFileName());
-		System.out.println(_p.toAbsolutePath().getFileName());
+		log.info(_p.toAbsolutePath());
+		log.info(_p.normalize().toAbsolutePath());
+		log.info(_p.isAbsolute());
+		log.info(_p.getFileName());
+		log.info(_p.toAbsolutePath().getFileName());
 		
-		System.out.println();
 		
-		_p.forEach(__p->System.out.print(__p + ">"));
+		_p.forEach(__p->log.info(__p + ">"));
 		
-		System.out.println();
 		
-		_p.toAbsolutePath().forEach(__p->System.out.print(__p + ">"));
+		_p.toAbsolutePath().forEach(__p->log.info(__p + ">"));
 		
-		_p.toAbsolutePath().forEach(__p->System.out.println(__p.toAbsolutePath() + ">"));
+		_p.toAbsolutePath().forEach(__p->log.info(__p.toAbsolutePath() + ">"));
 	}
 
 	@Test
 	public void testRes() throws Exception {
 		URL resUrl = PathsTests.class.getResource(".");
 		Path rp = Paths.get(resUrl.toURI());
-		System.out.println(rp);
+		log.info(rp);
 		
 		
 		resUrl = ClassLoader.getSystemResource(".");
 		rp = Paths.get(resUrl.toURI());
-		System.out.println(rp);
+		log.info(rp);
 		
-		System.out.println();
 		Path metaInf = rp.resolve("META-INF");
-		System.out.println(metaInf);
+		log.info(metaInf);
 		
 		metaInf.iterator().forEachRemaining(System.out::println);
 	}
@@ -86,8 +96,9 @@ public class PathsTests {
 		File f = Paths.get("test/f").toAbsolutePath().toFile();
 		File _f = Paths.get("test/f").toFile();
 		
-		System.out.println(f);
-		System.out.println(_f);
-		System.out.println(Objects.equals(f, _f));
+		log.info(f);
+		log.info(_f);
+		log.info(Objects.equals(f, _f));
 	}
+	
 }
