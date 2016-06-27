@@ -26,6 +26,10 @@ public class StringTests {
 		System.out.println('\101'); // 8 * 8 + 1
 		System.out.println('\u0041'); //16 * 4 + 1
 	}
+
+	private String format(String format, Object...args) {
+		return String.format(format, args);
+	}
 	
 	@Test
 	public void testFormat() throws Exception {
@@ -36,6 +40,8 @@ public class StringTests {
 		System.out.println(DateUtils.parseDate("2015-06-27 00:00:00", "yyyy-MM-dd hh:mm:ss"));
 		
 		System.out.println(String.format("%s.%s", "a", "b"));
+
+		System.out.println(format("%s.%s", "a", "b"));
 	}
 	
 	@Test

@@ -25,6 +25,7 @@
 		<cdi-ver>1.2</cdi-ver>
 		<weld-ver>2.3.3.Final</weld-ver>
 		<slf4j-ver>1.7.12</slf4j-ver>
+		<junit-ver>4.12</junit-ver>
 	</properties>
 
 	<dependencies>
@@ -33,6 +34,11 @@
 <!-- 			<artifactId>log4j-over-slf4j</artifactId> -->
 <!-- 			<version>${slf4j-ver}</version> -->
 <!-- 		</dependency> -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-ver}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se</artifactId>
