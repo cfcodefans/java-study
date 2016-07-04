@@ -15,6 +15,7 @@ import misc.MiscUtils;
 
 @Component
 public class EventBusSubProc extends CommonAnnotationBeanPostProcessor {
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = LogManager.getLogger(EventBusSubProc.class);
 	@Inject
 	public EventBus eb;
