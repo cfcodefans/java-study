@@ -16,6 +16,18 @@ import org.junit.Test;
 
 public class RegexTests {
 
+	@Test public void testUserIdAndOper() {
+		Pattern p = Pattern.compile("/[1-9]\\d*/login$");
+		Assert.assertTrue(p.matcher("/1234/login").matches());
+
+		Pattern np = Pattern.compile("[1-9]\\d*");
+		Matcher m = np.matcher("/1234/login");
+		System.out.println(m.matches());
+		System.out.println(m.find());
+		System.out.println(m.toMatchResult());
+		System.out.println(m.toMatchResult().group());
+	}
+
 	@Test
 	public void test() {
 		Pattern pattern = Pattern.compile("(ab|cd)");
@@ -25,6 +37,12 @@ public class RegexTests {
 		System.out.println(matcher.find());
 //		Assert.assertTrue(Pattern.matches("(a)", "aaa"));
 //		Assert.assertTrue(Pattern.matches("(b)", "bbb"));
+	}
+
+	@Test
+	public void testSuffix() {
+		Assert.assertTrue(Pattern.matches(".*abc$", "123abc"));
+		Assert.assertTrue(Pattern.compile("abc$").matcher("123abc12").find());
 	}
 	
 	@Test

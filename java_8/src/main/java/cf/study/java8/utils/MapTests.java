@@ -1,17 +1,18 @@
 package cf.study.java8.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.stream.IntStream;
-
+import misc.MiscUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import misc.MiscUtils;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.stream.IntStream;
 
 public class MapTests {
 
@@ -91,6 +92,9 @@ public class MapTests {
 			return s;
 		});
 		log.info(v);
+
+		chm.compute(1, (Integer i, String s) -> null);
+		log.info(chm);
 	}
 
 	@Test
@@ -113,5 +117,28 @@ public class MapTests {
 		log.info(cm.tailMap(cm.ceilingKey(t)));
 
 		log.info(cm.headMap(cm.ceilingKey(t)));
+	}
+
+	@Test public void testReplace() {
+		ConcurrentSkipListMap<Integer, String> m = new ConcurrentSkipListMap<>();
+
+		
+	}
+
+	@Test public void testComputerIfAbsent() {
+		Map<Integer, Set<String>> m = new HashMap<>();
+		m.computeIfAbsent(1, (k) -> new HashSet<String>()).add("a");
+		log.info(m);
+
+		m.computeIfAbsent(1, (k) -> new HashSet<String>()).add("b");
+		log.info(m);
+
+		m.computeIfAbsent(1, (k) -> {
+			log.info("{} is absent", k);
+			HashSet<String> s = new HashSet<>();
+			s.add("c");
+			return s;
+		});
+		log.info(m);
 	}
 }

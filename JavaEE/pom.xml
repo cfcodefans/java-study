@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>study_java_8</groupId>
@@ -117,8 +116,7 @@
 			<artifactId>org.eclipse.persistence.jpa</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifactId>java8-webapp</artifactId> 
-			<version>2.18</version> <type>war</type> </dependency> -->
+		<!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifactId>java8-webapp</artifactId> <version>2.18</version> <type>war</type> </dependency> -->
 
 
 		<!-- glassfish 4.1 Jersey version 2.20 -->
@@ -164,7 +162,11 @@
 			<artifactId>xmpp-extensions-client</artifactId>
 			<version>0.7.0-beta-1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-classloader</artifactId>
+			<version>4.5</version>
+		</dependency>
 
 	</dependencies>
 	<artifactId>JavaEE</artifactId>
