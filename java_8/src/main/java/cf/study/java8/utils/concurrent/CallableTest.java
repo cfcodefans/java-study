@@ -9,12 +9,16 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 public class CallableTest {
+	public static final Logger log = LogManager.getLogger(CallableTest.class);
+
 	private ExecutorService pool1 = Executors.newFixedThreadPool(1);
 	private ExecutorService pool0 = Executors.newFixedThreadPool(6);
-	Semaphore requestSize = new Semaphore(15, true);
+	private Semaphore requestSize = new Semaphore(15, true);
 	
 	private static class Callee implements Callable<Void> {
 		private int d;
@@ -29,24 +33,17 @@ public class CallableTest {
 
 		@Override
 		public Void call() throws Exception {
-			System.out.println("I am started");
+			log.info("I am started");
 			try {
 				for (int i = 0; i < d; i++) {
-					System.out.println(String.format("[%s] I am called after delay of %d", Thread.currentThread(), i));
-//					try {
-//						Sardine sardine = new IpsSardineImpl();
-//						System.out.println(sardine.exists("http://localhost:8080/ips/webdav"));
-//					} catch (Exception e) {
-//						System.out.println(e.getMessage());
-//					}
+					log.info(String.format("[%s] I am called after delay of %d", Thread.currentThread(), i));
 				}
-
-				System.out.println("I am called in: " + Thread.currentThread());
+				log.info("I am called in: " + Thread.currentThread());
 			} catch (Exception e) {
-				System.out.println("I am killed");
-				e.printStackTrace();
+				log.info("I am killed");
+				log.error("", e);
 			} finally {
-				System.out.println("I am done");
+				log.info("I am done");
 			}
 			return null;
 		}
@@ -55,19 +52,18 @@ public class CallableTest {
 	@Test
 	public void testCancel() throws Exception {
 		Future<Void> f = pool1.submit(new Callee(10));
-		System.out.println("start to wait 5 secs");
+		log.info("start to wait 5 secs");
 		try {
 			f.get(4, TimeUnit.SECONDS);
 		} catch (TimeoutException e) {
 			if (!(f.isCancelled() || f.isDone())) {
-				System.out.println("you are cancelled");
+				log.info("you are cancelled");
 				f.cancel(true);
 
 				pool1.submit(new Runnable() {
-					
 					@Override
 					public void run() {
-						System.out.println("second task");
+						log.info("second task");
 					}
 				}).get();
 			}
@@ -95,7 +91,7 @@ public class CallableTest {
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-					System.out.println("I am going to call callee");
+					log.info("I am going to call callee");
 					try {
 						pool1.submit(new Callee()).get(30, TimeUnit.SECONDS);
 					} catch (InterruptedException | ExecutionException | TimeoutException e) {
@@ -116,26 +112,26 @@ public class CallableTest {
 			try {
 				pool1.submit(new Callee(3)).get(1, TimeUnit.SECONDS);
 			} catch (TimeoutException e) {
-				System.out.println(e);
+				log.info(e);
 			} catch (Exception e) {
-				System.out.println(e);
+				log.info(e);
 			}
 		}
 		
-		System.out.println("finish submitting 7 tasks");
+		log.info("finish submitting 7 tasks");
 		
 /*		for (long s = 0; s < 7; s++) {
 			try {
 				pool1.submit(new Callee(0)).get(4, TimeUnit.SECONDS);
 			} catch (Exception e) {
-				System.out.println(e);
+				log.info(e);
 			}
 		}*/
 	}
 	
 	public static class HelloRunnable implements Runnable {
 		public void run() {
-			System.out.println("Hello from a thread!");
+			log.info("Hello from a thread!");
 		}
 	}
 	
@@ -147,7 +143,7 @@ public class CallableTest {
 	
 	public static class HelloThread extends Thread {
 	    public void run() {
-	        System.out.println("Hello from a thread!");
+	        log.info("Hello from a thread!");
 	    }
 	}
 	@Test
@@ -163,7 +159,7 @@ public class CallableTest {
 			// Pause for 4 seconds
 			Thread.sleep(4000);
 			// Print a message
-			System.out.println(importantInfo[i]);
+			log.info(importantInfo[i]);
 		}
 	}
 	
@@ -171,17 +167,17 @@ public class CallableTest {
 		private int i = 0;
 
 		public void run() {
-			System.out.println("worker starts");
+			log.info("worker starts");
 			for (int _i = 0; _i < 20000; _i++) {
 				if (Thread.interrupted()) {
-					System.out.println("interrupted during execution at step: " + i);
+					log.info("interrupted during execution at step: " + i);
 					return;
 				}
 				try {
 					Thread.sleep(1000);
-					System.out.println("step: " + i++);
+					log.info("step: " + i++);
 				} catch (InterruptedException e) {
-					System.out.println("interrupted during sleeping at step: " + i);
+					log.info("interrupted during sleeping at step: " + i);
 					return;
 				}
 			}

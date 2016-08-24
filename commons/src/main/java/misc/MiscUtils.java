@@ -462,4 +462,15 @@ public class MiscUtils {
 	public static long uniqueLong() {
 		return Math.abs(UUID.randomUUID().hashCode());
 	}
+
+	public static boolean interrupted(String msg) throws InterruptedException {
+		if (Thread.interrupted()) {
+			throw new InterruptedException(msg);
+		}
+		return false;
+	}
+
+	public static boolean interrupted() throws InterruptedException {
+		return interrupted(Thread.currentThread().getName() + "is interrupted!");
+	}
 }

@@ -1,5 +1,10 @@
 package cf.study.java8.utils.concurrent.executors;
 
+import misc.MiscUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,16 +12,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import misc.MiscUtils;
-
-import org.junit.Test;
 
 public class ExecutorTests {
 
-	private static final Logger log = Logger.getLogger(ExecutorTests.class.getSimpleName());
+	private static final Logger log = LogManager.getLogger(ExecutorTests.class);
 
 	@Test
 	public void testSingleThreadExecutor() {
@@ -34,16 +33,16 @@ public class ExecutorTests {
 		try {
 			Thread.currentThread().join();
 		} catch (InterruptedException e) {
-			log.log(Level.SEVERE, e.getMessage(), e);
+			log.error("", e);
 		}
 	}
 
 	@Test
 	public void callExample() {
 		Callable<Date> something = () -> {
-			System.out.println("going to do something");
+			log.info("going to do something");
 			MiscUtils.easySleep(5000);
-			System.out.println("before I return the time");
+			log.info("before I return the time");
 			return new Date();
 		};
 
@@ -56,9 +55,9 @@ public class ExecutorTests {
 
 		for (Future<?> result : results)
 			try {
-				System.out.println(result.get());
+				log.info(result.get());
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("", e);
 			}
 	}
 }

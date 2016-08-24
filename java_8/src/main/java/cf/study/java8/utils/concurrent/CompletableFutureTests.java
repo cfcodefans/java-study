@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -17,7 +19,7 @@ import java.util.function.Supplier;
 public class CompletableFutureTests {
 	private static final Logger log = LogManager.getLogger(CompletableFutureTests.class);
 
-	private Supplier<Long> _long(long sleep) {
+	private static Supplier<Long> _long(long sleep) {
 		return () -> {
 			log.info(MiscUtils.invocInfo());
 			MiscUtils.easySleep(sleep);
@@ -26,16 +28,19 @@ public class CompletableFutureTests {
 		};
 	}
 
-	@Before public void before() {
+	@Before
+	public void before() {
 		log.info(System.currentTimeMillis());
 	}
 
-	@Test public void testGet() throws ExecutionException, InterruptedException {
+	@Test
+	public void testGet() throws ExecutionException, InterruptedException {
 		CompletableFuture<Long> test = CompletableFuture.supplyAsync(_long(1000));
 		log.info(test.get());
 	}
 
-	@Test public void testThenApply() throws ExecutionException, InterruptedException {
+	@Test
+	public void testThenApply() throws ExecutionException, InterruptedException {
 		Function<Long, Long> foo = (_l) -> {
 			log.info(MiscUtils.invocInfo());
 			return _l;
@@ -48,7 +53,8 @@ public class CompletableFutureTests {
 		log.info(test.get());
 	}
 
-	@Test public void testThenApplyAsync() throws ExecutionException, InterruptedException {
+	@Test
+	public void testThenApplyAsync() throws ExecutionException, InterruptedException {
 		Function<Long, Long> foo = (_l) -> {
 			log.info(MiscUtils.invocInfo());
 			MiscUtils.easySleep(1000);
@@ -62,7 +68,8 @@ public class CompletableFutureTests {
 		log.info(test.get());
 	}
 
-	@Test public void testAllOf() throws ExecutionException, InterruptedException {
+	@Test
+	public void testAllOf() throws ExecutionException, InterruptedException {
 		Function<Long, Long> foo = (_l) -> {
 			log.info(MiscUtils.invocInfo());
 			MiscUtils.easySleep(1000);
@@ -77,7 +84,8 @@ public class CompletableFutureTests {
 		log.info(test.get());
 	}
 
-	@Test public void testAnyOf() throws ExecutionException, InterruptedException {
+	@Test
+	public void testAnyOf() throws ExecutionException, InterruptedException {
 		Function<Long, Long> foo = (_l) -> {
 			log.info(MiscUtils.invocInfo());
 			MiscUtils.easySleep(1000);
@@ -90,5 +98,45 @@ public class CompletableFutureTests {
 			CompletableFuture.supplyAsync(_long(500))
 		);
 		log.info(test.get());
+	}
+
+	private static Supplier<Long> complex(final long count) {
+		return () -> {
+			try {
+				for (long i = 0; i < count; i++) {
+//					MiscUtils.interrupted();
+					log.info("{}\t{}", Thread.currentThread(), i);
+					Thread.sleep(100);
+				}
+			} catch (Throwable e) {
+				log.error(Thread.currentThread().toString(), e);
+			}
+			return count;
+		};
+	}
+
+	@Test
+	public void testComplex() throws ExecutionException, InterruptedException {
+		ExecutorService exec = Executors.newSingleThreadExecutor();
+		CompletableFuture<Long> future = CompletableFuture.supplyAsync(complex(10), exec);
+		log.info(future.get());
+	}
+
+	@Test
+	public void testComplexCancel() throws ExecutionException, InterruptedException {
+		ExecutorService exec = Executors.newSingleThreadExecutor();
+		CompletableFuture<Long> future = CompletableFuture.supplyAsync(complex(10), exec);
+		Thread.sleep(300);
+		try {
+//			future.getNow(Long.valueOf(-1));
+//			future.complete(Long.MAX_VALUE);
+			future.completeExceptionally(new InterruptedException("cancellation"));
+			log.info(future.get());
+		} catch (Exception e) {
+			log.error("", e);
+		}
+
+		future = CompletableFuture.supplyAsync(complex(10), exec);
+		log.info(future.get());
 	}
 }
