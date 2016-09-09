@@ -26,11 +26,11 @@ public class InterfaceTests {
 	
 	// Duplicate default methods named _toString with the parameters () and () are inherited from 
 	// the types InterfaceTests.IBar and InterfaceTests.IFoo
-	static class Impl implements IFoo {//, IBar {
+	static class Impl implements IFoo , IBar {
 //		@Override
-//		public void bar() {
-//			
-//		}
+		public void bar() {
+
+		}
 
 		public String _toString() {
 			//can't be referred as super._toString()
