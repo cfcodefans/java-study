@@ -66,7 +66,7 @@ public class SortTests <T extends Comparable<? super T>> {
 		});
 		
 		return linkedList;
-	};
+	}
 	
 	public BiFunction<List<T>, Comparator<T>, List<T>> quickSort = (List<T> data, final Comparator<T> cmp)->{
 		System.out.println(data);
