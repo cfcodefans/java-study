@@ -3,6 +3,7 @@ package cf.study.java8.utils.regex;
 import java.io.FileReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,5 +93,10 @@ public class RegexTests {
 //			System.out.println(i);
 //			System.out.println(matcher.group(i));	
 //		});
+	}
+
+	@Test
+	public void testSplit() {
+		System.out.println(Arrays.toString("1 2 3 4".split(" ", 4)));
 	}
 }
