@@ -61,7 +61,8 @@ public class StringTests {
 	
 	@Test
 	public void testSplit() throws Exception {
-		System.out.println(Arrays.toString("abc".split(",")));
-		System.out.println(Arrays.toString("/abc".split(",")));
+		System.out.println(Arrays.toString("a ,b ,c".split("\\,")));
+//		System.out.println(Arrays.toString("abc".split(",")));
+//		System.out.println(Arrays.toString("/abc".split(",")));
 	}
 }
