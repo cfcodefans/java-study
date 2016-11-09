@@ -15,6 +15,4 @@ public class ExceptionTests {
 
 	}
 
-	@Test
-	public
 }
