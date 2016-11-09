@@ -11,8 +11,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import misc.Jsons;
 import misc.MiscUtils;
@@ -113,8 +117,7 @@ public class JerseyTests {
 			return ctx;
 		
 		ServletHolder handler = ctx.addServlet(ServletContainer.class, servletPathStr);
-		handler.setInitParameters(MiscUtils.map(
-				"javax.ws.rs.Application", appCls.getName()));
+		handler.setInitParameters(MiscUtils.map("javax.ws.rs.Application", appCls.getName()));
 		
 		return ctx;
 	}
@@ -124,5 +127,18 @@ public class JerseyTests {
 		ctx.setContextPath(ctxPathStr);
 		return setUpApp(ctx, servletPathStr, appCls);
 	}
-	
+
+	@Test public void testClient1() {
+		Client client = ClientBuilder.newClient();
+
+		try {
+			WebTarget target = client.target("http://www.baidu.com");
+			Response resp = target.request().post(null);
+			log.info(resp.toString());
+		} catch (Exception e) {
+			log.error("failed to get url", e);
+		} finally {
+			client.close();
+		}
+	}
 }

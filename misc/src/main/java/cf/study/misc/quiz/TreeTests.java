@@ -28,16 +28,42 @@ class Node {
 
 public class TreeTests {
 
+	static int indexOf(int[] array, int target, int start, int end) {
+		for (int i = start, j = Math.min(end, array.length - 1); i <= j; i++) {
+			if (array[i] == target) return i;
+		}
+		return 0;
+	}
+
+	static int indexOf(int[] array, int target) {
+		return indexOf(array, target, 0, array.length - 1);
+	}
+
 	static Node makeTree(int[] inOrder, int[] preOrder) {
 		if (ArrayUtils.isEmpty(inOrder) || ArrayUtils.isEmpty(preOrder) || inOrder.length != preOrder.length) {
 			return null;
 		}
 
 		Node root = new Node(preOrder[0]);
+		Stack<int[]> s = new Stack<>();
+		s.push(new int[]{0, preOrder.length, 0, inOrder.length});
 
-		int rootIndex = ArrayUtils.indexOf(inOrder, root.data);
+		int count = 1;
+		Node _root = root;
 
+		while (!s.empty()) {
+			int[] bound = s.pop();
+			int preLeft = bound[0], preRight = bound[1], inLeft = bound[2], inRight = bound[3];
+			int rootIndex = indexOf(inOrder, _root.data, inLeft, inRight);
 
+			while (inRight - inLeft > 1) {
+				_root.left = new Node(preOrder[rootIndex + 1]);
+				_root = _root.left;
+				rootIndex = indexOf(inOrder, _root.data, inLeft, inRight);
+				int toLeft = rootIndex - inLeft;
+				s.push(new int[] {preLeft + toLeft, preRight, rootIndex + 1, inRight});
+			}
+		}
 
 		return root;
 	}
@@ -127,8 +153,13 @@ public class TreeTests {
 					n = s.pop();
 				}
 
-				if (n == root && node == n.right) break;
+				if (n == root) {
+					if (n.right == null || node == n.right) {
+						break;
+					}
+				}
 
+				s.push(n);
 				node = n.right;
 			} else {
 				s.push(node);
