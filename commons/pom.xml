@@ -12,15 +12,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty-ver>9.3.0.M2</jetty-ver>
+		<jetty-ver>9.4.0.RC1</jetty-ver>
 		<jackson-ver>2.7.3</jackson-ver>
-		<log4j-ver>2.5</log4j-ver>
+		<log4j-ver>2.7</log4j-ver>
 		<junit-ver>4.12</junit-ver>
-		<commons-lang-ver>3.4</commons-lang-ver>
+		<commons-lang-ver>3.5</commons-lang-ver>
 		<commons-math-ver>3.6.1</commons-math-ver>
 		<commons-collection-ver>4.1</commons-collection-ver>
 		<commons-beanutils>1.9.2</commons-beanutils>
-		<guava-ver>19.0</guava-ver>
+		<guava-ver>20.0</guava-ver>
 		<httpclient-ver>4.5.2</httpclient-ver>
 		<cdi-ver>1.2</cdi-ver>
 		<weld-ver>2.3.3.Final</weld-ver>
