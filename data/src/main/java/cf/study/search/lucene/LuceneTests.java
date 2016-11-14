@@ -1,29 +1,13 @@
 package cf.study.search.lucene;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.concurrent.atomic.AtomicLong;
-
+import misc.MiscUtils;
+import misc.ProcTrace;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.LongField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.document.*;
+import org.apache.lucene.index.*;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -35,8 +19,12 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import misc.MiscUtils;
-import misc.ProcTrace;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class LuceneTests {
 
@@ -76,13 +64,13 @@ public class LuceneTests {
 			//make a new, empty document
 			Document doc = new Document();
 			
-			doc.add(new LongField("sn", SEQ.getAndIncrement(), Field.Store.YES));
+			doc.add(new NumericDocValuesField("sn", SEQ.getAndIncrement()));
 			
 			doc.add(new TextField("path", file.toString(), Field.Store.YES));
 			
-			doc.add(new LongField("modified", Files.getLastModifiedTime(file).toMillis(), Field.Store.YES));
-			
-			LongField sizeFd = new LongField("size", Files.size(file), Field.Store.YES);
+			doc.add(new NumericDocValuesField("modified", Files.getLastModifiedTime(file).toMillis()));
+
+			NumericDocValuesField sizeFd = new NumericDocValuesField("size", Files.size(file));
 //          this FieldType is already frozen and cannot be changed
 //			sizeFd.fieldType().setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 			doc.add(sizeFd);

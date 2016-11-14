@@ -178,7 +178,7 @@
 	<artifactId>JavaEE</artifactId>
 	<properties>
 		<jersey-version>2.24</jersey-version>
-		<jetty-version>9.3.9.M0</jetty-version>
-		<hibernate-ver>5.1.0.Final</hibernate-ver>
+		<jetty-version>9.4.0.RC1</jetty-version>
+		<hibernate-ver>5.2.4.Final</hibernate-ver>
 	</properties>
 </project>

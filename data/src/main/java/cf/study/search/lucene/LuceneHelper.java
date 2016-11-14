@@ -1,18 +1,12 @@
 package cf.study.search.lucene;
 
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Stream;
-
+import misc.MiscUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.DoubleField;
+import org.apache.lucene.document.*;
 import org.apache.lucene.document.Field.Store;
-import org.apache.lucene.document.FieldType;
-import org.apache.lucene.document.FieldType.NumericType;
-import org.apache.lucene.document.LongField;
-import org.apache.lucene.document.TextField;
+//import org.apache.lucene.document.FieldType.NumericType;
+import org.apache.lucene.index.DocValuesType;
 import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -20,7 +14,9 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TopDocs;
 
-import misc.MiscUtils;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 public class LuceneHelper {
 
@@ -74,15 +70,16 @@ public class LuceneHelper {
 				if ((n instanceof Float) || (n instanceof Double)) {
 					FieldType ft = new FieldType();
 					ft.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
-					ft.setNumericType(NumericType.DOUBLE);
+//					ft.setNumericType(FieldType.LegacyNumericType.DOUBLE);
+					ft.setDocValuesType(DocValuesType.NUMERIC);
 					ft.setStored(true);
-					doc.add(new DoubleField(k, n.doubleValue(), ft));
+					doc.add(new DoubleDocValuesField(k, n.doubleValue()));
 				} else {
 					FieldType ft = new FieldType();
 					ft.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
-					ft.setNumericType(NumericType.LONG);
+					ft.setDocValuesType(DocValuesType.NUMERIC);
 					ft.setStored(true);
-					doc.add(new LongField(k, n.longValue(), ft));
+					doc.add(new NumericDocValuesField(k, n.longValue()));
 				}
 			} else {
 				doc.add(new TextField(k, String.valueOf(v), Store.YES));
