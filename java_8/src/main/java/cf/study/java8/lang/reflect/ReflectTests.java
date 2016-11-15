@@ -1,12 +1,7 @@
 package cf.study.java8.lang.reflect;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.lang.reflect.*;
+import java.util.*;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
@@ -92,5 +87,20 @@ public class ReflectTests {
 	@Test
 	public void testAssignedFrom() {
 		Assert.assertTrue(Collection.class.isAssignableFrom(List.class));
+	}
+
+
+	@Test public void testMetods() {
+		Class student = String.class;//~~~Complete this line~~~;
+		Method[] methods = student.getMethods();//~~~Complete this line~~~;
+
+		ArrayList<String> methodList = new ArrayList<>();
+		for(Method m : methods){
+			methodList.add(m.getName());
+		}
+		Collections.sort(methodList);
+		for(String name: methodList){
+			System.out.println(name);
+		}
 	}
 }
