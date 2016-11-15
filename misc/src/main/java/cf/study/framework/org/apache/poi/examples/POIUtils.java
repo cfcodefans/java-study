@@ -42,7 +42,6 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.sax.ToXMLContentHandler;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
-import org.docx4j.convert.in.Doc;
 import org.docx4j.convert.out.HTMLSettings;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.junit.Test;
@@ -168,7 +167,7 @@ public class POIUtils {
 	public static String convertWordToHtmlByDocx4J(final InputStream bis, DocInfo docInfo) throws Exception {
 		WordprocessingMLPackage wordMLPackage = null;
 		if (docInfo.version == Version.OFFICE_97_2003) {
-			wordMLPackage = Doc.convert(bis);
+//			wordMLPackage = Doc.convert(bis);
 		}
 		
 		if (docInfo.version == Version.OFFICE_2007) {

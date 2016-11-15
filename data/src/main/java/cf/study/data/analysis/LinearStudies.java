@@ -10,8 +10,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by fan on 2016/11/14.
@@ -40,8 +42,11 @@ public class LinearStudies {
 		return new Array2DRowRealMatrix(data);
 	}
 
-	static String format(RealVector rv) {
-		return StringUtils.join(DoubleStream.of(rv.toArray()).iterator(), "\t");
+//	static String format(RealVector rv) {
+//		return StringUtils.join(DoubleStream.of(rv.toArray()).iterator(), "\t");
+//	}
+	static String format(RealVector...rv) {
+		return StringUtils.join(Stream.of(rv).map(LinearStudies::format).collect(Collectors.toList()));
 	}
 
 	static String format(RealMatrix rm) {
@@ -121,18 +126,38 @@ public class LinearStudies {
 
 	@Test
 	public void testALS() { //Alternating least squares matrix factorization
+		final int MOVIE_NUMBER = 3, USER_NUMBER = 3, FEATURE_NUMBER = 3;
 		Array2DRowRealMatrix R = randomMatrix(3, 3, 6, 0);
 		log.info(format(R));
 
-		ArrayRealVector users = new ArrayRealVector(IntStream.range(0, 3).asDoubleStream().toArray());
+		ArrayRealVector[] users = {
+			new ArrayRealVector(new double[]{1,4,5}),
+			new ArrayRealVector(new double[]{5,4,1}),
+			new ArrayRealVector(new double[]{4,1,5}),
+		};
 		log.info("users:\n\t" + format(users));
 
-		ArrayRealVector movies = new ArrayRealVector(IntStream.range(0, 3).asDoubleStream().toArray());
+		ArrayRealVector[] movies = {
+			new ArrayRealVector(new double[]{1,4,5}),
+			new ArrayRealVector(new double[]{5,4,1}),
+			new ArrayRealVector(new double[]{4,1,5}),
+		};
 		log.info("movies:\n\t" + format(movies));
 
-		for (int i = 0; i < 2; i++) {
-			
-		}
+//		for (int i = 0; i < 2; i++) {
+//			double[] _movies = movies.toArray();
+//			for (int _i = 0; _i < MOVIE_NUMBER; _i++) {
+//				Array2DRowRealMatrix xtx = new Array2DRowRealMatrix(FEATURE_NUMBER, FEATURE_NUMBER);
+//				ArrayRealVector xty = new ArrayRealVector(FEATURE_NUMBER);
+//
+//				for (int j = 0; j < USER_NUMBER; j++) {
+//					double u = users.getEntry(j);
+//					//Add u*u^t to xtx
+//					xtx = xtx.add()
+//				}
+//			}
+//
+//		}
 
 	}
 
