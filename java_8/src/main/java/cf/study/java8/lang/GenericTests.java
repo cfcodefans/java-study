@@ -66,6 +66,8 @@ public class GenericTests {
 		Type t = clz.getGenericInterfaces()[0];
 		ParameterizedType pt = (ParameterizedType) t;
 		System.out.println(t.toString());
+		System.out.println(Arrays.toString(pt.getActualTypeArguments()));
+
 		System.out.println(ToStringBuilder.reflectionToString(pt));
 	}
 
