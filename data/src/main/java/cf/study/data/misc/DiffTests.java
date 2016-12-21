@@ -111,4 +111,6 @@ public class DiffTests {
 		Patch<String> _patch2 = DiffUtils.diff(fragment2, _fragment2);
 		_patch2.getDeltas().stream().forEach(System.out::println);
 	}
+
+
 }

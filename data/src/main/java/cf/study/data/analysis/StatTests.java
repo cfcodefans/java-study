@@ -57,7 +57,7 @@ public class StatTests {
 		double[] rs = randoms(10);
 		log.info(Arrays.toString(rs));
 		double mean = geometricMean(rs);
-		log.info(String.format("mean is %f", mean));
+		log.info(String.format("geometric mean is (x1 * x2 * ... xn) ^ (1 / n) = %f", mean));
 
 		double control = Math.pow(DoubleStream.of(rs).reduce(1.0, (d1, d2) -> (d1 * d2)), 1.0 / rs.length);
 		log.info(control);
@@ -65,7 +65,7 @@ public class StatTests {
 		rs = DoubleStream.iterate(0.0, d1 -> d1 + 6).limit(10).toArray();
 		log.info(Arrays.toString(rs));
 		mean = geometricMean(rs);
-		log.info(String.format("geometric mean is %f for d + 3", mean));
+		log.info(String.format("geometric mean is %f for d + 6", mean));
 
 		rs = DoubleStream.iterate(2.0, d1 -> d1 * 2).limit(10).toArray();
 		log.info(Arrays.toString(rs));
@@ -82,9 +82,9 @@ public class StatTests {
 	public void testNormalization() {
 		double[] rs = randoms(10);
 		log.info(Arrays.toString(rs));
-		double[] normalizeds = normalize(rs);
+		double[] normalized = normalize(rs);
 		log.info(mean(rs));
-		IntStream.range(0, rs.length).forEach(i -> log.info(String.format("%f \t %f", rs[i], normalizeds[i])));
+		IntStream.range(0, rs.length).forEach(i -> log.info(String.format("%f \t %f", rs[i], normalized[i])));
 	}
 
 

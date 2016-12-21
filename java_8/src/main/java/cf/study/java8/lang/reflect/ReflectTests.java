@@ -1,11 +1,11 @@
 package cf.study.java8.lang.reflect;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.stream.Stream;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class ReflectTests {
 
@@ -69,6 +69,7 @@ public class ReflectTests {
 		System.out.println(f.getGenericType());
 		
 //		System.out.println(Sample.class);
+
 	}
 	
 	@SuppressWarnings("unused")

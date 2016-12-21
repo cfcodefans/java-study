@@ -1,20 +1,11 @@
 package cf.study.java8.nio;
 
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +14,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 public class WatchTests {
 	
@@ -105,14 +96,16 @@ public class WatchTests {
 						}
 					} catch (IOException x) {
 						// ignore to keep sample readbale
+						x.printStackTrace();
 					}
 				}
 			}
 			
-			if (wk.reset()) {
+			if (!wk.reset()) {
 				keys.remove(wk);
 				//all directories are inaccessible
 				if (keys.isEmpty()) {
+					System.out.println("keys are empty, exit!");
 					return;
 				}
 			}
@@ -120,6 +113,13 @@ public class WatchTests {
 	}
 	
 	private static void regForWatch(Path dir) throws IOException {
+		if (!dir.toFile().isDirectory()) {
+			System.out.printf("%s is not directory, can't be watched\n", dir);
+			return;
+		}
+
+		System.out.printf("register path: %s\n", dir);
+
 		WatchKey regKey = dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE, 
 						 StandardWatchEventKinds.ENTRY_DELETE,	
 						 StandardWatchEventKinds.ENTRY_MODIFY);
@@ -144,8 +144,9 @@ public class WatchTests {
 				e.printStackTrace();
 			}
 		}, 5, TimeUnit.SECONDS);
-		
+
 		thread.shutdown();
+//		MiscUtils.easySleep(20000);
 		thread.awaitTermination(30, TimeUnit.SECONDS);
 	}
 }
