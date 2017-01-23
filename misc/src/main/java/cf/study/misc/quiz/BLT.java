@@ -19,7 +19,7 @@ public class BLT {
 
 	@Test
 	public void testInsert() {
-		Node root = new Node(3);
+		Node_ root = new Node_(3);
 		insert(root, 2);
 		insert(root, 4);
 		insert(root, 5);
@@ -35,7 +35,7 @@ public class BLT {
 	public void testInsert2() {
 		int[] vs = {25, 21, 10, 23, 7, 26, 12, 30, 16};
 //		int[] vs = {17, 119, 101, 97, 71, 76, 6, 142, 81, 34, 173, 122, 169, 129, 181, 39, 16, 35, 24, 74, 70, 120, 176, 75, 2, 186, 104, 21, 14, 124, 47, 95, 105, 99, 94, 87, 165, 139, 36};
-		Node root = null;//new Node(14);
+		Node_ root = null;//new Node(14);
 		for (int i : vs) {
 //			System.out.println(i);
 			root = insert(root, i);
@@ -50,12 +50,12 @@ public class BLT {
 		System.out.println(Arrays.toString(vs));
 
 
-		Node erro = TreeTests.search(root, 47);
+		Node_ erro = TreeTests.search(root, 47);
 		System.out.println(prettyPrint(root, 0, getHeight(root)));
 
 //		System.out.println();
 		{
-			List<Node> nodeList = new LinkedList<>();
+			List<Node_> nodeList = new LinkedList<>();
 			TreeTests.forInOrder(root, nodeList::add);
 			System.out.println(nodeList.size());
 			System.out.println(StringUtils.join(nodeList.stream().map(n -> {
@@ -64,7 +64,7 @@ public class BLT {
 		}
 //
 		{
-			List<Node> nodeList = new LinkedList<>();
+			List<Node_> nodeList = new LinkedList<>();
 			TreeTests.forPreOrder(root, nodeList::add);
 			System.out.println(nodeList.size());
 			System.out.println(StringUtils.join(nodeList.stream().map(n -> {
@@ -80,11 +80,11 @@ public class BLT {
 //		System.out.println();
 	}
 
-	static String getBF(Node node) {
+	static String getBF(Node_ node) {
 		return String.format("%d(BF=%d)", node.data, Math.abs(getHeight(node.left) - getHeight(node.right)));
 	}
 
-	static Node rotateLeftRight(Node n, Node p, Node gp) {
+	static Node_ rotateLeftRight(Node_ n, Node_ p, Node_ gp) {
 		p.right = n.left;
 
 		n.left = p;
@@ -97,7 +97,7 @@ public class BLT {
 		return rotateLeftLeft(p, n, gp);
 	}
 
-	static Node rotateLeftLeft(Node n, Node p, Node gp) {
+	static Node_ rotateLeftLeft(Node_ n, Node_ p, Node_ gp) {
 		gp.left = p.right;
 		p.right = gp;
 
@@ -108,7 +108,7 @@ public class BLT {
 		return p;
 	}
 
-	static Node rotateRightLeft(Node n, Node p, Node gp) {
+	static Node_ rotateRightLeft(Node_ n, Node_ p, Node_ gp) {
 		p.left = n.right;
 		n.right = p;
 		gp.right = n;
@@ -120,7 +120,7 @@ public class BLT {
 		return rotateRightRight(p, n, gp);
 	}
 
-	static Node rotateRightRight(Node n, Node p, Node gp) {
+	static Node_ rotateRightRight(Node_ n, Node_ p, Node_ gp) {
 		gp.right = p.left;
 		p.left = gp;
 
@@ -131,15 +131,15 @@ public class BLT {
 		return p;
 	}
 
-	static Node insert(Node root, int val) {
-		Node n = new Node();
+	static Node_ insert(Node_ root, int val) {
+		Node_ n = new Node_();
 		n.data = val;
 
 		if (root == null) return n;
 
-		java.util.LinkedList<Node> nodeList = new java.util.LinkedList<Node>();
+		java.util.LinkedList<Node_> nodeList = new java.util.LinkedList<Node_>();
 
-		Node _n = root, p = root, gp = root, ggp = root;
+		Node_ _n = root, p = root, gp = root, ggp = root;
 		while (_n != null) {
 			nodeList.push(_n);
 
@@ -205,7 +205,7 @@ public class BLT {
 			n = p;
 		}
 
-		for (Node pn : nodeList) {
+		for (Node_ pn : nodeList) {
 			pn.ht = getHeight(pn);
 		}
 

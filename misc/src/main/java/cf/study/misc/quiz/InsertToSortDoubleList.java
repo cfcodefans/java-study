@@ -2,71 +2,72 @@ package cf.study.misc.quiz;
 
 import org.junit.Test;
 
-/**
- * Created by Administrator on 2016/9/29.
- */
-
-class Node {
-	int data;
-	Node next;
-	Node prev;
-}
-
 public class InsertToSortDoubleList {
-	Node sortedInsert(Node head, int data) {
-		Node n = new Node();
-		n.data = data;
 
-		if (head == null) {
-			return n;
-		}
+    /**
+     * Created by Administrator on 2016/9/29.
+     */
 
-		if (data <= head.data) {
-			head.prev = n;
-			n.next = head;
-			return n;
-		}
+    private static class Node {
+        int data;
+        Node next;
+        Node prev;
+    }
 
-		Node _n = head;
-		for (; _n.next != null; _n = _n.next) {
-			if (n.data <= _n.data) {
-				n.prev = _n.prev;
-				_n.prev.next = n;
-				_n.prev = n;
-				n.next = _n;
-				return head;
-			}
-		}
+    Node sortedInsert(Node head, int data) {
+        Node n = new Node();
+        n.data = data;
 
-		if (n.data <= _n.data) {
-			n.prev = _n.prev;
-			_n.prev.next = n;
-			_n.prev = n;
-			n.next = _n;
-		} else {
-			_n.next = n;
-			n.prev = _n;
-		}
+        if (head == null) {
+            return n;
+        }
 
-		return head;
-	}
+        if (data <= head.data) {
+            head.prev = n;
+            n.next = head;
+            return n;
+        }
 
-	String toString(Node head) {
-		if (head == null) return String.valueOf(null);
-		StringBuilder sb = new StringBuilder();
+        Node _n = head;
+        for (; _n.next != null; _n = _n.next) {
+            if (n.data <= _n.data) {
+                n.prev = _n.prev;
+                _n.prev.next = n;
+                _n.prev = n;
+                n.next = _n;
+                return head;
+            }
+        }
 
-		for (Node n = head; n != null; n = n.next) sb.append(n.data).append(" ");
+        if (n.data <= _n.data) {
+            n.prev = _n.prev;
+            _n.prev.next = n;
+            _n.prev = n;
+            n.next = _n;
+        } else {
+            _n.next = n;
+            n.prev = _n;
+        }
 
-		return sb.toString();
-	}
+        return head;
+    }
 
-	@Test
-	public void test() {
-		Node head = sortedInsert(null, 2);
-		head = sortedInsert(head, 1);
-		head = sortedInsert(head, 4);
-		head = sortedInsert(head, 3);
+    String toString(Node head) {
+        if (head == null) return String.valueOf(null);
+        StringBuilder sb = new StringBuilder();
 
-		System.out.println(toString(head));
-	}
+        for (Node n = head; n != null; n = n.next) sb.append(n.data).append(" ");
+
+        return sb.toString();
+    }
+
+    @Test
+    public void test() {
+        Node head = sortedInsert(null, 2);
+        head = sortedInsert(head, 1);
+        head = sortedInsert(head, 4);
+        head = sortedInsert(head, 3);
+
+        System.out.println(toString(head));
+    }
 }

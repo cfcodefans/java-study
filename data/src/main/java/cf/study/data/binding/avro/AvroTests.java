@@ -40,7 +40,5 @@ public class AvroTests {
 
 		Schema.Type type = schema.getType();
 		log.info(type);
-
-
 	}
 }

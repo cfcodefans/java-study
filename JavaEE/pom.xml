@@ -1,184 +1,191 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>study_java_8</groupId>
-		<artifactId>study_java_8</artifactId>
-		<version>0.0.1</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>study_java_8</groupId>
+        <artifactId>study_java_8</artifactId>
+        <version>0.0.1</version>
+    </parent>
 
-	<dependencies>
-		<dependency>
-			<groupId>study_java_8</groupId>
-			<artifactId>commons</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-		<dependency>
-			<artifactId>java_8</artifactId>
-			<groupId>study_java_8</groupId>
-			<version>0.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-servlet</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>study_java_8</groupId>
+            <artifactId>commons</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <artifactId>java_8</artifactId>
+            <groupId>study_java_8</groupId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-servlet</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-client</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-client</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlet</artifactId>
-			<version>${jetty-version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jetty-server</artifactId>
-					<groupId>org.eclipse.jetty</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>${jetty-version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jetty-server</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jmx</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jmx</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty.websocket</groupId>
-			<artifactId>websocket-server</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-rewrite</artifactId>
-			<version>${jetty-version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jetty-server</artifactId>
-					<groupId>org.eclipse.jetty</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-rewrite</artifactId>
+            <version>${jetty-version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jetty-server</artifactId>
+                    <groupId>org.eclipse.jetty</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>com.github.lookfirst</groupId>
-			<artifactId>sardine</artifactId>
-			<version>5.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-proxy</artifactId>
-			<version>${jetty-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.0.Final</version>
-		</dependency>
+        <dependency>
+            <groupId>com.github.lookfirst</groupId>
+            <artifactId>sardine</artifactId>
+            <version>5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-proxy</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate-ver}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.glassfish.hk2</groupId>
-			<artifactId>class-model</artifactId>
-			<version>2.4.0-b07</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
-			<version>2.4.2</version>
-		</dependency>
-		<!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifactId>java8-webapp</artifactId> <version>2.18</version> <type>war</type> </dependency> -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-ver}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xml-apis</artifactId>
+                    <groupId>xml-apis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
-		<!-- glassfish 4.1 Jersey version 2.20 -->
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-jetty-http</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>class-model</artifactId>
+            <version>2.4.0-b07</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifactId>java8-webapp</artifactId> <version>2.18</version> <type>war</type> </dependency> -->
 
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-sse</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.security</groupId>
-			<artifactId>oauth1-server</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.security</groupId>
-			<artifactId>oauth1-client</artifactId>
-			<version>${jersey-version}</version>
 
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.glassfish.jersey.examples</groupId> -->
-		<!-- <artifactId>oauth-client-twitter</artifactId> -->
-		<!-- <version>2.21</version> -->
-		<!-- </dependency> -->
+        <!-- glassfish 4.1 Jersey version 2.20 -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-jetty-http</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>rocks.xmpp</groupId>
-			<artifactId>xmpp-extensions-client</artifactId>
-			<version>0.7.0-beta-1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xbean</groupId>
-			<artifactId>xbean-classloader</artifactId>
-			<version>4.5</version>
-		</dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-sse</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.security</groupId>
+            <artifactId>oauth1-server</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.security</groupId>
+            <artifactId>oauth1-client</artifactId>
+            <version>${jersey-version}</version>
 
-	</dependencies>
-	<artifactId>JavaEE</artifactId>
-	<properties>
-		<jersey-version>2.24</jersey-version>
-		<jetty-version>9.4.0.RC1</jetty-version>
-		<hibernate-ver>5.2.4.Final</hibernate-ver>
-	</properties>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <!-- <dependency> -->
+        <!-- <groupId>org.glassfish.jersey.examples</groupId> -->
+        <!-- <artifactId>oauth-client-twitter</artifactId> -->
+        <!-- <version>2.21</version> -->
+        <!-- </dependency> -->
+
+        <dependency>
+            <groupId>rocks.xmpp</groupId>
+            <artifactId>xmpp-extensions-client</artifactId>
+            <version>0.7.0-beta-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-classloader</artifactId>
+            <version>4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.4</version>
+        </dependency>
+
+    </dependencies>
+    <artifactId>JavaEE</artifactId>
+    <properties>
+        <jersey-version>2.24</jersey-version>
+        <jetty-version>9.4.0.RC1</jetty-version>
+        <hibernate-ver>5.2.4.Final</hibernate-ver>
+    </properties>
 </project>

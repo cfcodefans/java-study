@@ -1,10 +1,16 @@
 package cf.study.java8.utils;
 
+import misc.MiscUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
+import java.util.BitSet;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
@@ -37,5 +43,33 @@ public class SetTests {
         s.add(new MutablePair<Integer, String>(18, "abc3"));
 
         log.info(s);
+    }
+
+    @Test
+    public void testBitSet() {
+        BitSet bs = new BitSet();
+        List<Long> longs = MiscUtils.pi2Longs(100);
+        longs.stream().mapToInt(Long::intValue).forEach(bs::set);
+        System.out.println(ArrayUtils.toString(bs.stream().toArray(), ", "));
+    }
+
+    @Test
+    public void testLonelyInteger() {
+        try (Scanner sc = new Scanner(System.in)) {
+//            int n = sc.nextInt();
+//            sc.nextLine();
+//            int[] ar = new int[n];
+//            for (int i = 0; i < n; i++) {
+//                ar[i] = sc.nextInt();
+//            }
+
+            int[] ar = {1,1,2   };
+
+            BitSet bs = new BitSet();
+            for (int i : ar) {
+                bs.set(i, !bs.get(i));
+            }
+            System.out.println(ArrayUtils.toString(bs.stream().toArray(), ", "));
+        }
     }
 }

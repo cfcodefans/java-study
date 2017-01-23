@@ -90,6 +90,6 @@ public class TestEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("TestEntity [oid=%s, id=%s, name=%s, created=%s, version=%s]", oid, id, name, created, version);
+		return String.format("SimpleTestEntity [oid=%s, id=%s, name=%s, created=%s, version=%s]", oid, id, name, created, version);
 	}
 }

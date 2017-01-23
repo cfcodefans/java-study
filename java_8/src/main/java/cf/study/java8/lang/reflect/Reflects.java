@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import misc.MiscUtils;
-import misc.MiscUtils.TraverseMatcher;
 
 public class Reflects {
 
@@ -186,9 +185,9 @@ public class Reflects {
 		
 //		Stream.of(ac1.getAnnotations()).map(Annotation::annotationType).spliterator().
 		
-		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
-		tc1.getChildren = (c)->Stream.of(c.getAnnotations()).map(Annotation::annotationType).collect(Collectors.toList());
-		tc1.condition = (c)->c == ac2;
+//		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
+//		tc1.getChildren = (c)->Stream.of(c.getAnnotations()).map(Annotation::annotationType).collect(Collectors.toList());
+//		tc1.condition = (c)->c == ac2;
 		
 		return Stream.of(ac2.getAnnotations()).anyMatch(_ac->isCycleAnnotated(ac1, _ac.annotationType()));
 	}
@@ -220,27 +219,27 @@ public class Reflects {
 		System.out.println(re.size());
 	}
 	
-	@Test
-	public void testAnnotation() throws Exception {
-		final Set<Class<?>> clzSet = new LinkedHashSet<Class<?>>();
-		
-		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
-		
-		tc1.getChildren = (c)->Stream.of(c.getAnnotations())
-				.map(Annotation::annotationType)
-				.filter(ac->!clzSet.contains(c))
-				.collect(Collectors.toList());
-		
-		tc1.condition = (c)->{ 
-			clzSet.add(c);
-			System.out.println(c + ": " + (c != Target.class));
-			return c != Native.class;
-		};
-		tc1.after = (c)->{
-			System.out.println(c);
-			return true;
-		};
-		
-		tc1.traverse(FunctionalInterface.class);
-	}
+//	@Test
+//	public void testAnnotation() throws Exception {
+//		final Set<Class<?>> clzSet = new LinkedHashSet<Class<?>>();
+//
+//		TraverseMatcher<Class<?>> tc1 = new TraverseMatcher<Class<?>>();
+//
+//		tc1.getChildren = (c)->Stream.of(c.getAnnotations())
+//				.map(Annotation::annotationType)
+//				.filter(ac->!clzSet.contains(c))
+//				.collect(Collectors.toList());
+//
+//		tc1.condition = (c)->{
+//			clzSet.add(c);
+//			System.out.println(c + ": " + (c != Target.class));
+//			return c != Native.class;
+//		};
+//		tc1.after = (c)->{
+//			System.out.println(c);
+//			return true;
+//		};
+//
+//		tc1.traverse(FunctionalInterface.class);
+//	}
 }

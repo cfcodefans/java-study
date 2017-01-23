@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<!-- <persistence-unit name="mqueue-dispatcher" transaction-type="RESOURCE_LOCAL"> -->
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <!-- <persistence-unit name="mqueue-dispatcher" transaction-type="RESOURCE_LOCAL"> -->
 
-	<persistence-unit name="reflects" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
-		<class>cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity</class>
-		<properties>
-			<!-- Auto detect annotation model classes -->
-			<property name="hibernate.archive.autodetection" value="class" />
+    <persistence-unit name="hsqldb" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>cf.study.java8.javax.persistence.jpa.general.SimpleTestEntity</class>
+        <class>cf.study.java8.javax.persistence.jpa.general.WorkerEntity</class>
+        <class>cf.study.java8.javax.persistence.jpa.general.MasterEntity</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:test"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
+        </properties>
+    </persistence-unit>
 
-			<!-- jdbc connection properties -->
-			<!-- <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" 
-				/> -->
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/reflects" />
-			<property name="javax.persistence.jdbc.user" value="java" />
-			<property name="javax.persistence.jdbc.password" value="jdbc" />
+    <persistence-unit name="reflects" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
+        <class>cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity</class>
+        <properties>
+            <!-- Auto detect annotation model classes -->
+            <property name="hibernate.archive.autodetection" value="class"/>
 
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:data/hsqldb/reflects" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:reflects" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.user" value="java" /> -->
-			<!-- <property name="javax.persistence.jdbc.password" value="jdbc" /> -->
-			<!-- hibernate connection properties -->
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" 
-				/> -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.max_fetch_depth" value="8" />
-			<property name="hibernate.jdbc.batch_size" value="150" />
-			<!-- hibernate debug properties -->
-			<property name="hibernate.generate_statistics" value="false" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.show_sql" value="true" />
-<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
-			
-			<property name="hibernate.current_session_context_class" value="thread" />
+            <!-- jdbc connection properties -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/reflects"/>
+            <property name="javax.persistence.jdbc.user" value="java"/>
+            <property name="javax.persistence.jdbc.password" value="jdbc"/>
+
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:data/hsqldb/reflects" /> -->
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:reflects" /> -->
+            <!-- <property name="javax.persistence.jdbc.user" value="java" /> -->
+            <!-- <property name="javax.persistence.jdbc.password" value="jdbc" /> -->
+            <!-- hibernate connection properties -->
+            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.max_fetch_depth" value="8"/>
+            <property name="hibernate.jdbc.batch_size" value="150"/>
+            <!-- hibernate debug properties -->
+            <property name="hibernate.generate_statistics" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+
+            <property name="hibernate.current_session_context_class" value="thread"/>
 
 
-		</properties>
-	</persistence-unit>
+        </properties>
+    </persistence-unit>
 
-	<persistence-unit name="transactions" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>cf.study.java8.javax.persistence.transactions.TestEntity</class>
-		<properties>
-<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
-			
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transactions" />
-			<property name="javax.persistence.jdbc.user" value="java" />
-			<property name="javax.persistence.jdbc.password" value="jdbc" />
-			<!-- create-drop -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.max_fetch_depth" value="8" />
-			<property name="hibernate.jdbc.batch_size" value="150" />
-			
-			<property name="hibernate.generate_statistics" value="true" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.current_session_context_class" value="thread" />
-		</properties>
-	</persistence-unit>
-	
-	<persistence-unit name="payment" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<properties>
-<!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
-			
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://moleman-poppen/PaymentSystem" />
-			<property name="javax.persistence.jdbc.user" value="poppen_pay" />
-			<property name="javax.persistence.jdbc.password" value="NetNet2" />
-			<!-- create-drop -->
-			<property name="hibernate.hbm2ddl.auto" value="create, drop" />
-			<property name="hibernate.max_fetch_depth" value="8" />
-			<property name="hibernate.jdbc.batch_size" value="150" />
-			
-			<property name="hibernate.generate_statistics" value="true" />
-			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.current_session_context_class" value="thread" />
-		</properties>
-	</persistence-unit>
+    <persistence-unit name="transactions" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>cf.study.java8.javax.persistence.transactions.TestEntity</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transactions"/>
+            <property name="javax.persistence.jdbc.user" value="java"/>
+            <property name="javax.persistence.jdbc.password" value="jdbc"/>
+            <!-- create-drop -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.max_fetch_depth" value="8"/>
+            <property name="hibernate.jdbc.batch_size" value="150"/>
+
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="payment" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
+
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://moleman-poppen/PaymentSystem"/>
+            <property name="javax.persistence.jdbc.user" value="poppen_pay"/>
+            <property name="javax.persistence.jdbc.password" value="NetNet2"/>
+            <!-- create-drop -->
+            <property name="hibernate.hbm2ddl.auto" value="create, drop"/>
+            <property name="hibernate.max_fetch_depth" value="8"/>
+            <property name="hibernate.jdbc.batch_size" value="150"/>
+
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
+        </properties>
+    </persistence-unit>
 </persistence>

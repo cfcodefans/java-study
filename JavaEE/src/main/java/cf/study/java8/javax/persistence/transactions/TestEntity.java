@@ -52,7 +52,7 @@ public class TestEntity {
 
 	@Override
 	public String toString() {
-		return String.format("TestEntity [id=%s,\t value=%s]", id, value);
+		return String.format("SimpleTestEntity [id=%s,\t value=%s]", id, value);
 	}
 
 	public TestEntity() {}
