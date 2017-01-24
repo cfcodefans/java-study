@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -132,5 +133,25 @@ public class GenericTests {
 			list.add(byId(id));
 		}
 		return list;
+	}
+
+	public List<User> getUserList() {
+		return Collections.emptyList();
+	}
+
+	@Test
+	public void testReturnType() throws Exception {
+		Class<GenericTests> cls = GenericTests.class;
+		Method md = cls.getMethod("getUserList");
+		Type genericReturnType = md.getGenericReturnType();
+		System.out.println(genericReturnType);
+
+		if (genericReturnType instanceof ParameterizedType) {
+			ParameterizedType parameterizedType = (ParameterizedType) genericReturnType;
+			Type rawType = parameterizedType.getRawType();
+			System.out.println(rawType);
+			Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+			System.out.println(actualTypeArguments[0]);
+		}
 	}
 }

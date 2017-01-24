@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import misc.Jsons;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -213,5 +214,10 @@ public class JacksonTests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testDate() {
+		System.out.println(Jsons.toString(new Date()));
 	}
 }
