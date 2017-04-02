@@ -3,8 +3,11 @@ package cf.study.misc.quiz;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
-import java.awt.*;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Solution {
 	public int solution(int[] A) {
@@ -82,4 +85,5 @@ public class Solution {
 
 		}
 	}
+
 }

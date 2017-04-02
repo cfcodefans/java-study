@@ -8,8 +8,10 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.apache.commons.math3.stat.StatUtils.*;
 
@@ -135,5 +137,30 @@ public class StatTests {
 		double evaluate = m.evaluate(rs);
 		Arrays.sort(rs);
 		log.info(String.format("median of %s \n is %f", Arrays.toString(rs), evaluate));
+	}
+
+//	def weightedMean(): Unit = {
+//        import java.util.Scanner
+//		val scan: Scanner = new Scanner(System.in)
+//		try {
+//			val n: Int = scan.nextInt
+//			val X: Array[Int] = scan.nextLine().split(" ").map(_.toInt).toArray
+//			val W: Array[Int] = scan.nextLine().split(" ").map(_.toInt).toArray
+//			println("%.1f".format(X.zipAll(W, 0, 0).map((x_w)=> x_w._1 * x_w._2).sum / n.toFloat))
+//		} finally {
+//			scan.close
+//		}
+//	}
+
+	@Test
+	public void weightedMean() {
+		try (Scanner scan = new Scanner(System.in)) {
+			int n = scan.nextInt();
+			scan.nextLine();
+			int[] X = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+			int[] W = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+			int s1 = IntStream.range(0, n).map(i -> X[i] * W[i]).sum();
+			System.out.printf("%.1f\n", s1 / (float)IntStream.of(W).sum());
+		}
 	}
 }
