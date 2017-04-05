@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -17,127 +18,127 @@ import static org.apache.commons.math3.stat.StatUtils.*;
 
 public class StatTests {
 
-	private static final Logger log = LogManager.getLogger(StatTests.class);
+    private static final Logger log = LogManager.getLogger(StatTests.class);
 
-	@Test
-	public void testRandoms() {
-		MiscUtils.pi2Longs(10).forEach(i -> log.info(i + ", "));
-	}
+    @Test
+    public void testRandoms() {
+        MiscUtils.pi2Longs(10).forEach(i -> log.info(i + ", "));
+    }
 
-	private static double[] randoms(int n) {
-		return MiscUtils.pi2Longs(n).stream().mapToDouble(_long -> (double) _long).toArray();
-	}
+    private static double[] randoms(int n) {
+        return MiscUtils.pi2Longs(n).stream().mapToDouble(_long -> (double) _long).toArray();
+    }
 
-	@Test
-	public void testArithmeticMean() {
-		double[] rs = randoms(10);
-		log.info(Arrays.toString(rs));
-		double mean = mean(rs);
-		log.info(String.format("mean is %f", mean));
+    @Test
+    public void testArithmeticMean() {
+        double[] rs = randoms(10);
+        log.info(Arrays.toString(rs));
+        double mean = mean(rs);
+        log.info(String.format("mean is %f", mean));
 
-		double sum = DoubleStream.of(rs).sum();
-		log.info(String.format("sum(...) = %f / %d = %f", sum, rs.length, sum / rs.length));
+        double sum = DoubleStream.of(rs).sum();
+        log.info(String.format("sum(...) = %f / %d = %f", sum, rs.length, sum / rs.length));
 
-		rs = DoubleStream.iterate(0.0, d1 -> d1 + 3).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = mean(rs);
-		log.info(String.format("mean is %f for d + 3", mean));
+        rs = DoubleStream.iterate(0.0, d1 -> d1 + 3).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = mean(rs);
+        log.info(String.format("mean is %f for d + 3", mean));
 
-		rs = DoubleStream.iterate(2.0, d1 -> d1 + d1).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = mean(rs);
-		log.info(String.format("mean is %f for 2 * d", mean));
+        rs = DoubleStream.iterate(2.0, d1 -> d1 + d1).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = mean(rs);
+        log.info(String.format("mean is %f for 2 * d", mean));
 
-		rs = DoubleStream.iterate(2.0, d1 -> d1 * d1).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = mean(rs);
-		log.info(String.format("mean is %f for d * d", mean));
-	}
+        rs = DoubleStream.iterate(2.0, d1 -> d1 * d1).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = mean(rs);
+        log.info(String.format("mean is %f for d * d", mean));
+    }
 
-	@Test
-	public void testGeometricMean() {
-		double[] rs = randoms(10);
-		log.info(Arrays.toString(rs));
-		double mean = geometricMean(rs);
-		log.info(String.format("geometric mean is (x1 * x2 * ... xn) ^ (1 / n) = %f", mean));
+    @Test
+    public void testGeometricMean() {
+        double[] rs = randoms(10);
+        log.info(Arrays.toString(rs));
+        double mean = geometricMean(rs);
+        log.info(String.format("geometric mean is (x1 * x2 * ... xn) ^ (1 / n) = %f", mean));
 
-		double control = Math.pow(DoubleStream.of(rs).reduce(1.0, (d1, d2) -> (d1 * d2)), 1.0 / rs.length);
-		log.info(control);
+        double control = Math.pow(DoubleStream.of(rs).reduce(1.0, (d1, d2) -> (d1 * d2)), 1.0 / rs.length);
+        log.info(control);
 
-		rs = DoubleStream.iterate(0.0, d1 -> d1 + 6).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = geometricMean(rs);
-		log.info(String.format("geometric mean is %f for d + 6", mean));
+        rs = DoubleStream.iterate(0.0, d1 -> d1 + 6).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = geometricMean(rs);
+        log.info(String.format("geometric mean is %f for d + 6", mean));
 
-		rs = DoubleStream.iterate(2.0, d1 -> d1 * 2).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = geometricMean(rs);
-		log.info(String.format("geometric mean is %f for 2 * d", mean));
+        rs = DoubleStream.iterate(2.0, d1 -> d1 * 2).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = geometricMean(rs);
+        log.info(String.format("geometric mean is %f for 2 * d", mean));
 
-		rs = DoubleStream.iterate(2.0, d1 -> d1 * 3).limit(10).toArray();
-		log.info(Arrays.toString(rs));
-		mean = geometricMean(rs);
-		log.info(String.format("geometric mean is %f for 3 * d", mean));
-	}
+        rs = DoubleStream.iterate(2.0, d1 -> d1 * 3).limit(10).toArray();
+        log.info(Arrays.toString(rs));
+        mean = geometricMean(rs);
+        log.info(String.format("geometric mean is %f for 3 * d", mean));
+    }
 
-	@Test
-	public void testNormalization() {
-		double[] rs = randoms(10);
-		log.info(Arrays.toString(rs));
-		double[] normalized = normalize(rs);
-		log.info(mean(rs));
-		IntStream.range(0, rs.length).forEach(i -> log.info(String.format("%f \t %f", rs[i], normalized[i])));
-	}
+    @Test
+    public void testNormalization() {
+        double[] rs = randoms(10);
+        log.info(Arrays.toString(rs));
+        double[] normalized = normalize(rs);
+        log.info(mean(rs));
+        IntStream.range(0, rs.length).forEach(i -> log.info(String.format("%f \t %f", rs[i], normalized[i])));
+    }
 
 
-	@Test
-	public void testVariance() {
-		double[] rs = randoms(7);
-		log.info(Arrays.toString(rs));
-		double variance = variance(rs);
-		log.info(variance);
+    @Test
+    public void testVariance() {
+        double[] rs = randoms(7);
+        log.info(Arrays.toString(rs));
+        double variance = variance(rs);
+        log.info(variance);
 
-		final double mean = mean(rs);
-		double control = DoubleStream.of(rs)
-			.map(d -> d - mean)
-			.map(_d -> (_d * _d))
-			.sum() / rs.length - 1;
+        final double mean = mean(rs);
+        double control = DoubleStream.of(rs)
+            .map(d -> d - mean)
+            .map(_d -> (_d * _d))
+            .sum() / rs.length - 1;
 
-		log.info(control);
-	}
+        log.info(control);
+    }
 
-	@Test
-	public void testPopulationVariance() {
-		double[] rs = randoms(7);
-		log.info(Arrays.toString(rs));
-		double variance = populationVariance(rs);
-		log.info(variance);
+    @Test
+    public void testPopulationVariance() {
+        double[] rs = randoms(7);
+        log.info(Arrays.toString(rs));
+        double variance = populationVariance(rs);
+        log.info(variance);
 
-		final double mean = mean(rs);
-		double control = DoubleStream.of(rs)
-			.map(d -> d - mean)
-			.map(_d -> (_d * _d))
-			.sum() / rs.length;
+        final double mean = mean(rs);
+        double control = DoubleStream.of(rs)
+            .map(d -> d - mean)
+            .map(_d -> (_d * _d))
+            .sum() / rs.length;
 
-		log.info(control);
-	}
+        log.info(control);
+    }
 
-	@Test
-	public void testSum() {
-		double[] rs = randoms(7);
-		log.info(Arrays.toString(rs));
-		double sum = sum(rs);
-		log.info(sum);
-	}
+    @Test
+    public void testSum() {
+        double[] rs = randoms(7);
+        log.info(Arrays.toString(rs));
+        double sum = sum(rs);
+        log.info(sum);
+    }
 
-	@Test
-	public void testMedian() {
-		double[] rs = randoms(RandomUtils.nextInt(9, 19));
-		Median m = new Median();
-		double evaluate = m.evaluate(rs);
-		Arrays.sort(rs);
-		log.info(String.format("median of %s \n is %f", Arrays.toString(rs), evaluate));
-	}
+    @Test
+    public void testMedian() {
+        double[] rs = randoms(RandomUtils.nextInt(9, 19));
+        Median m = new Median();
+        double evaluate = m.evaluate(rs);
+        Arrays.sort(rs);
+        log.info(String.format("median of %s \n is %f", Arrays.toString(rs), evaluate));
+    }
 
 //	def weightedMean(): Unit = {
 //        import java.util.Scanner
@@ -152,15 +153,57 @@ public class StatTests {
 //		}
 //	}
 
-	@Test
-	public void weightedMean() {
-		try (Scanner scan = new Scanner(System.in)) {
-			int n = scan.nextInt();
-			scan.nextLine();
-			int[] X = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-			int[] W = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-			int s1 = IntStream.range(0, n).map(i -> X[i] * W[i]).sum();
-			System.out.printf("%.1f\n", s1 / (float)IntStream.of(W).sum());
-		}
-	}
+    @Test
+    public void weightedMean() {
+        try (Scanner scan = new Scanner(System.in)) {
+            int n = scan.nextInt();
+            scan.nextLine();
+            int[] X = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int[] W = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int s1 = IntStream.range(0, n).map(i -> X[i] * W[i]).sum();
+            System.out.printf("%.1f\n", s1 / (float) IntStream.of(W).sum());
+        }
+    }
+
+    static float medianOfSorted(int[] sorted) {
+        if (sorted.length == 0) return Float.NaN;
+        int mid = sorted.length / 2;
+        return (sorted[mid - (mid % 2 == 1 ? 0 : 1)] + sorted[mid]) / 2;
+    }
+
+    @Test
+    public void quartiles() {
+        try (Scanner scan = new Scanner(System.in)) {
+            int n = scan.nextInt();
+            scan.nextLine();
+            int[] array = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            Arrays.sort(array);
+            System.out.printf("%.0f\n", medianOfSorted(Arrays.copyOfRange(array, 0, n / 2)));
+            System.out.printf("%.0f\n", medianOfSorted(array));
+            System.out.printf("%.0f\n", medianOfSorted(Arrays.copyOfRange(array, n / 2 + n % 2, n)));
+        }
+    }
+
+    @Test
+    public void interquartileRange() {
+        try (Scanner scan = new Scanner(System.in)) {
+            int n = scan.nextInt();
+            scan.nextLine();
+            int[] X = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int[] F = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int[] S = IntStream.range(0, n).mapToObj(i -> IntStream.range(0, F[i]).map(_i -> X[i])).collect(Collectors.<IntStream>reducing(IntStream::concat)).get().sorted().toArray();
+            System.out.printf("%.0f\n", medianOfSorted(Arrays.copyOfRange(S, S.length - S.length / 2, S.length)) - medianOfSorted(Arrays.copyOfRange(S, 0, S.length / 2)));
+        }
+    }
+
+    @Test
+    public void standardDeviation() {
+        try (Scanner scan = new Scanner(System.in)) {
+            int n = scan.nextInt();
+            scan.nextLine();
+            int[] X = Stream.of(scan.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            final double mean = IntStream.of(X).average().getAsDouble();
+            System.out.printf("%.0f\n", Math.sqrt(IntStream.of(X).mapToDouble(i -> (i - mean) * (i - mean)).sum() / (double) X.length));
+        }
+    }
 }
