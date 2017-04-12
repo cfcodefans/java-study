@@ -7,8 +7,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -205,5 +205,39 @@ public class StatTests {
             final double mean = IntStream.of(X).average().getAsDouble();
             System.out.printf("%.0f\n", Math.sqrt(IntStream.of(X).mapToDouble(i -> (i - mean) * (i - mean)).sum() / (double) X.length));
         }
+    }
+
+    static int line = 1;
+
+    void iterateForCombination(List<Integer> src, Set<Integer> combination, int c) {
+        if (src.isEmpty() || c == 0) {
+            printCombination(combination);
+            return;
+        }
+
+        for (int i = 0, j = src.size(); i < j; i++) {
+            if (j - i <= c) {
+                combination.addAll(src.subList(i, j));
+                printCombination(combination);
+                return;
+            }
+
+            final Integer e = src.get(i);
+            combination.add(e);
+            iterateForCombination(src.subList(i + 1, j), new HashSet<>(combination), c - 1);
+            combination.remove(e);
+        }
+    }
+
+    private static void printCombination(Set<Integer> combination) {
+        System.out.printf("%d\t%s\n", line++, combination);
+    }
+
+    @Test
+    public void getCombinations() {
+        List<Integer> list = IntStream.range(1, 10).mapToObj(Integer::valueOf).collect(Collectors.toList());
+        System.out.println(list);
+        int r = 5;
+        iterateForCombination(list, new HashSet<>(), r);
     }
 }
