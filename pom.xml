@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>study_java_8</groupId>
-	<artifactId>study_java_8</artifactId>
+	<groupId>java-study</groupId>
+	<artifactId>java-study</artifactId>
 	<version>0.0.1</version>
 
 	
@@ -16,8 +16,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 <!-- 				<version>3.1</version> -->
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.9</source>
+					<target>1.9</target>
 				</configuration>
 			</plugin>
 
@@ -40,7 +40,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>commons</module>
-		<module>java_8</module>
+		<module>java</module>
 		<module>JavaEE</module>
 		<module>misc</module>
 		<module>Data</module>

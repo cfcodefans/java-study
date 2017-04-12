@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>study_java_8</groupId>
-        <artifactId>study_java_8</artifactId>
+        <groupId>java-study</groupId>
+        <artifactId>java-study</artifactId>
         <version>0.0.1</version>
     </parent>
     <dependencies>
@@ -21,7 +21,7 @@
 
         <dependency>
             <artifactId>JavaEE</artifactId>
-            <groupId>study_java_8</groupId>
+            <groupId>java-study</groupId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
