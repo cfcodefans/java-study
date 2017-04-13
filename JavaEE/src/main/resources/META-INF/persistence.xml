@@ -6,9 +6,9 @@
 
     <persistence-unit name="hsqldb" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>cf.study.java8.javax.persistence.jpa.general.SimpleTestEntity</class>
-        <class>cf.study.java8.javax.persistence.jpa.general.WorkerEntity</class>
-        <class>cf.study.java8.javax.persistence.jpa.general.MasterEntity</class>
+        <class>cf.study.java.javax.persistence.jpa.general.SimpleTestEntity</class>
+        <class>cf.study.java.javax.persistence.jpa.general.WorkerEntity</class>
+        <class>cf.study.java.javax.persistence.jpa.general.MasterEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
@@ -24,7 +24,7 @@
     <persistence-unit name="reflects" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
-        <class>cf.study.java8.javax.persistence.jpa.ex.reflects.v1.entity</class>
+        <class>cf.study.java.javax.persistence.jpa.ex.reflects.v1.entity</class>
         <properties>
             <!-- Auto detect annotation model classes -->
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -58,7 +58,7 @@
 
     <persistence-unit name="transactions" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>cf.study.java8.javax.persistence.transactions.TestEntity</class>
+        <class>cf.study.java.javax.persistence.transactions.TestEntity</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

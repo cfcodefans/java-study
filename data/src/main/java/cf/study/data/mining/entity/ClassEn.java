@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import cf.study.java8.lang.reflect.Reflects;
+import cf.study.java.lang.reflect.Reflects;
 
 @Entity
 @Table(name = "class_en")

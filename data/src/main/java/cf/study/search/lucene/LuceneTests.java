@@ -119,7 +119,7 @@ public class LuceneTests {
 	@Test
 	public void testQueryParser_question_mark() throws Exception {
 		QueryParser queryParser = new QueryParser("path", analyzer);
-		String queryStr = "path:\"src\\main\\java\\cf\\study\\java8\\nio\\WatchTest.java\"";
+		String queryStr = "path:\"src\\main\\java\\cf\\study\\java\\nio\\WatchTest.java\"";
 		System.out.println("\n" + queryStr);
 		Query query = queryParser.parse(queryStr);
 		TopDocs results = searcher.search(query, Integer.MAX_VALUE);

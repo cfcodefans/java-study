@@ -27,7 +27,6 @@ public final class Jsons {
         MAPPER.configure(SerializationFeature.INDENT_OUTPUT, true);
         MAPPER.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, true);
         MAPPER.configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, false);
-
     }
 
     /*This method is unused except the tests*/
@@ -68,7 +67,7 @@ public final class Jsons {
         try {
             return MAPPER.writeValueAsString(obj);
         } catch (Exception e) {
-            throw new RuntimeException("deserialing json to string", e);
+            throw new RuntimeException("deserialize json to string", e);
         }
     }
 
@@ -78,7 +77,7 @@ public final class Jsons {
             map.forEach((k, v) -> jn.putPOJO(k, v));
             return jn;
         } catch (Exception e) {
-            throw new RuntimeException("deserialing json to string", e);
+            throw new RuntimeException("deserialize json to string", e);
         }
     }
 }

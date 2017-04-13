@@ -16,7 +16,7 @@ public class PackageTest {
 	
 	@Test
 	public void testLoadRes() throws Exception {
-		System.out.println(IOUtils.toString(this.getClass().getResourceAsStream("/log4j.xml")));
+		System.out.println(IOUtils.toString(this.getClass().getResourceAsStream("/log4j2.xml")));
 		System.out.println(IOUtils.toString(this.getClass().getResourceAsStream("/META-INF/persistence.xml")));
 	}
 }

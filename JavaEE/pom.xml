@@ -117,7 +117,7 @@
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>2.4.2</version>
         </dependency>
-        <!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifactId>java8-webapp</artifactId> <version>2.18</version> <type>war</type> </dependency> -->
+        <!-- <dependency> <groupId>org.glassfish.jersey.examples</groupId> <artifacjavaava8-webapp</artifactId> <version>2.18</version> <type>war</type> </dependency> -->
 
 
         <!-- glassfish 4.1 Jersey version 2.20 -->

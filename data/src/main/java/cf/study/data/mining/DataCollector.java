@@ -53,10 +53,10 @@ import cf.study.data.mining.entity.MethodEn;
 import cf.study.data.mining.entity.PackageEn;
 import cf.study.data.mining.entity.ParameterEn;
 import cf.study.data.mining.entity.SourceEn;
-import cf.study.java8.javax.cdi.weld.WeldTest;
-import cf.study.java8.javax.persistence.dao.JpaModule;
-import cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao;
-import cf.study.java8.lang.reflect.Reflects;
+import cf.study.java.javax.cdi.weld.WeldTest;
+import cf.study.java.javax.persistence.dao.JpaModule;
+import cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao;
+import cf.study.java.lang.reflect.Reflects;
 import misc.MiscUtils;
 
 

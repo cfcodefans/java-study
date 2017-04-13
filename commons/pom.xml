@@ -12,18 +12,17 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty-ver>9.4.0.RC1</jetty-ver>
-		<jackson-ver>2.7.6</jackson-ver>
-		<log4j-ver>2.7</log4j-ver>
+		<jackson-ver>2.8.8</jackson-ver>
+		<log4j-ver>2.8.2</log4j-ver>
 		<junit-ver>4.12</junit-ver>
 		<commons-lang-ver>3.5</commons-lang-ver>
 		<commons-math-ver>3.6.1</commons-math-ver>
 		<commons-collection-ver>4.1</commons-collection-ver>
-		<commons-beanutils>1.9.2</commons-beanutils>
-		<guava-ver>20.0</guava-ver>
-		<httpclient-ver>4.5.2</httpclient-ver>
-		<cdi-ver>1.2</cdi-ver>
-		<weld-ver>2.3.3.Final</weld-ver>
+		<commons-beanutils>1.9.3</commons-beanutils>
+		<guava-ver>21.0</guava-ver>
+		<httpclient-ver>4.5.3</httpclient-ver>
+		<cdi-ver>2.0.Beta1</cdi-ver>
+		<weld-ver>2.4.3.Final</weld-ver>
 		<slf4j-ver>1.7.12</slf4j-ver>
 		<junit-ver>4.12</junit-ver>
 	</properties>
@@ -54,7 +53,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit-ver}</version>
-			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<dependency>
@@ -122,7 +120,6 @@
 			<version>${guava-ver}</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
@@ -158,11 +155,10 @@
 				</configuration>
 			</plugin>
 
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
+				<version>2.20</version>
 				<configuration>
 					<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</argLine>
 					<excludes>
