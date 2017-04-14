@@ -150,44 +150,44 @@
 15-09-07 18:09:58 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-07 18:09:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-07 18:09:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-07 18:09:58 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@2d52216b[
+15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-07 18:09:58 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@2d52216b[
   id=1
   createdTime=1441620598739
   name=<null>
 ]
-15-09-07 18:09:58 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@2d52216b[
+15-09-07 18:09:58 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@2d52216b[
   id=1
   createdTime=1441620598739
   name=<null>
 ]
-15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-07 18:09:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-07 18:09:58 INFO  SeqGenerator main - last id: 1
 15-09-07 18:10:03 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-07 18:10:03 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-07 18:10:03 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-07 18:10:03 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-07 18:10:03 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-07 18:10:03 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@4dbb42b7[
+15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-07 18:10:03 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizRequest@4dbb42b7[
   param=<null>
   id=1
   createdTime=1441620603672
   name=<null>
 ]
-15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-07 18:10:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-07 18:10:03 INFO  SeqGenerator main - last id: 1
 15-09-08 17:24:01 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:24:01 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:24:01 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:24:01 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:24:01 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:24:01 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:24:01 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:24:01 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:24:01 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -280,17 +280,17 @@
 15-09-08 17:24:03 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:24:03 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:24:03 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:24:03 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:24:03 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:24:03 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:24:03 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:24:03 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:24:03 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:29:32 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:29:32 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:29:33 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:29:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:29:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:29:33 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:29:33 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:29:33 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:29:33 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -383,10 +383,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:29:34 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:29:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:29:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:29:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:29:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:29:34 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:29:34 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:29:34 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:29:35 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:29:35 ERROR ErrorCounter main - line 1:106: unexpected token: ?
 15-09-08 17:29:35 ERROR ErrorCounter main - line 1:106: unexpected token: ?
@@ -421,10 +421,10 @@ line 1:106: unexpected token: ?
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:40)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:40)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -455,7 +455,7 @@ line 1:106: unexpected token: ?
 15-09-08 17:33:11 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:33:11 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:33:11 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:33:11 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:33:11 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:33:11 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:33:11 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -548,10 +548,10 @@ line 1:106: unexpected token: ?
 15-09-08 17:33:13 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:33:13 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:33:13 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:33:13 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:33:13 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:33:13 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:33:13 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:33:13 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:33:13 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:33:13 ERROR ErrorCounter main - line 1:106: unexpected token: ?
 15-09-08 17:33:13 ERROR ErrorCounter main - line 1:106: unexpected token: ?
@@ -586,10 +586,10 @@ line 1:106: unexpected token: ?
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:40)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:40)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -620,7 +620,7 @@ line 1:106: unexpected token: ?
 15-09-08 17:34:14 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:34:15 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:34:15 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:34:15 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:34:15 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:34:15 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:34:15 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -713,10 +713,10 @@ line 1:106: unexpected token: ?
 15-09-08 17:34:16 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:34:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:34:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:34:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:34:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:34:16 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:34:16 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:34:16 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:34:16 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:34:16 WARN  SqlExceptionHelper main - SQL Error: 1064, SQLState: 42000
 15-09-08 17:34:16 ERROR SqlExceptionHelper main - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=all (select classen3_.id from class_en classen3_ inner join base_en classen3_1_' at line 1
@@ -725,7 +725,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:36:13 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:36:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:36:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:36:14 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:36:14 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:36:14 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:36:14 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -818,10 +818,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:36:15 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:36:15 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:36:15 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:36:15 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:36:15 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:36:15 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:36:15 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:36:15 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:36:15 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:36:15 WARN  SqlExceptionHelper main - SQL Error: 1064, SQLState: 42000
 15-09-08 17:36:15 ERROR SqlExceptionHelper main - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<>all (select classen3_.id from class_en classen3_ inner join base_en classen3_1' at line 1
@@ -830,7 +830,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:36:23 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:36:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:36:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:36:23 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:36:23 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:36:23 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:36:23 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -923,10 +923,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:36:25 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:36:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:36:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:36:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:36:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:36:25 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:36:25 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:36:25 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:36:25 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:36:25 WARN  SqlExceptionHelper main - SQL Error: 1064, SQLState: 42000
 15-09-08 17:36:25 ERROR SqlExceptionHelper main - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<>all (select classen3_.id from class_en classen3_ inner join base_en classen3_1' at line 1
@@ -935,7 +935,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:38:31 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:38:31 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:38:31 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:38:31 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:38:31 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:38:31 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:38:31 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1028,17 +1028,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:38:32 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:38:32 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:38:32 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:38:32 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:38:32 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:38:32 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:38:32 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:38:32 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:38:32 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:39:47 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:39:47 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:39:47 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:39:47 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:39:47 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:39:47 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:39:47 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:39:47 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:39:48 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1131,17 +1131,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:39:49 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:39:49 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:39:49 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:39:49 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:39:49 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:39:49 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:39:49 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:39:49 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:39:49 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:40:26 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:40:26 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:40:26 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:40:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:40:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:40:27 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:40:27 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:40:27 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:40:27 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1234,10 +1234,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:40:28 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:40:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:40:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:40:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:40:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:40:28 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:40:28 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:40:28 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:40:28 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:40:28 WARN  SqlExceptionHelper main - SQL Error: 0, SQLState: 07001
 15-09-08 17:40:28 ERROR SqlExceptionHelper main - No value specified for parameter 1
@@ -1246,7 +1246,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:41:33 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:41:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:41:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:41:34 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:41:34 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:41:34 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:41:34 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1339,17 +1339,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:41:35 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:41:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:41:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:41:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:41:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:41:35 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:41:35 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:41:35 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:41:35 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:42:38 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:42:38 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:42:39 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:42:39 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:42:39 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:42:39 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:42:39 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:42:39 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:42:39 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1442,10 +1442,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:42:40 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:42:40 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:42:40 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:42:40 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:42:40 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:42:40 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:42:40 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:42:40 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:42:40 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:42:40 WARN  SqlExceptionHelper main - SQL Error: 1054, SQLState: 42S22
 15-09-08 17:42:40 ERROR SqlExceptionHelper main - Unknown column 'infs' in 'where clause'
@@ -1454,7 +1454,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:43:32 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:43:32 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:43:32 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:43:32 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:43:32 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:43:32 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:43:32 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1547,10 +1547,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:43:34 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:43:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:43:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:43:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:43:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:43:34 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:43:34 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:43:34 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:43:34 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:43:34 WARN  SqlExceptionHelper main - SQL Error: 1054, SQLState: 42S22
 15-09-08 17:43:34 ERROR SqlExceptionHelper main - Unknown column 'infs' in 'where clause'
@@ -1559,7 +1559,7 @@ EntityManagerFactory is loaded......
 15-09-08 17:43:59 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:43:59 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:43:59 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:43:59 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:43:59 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:43:59 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:43:59 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1652,17 +1652,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:44:00 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:44:00 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:44:00 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:00 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:00 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:44:00 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:44:00 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:44:00 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:44:01 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:44:14 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:44:14 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:44:14 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:44:14 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:44:14 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:44:14 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:44:14 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:44:14 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:44:14 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1755,17 +1755,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:44:16 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:44:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:44:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:16 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:44:16 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:44:16 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:44:16 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:44:16 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:44:49 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:44:49 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:44:49 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:44:49 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:44:49 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:44:49 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:44:49 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:44:49 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:44:49 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -1858,10 +1858,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:44:50 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:44:51 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:44:51 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:51 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:44:51 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:44:51 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:44:51 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:44:51 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:44:51 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:44:51 ERROR ErrorCounter main - line 1:122: unexpected token: ?
 15-09-08 17:44:51 ERROR ErrorCounter main - line 1:122: unexpected token: ?
@@ -1896,10 +1896,10 @@ line 1:122: unexpected token: ?
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1930,7 +1930,7 @@ line 1:122: unexpected token: ?
 15-09-08 17:47:20 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:47:20 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:47:20 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:47:20 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:47:20 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:47:20 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:47:21 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2023,10 +2023,10 @@ line 1:122: unexpected token: ?
 15-09-08 17:47:22 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:47:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:47:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:47:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:47:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:47:22 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:47:22 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:47:22 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:47:22 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:47:22 ERROR ErrorCounter main - line 1:129: unexpected token: in
 15-09-08 17:47:22 ERROR ErrorCounter main - line 1:129: unexpected token: in
@@ -2062,10 +2062,10 @@ line 1:129: unexpected token: in
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2126,10 +2126,10 @@ line 1:137: unexpected token: ClassEn
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2193,10 +2193,10 @@ line 1:154: unexpected token: in
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2254,10 +2254,10 @@ line 1:157: unexpected token: id
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2288,7 +2288,7 @@ line 1:157: unexpected token: id
 15-09-08 17:47:52 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:47:52 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:47:52 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:47:52 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:47:52 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:47:52 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:47:52 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2381,17 +2381,17 @@ line 1:157: unexpected token: id
 15-09-08 17:47:53 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:47:53 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:47:53 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:47:53 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:47:53 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:47:53 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:47:53 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:47:53 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:47:53 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:48:33 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:48:33 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:48:33 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:48:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:48:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:48:33 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:48:33 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:48:33 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:48:33 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2484,17 +2484,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:48:35 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:48:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:48:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:48:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:48:35 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:48:35 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:48:35 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:48:35 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:48:35 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:49:57 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:49:57 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:49:57 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:49:57 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:49:57 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:49:57 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:49:57 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:49:57 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:49:57 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2587,17 +2587,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:49:58 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:49:58 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:49:58 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:49:58 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:49:58 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:49:58 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:49:58 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:49:58 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:49:59 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:53:21 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:53:21 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:53:21 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:53:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:53:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:53:21 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:53:21 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:53:21 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:53:21 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2690,17 +2690,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:53:22 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:53:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:53:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:53:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:53:22 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:53:22 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:53:22 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:53:22 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:53:22 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:53:32 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:53:32 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:53:32 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:53:32 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:53:32 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:53:33 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:53:33 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:53:33 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:53:33 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2793,17 +2793,17 @@ EntityManagerFactory is loaded......
 15-09-08 17:53:34 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:53:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:53:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:53:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:53:34 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:53:34 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:53:34 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:53:34 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:53:34 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:58:37 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 17:58:37 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 17:58:37 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 17:58:37 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 17:58:37 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 17:58:38 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 17:58:38 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 17:58:38 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 17:58:38 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -2896,10 +2896,10 @@ EntityManagerFactory is loaded......
 15-09-08 17:58:39 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 17:58:39 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 17:58:39 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:58:39 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 17:58:39 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 17:58:39 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 17:58:39 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 17:58:39 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 17:58:39 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 17:58:39 WARN  SqlExceptionHelper main - SQL Error: 1241, SQLState: 21000
 15-09-08 17:58:39 ERROR SqlExceptionHelper main - Operand should contain 2 column(s)
@@ -2908,7 +2908,7 @@ EntityManagerFactory is loaded......
 15-09-08 18:13:36 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:13:36 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:13:36 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:13:36 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:13:36 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:13:36 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:13:36 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3001,17 +3001,17 @@ EntityManagerFactory is loaded......
 15-09-08 18:13:37 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:13:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:13:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:13:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:13:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:13:37 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:13:37 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:13:37 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:13:37 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:14:23 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 18:14:23 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 18:14:23 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:14:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:14:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:14:24 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:14:24 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:14:24 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:14:24 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3104,10 +3104,10 @@ EntityManagerFactory is loaded......
 15-09-08 18:14:25 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:14:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:14:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:14:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:14:25 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:14:25 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:14:25 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:14:25 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:14:25 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:14:25 ERROR ErrorCounter main - line 1:199: unexpected token: groupby
 15-09-08 18:14:25 ERROR ErrorCounter main - line 1:199: unexpected token: groupby
@@ -3125,10 +3125,10 @@ line 1:199: unexpected token: groupby
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:236)
 	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1800)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:328)
-	at cf.study.java8.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
-	at cf.study.java8.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
-	at cf.study.java8.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:50)
+	at cf.study.java.javax.persistence.dao.BaseDao$SimpleQueryBuilder.byHQL(BaseDao.java:353)
+	at cf.study.java.javax.persistence.dao.BaseDao.query(BaseDao.java:193)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao$Proxy$_$$_WeldClientProxy.query(Unknown Source)
+	at cf.study.java.javax.persistence.jpa.ex.reflects.v1.QueryTests.testQuery(QueryTests.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -3159,7 +3159,7 @@ line 1:199: unexpected token: groupby
 15-09-08 18:14:35 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:14:35 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:14:35 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:14:35 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:14:35 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:14:35 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:14:35 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3252,17 +3252,17 @@ line 1:199: unexpected token: groupby
 15-09-08 18:14:37 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:14:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:14:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:14:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:14:37 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:14:37 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:14:37 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:14:37 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:14:37 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:15:16 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 18:15:16 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 18:15:16 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:15:16 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:15:16 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:15:16 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:15:16 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:15:16 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:15:17 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3355,17 +3355,17 @@ EntityManagerFactory is loaded......
 15-09-08 18:15:18 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:15:18 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:15:18 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:15:18 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:15:18 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:15:18 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:15:18 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:15:18 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:15:18 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:23:23 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 18:23:23 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 18:23:23 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:23:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:23:23 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:23:23 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:23:23 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:23:23 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:23:23 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3458,17 +3458,17 @@ EntityManagerFactory is loaded......
 15-09-08 18:23:24 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:23:24 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:23:24 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:23:24 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:23:24 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:23:24 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:23:24 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:23:24 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:23:24 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:25:05 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 18:25:05 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 18:25:05 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:25:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:25:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:25:06 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:25:06 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:25:06 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:25:06 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3561,17 +3561,17 @@ EntityManagerFactory is loaded......
 15-09-08 18:25:07 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:25:07 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:25:07 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:25:07 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:25:07 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:25:07 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:25:07 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:25:07 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:25:07 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-08 18:26:26 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-08 18:26:26 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-08 18:26:26 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-08 18:26:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-08 18:26:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-08 18:26:26 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.init
+15-09-08 18:26:26 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.init
 15-09-08 18:26:26 INFO  JpaModule main - loading EntityManagerFactory......
 
 15-09-08 18:26:26 WARN  HibernatePersistence main - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
@@ -3664,10 +3664,10 @@ EntityManagerFactory is loaded......
 15-09-08 18:26:28 INFO  JpaModule main - 
 EntityManagerFactory is loaded......
 
-15-09-08 18:26:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
-15-09-08 18:26:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java8.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:26:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
+15-09-08 18:26:28 INFO  ReflectDao main - ReflectDao.java	cf.study.java.javax.persistence.jpa.ex.reflects.v1.ReflectDao.<init>
 15-09-08 18:26:28 INFO  JpaModule main - creating EntityManager for Thread: main
-15-09-08 18:26:28 INFO  JpaModule main - JpaModule.java	cf.study.java8.javax.persistence.dao.JpaModule.getEntityManager
+15-09-08 18:26:28 INFO  JpaModule main - JpaModule.java	cf.study.java.javax.persistence.dao.JpaModule.getEntityManager
 15-09-08 18:26:28 INFO  JpaModule main - created new EntityManager for Thread: main
 15-09-09 11:51:08 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 11:51:08 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3679,8 +3679,8 @@ EntityManagerFactory is loaded......
 15-09-09 11:51:31 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 11:51:31 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 11:51:31 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 11:51:31 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6bd61f98[
+15-09-09 11:51:31 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6bd61f98[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3688,27 +3688,27 @@ EntityManagerFactory is loaded......
   createdTime=1441770691846
   name=<null>
 ]
-15-09-09 11:51:31 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 11:51:31 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=<null>
   createdTime=1441770691855
   name=<null>
 ]
-15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 11:51:31 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 11:51:31 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=1
   createdTime=1441770691855
   name=<null>
 ]
-15-09-09 11:51:31 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 11:51:31 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=1
   createdTime=1441770691855
   name=<null>
 ]
-15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 11:51:31 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 11:51:31 INFO  SeqGenerator main - last id: 1
 15-09-09 13:41:41 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 13:41:41 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3730,8 +3730,8 @@ EntityManagerFactory is loaded......
 15-09-09 13:42:58 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 13:42:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 13:42:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 13:42:58 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6bd61f98[
+15-09-09 13:42:58 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6bd61f98[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3739,27 +3739,27 @@ EntityManagerFactory is loaded......
   createdTime=1441777378894
   name=<null>
 ]
-15-09-09 13:42:58 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 13:42:58 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=<null>
   createdTime=1441777378903
   name=<null>
 ]
-15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 13:42:58 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 13:42:58 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=1
   createdTime=1441777378903
   name=<null>
 ]
-15-09-09 13:42:58 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@771a660[
+15-09-09 13:42:58 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@771a660[
   id=1
   createdTime=1441777378903
   name=<null>
 ]
-15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 13:42:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 13:42:58 INFO  SeqGenerator main - last id: 1
 15-09-09 13:44:03 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 13:44:03 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3791,8 +3791,8 @@ EntityManagerFactory is loaded......
 15-09-09 13:52:37 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 13:52:37 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 13:52:37 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3801,25 +3801,25 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 13:52:37 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 13:52:37 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441777957580
   id=<null>
   name=<null>
 ]
-15-09-09 13:52:37 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 13:52:37 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 13:52:37 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441777957580
   id=1
   name=<null>
 ]
-15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 13:52:37 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 13:52:37 INFO  SeqGenerator main - last id: 1
 15-09-09 14:09:07 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 14:09:07 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3836,8 +3836,8 @@ EntityManagerFactory is loaded......
 15-09-09 14:11:03 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 14:11:03 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 14:11:03 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3846,25 +3846,25 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 14:11:03 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 14:11:03 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441779063588
   id=<null>
   name=<null>
 ]
-15-09-09 14:11:03 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 14:11:03 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 14:11:03 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441779063588
   id=1
   name=<null>
 ]
-15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 14:11:03 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 14:11:03 INFO  SeqGenerator main - last id: 1
 15-09-09 14:12:01 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 14:12:01 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3876,8 +3876,8 @@ EntityManagerFactory is loaded......
 15-09-09 14:12:26 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 14:12:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 14:12:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3886,25 +3886,25 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 14:12:27 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 14:12:27 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441779147089
   id=<null>
   name=<null>
 ]
-15-09-09 14:12:27 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizRequest@3e11f9e9[
+15-09-09 14:12:27 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 14:12:27 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizRequest@3e11f9e9[
   param=<null>
   createdTime=1441779147089
   id=1
   name=<null>
 ]
-15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 14:12:27 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 14:12:27 INFO  SeqGenerator main - last id: 1
 15-09-09 14:12:31 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 14:12:31 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -3916,8 +3916,8 @@ EntityManagerFactory is loaded......
 15-09-09 14:13:07 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 14:13:07 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 14:13:07 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3926,31 +3926,31 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
+15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
   infProc=<null>
   createdTime=1441779187411
   id=<null>
   name=<null>
 ]
-15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
+15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 14:13:07 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
   createdTime=1441779187411
   id=1
   name=<null>
 ]
-15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 14:13:07 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 14:13:07 INFO  SeqGenerator main - last id: 1
 15-09-09 14:14:46 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 14:14:46 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-09 14:14:46 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 14:14:46 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 14:14:46 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3959,31 +3959,31 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
+15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
   infProc=<null>
   createdTime=1441779286585
   id=<null>
   name=<null>
 ]
-15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
+15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 14:14:46 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
   createdTime=1441779286585
   id=1
   name=<null>
 ]
-15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 14:14:46 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 14:14:46 INFO  SeqGenerator main - last id: 1
 15-09-09 14:14:58 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-09 14:14:58 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-09 14:14:58 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-09 14:14:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-09 14:14:58 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
+15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@3c7f66c4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -3992,23 +3992,23 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
+15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
   infProc=<null>
   createdTime=1441779298861
   id=<null>
   name=<null>
 ]
-15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e11f9e9[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
+15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-09 14:14:58 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e11f9e9[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@36916eb0
   createdTime=1441779298861
   id=1
   name=<null>
 ]
-15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-09 14:14:58 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-09 14:14:58 INFO  SeqGenerator main - last id: 1
 15-09-10 10:58:56 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-10 10:58:56 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
@@ -4020,8 +4020,8 @@ EntityManagerFactory is loaded......
 15-09-10 10:59:29 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-10 10:59:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-10 10:59:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@53ce1329[
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@53ce1329[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4031,8 +4031,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441853969627, getId()=null, getName()=null, hashCode()=9797126, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@32502377[
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441853969627, getId()=null, getName()=null, hashCode()=9797126, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@32502377[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4040,57 +4040,57 @@ EntityManagerFactory is loaded......
   createdTime=1441853969627
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-10 10:59:29 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441853969628, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-10 10:59:29 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441853969628, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=<null>
   createdTime=1441853969628
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 10:59:29 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441853969628, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 10:59:29 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441853969628, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=<null>
   createdTime=1441853969628
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@12aba8be[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@12aba8be[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441853969631
   id=<null>
   name=<null>
 ]
-15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@12aba8be[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@6253c26
+15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-10 10:59:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@12aba8be[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@6253c26
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441853969631
   id=2
   name=<null>
 ]
-15-09-10 10:59:29 INFO  BizBean main - BizRequest [getParam()=abc, getCreatedTime()=1441853969628, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+15-09-10 10:59:29 INFO  BizBean main - BizRequest [getParam()=abc, getCreatedTime()=1441853969628, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=abc
   createdTime=1441853969628
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 10:59:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-10 10:59:29 INFO  SeqGenerator main - last id: 2
 15-09-10 11:00:54 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-10 11:00:54 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-10 11:00:54 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-10 11:00:54 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-10 11:00:54 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@53ce1329[
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@53ce1329[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4100,8 +4100,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441854055039, getId()=null, getName()=null, hashCode()=9797126, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@32502377[
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441854055039, getId()=null, getName()=null, hashCode()=9797126, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@32502377[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4109,59 +4109,59 @@ EntityManagerFactory is loaded......
   createdTime=1441854055039
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-10 11:00:55 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441854055040, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-10 11:00:55 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441854055040, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=<null>
   createdTime=1441854055040
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 11:00:55 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441854055040, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 11:00:55 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441854055040, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=<null>
   createdTime=1441854055040
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@12aba8be[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@12aba8be[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441854055044
   id=<null>
   name=<null>
 ]
-15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@12aba8be[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@6253c26
+15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-10 11:00:55 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@12aba8be[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@6253c26
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441854055044
   id=2
   name=<null>
 ]
 15-09-10 11:00:55 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441854055040, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@66f57048[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441854055040, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@66f57048[
   param=abc
   createdTime=1441854055040
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-10 11:00:55 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-10 11:00:55 INFO  SeqGenerator main - last id: 2
 15-09-10 11:01:08 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-10 11:01:08 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-10 11:01:08 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-10 11:01:08 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-10 11:01:08 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@773f7880[
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@773f7880[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4171,8 +4171,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441854078392, getId()=null, getName()=null, hashCode()=890160158, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@69637b10[
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441854078392, getId()=null, getName()=null, hashCode()=890160158, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@69637b10[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4180,59 +4180,59 @@ EntityManagerFactory is loaded......
   createdTime=1441854078392
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-10 11:01:18 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441854078396, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2364305a[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-10 11:01:18 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441854078396, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2364305a[
   param=<null>
   createdTime=1441854078396
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 11:01:18 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441854078396, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2364305a[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 11:01:18 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441854078396, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2364305a[
   param=<null>
   createdTime=1441854078396
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@1de5f0ef[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@1de5f0ef[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441854078400
   id=<null>
   name=<null>
 ]
-15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@1de5f0ef[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@5ef0d29e
+15-09-10 11:01:18 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-10 11:01:18 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@1de5f0ef[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@5ef0d29e
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441854078400
   id=2
   name=<null>
 ]
 15-09-10 11:01:21 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441854078396, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2364305a[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441854078396, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2364305a[
   param=abc
   createdTime=1441854078396
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-10 11:01:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-10 11:01:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-10 11:01:26 INFO  SeqGenerator main - last id: 2
 15-09-11 12:00:33 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 12:00:33 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 12:00:33 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 12:00:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 12:00:33 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 12:00:33 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@506ae4d4[
+15-09-11 12:00:33 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@506ae4d4[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4240,35 +4240,35 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 12:00:33 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@3527942a[
+15-09-11 12:00:33 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@3527942a[
   createdTime=1441944033678
   id=<null>
   name=<null>
 ]
-15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 12:00:33 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@3527942a[
+15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 12:00:33 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@3527942a[
   createdTime=1441944033678
   id=1
   name=<null>
 ]
-15-09-11 12:00:33 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@3527942a[
+15-09-11 12:00:33 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@3527942a[
   createdTime=1441944033678
   id=1
   name=<null>
 ]
-15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 12:00:33 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 12:00:33 INFO  SeqGenerator main - last id: 1
 15-09-11 12:06:12 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 12:06:12 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 12:06:13 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 12:06:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 12:06:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 12:06:13 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@b40bb6e[
+15-09-11 12:06:13 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@b40bb6e[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4278,41 +4278,41 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:13 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@2ed3b1f5[
+15-09-11 12:06:13 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@2ed3b1f5[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441944373543
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 12:06:13 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@2ed3b1f5[
+15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 12:06:13 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@2ed3b1f5[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441944373543
   id=1
   name=<null>
 ]
-15-09-11 12:06:13 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@2ed3b1f5[
+15-09-11 12:06:13 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@2ed3b1f5[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441944373543
   id=1
   name=<null>
 ]
-15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 12:06:13 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 12:06:13 INFO  SeqGenerator main - last id: 1
 15-09-11 12:06:29 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 12:06:29 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 12:06:29 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 12:06:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 12:06:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@194bcebf[
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@194bcebf[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4322,8 +4322,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944389849, getId()=null, getName()=null, hashCode()=1678046232, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3e11f9e9[
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944389849, getId()=null, getName()=null, hashCode()=1678046232, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3e11f9e9[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4331,59 +4331,59 @@ EntityManagerFactory is loaded......
   createdTime=1441944389849
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-11 12:06:29 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944389850, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-11 12:06:29 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944389850, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=<null>
   createdTime=1441944389850
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:29 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441944389850, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:29 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441944389850, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=<null>
   createdTime=1441944389850
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@7bab3f1a[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@7bab3f1a[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441944389853
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@7bab3f1a[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@1e1a0406
+15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 12:06:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@7bab3f1a[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@1e1a0406
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441944389853
   id=2
   name=<null>
 ]
 15-09-11 12:06:29 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441944389850, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441944389850, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=abc
   createdTime=1441944389850
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 12:06:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 12:06:29 INFO  SeqGenerator main - last id: 2
 15-09-11 12:06:34 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 12:06:34 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 12:06:34 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 12:06:34 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 12:06:34 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@62fad19[
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@62fad19[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4393,8 +4393,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944395048, getId()=null, getName()=null, hashCode()=1118430673, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@5b080f3a[
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944395048, getId()=null, getName()=null, hashCode()=1118430673, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@5b080f3a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4402,59 +4402,59 @@ EntityManagerFactory is loaded......
   createdTime=1441944395048
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-11 12:06:35 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944395050, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2756c0a7[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-11 12:06:35 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944395050, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2756c0a7[
   param=<null>
   createdTime=1441944395050
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:35 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441944395050, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2756c0a7[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:35 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441944395050, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2756c0a7[
   param=<null>
   createdTime=1441944395050
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@2b491fee[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@2b491fee[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441944395053
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@2b491fee[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@3e8f7922
+15-09-11 12:06:35 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 12:06:35 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@2b491fee[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@3e8f7922
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441944395053
   id=2
   name=<null>
 ]
 15-09-11 12:06:40 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441944395050, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@2756c0a7[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441944395050, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@2756c0a7[
   param=abc
   createdTime=1441944395050
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-11 12:06:40 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 12:06:40 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 12:06:40 INFO  SeqGenerator main - last id: 2
 15-09-11 12:06:52 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 12:06:52 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 12:06:52 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 12:06:52 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 12:06:52 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@55e8ec2f[
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@55e8ec2f[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4464,8 +4464,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944413267, getId()=null, getName()=null, hashCode()=1717473929, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@7d3430a7[
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944413267, getId()=null, getName()=null, hashCode()=1717473929, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@7d3430a7[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4473,59 +4473,59 @@ EntityManagerFactory is loaded......
   createdTime=1441944413267
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-11 12:06:53 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441944413269, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@165b2f7f[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-11 12:06:53 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441944413269, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@165b2f7f[
   param=<null>
   createdTime=1441944413269
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:53 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441944413269, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@165b2f7f[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:53 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441944413269, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@165b2f7f[
   param=<null>
   createdTime=1441944413269
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e8f7922[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e8f7922[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441944413271
   id=<null>
   name=<null>
 ]
-15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@3e8f7922[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@1de5f0ef
+15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 12:06:53 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@3e8f7922[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@1de5f0ef
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441944413271
   id=2
   name=<null>
 ]
 15-09-11 12:06:53 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441944413269, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@165b2f7f[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441944413269, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@165b2f7f[
   param=abc
   createdTime=1441944413269
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 12:06:53 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 12:06:53 INFO  SeqGenerator main - last id: 2
 15-09-11 13:09:21 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:09:21 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:09:21 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:09:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:09:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@194bcebf[
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean$Proxy$_$$_WeldClientProxy@194bcebf[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4535,8 +4535,8 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441948162161, getId()=null, getName()=null, hashCode()=1678046232, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3e11f9e9[
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441948162161, getId()=null, getName()=null, hashCode()=1678046232, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy@3e11f9e9[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4544,52 +4544,52 @@ EntityManagerFactory is loaded......
   createdTime=1441948162161
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
-15-09-11 13:09:22 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	BizRequest [getParam()=null, getCreatedTime()=1441948162162, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest$Proxy$_$$_WeldClientProxy]
+15-09-11 13:09:22 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	BizRequest [getParam()=null, getCreatedTime()=1441948162162, getId()=null, getName()=null, hashCode()=31, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=<null>
   createdTime=1441948162162
   id=<null>
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 13:09:22 INFO  BizRequest main - BizRequest.java	cf.study.java8.javax.cdi.weld.beans.BizRequest.<init>
-15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	BizRequest [getParam()=null, getCreatedTime()=1441948162162, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 13:09:22 INFO  BizRequest main - BizRequest.java	cf.study.java.javax.cdi.weld.beans.BizRequest.<init>
+15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	BizRequest [getParam()=null, getCreatedTime()=1441948162162, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=<null>
   createdTime=1441948162162
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest]
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.BizBean@7bab3f1a[
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.BizBean@7bab3f1a[
   infProc=<null>
   serializableReqEvent=<null>
   createdTime=1441948162165
   id=<null>
   name=<null>
 ]
-15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.BizBean@7bab3f1a[
-  infProc=cf.study.java8.javax.cdi.weld.beans.InterfaceProcessor@1e1a0406
+15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.BizBean@7bab3f1a[
+  infProc=cf.study.java.javax.cdi.weld.beans.InterfaceProcessor@1e1a0406
   serializableReqEvent=@Any Event<BizRequest>
   createdTime=1441948162165
   id=2
   name=<null>
 ]
 15-09-11 13:09:22 INFO  BizBean main - 
-	 BizRequest [getParam()=abc, getCreatedTime()=1441948162162, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java8.javax.cdi.weld.beans.BizRequest@31fa1761[
+	 BizRequest [getParam()=abc, getCreatedTime()=1441948162162, getId()=1, getName()=null, hashCode()=32, toString()=cf.study.java.javax.cdi.weld.beans.BizRequest@31fa1761[
   param=abc
   createdTime=1441948162162
   id=1
   name=<null>
-], getClass()=class cf.study.java8.javax.cdi.weld.beans.BizRequest] 
+], getClass()=class cf.study.java.javax.cdi.weld.beans.BizRequest]
 	
-15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@67f639d3[
+15-09-11 13:09:22 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@67f639d3[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4599,15 +4599,15 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:09:22 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:09:22 INFO  SeqGenerator main - last id: 2
 15-09-11 13:09:45 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:09:45 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:09:45 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:09:45 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:09:45 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:09:45 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
+15-09-11 13:09:45 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4622,8 +4622,8 @@ EntityManagerFactory is loaded......
 15-09-11 13:09:55 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:09:56 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:09:56 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:09:56 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@b968a76[
+15-09-11 13:09:56 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@b968a76[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4638,8 +4638,8 @@ EntityManagerFactory is loaded......
 15-09-11 13:10:00 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:10:00 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:10:00 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:10:01 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@7fc44dec[
+15-09-11 13:10:01 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@7fc44dec[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4654,8 +4654,8 @@ EntityManagerFactory is loaded......
 15-09-11 13:10:13 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:10:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:10:13 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:10:14 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@2cb3d0f7[
+15-09-11 13:10:14 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@2cb3d0f7[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4670,8 +4670,8 @@ EntityManagerFactory is loaded......
 15-09-11 13:11:00 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:11:00 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:11:00 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:11:00 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a320ade[
+15-09-11 13:11:00 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a320ade[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4681,62 +4681,62 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:11:00 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@68759011[
+15-09-11 13:11:00 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@68759011[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441948260507
   id=<null>
   name=<null>
 ]
-15-09-11 13:11:00 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:11:00 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:11:03 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@68759011[
+15-09-11 13:11:00 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:11:00 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:11:03 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@68759011[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948260507
   id=1
   name=<null>
 ]
-15-09-11 13:11:04 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
+15-09-11 13:11:04 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
   createdTime=1441948264643
   id=<null>
   name=<null>
 ]
-15-09-11 13:11:04 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:11:04 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
+15-09-11 13:11:04 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:11:04 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
   createdTime=1441948264643
   id=2
   name=<null>
 ]
-15-09-11 13:11:10 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onStart
-15-09-11 13:11:10 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@68759011[
+15-09-11 13:11:10 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onStart
+15-09-11 13:11:10 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@68759011[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948260507
   id=1
   name=<null>
 ]
-15-09-11 13:11:10 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
-15-09-11 13:11:10 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
+15-09-11 13:11:10 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
+15-09-11 13:11:10 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@592e843a[
   createdTime=1441948264643
   id=2
   name=<null>
 ]
-15-09-11 13:11:10 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:11:10 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:11:10 INFO  SeqGenerator main - last id: 2
 15-09-11 13:11:26 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:11:26 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:11:26 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:11:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:11:26 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:11:26 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6d366c9b[
+15-09-11 13:11:26 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@6d366c9b[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4746,23 +4746,23 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:11:26 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@410ae9a3[
+15-09-11 13:11:26 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@410ae9a3[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441948286691
   id=<null>
   name=<null>
 ]
-15-09-11 13:11:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:11:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:11:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:11:26 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
 15-09-11 13:12:04 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:12:04 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:12:05 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:12:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:12:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:12:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@75e01201[
+15-09-11 13:12:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@75e01201[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4777,8 +4777,8 @@ EntityManagerFactory is loaded......
 15-09-11 13:12:21 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:12:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:12:21 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
+15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4788,62 +4788,62 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441948341776
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:12:21 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:12:21 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948341776
   id=1
   name=<null>
 ]
-15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948341779
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948341779
   id=2
   name=<null>
 ]
-15-09-11 13:12:21 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onStart
-15-09-11 13:12:21 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:21 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onStart
+15-09-11 13:12:21 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948341776
   id=1
   name=<null>
 ]
-15-09-11 13:12:21 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
-15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:21 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
+15-09-11 13:12:21 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948341779
   id=2
   name=<null>
 ]
-15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:12:21 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:12:21 INFO  SeqGenerator main - last id: 2
 15-09-11 13:12:36 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:12:36 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:12:36 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:12:36 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:12:36 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
+15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4853,62 +4853,62 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441948356613
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:12:36 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:12:36 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948356613
   id=1
   name=<null>
 ]
-15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948356616
   id=<null>
   name=<null>
 ]
-15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948356616
   id=2
   name=<null>
 ]
-15-09-11 13:12:36 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onStart
-15-09-11 13:12:36 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:12:36 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onStart
+15-09-11 13:12:36 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948356613
   id=1
   name=<null>
 ]
-15-09-11 13:12:36 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
-15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:12:36 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
+15-09-11 13:12:36 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948356616
   id=2
   name=<null>
 ]
-15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:12:36 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:12:36 INFO  SeqGenerator main - last id: 2
 15-09-11 13:14:29 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:14:29 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:14:29 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:14:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:14:29 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
+15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4918,63 +4918,63 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441948469739
   id=<null>
   name=<null>
 ]
-15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:14:29 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:14:29 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948469739
   id=1
   name=<null>
 ]
-15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onAppStart
-15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onAppStart
+15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948469742
   id=<null>
   name=<null>
 ]
-15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948469742
   id=2
   name=<null>
 ]
-15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onStart
-15-09-11 13:14:29 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onStart
+15-09-11 13:14:29 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441948469739
   id=1
   name=<null>
 ]
-15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
-15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:14:29 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
+15-09-11 13:14:29 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441948469742
   id=2
   name=<null>
 ]
-15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:14:29 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:14:29 INFO  SeqGenerator main - last id: 2
 15-09-11 13:26:05 INFO  Version main - WELD-000900: 2.2.6 (Final)
 15-09-11 13:26:05 INFO  Bootstrap main - WELD-ENV-000020: Using jandex for bean discovery
 15-09-11 13:26:05 INFO  Bootstrap main - WELD-000101: Transactional services not available. Injection of @Inject UserTransaction not available. Transactional observers will be invoked synchronously.
 15-09-11 13:26:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PostActivate not found, interception based on it is not enabled
 15-09-11 13:26:05 WARN  Interceptor main - WELD-001700: Interceptor annotation class javax.ejb.PrePassivate not found, interception based on it is not enabled
-15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
+15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean$Proxy$_$$_WeldClientProxy@3a44431a[
   methodHandler=<null>
   BEAN_ID_FIELD=<null>
   constructed=false
@@ -4984,53 +4984,53 @@ EntityManagerFactory is loaded......
   id=<null>
   name=<null>
 ]
-15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=<null>
   destoryEvent=<null>
   createdTime=1441949165576
   id=<null>
   name=<null>
 ]
-15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.postConstruct
-15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
-15-09-11 13:26:05 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.postConstruct
+15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 1}
+15-09-11 13:26:05 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441949165576
   id=1
   name=<null>
 ]
-15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onAppStart
-15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.<init>
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onAppStart
+15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.<init>
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441949165580
   id=<null>
   name=<null>
 ]
-15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
-15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.postConstruct
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.getSeq 	-> 	{newId: 2}
+15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.postConstruct
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441949165580
   id=2
   name=<null>
 ]
-15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onStart
-15-09-11 13:26:05 INFO  AppBean main - AppBean.java	cf.study.java8.javax.cdi.weld.beans.AppBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.AppBean@32502377[
+15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onStart
+15-09-11 13:26:05 INFO  AppBean main - AppBean.java	cf.study.java.javax.cdi.weld.beans.AppBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.AppBean@32502377[
   startupEvent=@Initialized Event<AppBean>
   destoryEvent=@Destroyed Event<AppBean>
   createdTime=1441949165576
   id=1
   name=<null>
 ]
-15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
-15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java8.javax.cdi.weld.beans.BasicBean.preDestroy
-	cf.study.java8.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
+15-09-11 13:26:05 INFO  ModuleBean main - ModuleBean.java	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean.onDestroy
+15-09-11 13:26:05 INFO  BasicBean main - BasicBean.java	cf.study.java.javax.cdi.weld.beans.BasicBean.preDestroy
+	cf.study.java.javax.cdi.weld.beans.annotated.ModuleBean@21282ed8[
   createdTime=1441949165580
   id=2
   name=<null>
 ]
-15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java8.javax.cdi.weld.beans.SeqGenerator.preDestroy
+15-09-11 13:26:05 INFO  SeqGenerator main - SeqGenerator.java	cf.study.java.javax.cdi.weld.beans.SeqGenerator.preDestroy
 15-09-11 13:26:05 INFO  SeqGenerator main - last id: 2

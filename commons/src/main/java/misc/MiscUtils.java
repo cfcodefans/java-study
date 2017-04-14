@@ -12,6 +12,19 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.commons.lang3.event.EventUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +52,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class MiscUtils {
@@ -385,5 +399,53 @@ public class MiscUtils {
             return Stream.of(pt.getActualTypeArguments()).filter(_type -> _type instanceof Class).toArray(Class[]::new);
         }
         return null;
+    }
+
+    public static HttpResponse easyGet(String urlStr, String... params) {
+        if (StringUtils.isBlank(urlStr)) {
+            return null;
+        }
+
+        try (CloseableHttpClient hc = HttpClients.createDefault()) {
+            URIBuilder ub = new URIBuilder(urlStr);
+            if (!ArrayUtils.isEmpty(params)) {
+                IntStream.range(0, params.length).filter(i -> i % 2 == 1).forEach(i -> ub.addParameter(params[i - 1], params[i]));
+            }
+
+            HttpGet hg = new HttpGet(ub.build());
+            try (CloseableHttpResponse hr = hc.execute(hg)) {
+                BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
+                bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+                return bhr;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static HttpResponse easyPost(String urlStr, String... params) {
+        if (StringUtils.isBlank(urlStr)) {
+            return null;
+        }
+
+        try (CloseableHttpClient hc = HttpClients.createDefault()) {
+            URIBuilder ub = new URIBuilder(urlStr);
+            HttpPost hp = new HttpPost(ub.build());
+            List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+            if (!ArrayUtils.isEmpty(params)) {
+                IntStream.range(0, params.length).filter(i -> i % 2 == 1).forEach(i -> nvps.add(new BasicNameValuePair(params[i - 1], params[i])));
+            }
+            hp.setEntity(new UrlEncodedFormEntity(nvps));
+
+            try (CloseableHttpResponse hr = hc.execute(hp)) {
+                BasicHttpResponse bhr = new BasicHttpResponse(hr.getStatusLine());
+                bhr.setEntity(new InputStreamEntity(new ByteArrayInputStream(EntityUtils.toByteArray(hr.getEntity()))));
+                return bhr;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

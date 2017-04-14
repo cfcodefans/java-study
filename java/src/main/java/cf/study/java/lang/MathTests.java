@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.LongStream;
 
 public class MathTests {
     @Test
@@ -112,4 +113,13 @@ public class MathTests {
         return list;
     }
 
+    public static long factorial(int n) {
+        return LongStream.range(1, n + 1).reduce(1L, (a, b) -> a * b);
+    }
+
+    @Test
+    public void testFactorial() {
+        System.out.println(factorial(3));
+        System.out.println(factorial(4));
+    }
 }
