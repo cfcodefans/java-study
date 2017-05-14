@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class DistributionTests {
@@ -45,4 +46,19 @@ public class DistributionTests {
 
 		log.info("");
 	}
+
+	public static long factorial(int n) {
+	    return n != 0 ? LongStream.rangeClosed(1, n).reduce(1, (long a, long b)-> a * b) : 1;
+    }
+
+	public static double binomial(int n, int x, double p) {
+        return factorial(n) / (double)(factorial(x) * factorial(n - x)) * Math.pow(p, x) * Math.pow(1 - p, n - x);
+    }
+
+    @Test
+    public void examples() {
+	    System.out.printf("exact 5 times out of 10 %f\n", binomial(10, 5, 0.5));
+		System.out.printf("at least 5 times out of 10 %f\n", IntStream.rangeClosed(5, 10).mapToDouble(i -> binomial(10, i, 0.5)).sum());
+		System.out.printf("at most 5 times out of 10 %f\n", IntStream.rangeClosed(0, 5).mapToDouble(i -> binomial(10, i, 0.5)).sum());
+    }
 }

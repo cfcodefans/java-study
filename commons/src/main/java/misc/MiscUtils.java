@@ -12,6 +12,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.commons.lang3.event.EventUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -183,6 +184,11 @@ public class MiscUtils {
         }
         return sb.toString();
     }
+
+    public static HttpResponse easyGet(String url) {
+        return null;
+    }
+
     public static class LoopingArrayIterator<E> extends ObjectArrayIterator<E> {
         @SafeVarargs
         public LoopingArrayIterator(final E... array) {
