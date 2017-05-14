@@ -315,7 +315,7 @@ public class JettyTests {
 
 		ServletHolder sh = ctx.addServlet(HelloServlet.class, "/*");
 		
-		Servlet si0 = sh.getServletInstance();
+		Servlet si0 = sh.getServlet();
 		log.info(si0.toString());
 
 		server.start();
