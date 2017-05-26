@@ -476,11 +476,9 @@ public class JettyTests {
 	@Test
 	public void testProxySerlvet() {
 		Server proxySrv = new Server(8080);
-		
 		ServletContextHandler sch = new ServletContextHandler();
 		sch.setContextPath("/proxy");
 		sch.addServlet(ProxyServlet.class, "/*");
-		
 		proxySrv.setHandler(proxySrv);
 	}
 
