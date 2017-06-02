@@ -8,26 +8,6 @@ import java.util.function.Consumer;
 
 public class TreeTests {
 
-    /**
-     * Created by fan on 2016/10/18.
-     */
-
-    private static class Node {
-        int data = 0, ht = 0;
-        Node left, right;
-
-        Node(int d) {
-            this.data = d;
-        }
-
-        public Node() {
-        }
-
-        public String toString() {
-            return String.valueOf(data);
-        }
-    }
-
     static int indexOf(int[] array, int target, int start, int end) {
         for (int i = start, j = Math.min(end, array.length - 1); i <= j; i++) {
             if (array[i] == target) return i;
