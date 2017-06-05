@@ -27,7 +27,7 @@ public class AppCtxTests {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		if (sac != null || sac.isActive()) {
+		if (sac != null && sac.isActive()) {
 			sac.close();
 		}
 	}

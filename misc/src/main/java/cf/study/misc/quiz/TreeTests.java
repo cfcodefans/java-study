@@ -8,26 +8,6 @@ import java.util.function.Consumer;
 
 public class TreeTests {
 
-    /**
-     * Created by fan on 2016/10/18.
-     */
-
-    private static class Node {
-        int data = 0, ht = 0;
-        Node left, right;
-
-        Node(int d) {
-            this.data = d;
-        }
-
-        public Node() {
-        }
-
-        public String toString() {
-            return String.valueOf(data);
-        }
-    }
-
     static int indexOf(int[] array, int target, int start, int end) {
         for (int i = start, j = Math.min(end, array.length - 1); i <= j; i++) {
             if (array[i] == target) return i;
@@ -170,7 +150,6 @@ public class TreeTests {
 
                 if (node.right != null) {
                     node = node.right;
-                    continue;
                 }
             }
         } while (!s.empty());
@@ -222,7 +201,6 @@ public class TreeTests {
     }
 
     public static Node insertNodes(Node root, int... data) {
-        int[] v = data;
         for (int i : data) root = insert(root, i);
         return root;
     }

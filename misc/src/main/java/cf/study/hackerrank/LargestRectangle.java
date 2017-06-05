@@ -44,7 +44,6 @@ public class LargestRectangle {
 					}
 					while (!tmpStack.empty() && tmpStack.peek() == t) {
 						tmpStack.pop();
-						continue;
 					}
 				} while (!tmpStack.empty());
 			} else {
@@ -63,7 +62,6 @@ public class LargestRectangle {
 				}
 				while (!stack.empty() && stack.peek() == t) {
 					stack.pop();
-					continue;
 				}
 			} while (!stack.empty());
 		}
