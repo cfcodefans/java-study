@@ -5,10 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import java.util.stream.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -67,7 +64,7 @@ public class ListProblems {
     }
 
     public static <T> long lenByStream(List<T> list) {
-        return list.stream().count();
+        return list.size();
     }
 
     public static <T> int lenByStreamMap(List<T> list) {
@@ -366,10 +363,44 @@ public class ListProblems {
     }
 
     @Test
-    public void testRandomSelectRecoursive() {
+    public void testRandomSelectRecursive() {
         System.out.println(randomSelectRecursive(range(0, 9), 3, null));
         System.out.println(randomSelectRecursive(range(0, 9), 4, null));
         System.out.println(randomSelectRecursive(range(0, 9), 5, null));
         System.out.println(randomSelectRecursive(range(0, 9), 6, null));
+    }
+
+    /**
+     * 31th
+     * (**) Determine whether a given integer number is prime.
+     */
+    public static boolean isPrime(long number) {
+        return !LongStream.rangeClosed(2, Math.round(Math.sqrt(number))).anyMatch(n -> number % n == 0);
+    }
+
+    /**
+     * 32th
+     * (**) Determine the prime factors of a given positive integer.
+     */
+    public static List<Integer> primeFactors(int number) {
+        return IntStream.rangeClosed(2, number / 2).filter(i -> number % i == 0 && isPrime(i)).boxed().collect(toList());
+    }
+
+    public static List<Integer> _primeFactors(int number) {
+        List<Integer> fs = new ArrayList<>();
+        IntStream.rangeClosed(2, number / 2).filter(i -> isPrime(i)).forEach(f -> {
+            int n = number;
+            while (n % f == 0) {
+                n = n / f;
+                fs.add(f);
+            }
+        });
+        return fs;
+    }
+
+    @Test
+    public void testPrimeFactors() {
+        System.out.println(primeFactors(135));
+        System.out.println(_primeFactors(135));
     }
 }

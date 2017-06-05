@@ -150,7 +150,6 @@ public class TreeTests {
 
                 if (node.right != null) {
                     node = node.right;
-                    continue;
                 }
             }
         } while (!s.empty());
@@ -202,7 +201,6 @@ public class TreeTests {
     }
 
     public static Node insertNodes(Node root, int... data) {
-        int[] v = data;
         for (int i : data) root = insert(root, i);
         return root;
     }

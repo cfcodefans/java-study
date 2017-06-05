@@ -95,7 +95,7 @@ public class AnnotationTests {
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		if (nac != null || nac.isActive()) {
+		if (nac != null && nac.isActive()) {
 			nac.close();
 		}
 	}
