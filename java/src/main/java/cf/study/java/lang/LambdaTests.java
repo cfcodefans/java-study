@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.logging.Level;
@@ -203,5 +204,14 @@ public class LambdaTests {
     @Test
     public void testL() {
         IntStream.of(1, 2, 3).map(this::addOne);
+    }
+
+    @Test
+    public void testLambdaInstance() {
+        IntPredicate isOdd1 = Opers::isOdd;
+        IntPredicate isOdd2 = Opers::isOdd;
+
+        log.info(String.format("isOdd1:\t%s", isOdd1));
+        log.info(String.format("isOdd1:\t%s", isOdd2));
     }
 }
