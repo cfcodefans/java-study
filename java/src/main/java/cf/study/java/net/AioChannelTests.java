@@ -25,7 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousServerSocketChannel;
@@ -34,28 +36,32 @@ import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+
+interface ISimpleCompletionHandler<V, A> extends CompletionHandler<V, A> {
+    void _completed(V result, A attachment) throws Exception;
+
+    default void completed(V result, A attachment) {
+        try {
+            _completed(result, attachment);
+        } catch (Exception e) {
+            failed(e, attachment);
+        }
+    }
+
+    default void failed(Throwable ex, A att) {
+        AioChannelTests.log.error(ex.getMessage(), ex);
+    }
+    static <_V, _A> CompletionHandler<_V, _A> _wrapper(ISimpleCompletionHandler<_V, _A> handler) {
+        return handler;
+    }
+}
 
 public class AioChannelTests {
 
-    private static final Logger log = LoggerFactory.getLogger(AioChannelTests.class);
+    static final Logger log = LoggerFactory.getLogger(AioChannelTests.class);
 
     public AioChannelTests() throws IOException {
-    }
-
-    interface ISimpleCompletionHandler<V, A> extends CompletionHandler<V, A> {
-        void _completed(V result, A attachment) throws Exception;
-
-        default void completed(V result, A attachment) {
-            try {
-                _completed(result, attachment);
-            } catch (Exception e) {
-                failed(e, attachment);
-            }
-        }
-
-        default void failed(Throwable ex, A att) {
-            log.error(ex.getMessage(), ex);
-        }
     }
 
     public static <V, A> CompletionHandler<V, A> _wrapper(ISimpleCompletionHandler<V, A> handler) {
@@ -129,4 +135,32 @@ public class AioChannelTests {
             }
         }
     }
+}
+
+class AioContext {
+    public final AsynchronousServerSocketChannel server;
+    public AsynchronousSocketChannel ch;
+    public AioContext(AsynchronousServerSocketChannel server) {
+        this.server = server;
+    }
+}
+
+class AioServerFramework {
+    static final Logger log = LoggerFactory.getLogger(AioServerFramework.class);
+
+    private static void closeChannel(AsynchronousSocketChannel ch) {
+        try {
+            ch.close();
+        } catch (IOException e) {
+            try {
+                log.error(String.format("can't close between %s -> %s", ch.getRemoteAddress(), ch.getLocalAddress()), e);
+            } catch (IOException e1) {
+                log.error(e1.getMessage(), e1);
+            }
+        }
+    }
+
+    private AsynchronousServerSocketChannel server;
+
+
 }
