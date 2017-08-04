@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class SortTests<T extends Comparable<? super T>> {
@@ -166,5 +168,29 @@ public class SortTests<T extends Comparable<? super T>> {
         private static int getParentIdx(int i) {
             return (i - 1) >> 1;
         }
+    }
+
+    public static List<Long> bucketSort(List<Long> nums) {
+        Long max = nums.stream().max(Comparator.naturalOrder()).get();
+        Long min = nums.stream().min(Comparator.naturalOrder()).get();
+
+        int step = 100;
+        int bucketNum = (int) (max / step - min / step + 1);
+        List<List<Long>> bucketList = new ArrayList<>(bucketNum);
+        IntStream.range(0, bucketNum).mapToObj(ArrayList<Long>::new).forEach(bucketList::add);
+        for (long num : nums) {
+            bucketList.get((int) (num / step)).add(num);
+        }
+        bucketList.parallelStream().forEach(Collections::sort);
+        return bucketList.stream().flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    @Test
+    public void testBucketSort() {
+        List<Long> nums = MiscUtils.pi2Longs(4000, 4);
+//        nums.forEach(System.out::println);
+
+        List<Long> sorted = bucketSort(nums);
+        sorted.forEach(System.out::println);
     }
 }

@@ -187,6 +187,11 @@ public class StreamTests {
 		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
 		Integer[] intArray = intStream.toArray(Integer[]::new);
 		System.out.println(Arrays.toString(intArray));
+
+		List<Integer> _intList = new ArrayList<>();
+		intStream = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5);
+		intStream.forEach(_intList::add);
+
 	}
 
 	@Test
@@ -405,7 +410,9 @@ public class StreamTests {
 		Supplier<Integer> s = () -> {
 			return it.hasNext() ? it.next() : null;
 		};
-		Stream.generate(s).forEach(System.out::println);
+        Consumer<Integer> println = System.out::println;
+        for (int i = 0; i < 100000; i++)
+            Stream.generate(s).forEach(println);
 
 	}
 

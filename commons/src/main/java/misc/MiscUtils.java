@@ -94,6 +94,21 @@ public class MiscUtils {
         return pi(n).toString().substring(0, n).chars().filter(i -> CharUtils.isAsciiNumeric((char) i)).map(i -> i - 48).mapToObj(Long::valueOf).collect(Collectors.toList());
     }
 
+    public static List<Long> pi2Longs(Integer n, int range) {
+        List<Long> nums = pi2Longs(n);
+        List<Long> _nums = new ArrayList<>();
+        Random rand = new Random();
+        for (ListIterator<Long> it = nums.listIterator(); it.hasNext(); ) {
+            Long num = it.next();
+            for (int i = 0, step = rand.nextInt(range); i < step && it.hasNext(); i++) {
+                num = num * 10 + it.next();
+            }
+//            System.out.println(step + "\t" + num);
+            _nums.add(num);
+        }
+        return _nums;
+    }
+
     public static BigDecimal pi(Integer n) {
         if (n == null) {
             n = 0;
@@ -174,6 +189,7 @@ public class MiscUtils {
         }
         return sb.toString();
     }
+
     public static String toBinStr(final int _i) {
         final StringBuilder sb = new StringBuilder();
         sb.append(_i < 0 ? 1 : 0);
@@ -182,6 +198,7 @@ public class MiscUtils {
         }
         return sb.toString();
     }
+
     public static String toBinStr(final short _s) {
         final StringBuilder sb = new StringBuilder();
         for (byte i = 16; i >= 0; i--) {
@@ -197,6 +214,7 @@ public class MiscUtils {
         }
         return sb.toString();
     }
+
     public static class LoopingArrayIterator<E> extends ObjectArrayIterator<E> {
         @SafeVarargs
         public LoopingArrayIterator(final E... array) {
@@ -347,7 +365,7 @@ public class MiscUtils {
         }
 
         try {
-            return IOUtils.toString(cls.getResourceAsStream(fileName));
+            return IOUtils.toString(cls.getClassLoader().getResourceAsStream(fileName));
         } catch (IOException e) {
             log.error("", e);
         }

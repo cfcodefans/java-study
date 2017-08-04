@@ -16,7 +16,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ClassLoaderTest {
+public class JarTests {
 	static class Inner{
 		Inner() {
 			new Private();

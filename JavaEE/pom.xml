@@ -181,6 +181,32 @@
             <version>2.3.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-json</artifactId>
+            <version>5.1.0-release</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>5.1.0-release</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-api-jdo</artifactId>
+            <version>5.1.0-release</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-jdo-query</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>javax.jdo</artifactId>
+            <version>3.2.0-m7</version>
+        </dependency>
+
     </dependencies>
     <artifactId>JavaEE</artifactId>
     <properties>
@@ -188,4 +214,27 @@
         <jetty-version>9.4.0.RC1</jetty-version>
         <hibernate-ver>5.2.4.Final</hibernate-ver>
     </properties>
+
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>
+                        **/*.xml
+                    </include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
