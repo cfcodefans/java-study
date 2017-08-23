@@ -4,12 +4,12 @@
 <!-- Author:  Crunchify.com  -->
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{yy-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+			<PatternLayout pattern="%d{yy-MM-dd HH:mm:ss} [%t] %-5p %C{1}:%L - %msg%n" />
 		</Console>
  
 		<RollingFile name="RollingFile" filename="log/test.log"
 			filepattern="${logPath}/%d{yyMMddHHmmss}-test.log">
-			<PatternLayout pattern="%d{yy-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+			<PatternLayout pattern="%d{yy-MM-dd HH:mm:ss} [%t] %-5p %C{1}:%L - %msg%n" />
 			<Policies>
 				<SizeBasedTriggeringPolicy size="100 MB" />
 			</Policies>

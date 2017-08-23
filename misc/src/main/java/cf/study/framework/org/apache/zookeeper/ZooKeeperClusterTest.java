@@ -10,6 +10,8 @@ import org.apache.zookeeper.server.ZooKeeperServerMain;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.InetSocketAddress;
+
 public class ZooKeeperClusterTest {
 	public static final Logger log = LogManager.getLogger(ZooKeeperClusterTest.class);
 
@@ -32,12 +34,13 @@ public class ZooKeeperClusterTest {
 		try {
 			ZooKeeperServerMain zs = new ZooKeeperServerMain();
 			zs.runFromConfig(sc);
-			log.info("[Distribution]  distribution server started up.... host:" + sc.getClientPortAddress().getHostName() + ";address:"
-				+ sc.getClientPortAddress().getAddress().getHostAddress() + ";port:" + sc.getClientPortAddress().getPort());
+			InetSocketAddress clientPortAddr = sc.getClientPortAddress();
+			log.info("[Distribution]  distribution server started up.... host:" + clientPortAddr.getHostName()
+				+ ";address:" + clientPortAddr.getAddress().getHostAddress()
+				+ ";port:" + clientPortAddr.getPort());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
-
 		log.info("[Distribution]  distribution server shutdown....");
 	}
 
@@ -53,7 +56,7 @@ public class ZooKeeperClusterTest {
 			testChildEvents();
 			distributionThread.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -68,7 +71,7 @@ public class ZooKeeperClusterTest {
 		try {
 			zk = new ZooKeeper("localhost:2181", 3000, this::watch);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -77,7 +80,7 @@ public class ZooKeeperClusterTest {
 		try {
 			createNode(zk, PATH, "init".getBytes());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -106,7 +109,7 @@ public class ZooKeeperClusterTest {
 		try {
 			log.info(zk.getChildren(ev.getPath(), this::watchChildren));
 		} catch (KeeperException | InterruptedException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -118,7 +121,7 @@ public class ZooKeeperClusterTest {
 			createNode(zk, PATH, "data".getBytes());
 			zk.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -142,7 +145,7 @@ public class ZooKeeperClusterTest {
 			log.info(zk.getChildren(ROOT_PATH, false));
 			log.info(zk.getChildren(PATH, false));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
