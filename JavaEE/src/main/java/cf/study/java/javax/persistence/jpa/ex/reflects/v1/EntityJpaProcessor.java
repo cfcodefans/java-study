@@ -216,18 +216,10 @@ public class EntityJpaProcessor {
 			return Collections.emptyList();
 
 		List<String> sb = new LinkedList<String>();
-
-		// be.annotations.forEach(anno->{
-		// sb.add(String.format("insert into annotations (base_en_id,
-		// annotation_en_id) values (%d, %d);", be.id, anno.id));
-		// });
-
 		if (be instanceof ClassEn) {
 			ClassEn ce = (ClassEn) be;
 			Class<?> superClz = ce.clazz.getSuperclass();
 			if (superClz != null) {
-				// dao.executeNativeSqlUpdate("update class_en set super=? where
-				// id=?", loadClassEn(superClz).id, ce.id);
 				sb.add(String.format("update class_en set super=%d where id=%d;", loadClassEn(superClz).id, ce.id));
 			}
 
@@ -241,11 +233,6 @@ public class EntityJpaProcessor {
 				final ClassEn _ce = ce;
 				Stream.of(ce.clazz.getInterfaces()).forEach((_inf) -> {
 					ClassEn inf = loadClassEn(_inf);
-					// dao.executeNativeSqlUpdate(
-					// "insert into interfaces (implement_en_id,
-					// interface_en_id) values (?,?) on duplicate key update
-					// interface_en_id=?; ",
-					// _ce.id, inf.id, inf.id);
 					sb.add(String.format("insert into interfaces (implement_en_id, interface_en_id) values (%d,%d);",
 							_ce.id, inf.id));
 				} );
@@ -257,10 +244,6 @@ public class EntityJpaProcessor {
 			if (me.method instanceof Method) {
 				Method md = (Method) me.method;
 				if (md.getReturnType() != null) {
-					// dao.executeNativeSqlUpdate("update method_en set
-					// return_clz_id=? where id=?",
-					// loadClassEn(md.getReturnType()).id,
-					// me.id);
 					sb.add(String.format("update method_en set return_clz_id=%d where id=%d;",
 							loadClassEn(md.getReturnType()).id, me.id));
 				}
@@ -275,10 +258,6 @@ public class EntityJpaProcessor {
 
 			Executable exe = me.method;
 			Stream.of(exe.getExceptionTypes()).forEach(exClz -> {
-				// dao.executeNativeSqlUpdate("insert into exceptions
-				// (method_en_id, exception_en_id) values (?,?);",
-				// me.id,
-				// loadClassEn(exClz).id);
 				sb.add(String.format("insert into exceptions (method_en_id, exception_en_id) values (%d,%d);", me.id,
 						loadClassEn(exClz).id));
 			} );
@@ -286,10 +265,6 @@ public class EntityJpaProcessor {
 
 		if (be instanceof FieldEn) {
 			FieldEn fe = (FieldEn) be;
-			// dao.executeNativeSqlUpdate("update field_en set field_clz_id=?
-			// where id=?",
-			// loadClassEn(fe.field.getType()).id,
-			// fe.id);
 			sb.add(String.format("update field_en set field_clz_id=%d where id=%d;", loadClassEn(fe.field.getType()).id,
 					fe.id));
 
@@ -302,10 +277,6 @@ public class EntityJpaProcessor {
 
 		if (be instanceof ParameterEn) {
 			ParameterEn pe = (ParameterEn) be;
-			// dao.executeNativeSqlUpdate("update param_en set param_clz_id=?
-			// where id=?",
-			// loadClassEn(pe.parameter.getType()).id,
-			// pe.id);
 			sb.add(String.format("update param_en set param_clz_id=%d where id=%d;",
 					loadClassEn(pe.parameter.getType()).id, pe.id));
 

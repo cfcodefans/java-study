@@ -302,13 +302,7 @@ public class ThreadTests {
         Runnable something = () -> {
             String threadName = Thread.currentThread().getName();
             for (int i = 0; i < 5; i++) {
-                try {
-                    ///
-                    Thread.sleep(2000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return;
-                }
+                MiscUtils.easySleep(2000);
                 System.out.println(threadName + "/t" + Calendar.getInstance().getTime());
             }
         };

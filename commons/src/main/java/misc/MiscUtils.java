@@ -9,7 +9,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
-import org.apache.commons.lang3.event.EventUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.HttpResponse;
@@ -272,7 +271,7 @@ public class MiscUtils {
         return sb.toString();
     }
 
-    private static final Logger log = LoggerFactory.getLogger(EventUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(MiscUtils.class);
 
     public static String mapToJson(Map<String, String> paramMap) {
         if (MapUtils.isEmpty(paramMap)) {

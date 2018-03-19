@@ -207,6 +207,18 @@
             <version>3.2.0-m7</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>imap</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
     </dependencies>
     <artifactId>JavaEE</artifactId>
     <properties>
@@ -214,7 +226,6 @@
         <jetty-version>9.4.0.RC1</jetty-version>
         <hibernate-ver>5.2.4.Final</hibernate-ver>
     </properties>
-
 
     <build>
         <resources>

@@ -128,7 +128,7 @@ public class GenericTests {
 //        numList.addAll(intList);
         Function<List<? extends Number>, Number> _sum = (List<? extends Number> _numList) -> {
             double d = 0.0f;
-            for (Number n: _numList) {
+            for (Number n : _numList) {
                 d += n.doubleValue();
             }
             return d;
@@ -212,4 +212,10 @@ public class GenericTests {
         }
     }
 
+    @Test
+    public void getParameterizedType() {
+        List<String> strList = new ArrayList<>();
+        Class<? extends List> clz = strList.getClass();
+        System.out.println(StringUtils.join(clz.getTypeParameters(), "\n"));
+    }
 }

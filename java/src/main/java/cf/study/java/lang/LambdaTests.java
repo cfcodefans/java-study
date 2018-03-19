@@ -210,6 +210,7 @@ public class LambdaTests {
     public void testLambdaInstance() {
         IntPredicate isOdd1 = Opers::isOdd;
         IntPredicate isOdd2 = Opers::isOdd;
+        IntPredicate isEven = isOdd1.negate();
 
         log.info(String.format("isOdd1:\t%s", isOdd1));
         log.info(String.format("isOdd1:\t%s", isOdd2));

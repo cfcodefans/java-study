@@ -243,7 +243,6 @@ public class DataCollector {
 
 		FieldEn fe = FieldEn.instance(ce, field);
 		processAnnotation(fe, field);
-//		fe.fieldType = clazzProc.apply(field.getType());
 		fe.fieldType = processClass(field.getType());
 
 		return fe;
