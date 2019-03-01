@@ -87,7 +87,7 @@ public class BufferTests {
     public void testDirectMemory() throws Exception {
         for (int r = 0; r < 10; r++) {
             int size = 100000;
-            IntBuffer ib = ByteBuffer.allocateDirect(size * 4).asIntBuffer();
+                IntBuffer ib = ByteBuffer.allocateDirect(size * 4).asIntBuffer();
             int[] ai = new int[size];
             int[] bi = new int[size];
 

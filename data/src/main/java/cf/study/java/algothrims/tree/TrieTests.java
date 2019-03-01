@@ -147,7 +147,7 @@ class DictTree {
         return root;
     }
 
-    static TrieNode creatTree(List<String> words) {
+    static TrieNode createTree(List<String> words) {
         TrieNode root = new TrieNode();
         for (String word : words) {
             growBranch(word, root);
@@ -173,7 +173,7 @@ public class TrieTests {
     public void testDictTree() {
         List<String> _words = TrieTests.words.subList(0, 5);
         log.info(StringUtils.join(_words, "\n"));
-        DictTree.TrieNode root = DictTree.creatTree(_words);
+        DictTree.TrieNode root = DictTree.createTree(_words);
 
         log.info(DictTree.TrieNode.COUNT.toString());
 

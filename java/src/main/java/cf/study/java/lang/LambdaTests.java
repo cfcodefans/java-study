@@ -215,4 +215,14 @@ public class LambdaTests {
         log.info(String.format("isOdd1:\t%s", isOdd1));
         log.info(String.format("isOdd1:\t%s", isOdd2));
     }
+
+    @Test
+    public void testLambdaRef() {
+        Consumer p1 = System.out::println;
+        Consumer p2 = System.out::println;
+
+        System.out.println(p1 == p2);
+        p2 = p1;
+        System.out.println(p1 == p2);
+    }
 }

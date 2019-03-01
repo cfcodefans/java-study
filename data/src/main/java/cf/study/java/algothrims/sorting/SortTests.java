@@ -28,8 +28,8 @@ public class SortTests<T extends Comparable<? super T>> {
 
         ArrayList<T> _data = new ArrayList<T>(data);
 
-        for (int i = 0, _i = data.size(); i < _i; i++) {
-            for (int j = 0, _j = _i - i - 1; j < _j; j++) {
+        for (int i = 0, size = data.size(); i < size; i++) {
+            for (int j = 0, _j = size - i - 1; j < _j; j++) {
                 if (cmp.compare(_data.get(j), _data.get(j + 1)) > 0) {
                     Collections.swap(_data, j, j + 1);
                 }

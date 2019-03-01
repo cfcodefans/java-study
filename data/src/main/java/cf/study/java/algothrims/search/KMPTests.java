@@ -79,4 +79,37 @@ public class KMPTests {
 
 		Assert.assertEquals(str.indexOf(pattern), kmpSearch(str, pattern));
 	}
+
+	public String reverse(String a) {
+		String re = a;
+		if (re.length() > 1) {
+			re = a.charAt(a.length() - 1) + reverse(a.substring(0, a.length() -1));
+		}
+		return re;
+	}
+
+	@Test
+	public void test() {
+		System.out.println(reverse("1233344"));
+
+
+	}
+
+	public boolean[] toggleDoors(int n) {
+		boolean[] res = new boolean[n];
+		for (int i = 0; i < n; i++) {
+			res[i] = true;
+		}
+		for (int i = 1; i <= n; i++) {
+			for (int j = i; j <= n; j = j + i) {
+				res[j-1] = !res[j-1];
+			}
+		}
+		return res;
+ 	}
+
+ 	@Test
+	public void testT() {
+	    System.out.println(Arrays.toString(toggleDoors(9)));
+    }
 }

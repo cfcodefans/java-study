@@ -1,39 +1,44 @@
 package cf.study.java.utils.concurrent;
 
+import misc.MiscUtils;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
-
-import misc.MiscUtils;
-
-import org.junit.Test;
 
 public class CountDownTest {
 
-	Random	rd	= new Random();
+    private static final Logger log = LoggerFactory.getLogger(CountDownTest.class);
 
-	@Test
-	public void testCountDown() throws Exception {
-		int count = 8;
-		CountDownLatch counter = new CountDownLatch(count);
+    Random rd = new Random();
 
-		if (counter.getCount() > 0) {
-			System.out.println(String.format("counter.getCount(): %d", counter.getCount()));
-		}
+    @Test
+    public void testCountDown() throws Exception {
+        int count = 18;
+        CountDownLatch counter = new CountDownLatch(count);
 
-		Runnable task = () -> {
-			int delay = (int) (1000 * rd.nextFloat());
-			MiscUtils.easySleep(delay);
-			System.out.println(String.format("%s slept %d ms", Thread.currentThread(), delay));
-			counter.countDown();
-		};
-		ExecutorService tp = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        if (counter.getCount() > 0) {
+            log.info("counter.getCount(): {}", counter.getCount());
+        }
+        ExecutorService tp = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        IntStream.range(0, count)
+            .mapToObj(i -> (Runnable) (() -> {
+                int delay = (int) (1000 * rd.nextFloat());
+                MiscUtils.easySleep(delay);
+                log.info("\t\t{} slept {} ms", i, delay);
+                counter.countDown();
+            })).forEach(task -> tp.submit(task));
 
-		IntStream.range(0, count).forEach(i -> tp.submit(task));
-
-		counter.await();
-		System.out.println("finish");
-	}
+        for (long left = counter.getCount(); left > 0; left = counter.getCount()) {
+            log.info("still {} not finished", left);
+            counter.await(100, TimeUnit.MILLISECONDS);
+        }
+        log.info("finish");
+    }
 }

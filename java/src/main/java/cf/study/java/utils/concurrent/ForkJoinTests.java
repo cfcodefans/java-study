@@ -20,9 +20,7 @@ public class ForkJoinTests {
 		public Integer compute() {
 			if (n <= 1)
 				return n;
-
 			System.out.println(String.format("%d is processed in thread: %s", n, Thread.currentThread().getName()));
-
 			Fibonacci f1 = new Fibonacci(n - 1);
 			f1.fork();
 			Fibonacci f2 = new Fibonacci(n - 2);

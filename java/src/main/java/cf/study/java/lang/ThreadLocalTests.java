@@ -45,7 +45,18 @@ public class ThreadLocalTests {
             es.submit(() -> tl.get());
         }
 
+        es.shutdownNow();
         while (!es.isTerminated())
             es.awaitTermination(1, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void testThread() throws InterruptedException {
+        Thread t = new Thread(() -> {
+            System.out.println(tl.get());
+        });
+        t.start();
+        t.join();
+        MiscUtils.easySleep(500);
     }
 }
