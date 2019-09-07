@@ -12,6 +12,7 @@
 
     <modules>
         <module>jdk-study</module>
+        <module>java-ee-study</module>
     </modules>
 
     <dependencies>

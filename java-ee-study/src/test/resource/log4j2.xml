@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" includeLocation="true">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--
+                %c{1.} s.e.EnvTests class name with simplified packages path
+                %M method name
+                %F file name
+                %L line
+            -->
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %class{1.}.%method(Line:%line) - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
