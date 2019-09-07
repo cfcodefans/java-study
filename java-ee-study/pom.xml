@@ -24,6 +24,17 @@
             <artifactId>weld-se-core</artifactId>
             <version>3.1.2.Final</version>
         </dependency>
+        <dependency>
+            <groupId>java-study</groupId>
+            <artifactId>jdk-study</artifactId>
+            <version>0.1.2</version>
+            <scope>test</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 </project>
