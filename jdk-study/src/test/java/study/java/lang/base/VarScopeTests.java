@@ -56,7 +56,7 @@ public class VarScopeTests {
         });
 
         Supplier<Supplier<Integer>> s = () -> {
-            Integer l = Integer.valueOf(11);
+            Integer l = 11;
             return () -> l;
         };
         int l = 12;

@@ -8,7 +8,7 @@
                 %F file name
                 %L line
             -->
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %class{1.}.%method(Line:%line) - %msg%n"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %class{1.}.%method(Line:%line) - %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>

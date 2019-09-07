@@ -120,7 +120,15 @@ public class KeywordAndGrammaTests {
             }
             log.info("outer ends: " + i);
         }
+
+        _outer:
+        for (int i = 0; i < 3; i++) {
+            log.info("outer begins: " + i);
+            _inner: for (int j = 0; j < i; j++) {
+                log.info("\t" + j);
+                break _outer; // jump out of outer loop too
+            }
+            log.info("outer ends: " + i);
+        }
     }
-
-
 }

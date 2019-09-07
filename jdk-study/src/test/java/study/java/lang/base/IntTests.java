@@ -3,14 +3,36 @@ package study.java.lang.base;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import study.JdkStudyUtils;
+import sun.misc.Unsafe;
+
+import java.lang.reflect.Field;
+import java.nio.ByteOrder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static study.Utils.toBinStr;
+import static study.JdkStudyUtils.toBinStr;
 
 public class IntTests {
     static final Logger log = LoggerFactory.getLogger(IntTests.class);
+    static final Unsafe us = JdkStudyUtils.getUnsafe();
 
     int b;
+    int intValue = 0xAA << 24 | 0xCC << 16 | 0xEE << 8 | 0xFF;
+
+    @Test
+    public void testUnsafeOper() throws Exception {
+
+        Field f = IntTests.class.getDeclaredField("intValue");
+        long offset = us.objectFieldOffset(f);
+        byte b1 = us.getByte(this, offset);
+        byte b2 = us.getByte(this, offset + 1);
+        byte b3 = us.getByte(this, offset + 2);
+        byte b4 = us.getByte(this, offset + 3);
+
+        log.info("{}\t{}", intValue, toBinStr(intValue));
+        log.info("{}\t{}\t{}\t{}", toBinStr(b1), toBinStr(b2), toBinStr(b3), toBinStr(b4));
+        log.info(ByteOrder.nativeOrder().toString());
+    }
 
     @Test
     public void testIntDef() {
