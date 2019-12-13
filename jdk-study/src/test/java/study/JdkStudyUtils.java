@@ -52,4 +52,11 @@ public class JdkStudyUtils {
             return null;
         }
     }
+
+    public static void easySleep(long i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException e) {
+        }
+    }
 }

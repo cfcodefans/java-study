@@ -14,15 +14,12 @@ public class Java12FeatureTests {
     @ParameterizedTest
     @EnumSource(value = DayOfWeek.class, names = {"MONDAY", "SUNDAY"})
     public void switchExp(DayOfWeek d) {
-        log.info("{} is {}",
-            d,
-            switch (d) {
-                case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> "weekday";
-                case SATURDAY, SUNDAY -> "weekend";
-                default -> throw new IllegalArgumentException("what is " + d);
-            });
+//        log.info("{} is {}",
+//            d,
+//            switch (d) {
+//                case MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> "weekday";
+//                case SATURDAY, SUNDAY -> "weekend";
+//                default -> throw new IllegalArgumentException("what is " + d);
+//            });
     }
-
-
-
 }

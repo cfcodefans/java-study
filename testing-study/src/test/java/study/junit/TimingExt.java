@@ -1,7 +1,10 @@
 package study.junit;
 
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
@@ -33,4 +36,13 @@ public class TimingExt implements BeforeTestExecutionCallback, AfterTestExecutio
         return context.getStore(Namespace.create(getClass(), context.getRequiredTestMethod()));
     }
 
+    @ExtendWith(value = {TimingExt.class, RandomParamExt.class})
+    public static class Tests {
+
+        @Test
+        @RepeatedTest(5)
+        public void testThreadSleep(@RandomParamExt.RandParam long milliSec) throws InterruptedException {
+            Thread.sleep(milliSec % 2000);
+        }
+    }
 }

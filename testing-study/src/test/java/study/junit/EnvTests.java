@@ -1,4 +1,4 @@
-package study.env;
+package study.junit;
 
 
 import org.junit.jupiter.api.*;
@@ -103,8 +103,14 @@ public class EnvTests {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3, 4})
+    @ValueSource(ints = {5, 1, 2, 3, 4})
     public void testParamsFromValueSrc(int arg) {
+        log.info("what parameter is it? \n\t{}", arg);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"I", "lv", "Tao"})
+    public void testParamsFromValueSrc1(String arg) {
         log.info("what parameter is it? \n\t{}", arg);
     }
 
@@ -117,5 +123,12 @@ public class EnvTests {
     @AfterAll
     public static void afterAll() {
         log.info("this is run after all test cases");
+    }
+
+    @Test
+    public void testJUnit5(TestInfo ti, TestReporter tr) {
+        log.info("TestInfo:\t{}", ti);
+        log.info("TestReporter:\t{}", tr);
+        tr.publishEntry("testJUnit5", "what the fuck?");
     }
 }
