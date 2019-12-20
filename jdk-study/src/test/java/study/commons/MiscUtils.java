@@ -31,7 +31,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -80,7 +79,10 @@ public class MiscUtils {
 
     public static String invocationInfo(final int i) {
         StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-        return String.format("%s\t%s.%s", ste[i].getFileName(), ste[i].getClassName(), ste[i].getMethodName());
+        ste = ArrayUtils.subarray(ste, 0, i);
+        return Stream.of(ste)
+            .map(st -> String.format("%s\t%s.%s", st.getFileName(), st.getClassName(), st.getMethodName()))
+            .collect(Collectors.joining("\n"));
     }
 
     public static String byteCountToDisplaySize(long size) {

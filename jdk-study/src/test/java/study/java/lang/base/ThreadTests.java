@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import static study.commons.MiscUtils.easySleep;
 
 public class ThreadTests {
-    static final Logger log = LoggerFactory.getLogger(ArithmeticTests.class);
+    static final Logger log = LoggerFactory.getLogger(ThreadTests.class);
 
     public static class DaemonThreadTest {
         static {
