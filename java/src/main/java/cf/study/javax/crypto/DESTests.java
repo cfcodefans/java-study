@@ -29,6 +29,8 @@ public class DESTests {
     private SecretKey key;
 
     public DESTests() {
+        System.out.print("Hello world".substring(1));
+        int array[] = {1,2};
         myEncryptionKey = "012345678901234567890123456789";
         myEncryptionScheme = DESEDE_ENCRYPTION_SCHEME;
         try {

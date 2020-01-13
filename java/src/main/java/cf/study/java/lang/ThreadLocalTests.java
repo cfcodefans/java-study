@@ -40,9 +40,11 @@ public class ThreadLocalTests {
         tl.get();
         tl.get();
 
-        ExecutorService es = Executors.newCachedThreadPool();
+        ExecutorService es = Executors.newFixedThreadPool(8);
         for (int i = 0; i < 1000; i++) {
-            es.submit(() -> tl.get());
+            es.submit(() -> {
+                tl.get();
+            });
         }
 
         es.shutdownNow();
